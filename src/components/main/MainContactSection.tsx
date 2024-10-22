@@ -4,10 +4,10 @@ export const MainContactSection = () => {
 
     return (
         <StyledSectionContainer
-            key={0}
+            key={3}
         >
             <StyledSectionHeader
-                key={0}>
+                key={3}>
                 <h2>Contact ME :)</h2>
             </StyledSectionHeader>
             <StyledSectionContents>
@@ -49,7 +49,7 @@ export const MainContactSection = () => {
     )
 }
 
-const StyledSectionContainer = styled.div`
+const StyledSectionContainer = styled.section`
     width: 100%;
 `
 

@@ -33,6 +33,7 @@ export const MainCareerSection = () => {
                             <StyledCareerContainer
                                 style={{cursor:"pointer"}}
                                 onClick={() => handleClickCareerDetail(data.key)}
+                                key={data.key}
                             >
                                 <h2>{data.company}</h2>
                                 <p>{dayjs(data.startTerm).format("YYYY.MM")} ~ {data?.endTerm ? dayjs(data.endTerm).format("YYYY.MM") : "ing"}</p>
@@ -46,7 +47,7 @@ export const MainCareerSection = () => {
     )
 }
 
-const StyledSectionContainer = styled.div`
+const StyledSectionContainer = styled.section`
     width: 100%;
 `
 

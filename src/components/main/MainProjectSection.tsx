@@ -1,20 +1,23 @@
 import styled from "styled-components"
 
 export const MainProjectSection = () => {
+
     return (
         <StyledSectionContainer
-            key={0}
-        >
+            key={0}>
             <StyledSectionHeader
                 key={0}>
                 <h2>Project</h2>
             </StyledSectionHeader>
-        </StyledSectionContainer>
+            <div>
+
+            </div>
+        </StyledSectionContainer >
 
     )
 }
 
-const StyledSectionContainer = styled.div`
+const StyledSectionContainer = styled.section`
     width: 100%;
 `
 
