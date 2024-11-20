@@ -19,7 +19,7 @@ export const DashHeader = () => {
         <>
             <div className="header-div">
                 <p className="logo" onClick={handleClickLogo}>SUJIN</p>
-                <div></div>
+                <div />
                 <div
                     style={{ width: "3rem", cursor: "pointer" , marginRight: "0.5rem"}}
                     onClick={() => handleClickMenu()}

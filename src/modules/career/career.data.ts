@@ -1,34 +1,5 @@
-export interface careerSubT {
-    key: number;
-    projTitle: string;
-    startTerm?: Date;
-    endTerm?: Date;
-    skills?: skillStackT[];
-    description?: string;
-    contents?: string[];
-    result?: string[];
-}
-
-export interface skillStackT {
-    key: number;
-    name: string;
-    type?: stackType;
-}
-
-enum stackType {
-    WEB = 0,
-    LANG,
-    ENGINE,
-    OTHER,
-    DB
-}
-
-export interface careerT {
-    key: number;
-    company: string;
-    startTerm?: Date;
-    endTerm?: Date;
-}
+import { skills } from "../common"
+import { careerSubT, careerT } from "./career.types"
 
 export const careerSubDataTG: careerSubT[] = [
     {
@@ -37,46 +8,15 @@ export const careerSubDataTG: careerSubT[] = [
         startTerm: new Date(2022, 3),
         endTerm: new Date(2022, 12),
         skills: [
-            {
-                key: 0,
-                name: "React.js",
-                type: stackType.WEB
-            },
-            {
-                key: 1,
-                name: "Redux saga",
-                type: stackType.WEB
-            },
-            {
-                key: 2,
-                name: "TypeScript",
-                type: stackType.LANG
-            },
-            {
-                key: 3,
-                name: "SpringBoot",
-                type: stackType.WEB
-            },
-            {
-                key: 4,
-                name: "Java",
-                type: stackType.LANG
-            },
-            {
-                key: 14,
-                name: "MySQL",
-                type: stackType.DB
-            },
-            {
-                key: 14,
-                name: "Docker",
-                type: stackType.OTHER
-            },
-            {
-                key: 16,
-                name: "NginX",
-                type: stackType.OTHER
-            }
+            skills[0],
+            skills[1],
+            skills[2],
+            skills[3],
+            skills[4],
+            skills[5],
+            skills[14],
+            skills[15],
+            skills[16]
         ],
         description: "인천관광공사 운영 대민 서비스 인천e지 앱 관리자 페이지와 상용서버의 기능개선 및 고도화",
         contents: ["관리자 페이지 및 서버 개발", "공공 SI 단계별 산출물 작성 (기능 명세서, 테이블 정의서, 프로그램 명세서 등)", "디버깅 진행 후 협력업체 전달"],
@@ -88,36 +28,12 @@ export const careerSubDataTG: careerSubT[] = [
         startTerm: new Date(2022, 12),
         endTerm: new Date(2023, 3),
         skills: [
-            {
-                key: 0,
-                name: "React.js",
-                type: stackType.WEB
-            },
-            {
-                key: 5,
-                name: "Recoil",
-                type: stackType.WEB
-            },
-            {
-                key: 2,
-                name: "TypeScript",
-                type: stackType.LANG
-            },
-            {
-                key: 13,
-                name: "MariaDB",
-                type: stackType.DB
-            },
-            {
-                key: 14,
-                name: "Docker",
-                type: stackType.OTHER
-            },
-            {
-                key: 15,
-                name: "Jenkins",
-                type: stackType.OTHER
-            }
+            skills[0],
+            skills[5],
+            skills[2],
+            skills[14],
+            skills[15],
+            skills[16]
         ],
         description: "다양한 기기를 지원하는 3상,4상 타겟 동물 임상시험을 위한 플랫폼 개발",
         contents: ["React.js 사용한 적응형(PC ,Mobile, Tablet 지원) FrontEnd 개발", "사용자 매뉴얼 작성", "전체 UI&UX 디자인"],
@@ -129,36 +45,13 @@ export const careerSubDataTG: careerSubT[] = [
         startTerm: new Date(2023, 1),
         endTerm: new Date(2024, 2),
         skills: [
-            {
-                key: 6,
-                name: "JSP",
-                type: stackType.WEB
-            },
-            {
-                key: 4,
-                name: "Java",
-                type: stackType.LANG
-            },
-            {
-                key: 7,
-                name: "Spring",
-                type: stackType.LANG
-            },
-            {
-                key: 8,
-                name: "Linux",
-                type: stackType.OTHER
-            },
-            {
-                key: 11,
-                name: "Oracle",
-                type: stackType.DB
-            },
-            {
-                key: 12,
-                name: "Tibero",
-                type: stackType.DB
-            }
+            skills[4],
+            skills[6],
+            skills[7],
+            skills[8],
+            skills[11],
+            skills[12],
+            skills[16]
         ],
         description: "대검찰청, 저작권위원회, 건강보험심사평가원, 교육부, 일산병원 등 각 공공기관에 납품된 정보화통합관리체계의 운영개선 및 유지관리",
         contents: ["유지관리 및 고객 요구사항 수행", "보안취약점 점검사항 조치", "정기점검, 서버 이관 및 DB 이관 등의 업무 지원", "데이터 현행화"],
@@ -170,46 +63,14 @@ export const careerSubDataTG: careerSubT[] = [
         startTerm: new Date(2023, 6),
         endTerm: new Date(2023, 8),
         skills: [
-            {
-                key: 0,
-                name: "React.js",
-                type: stackType.WEB
-            },
-            {
-                key: 5,
-                name: "Recoil",
-                type: stackType.WEB
-            },
-            {
-                key: 9,
-                name: "ReactQuery",
-                type: stackType.WEB
-            },
-            {
-                key: 2,
-                name: "TypeScript",
-                type: stackType.LANG
-            },
-            {
-                key: 10,
-                name: "WebSocket",
-                type: stackType.OTHER
-            },
-            {
-                key: 13,
-                name: "MariaDB",
-                type: stackType.DB
-            },
-            {
-                key: 14,
-                name: "Docker",
-                type: stackType.OTHER
-            },
-            {
-                key: 15,
-                name: "Jenkins",
-                type: stackType.OTHER
-            }
+            skills[0],
+            skills[5],
+            skills[9],
+            skills[2],
+            skills[10],
+            skills[13],
+            skills[15],
+            skills[17]
         ],
         description: "내부적 신규 사업 가능성 확인을 위한 원격진료 플랫폼 MVP 개발",
         contents: ["React.js 와 ReactQuery을 이용한 웹 Front 개발", "Google WebSocket을 이용하여 실시간 영상통화 및 채팅 개발", "플랫폼 전체 UI&UX 디자인 및 퍼블리싱"],
@@ -221,31 +82,11 @@ export const careerSubDataTG: careerSubT[] = [
         startTerm: new Date(2023, 9),
         endTerm: new Date(2023, 12),
         skills: [
-            {
-                key: 6,
-                name: "JSP",
-                type: stackType.WEB
-            },
-            {
-                key: 4,
-                name: "Java",
-                type: stackType.LANG
-            },
-            {
-                key: 7,
-                name: "Spring",
-                type: stackType.LANG
-            },
-            {
-                key: 8,
-                name: "Linux",
-                type: stackType.OTHER
-            },
-            {
-                key: 11,
-                name: "Oracle",
-                type: stackType.DB
-            }
+            skills[6],
+            skills[4],
+            skills[7],
+            skills[8],
+            skills[11]
         ],
         description: "예금보험공사 내 정보화통합관리체계 EAMS 신규 구축 진행",
         contents: ["전자정부프레임워크 JSP 사용한 정보화통합관리체계 개발", "행정안전부 범정부 EA 표준 등록항목 및 연관정보 등 연동", "요구사항 적용 및 통합테스트 시나리오, 단위테스트 시나리오 작성", "공공 SI 단계별 산출물 작성 (기능 명세서, 테이블 정의서, 매뉴얼 등)"],
@@ -257,41 +98,13 @@ export const careerSubDataTG: careerSubT[] = [
         startTerm: new Date(2023, 10),
         endTerm: new Date(2024, 2),
         skills: [
-            {
-                key: 0,
-                name: "React.js",
-                type: stackType.WEB
-            },
-            {
-                key: 5,
-                name: "Recoil",
-                type: stackType.WEB
-            },
-            {
-                key: 9,
-                name: "ReactQuery",
-                type: stackType.WEB
-            },
-            {
-                key: 2,
-                name: "TypeScript",
-                type: stackType.LANG
-            },
-            {
-                key: 13,
-                name: "MariaDB",
-                type: stackType.DB
-            },
-            {
-                key: 14,
-                name: "Docker",
-                type: stackType.OTHER
-            },
-            {
-                key: 15,
-                name: "Jenkins",
-                type: stackType.OTHER
-            }
+            skills[0],
+            skills[5],
+            skills[9],
+            skills[2],
+            skills[13],
+            skills[15],
+            skills[17]
         ],
         description: "기존 플랫폼 성능 개선 및 고객 요구사항 추가로 인한 기능 고도화",
         contents: ["ReactQuery 적용하여 성능 향상", "유저 피드백에 맞추어 기능 개선", "사용자 매뉴얼 작성 (관리자, 사용자)"],
