@@ -95,5 +95,15 @@ export const skills:skillStackT[] =[
         key: 18,
         name: "Unity",
         type: stackType.ENGINE
+    },
+    {
+        key: 19,
+        name: "AWS",
+        type: stackType.OTHER
+    },
+    {
+        key: 20,
+        name: "Apache",
+        type: stackType.WEB
     }
 ]

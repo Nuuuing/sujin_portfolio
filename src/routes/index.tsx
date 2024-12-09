@@ -3,6 +3,7 @@ import * as paths from './const';
 import { DashLayout } from "src/layouts";
 import { MainPage, NotFoundPage } from "src/pages";
 import { CareerDetailPage, CareerMainPage } from "src/pages/career";
+import { ProjectDetailPage, ProjectMainPage } from "src/pages/project";
 
 export const MainRouter = () => {
 
@@ -24,6 +25,14 @@ export const MainRouter = () => {
                         {
                             path: paths.ROUTE_CAREER_DETAIL,
                             element: <CareerDetailPage />
+                        },
+                        {
+                            path: paths.ROUTE_PROJ,
+                            element: <ProjectMainPage />
+                        },
+                        {
+                            path: paths.ROUTE_PROJ_DETAIL,
+                            element: <ProjectDetailPage />
                         }
                     ]
                 }
