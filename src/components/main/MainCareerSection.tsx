@@ -30,16 +30,19 @@ export const MainCareerSection = () => {
                     {careerData.map((data: careerT) => {
                         return (
                             <StyledCareerContainer
-                                style={{cursor:"pointer"}}
+                                style={{ cursor: "pointer" }}
                                 onClick={() => handleClickCareerDetail(data.key)}
-                                key={data.key}
-                            >
+                                key={data.key}>
                                 <h2>{data.company}</h2>
-                                <p>{dayjs(data.startTerm).format("YYYY.MM")} ~ {data?.endTerm ? dayjs(data.endTerm).format("YYYY.MM") : "ing"}</p>
+                                <p>{dayjs(data.startTerm).format("YYYY.MM")} ~ {data?.endTerm ? dayjs(data.endTerm).format("YYYY.MM") : "ing"} {data.dateString ? <>({data.dateString})</> : <></>}</p>
+                                {data?.contents ? <p>{data.contents}</p> : <></>}
                             </StyledCareerContainer>
-                        )
-                    })
-                    }
+                        )})}
+                    <p
+                        onClick={() => handleClickCareerMain()}
+                        style={{ textAlign: "right", marginRight: '8%', cursor: 'pointer' }}>
+                        Detail →
+                    </p>
                 </div>
             </div>
         </StyledSectionContainer>
@@ -55,9 +58,10 @@ const StyledSectionHeader = styled.div`
     cursor: pointer;
     text-align: center;
     font-size: 1.2rem;
-    font-weight: 800
+    font-weight: 800;
     h1 {
         margin: 0;
+        font-size: 2.5rem;
     }
 
     h1 span {
@@ -96,4 +100,7 @@ const StyledCareerContainer = styled.div`
     width: 90%;
     padding: 1rem;
     margin-bottom: 15px;
+    p{
+        margin-top: 0.5rem;
+    }
 `

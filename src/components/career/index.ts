@@ -1,1 +1,1 @@
-export * from './CareerContent';
+export * from './CareerContentTG';

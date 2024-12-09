@@ -1,4 +1,6 @@
 import styled from "styled-components"
+import gitIcon from 'src/assets/img/icon/github_logo.png';
+import telIcon from 'src/assets/img/icon/teleIcon.png';
 
 export const MainContactSection = () => {
 
@@ -12,13 +14,12 @@ export const MainContactSection = () => {
             </StyledSectionHeader>
             <StyledSectionContents>
                 <StyledContactContents>
-                    <h2 className="flex-right">김수진</h2>
+                    <h1 className="flex-right">김수진 KIM SUJIN</h1>
                     <br />
                     <div className="flex-right">
                         <img
-                            src={"https://cdn-icons-png.flaticon.com/512/3095/3095610.png"}
+                            src={telIcon}
                             alt="phone"
-                            style={{ width: 20, marginRight: 10 }}
                         />
                         <p>010-4248-2704</p>
                     </div>
@@ -26,15 +27,13 @@ export const MainContactSection = () => {
                         <img
                             src={"https://cdn-icons-png.flaticon.com/512/542/542638.png"}
                             alt="email"
-                            style={{ width: 17, marginRight: 10 }}
                         />
                         <p>su_042@daum.net</p>
                     </div>
                     <div className="flex-right">
                         <img
-                            src={"https://cdn-icons-png.flaticon.com/512/2111/2111425.png"}
+                            src={gitIcon}
                             alt="github"
-                            style={{ width: 17, marginRight: 10 }}
                         />
                         <a
                             style={{ textDecoration: "none" }}
@@ -45,12 +44,12 @@ export const MainContactSection = () => {
                 </StyledContactContents>
             </StyledSectionContents>
         </StyledSectionContainer>
-
     )
 }
 
 const StyledSectionContainer = styled.section`
     width: 100%;
+    padding-bottom: 1rem;
 `
 
 const StyledSectionHeader = styled.div`
@@ -61,6 +60,7 @@ const StyledSectionHeader = styled.div`
 
     h1 {
         margin: 0;
+        font-size: 2.5rem;
     }
 
     h1 span {
@@ -99,11 +99,17 @@ const StyledSectionContents = styled.div`
 `
 
 const StyledContactContents = styled.div`
-    padding: 2rem;
+    padding: 2rem 5rem;
     border: solid 1px #e9e9e9;
     border-radius: 10px;
-    /* display: flex;
-    justify-content: space-between; */
-    width: 30rem;
-
+    width: 40rem;
+    p{
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+    img{
+        margin-right: 0.5rem;
+        height: 20px;
+        width: 20px;
+    }
 `

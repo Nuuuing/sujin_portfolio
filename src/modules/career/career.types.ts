@@ -9,6 +9,7 @@ export interface careerSubT {
     description?: string;
     contents?: string[];
     result?: string[];
+    type?:string;
 }
 
 export interface careerT {
@@ -16,4 +17,6 @@ export interface careerT {
     company: string;
     startTerm?: Date;
     endTerm?: Date;
+    dateString?:string;
+    contents?:string;
 }

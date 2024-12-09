@@ -35,7 +35,7 @@ export const MainProjectSection = () => {
                                         {
                                             data.projTag?.map((data: string) => {
                                                 return (
-                                                    <span>#{data}</span>
+                                                    <span>#{data} </span>
                                                 )
                                             })
                                         }
@@ -124,6 +124,7 @@ const StyledSectionHeader = styled.div`
     font-weight: 800;
     h1 {
         margin: 0;
+        font-size: 2.5rem;
     }
 
     h1 span {

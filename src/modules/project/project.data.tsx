@@ -44,7 +44,7 @@ export const projectData: projectT[] = [
             skills[18], skills[13], skills[19]
         ],
         gitUrl: "https://github.com/KY00JSSH/NEKOPARK",
-        notionUrl: "https://www.youtube.com/watch?v=HEH-BjvP_3g&feature=youtu.be",
+        youtubeUrl: "https://www.youtube.com/watch?v=HEH-BjvP_3g&feature=youtu.be",
         imgUrl: nekoparkImg,
         mainYn:true
     },
