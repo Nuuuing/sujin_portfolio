@@ -1,24 +1,31 @@
 {
   "files": {
     "main.css": "/sujin_portfolio/static/css/main.0c3bbb3d.css",
-    "main.js": "/sujin_portfolio/static/js/main.4b80b635.js",
+    "main.js": "/sujin_portfolio/static/js/main.bfc137f5.js",
     "static/js/22.8a556afb.chunk.js": "/sujin_portfolio/static/js/22.8a556afb.chunk.js",
-    "static/js/104.e098d21f.chunk.js": "/sujin_portfolio/static/js/104.e098d21f.chunk.js",
+    "static/js/563.8b117602.chunk.js": "/sujin_portfolio/static/js/563.8b117602.chunk.js",
+    "static/js/690.7c980c0e.chunk.js": "/sujin_portfolio/static/js/690.7c980c0e.chunk.js",
+    "static/js/165.3a7b695e.chunk.js": "/sujin_portfolio/static/js/165.3a7b695e.chunk.js",
     "static/js/984.79c5cb0a.chunk.js": "/sujin_portfolio/static/js/984.79c5cb0a.chunk.js",
     "static/js/331.2148ef57.chunk.js": "/sujin_portfolio/static/js/331.2148ef57.chunk.js",
     "static/js/464.4447af0b.chunk.js": "/sujin_portfolio/static/js/464.4447af0b.chunk.js",
-    "static/media/logo.png": "/sujin_portfolio/static/media/logo.7c395bd6f2d0db612972.png",
+    "static/media/soriImg.png": "/sujin_portfolio/static/media/soriImg.9d9534a488699179837c.png",
+    "static/media/TheWildFour.png": "/sujin_portfolio/static/media/TheWildFour.fe4841dd52ee107a59de.png",
+    "static/media/nekopark.png": "/sujin_portfolio/static/media/nekopark.5b73557351556f602bd7.png",
+    "static/media/logo.png": "/sujin_portfolio/static/media/logo.328d7acdcbe3a85f5d48.png",
     "index.html": "/sujin_portfolio/index.html",
     "main.0c3bbb3d.css.map": "/sujin_portfolio/static/css/main.0c3bbb3d.css.map",
-    "main.4b80b635.js.map": "/sujin_portfolio/static/js/main.4b80b635.js.map",
+    "main.bfc137f5.js.map": "/sujin_portfolio/static/js/main.bfc137f5.js.map",
     "22.8a556afb.chunk.js.map": "/sujin_portfolio/static/js/22.8a556afb.chunk.js.map",
-    "104.e098d21f.chunk.js.map": "/sujin_portfolio/static/js/104.e098d21f.chunk.js.map",
+    "563.8b117602.chunk.js.map": "/sujin_portfolio/static/js/563.8b117602.chunk.js.map",
+    "690.7c980c0e.chunk.js.map": "/sujin_portfolio/static/js/690.7c980c0e.chunk.js.map",
+    "165.3a7b695e.chunk.js.map": "/sujin_portfolio/static/js/165.3a7b695e.chunk.js.map",
     "984.79c5cb0a.chunk.js.map": "/sujin_portfolio/static/js/984.79c5cb0a.chunk.js.map",
     "331.2148ef57.chunk.js.map": "/sujin_portfolio/static/js/331.2148ef57.chunk.js.map",
     "464.4447af0b.chunk.js.map": "/sujin_portfolio/static/js/464.4447af0b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0c3bbb3d.css",
-    "static/js/main.4b80b635.js"
+    "static/js/main.bfc137f5.js"
   ]
 }
