@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/690.7c980c0e.chunk.js","mappings":"mJAAA,MAMA,EANgBA,KAERC,EAAAA,EAAAA,KAAAC,EAAAA,SAAA,G","sources":["pages/project/Project.tsx"],"sourcesContent":["const Project = () => {\r\n    return (\r\n        <>\r\n        </>\r\n    )\r\n}\r\nexport default Project;"],"names":["Project","_jsx","_Fragment"],"sourceRoot":""}
