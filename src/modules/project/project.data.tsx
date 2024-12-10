@@ -31,6 +31,7 @@ export const projectData: projectT[] = [
         ],
         gitUrl: "https://github.com/Yogurtsharbet/SORI",
         notionUrl: "https://east-wrinkle-9ca.notion.site/SORI-1903aa91e2794f73b17aff5105dcccb4",
+        youtubeUrl:"https://youtu.be/GxtldlEV7vo",
         imgUrl: soriImg,
         mainYn:true
     },
