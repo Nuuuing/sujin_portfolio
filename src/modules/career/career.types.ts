@@ -5,6 +5,7 @@ export interface careerSubT {
     projTitle: string;
     startTerm?: Date;
     endTerm?: Date;
+    dateString?:string;
     skills?: skillStackT[];
     description?: string;
     contents?: string[];

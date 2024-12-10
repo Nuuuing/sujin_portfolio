@@ -25,7 +25,7 @@ export const MainCareerSection = () => {
                 onClick={() => handleClickCareerMain()}>
                 <h1><span>Career</span></h1>
             </StyledSectionHeader>
-            <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+            <div style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop:'1rem' }}>
                 <div style={{ width: "90%" }}>
                     {careerData.map((data: careerT) => {
                         return (
@@ -51,6 +51,7 @@ export const MainCareerSection = () => {
 
 const StyledSectionContainer = styled.section`
     width: 100%;
+    padding: 4rem 0;
 `
 
 const StyledSectionHeader = styled.div`

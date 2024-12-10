@@ -14,23 +14,23 @@ export const MainContactSection = () => {
             </StyledSectionHeader>
             <StyledSectionContents>
                 <StyledContactContents>
-                    <h1 className="flex-right">김수진 KIM SUJIN</h1>
-                    <br />
-                    <div className="flex-right">
+                    <h1 className="flex-left">김수진 KIM SUJIN</h1>
+                    <br /><br />
+                    <div className="flex-left">
                         <img
                             src={telIcon}
                             alt="phone"
                         />
                         <p>010-4248-2704</p>
                     </div>
-                    <div className="flex-right">
+                    <div className="flex-left">
                         <img
                             src={"https://cdn-icons-png.flaticon.com/512/542/542638.png"}
                             alt="email"
                         />
                         <p>su_042@daum.net</p>
                     </div>
-                    <div className="flex-right">
+                    <div className="flex-left">
                         <img
                             src={gitIcon}
                             alt="github"
@@ -50,6 +50,7 @@ export const MainContactSection = () => {
 const StyledSectionContainer = styled.section`
     width: 100%;
     padding-bottom: 1rem;
+    padding: 4rem 0;
 `
 
 const StyledSectionHeader = styled.div`
@@ -96,6 +97,7 @@ const StyledSectionHeader = styled.div`
 const StyledSectionContents = styled.div`
     display: flex;
     justify-content: center;
+    padding-top: 1rem;
 `
 
 const StyledContactContents = styled.div`
