@@ -1,6 +1,9 @@
-const ProjectDetail =() =>{
-    return(
+import { ProjectDetails } from "src/components";
+
+const ProjectDetail = () => {
+    return (
         <>
+            <ProjectDetails />
         </>
     )
 }

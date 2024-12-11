@@ -135,7 +135,8 @@ const StyledProjContents = styled.div`
 `
 
 const StyledCardImg = styled.div`
-    width: 25%;
+    width: 20%;
+    height: 20%;
     margin-left: 2rem;
     height: auto;
     cursor: pointer;

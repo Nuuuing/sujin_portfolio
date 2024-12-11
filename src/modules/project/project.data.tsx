@@ -4,6 +4,7 @@ import nekoparkImg from 'src/assets/img/projImg/nekopark.png';
 import soriImg from 'src/assets/img/projImg/soriImg.png';
 import wildEightImg from 'src/assets/img/projImg/TheWildFour.png';
 import papaerPleaseImg from 'src/assets/img/projImg/pp.png';
+import zphImg from 'src/assets/img/projImg/zph.png';
 
 export const projectData: projectT[] = [
     {
@@ -12,12 +13,13 @@ export const projectData: projectT[] = [
         projContents: "기획 협업 진행 프로젝트",
         projTag: ["2D", "협약 프로젝트", "캐주얼","퍼즐"],
         startDate: "2024.11.01",
-        endDate: "2024.01",
+        endDate: "2024.12",
         projSkills: [
             skills[18], skills[13], skills[16], skills[20], skills[19], skills[8], skills[3]
         ],
         notionUrl: "https://east-wrinkle-9ca.notion.site/TeamAlphaNo-118b84bb5ebe8023b0cfd3a25485e101",
-        mainYn:true
+        imgUrl: zphImg,
+        mainYn: true
     },
     {
         key: 3,
@@ -48,7 +50,7 @@ export const projectData: projectT[] = [
         gitUrl: "https://github.com/KY00JSSH/NEKOPARK",
         youtubeUrl: "https://www.youtube.com/watch?v=HEH-BjvP_3g&feature=youtu.be",
         imgUrl: nekoparkImg,
-        mainYn: false
+        mainYn: true
     },
     {
         key: 1,

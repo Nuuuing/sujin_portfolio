@@ -24,11 +24,11 @@ export const DashHeader = () => {
                     style={{ width: "3rem", cursor: "pointer" , marginRight: "0.5rem"}}
                     onClick={() => handleClickMenu()}
                 >
-                    <span
+                    {/* <span
                         className="material-symbols-outlined"
                         style={{ fontSize: "2rem" }}>
                         {menuOpen ? "close" : "menu"}
-                    </span>
+                    </span> */}
                 </div>
             </div>
         </>
