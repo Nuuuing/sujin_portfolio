@@ -1,5 +1,5 @@
 import { Footer } from "src/components";
-import { DetailProjList, ProjHeader } from "src/components/project";
+import { DetailProjList } from "src/components/project";
 
 const Project = () => {
     return (

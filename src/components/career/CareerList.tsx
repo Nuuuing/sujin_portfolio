@@ -44,6 +44,3 @@ const StyledCareerContainer = styled.div`
         margin-top: 0.5rem;
     }
 `
-const StyledContentsContainer = styled.div`
-    min
-`

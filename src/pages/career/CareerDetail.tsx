@@ -17,7 +17,7 @@ const CareerDetail = () => {
             <StyledCareerContainer>
                 <div style={{ width: "80%" }}>
                     {
-                        paramId == '0' ?
+                        paramId === '0' ?
                             (<CareerContentTG />)
                             : (<></>)
                     }

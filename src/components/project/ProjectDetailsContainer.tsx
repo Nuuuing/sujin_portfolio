@@ -52,7 +52,7 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                 </div>
             </HeaderContainer>
             <ContentsContainer>
-                <Contents>
+                <ViewContents>
                     {data?.youtubeUrl && (
                         <div>
                             <YoutubePlayer videoId={data.youtubeId} />
@@ -65,8 +65,8 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                                 <img src={value} alt={`image-${index}`} />
                             </div>
                         ))}
-                </Contents>
-                <div style={{ marginTop: "1rem" }}>
+                </ViewContents>
+                <TextContents>
                     {
                         data?.projContents ?
                             data?.projContents.map((value: string) => {
@@ -75,22 +75,24 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                                 )
                             }) : <></>
                     }
-                </div>
-                <div>
-                {data?.projSkills?.map((skill: skillStackT) => (
-                                <span
-                                    key={skill.name}
-                                    style={{
-                                        padding: 5,
-                                        border: "1px #e9e9e9 solid",
-                                        borderRadius: 10,
-                                        margin: 5,
-                                    }}
-                                >
-                                    {skill.name}
-                                </span>
-                            ))}
-                </div>
+                </TextContents>
+                <TextContents>
+                    <div style={{ marginLeft: "1.5rem" }}>
+                        {data?.projSkills?.map((skill: skillStackT) => (
+                            <span
+                                key={skill.name}
+                                style={{
+                                    padding: 5,
+                                    border: "1px #e9e9e9 solid",
+                                    borderRadius: 10,
+                                    margin: 5,
+                                }}
+                            >
+                                {skill.name}
+                            </span>
+                        ))}
+                    </div>
+                </TextContents>
             </ContentsContainer>
         </StyledContainer>
     )
@@ -107,20 +109,28 @@ const ContentsContainer = styled.div`
     margin: 0px 3rem 4rem 3rem;
 `
 
-const Contents = styled.div`
+const ViewContents = styled.div`
     display: flex;
     flex-wrap: wrap; /* 줄 바꿈 가능 */
-    gap: 1rem; /* 아이템 간 간격 */
+    gap: 0.2rem; /* 아이템 간 간격 */
     justify-content: center; /* 가운데 정렬 */
     align-items: flex-start;
+    padding: 0 3rem;
 
     > div {
         flex: 1 1 calc(50% - 1rem); /* 기본적으로 50% 너비 */
         max-width: calc(50% - 1rem); /* 최대 50% 너비 */
         min-width: 300px; /* 최소 너비 */
-
-        img{
+        flex-direction: column; /* 세로로 배치 */
+        max-width: 40rem; /* 최대 크기 */
+        img {
             width: 100%;
+            max-width: 40rem; /* 이미지 최대 크기 설정 */
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 40rem; /* YouTube 플레이어 최대 크기 설정 */
         }
     }
 
@@ -130,6 +140,11 @@ const Contents = styled.div`
             max-width: 100%;
         }
     }
+`
+
+const TextContents = styled.div`
+    margin-top: 2rem;
+    margin-left: 2rem;
 `
 
 const HeaderContainer = styled.div`
@@ -174,4 +189,5 @@ const LinkAlink = styled.a`
 
 const StyledSentence = styled.p`
     margin-left: 2rem;
+    font-size: 1.15rem;
 `

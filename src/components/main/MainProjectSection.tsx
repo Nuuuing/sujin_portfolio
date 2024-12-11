@@ -13,7 +13,7 @@ export const MainProjectSection = () => {
 
     const projectList = () => {
         return projectData
-        .filter((data:projectT) => data.mainYn == true)
+        .filter((data:projectT) => data.mainYn === true)
         .map((data: projectT) => {
             return (
                 <ProjectCard
