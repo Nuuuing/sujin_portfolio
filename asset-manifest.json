@@ -1,37 +1,39 @@
 {
   "files": {
     "main.css": "/sujin_portfolio/static/css/main.7f0af427.css",
-    "main.js": "/sujin_portfolio/static/js/main.5fb58d62.js",
+    "main.js": "/sujin_portfolio/static/js/main.e839ae29.js",
     "static/js/22.8a556afb.chunk.js": "/sujin_portfolio/static/js/22.8a556afb.chunk.js",
     "static/js/162.d5206e7a.chunk.js": "/sujin_portfolio/static/js/162.d5206e7a.chunk.js",
     "static/js/690.07936044.chunk.js": "/sujin_portfolio/static/js/690.07936044.chunk.js",
-    "static/js/165.b76f8b44.chunk.js": "/sujin_portfolio/static/js/165.b76f8b44.chunk.js",
+    "static/js/165.27d1b613.chunk.js": "/sujin_portfolio/static/js/165.27d1b613.chunk.js",
     "static/js/984.a0caa652.chunk.js": "/sujin_portfolio/static/js/984.a0caa652.chunk.js",
-    "static/js/331.57ed03a8.chunk.js": "/sujin_portfolio/static/js/331.57ed03a8.chunk.js",
+    "static/js/331.d2564d69.chunk.js": "/sujin_portfolio/static/js/331.d2564d69.chunk.js",
     "static/js/464.4447af0b.chunk.js": "/sujin_portfolio/static/js/464.4447af0b.chunk.js",
-    "static/js/625.f42d43d8.chunk.js": "/sujin_portfolio/static/js/625.f42d43d8.chunk.js",
+    "static/js/367.36446b74.chunk.js": "/sujin_portfolio/static/js/367.36446b74.chunk.js",
     "static/media/sori_0.png": "/sujin_portfolio/static/media/sori_0.16cf6e2858af7e9c20d6.png",
     "static/media/sori_2.png": "/sujin_portfolio/static/media/sori_2.91a269e21ac4218897a4.png",
-    "static/media/TheWildFour.png": "/sujin_portfolio/static/media/TheWildFour.6f0f15e25c349e575692.png",
+    "static/media/twf_0.png": "/sujin_portfolio/static/media/twf_0.6f0f15e25c349e575692.png",
     "static/media/pp.png": "/sujin_portfolio/static/media/pp.e51840311ca2b981a6e8.png",
+    "static/media/twf_2.png": "/sujin_portfolio/static/media/twf_2.73516bddc6e98ea30688.png",
+    "static/media/twf_1.png": "/sujin_portfolio/static/media/twf_1.33a98c2456d0cb4ad35d.png",
     "static/media/sori_1.png": "/sujin_portfolio/static/media/sori_1.3e69bafd953d6c21c291.png",
     "static/media/zph.png": "/sujin_portfolio/static/media/zph.05ca5c21767ce38a91cf.png",
     "static/media/nekopark.png": "/sujin_portfolio/static/media/nekopark.6698f61e6f6b715d5cd2.png",
     "static/media/logo.png": "/sujin_portfolio/static/media/logo.328d7acdcbe3a85f5d48.png",
     "index.html": "/sujin_portfolio/index.html",
     "main.7f0af427.css.map": "/sujin_portfolio/static/css/main.7f0af427.css.map",
-    "main.5fb58d62.js.map": "/sujin_portfolio/static/js/main.5fb58d62.js.map",
+    "main.e839ae29.js.map": "/sujin_portfolio/static/js/main.e839ae29.js.map",
     "22.8a556afb.chunk.js.map": "/sujin_portfolio/static/js/22.8a556afb.chunk.js.map",
     "162.d5206e7a.chunk.js.map": "/sujin_portfolio/static/js/162.d5206e7a.chunk.js.map",
     "690.07936044.chunk.js.map": "/sujin_portfolio/static/js/690.07936044.chunk.js.map",
-    "165.b76f8b44.chunk.js.map": "/sujin_portfolio/static/js/165.b76f8b44.chunk.js.map",
+    "165.27d1b613.chunk.js.map": "/sujin_portfolio/static/js/165.27d1b613.chunk.js.map",
     "984.a0caa652.chunk.js.map": "/sujin_portfolio/static/js/984.a0caa652.chunk.js.map",
-    "331.57ed03a8.chunk.js.map": "/sujin_portfolio/static/js/331.57ed03a8.chunk.js.map",
+    "331.d2564d69.chunk.js.map": "/sujin_portfolio/static/js/331.d2564d69.chunk.js.map",
     "464.4447af0b.chunk.js.map": "/sujin_portfolio/static/js/464.4447af0b.chunk.js.map",
-    "625.f42d43d8.chunk.js.map": "/sujin_portfolio/static/js/625.f42d43d8.chunk.js.map"
+    "367.36446b74.chunk.js.map": "/sujin_portfolio/static/js/367.36446b74.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7f0af427.css",
-    "static/js/main.5fb58d62.js"
+    "static/js/main.e839ae29.js"
   ]
 }
