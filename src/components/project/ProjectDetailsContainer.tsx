@@ -34,7 +34,7 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                         ) : <></>}
                         {data?.notionUrl ? (
                             <LinkAlink
-                                href={data.gitUrl}>
+                                href={data.notionUrl}>
                                 <img src={notionLogo} alt="notion" />
                                 <h3>Notion</h3>
                                 <p>{data?.notionUrl}</p>

@@ -1,6 +1,11 @@
 import { skills } from "../common";
 import { projDetailT, projectT } from "./project.types";
+
+import prep from 'src/assets/img/projImg/preparing.png';
+
+//zonbie
 import zphImg from 'src/assets/img/projImg/zph.png';
+import zphImg2 from 'src/assets/img/projImg.zph_2.png';
 //sori
 import sori_0 from 'src/assets/img/projImg/sori_0.png';
 import sori_1 from 'src/assets/img/projImg/sori_1.png';
@@ -16,6 +21,19 @@ import papaerPleaseImg from 'src/assets/img/projImg/pp.png';
 
 export const projectData: projectT[] = [
     {
+        key: 5,
+        projName: "MyLIO_나의작은바다",
+        projTag: ["3D", "캐주얼", "퍼즐"],
+        startDate: "2024.01",
+        endDate: " ing ",
+        projSkills: [
+            skills[2], skills[15], skills[18], skills[19], skills[20], skills[21], skills[13]
+        ],
+        notionUrl: "https://east-wrinkle-9ca.notion.site/TeamAlphaNo-118b84bb5ebe8023b0cfd3a25485e101",
+        imgUrl: prep,
+        mainYn: true
+    },
+    {
         key: 4,
         projName: "좀비,펑펑!화르륵",
         projContents: "기획 협업 진행 프로젝트",
@@ -26,6 +44,7 @@ export const projectData: projectT[] = [
             skills[18], skills[13], skills[16], skills[20], skills[19], skills[8], skills[3]
         ],
         notionUrl: "https://east-wrinkle-9ca.notion.site/TeamAlphaNo-118b84bb5ebe8023b0cfd3a25485e101",
+        gitUrl: "https://github.com/Team-AlphaNo/ZombieBoom",
         imgUrl: zphImg,
         mainYn: true
     },
@@ -74,7 +93,7 @@ export const projectData: projectT[] = [
         notionUrl: "https://east-wrinkle-9ca.notion.site/The-Wild-Four-18e102a9da304b0d967cd2f5b5b84efa",
         youtubeUrl: "http://youtube.com/watch?v=buZiRSoVNWw&feature=youtu.be",
         imgUrl: twf_0,
-        mainYn: true
+        mainYn: false
     },
     {
         key: 0,
@@ -95,6 +114,23 @@ export const projectData: projectT[] = [
 
 export const projDetailData: projDetailT[] = [
     {
+        key: 5,
+        projName: "MyLIO_나의작은바다",
+        projContents: ["개발 9인", "　", "시스템 4인, 게임 5인",
+            "바다속을 컨셉으로 미니게임을 여러개 이용할 수 있는 파티 게임입니다", "　",
+            "- ASP.NET, RestAPI", "- Apache + AddressableAssets", "- Docker, DockerCompose, AWS"],
+        projTag: ["3D", "캐주얼", "퍼즐"],
+        startDate: "2024.01",
+        endDate: " ing ",
+        projSkills: [
+            skills[2], skills[15], skills[18], skills[19], skills[20], skills[21], skills[13]
+        ],
+        notionUrl: "https://otheretc.notion.site/MyLIO-16c41e6afd5780f4ac3aeb14e5230ab6",
+        imgUrl: [prep],
+        projType: '게임',
+        subTitle: "기획 협업 진행 프로젝트."
+    },
+    {
         key: 4,
         projName: "좀비,펑펑!화르륵",
         projContents: ["개발 4인, 기획 3인", "　", "협약 기업과 진행 시작하였으나 기업의 사정으로 인하여 협약이 무산 이슈!",
@@ -107,7 +143,8 @@ export const projDetailData: projDetailT[] = [
             skills[18], skills[13], skills[16], skills[20], skills[19], skills[8], skills[3]
         ],
         notionUrl: "https://east-wrinkle-9ca.notion.site/TeamAlphaNo-118b84bb5ebe8023b0cfd3a25485e101",
-        imgUrl: [zphImg],
+        gitUrl: "https://github.com/Team-AlphaNo/ZombieBoom",
+        imgUrl: [zphImg, zphImg2],
         projType: '게임',
         subTitle: "기획 협업 진행 프로젝트. 현재 개발 진행중"
     },

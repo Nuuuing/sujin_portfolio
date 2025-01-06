@@ -105,5 +105,10 @@ export const skills:skillStackT[] =[
         key: 20,
         name: "Apache",
         type: stackType.WEB
+    },
+    {
+        key: 21,
+        name: "ASP.NET",
+        type: stackType.WEB
     }
 ]
