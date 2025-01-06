@@ -190,4 +190,5 @@ const LinkAlink = styled.a`
 const StyledSentence = styled.p`
     margin-left: 2rem;
     font-size: 1.15rem;
+    padding-bottom: 0.3rem;
 `
