@@ -5,7 +5,7 @@ import prep from 'src/assets/img/projImg/preparing.png';
 
 //zonbie
 import zphImg from 'src/assets/img/projImg/zph.png';
-import zphImg2 from 'src/assets/img/projImg.zph_2.png';
+import zphImg2 from 'src/assets/img/projImg/zph_2.png';
 //sori
 import sori_0 from 'src/assets/img/projImg/sori_0.png';
 import sori_1 from 'src/assets/img/projImg/sori_1.png';
