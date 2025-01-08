@@ -37,8 +37,8 @@ export const MainContactSection = () => {
                         />
                         <a
                             style={{ textDecoration: "none" }}
-                            href="https://github.com/sujin-nuu">
-                            <p>https://github.com/sujin-nuu</p>
+                            href="https://github.com/Nuuuing">
+                            <p>https://github.com/Nuuuing</p>
                         </a>
                     </div>
                 </StyledContactContents>
