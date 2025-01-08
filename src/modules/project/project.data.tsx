@@ -29,7 +29,7 @@ export const projectData: projectT[] = [
         projSkills: [
             skills[2], skills[15], skills[18], skills[19], skills[20], skills[21], skills[13]
         ],
-        notionUrl: "https://east-wrinkle-9ca.notion.site/TeamAlphaNo-118b84bb5ebe8023b0cfd3a25485e101",
+        notionUrl: "https://otheretc.notion.site/MyLIO-16c41e6afd5780f4ac3aeb14e5230ab6",
         imgUrl: prep,
         mainYn: true
     },
@@ -43,7 +43,7 @@ export const projectData: projectT[] = [
         projSkills: [
             skills[18], skills[13], skills[16], skills[20], skills[19], skills[8], skills[3]
         ],
-        notionUrl: "https://east-wrinkle-9ca.notion.site/TeamAlphaNo-118b84bb5ebe8023b0cfd3a25485e101",
+        notionUrl: "https://tourmaline-tugboat-5d2.notion.site/118b84bb5ebe8023b0cfd3a25485e101",
         gitUrl: "https://github.com/Team-AlphaNo/ZombieBoom",
         imgUrl: zphImg,
         mainYn: true
@@ -59,7 +59,7 @@ export const projectData: projectT[] = [
             skills[18]
         ],
         gitUrl: "https://github.com/Yogurtsharbet/SORI",
-        notionUrl: "https://east-wrinkle-9ca.notion.site/SORI-1903aa91e2794f73b17aff5105dcccb4",
+        notionUrl: "https://tourmaline-tugboat-5d2.notion.site/SORI-1903aa91e2794f73b17aff5105dcccb4",
         youtubeUrl: "https://youtu.be/GxtldlEV7vo",
         imgUrl: sori_0,
         mainYn: true
@@ -90,7 +90,7 @@ export const projectData: projectT[] = [
             skills[18]
         ],
         gitUrl: "https://github.com/KY00JSSH/TheWildFour",
-        notionUrl: "https://east-wrinkle-9ca.notion.site/The-Wild-Four-18e102a9da304b0d967cd2f5b5b84efa",
+        notionUrl: "https://tourmaline-tugboat-5d2.notion.site/The-Wild-Four-18e102a9da304b0d967cd2f5b5b84efa",
         youtubeUrl: "http://youtube.com/watch?v=buZiRSoVNWw&feature=youtu.be",
         imgUrl: twf_0,
         mainYn: false
