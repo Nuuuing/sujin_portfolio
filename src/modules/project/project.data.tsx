@@ -39,7 +39,7 @@ export const projectData: projectT[] = [
         projContents: "기획 협업 진행 프로젝트",
         projTag: ["2D", "협약 프로젝트", "캐주얼", "퍼즐"],
         startDate: "2024.11.01",
-        endDate: "2024.12",
+        endDate: "2024.12.27",
         projSkills: [
             skills[18], skills[13], skills[16], skills[20], skills[19], skills[8], skills[3]
         ],
@@ -144,7 +144,7 @@ export const projDetailData: projDetailT[] = [
             "- Apache + AddressableAssets", "- Nginx, React.js : 관리자 페이지", "- Docker, DockerCompose, AWS"],
         projTag: ["2D", "협약 프로젝트", "캐주얼", "퍼즐"],
         startDate: "2024.11.01",
-        endDate: "2024.12",
+        endDate: "2024.12.27",
         projSkills: [
             skills[18], skills[13], skills[16], skills[20], skills[19], skills[8], skills[3]
         ],
@@ -152,7 +152,7 @@ export const projDetailData: projDetailT[] = [
         gitUrl: "https://github.com/Team-AlphaNo/ZombieBoom",
         imgUrl: [zphImg, zphImg2],
         projType: '게임',
-        subTitle: "기획 협업 진행 프로젝트. 현재 개발 진행중"
+        subTitle: "기획 협업 진행 프로젝트."
     },
     {
         key: 3,
