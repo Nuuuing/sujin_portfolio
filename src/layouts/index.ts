@@ -1,1 +1,1 @@
-export * from './dash';
+export * from './main';

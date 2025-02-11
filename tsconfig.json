@@ -23,6 +23,6 @@
     "typeRoots": ["./node_modules/@types", "@types"]
   },
   "include": [
-    "src"
+    "src", "src/custom.d.ts"
   ]
 }

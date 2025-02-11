@@ -1,10 +1,8 @@
-import { DashHeader } from "src/layouts";
 import styled from "styled-components";
 
 const NotFound = () => {
     return (
         <>
-            <DashHeader />
             <StyledNotFoundContainer>
                 <StyledContentContainer>
                     <h2>페이지를 찾을 수 없습니다.</h2>

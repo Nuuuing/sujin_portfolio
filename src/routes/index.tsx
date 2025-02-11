@@ -1,9 +1,9 @@
 import { useRoutes } from "react-router-dom"
 import * as paths from './const';
-import { DashLayout } from "src/layouts";
 import { MainPage, NotFoundPage } from "src/pages";
 import { CareerDetailPage, CareerMainPage } from "src/pages/career";
 import { ProjectDetailPage, ProjectMainPage } from "src/pages/project";
+import { MainLayout } from "src/layouts";
 
 export const MainRouter = () => {
 
@@ -12,7 +12,7 @@ export const MainRouter = () => {
             path: paths.ROUTE_ROOT,
             children: [
                 {
-                    element: <DashLayout />,
+                    element: <MainLayout />,
                     children: [
                         {
                             path: paths.ROUTE_MAIN,
