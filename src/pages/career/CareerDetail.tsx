@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CareerContentTG } from "src/components";
+import { MiddleHeader } from "src/layouts";
 import styled from "styled-components";
 
 const CareerDetail = () => {
@@ -14,8 +15,10 @@ const CareerDetail = () => {
 
     return (
         <>
+            <MiddleHeader
+                title={'Career'} />
             <StyledCareerContainer>
-                <div style={{ width: "80%" }}>
+                <div style={{ width: "90%" }}>
                     {
                         paramId === '0' ?
                             (<CareerContentTG />)

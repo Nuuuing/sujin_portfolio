@@ -1,5 +1,5 @@
 import { skills } from "../common";
-import { projDetailT, projectT } from "./project.types";
+import { projDetailT, projectT, ProjType } from "./project.types";
 
 import prep from 'src/assets/img/projImg/preparing.png';
 
@@ -128,8 +128,8 @@ export const projDetailData: projDetailT[] = [
         ],
         notionUrl: "https://otheretc.notion.site/MyLIO-16c41e6afd5780f4ac3aeb14e5230ab6",
         imgUrl: [prep],
-        projType: '게임',
-        subTitle: "기획 협업 진행 프로젝트."
+        projType: ProjType.game,
+        subTitle: "기획 협업 진행 프로젝트"
     },
     {
         key: 4,
@@ -151,7 +151,7 @@ export const projDetailData: projDetailT[] = [
         notionUrl: "https://tourmaline-tugboat-5d2.notion.site/118b84bb5ebe8023b0cfd3a25485e101",
         gitUrl: "https://github.com/Team-AlphaNo/ZombieBoom",
         imgUrl: [zphImg, zphImg2],
-        projType: '게임',
+        projType: ProjType.game,
         subTitle: "기획 협업 진행 프로젝트."
     },
     {
@@ -172,7 +172,7 @@ export const projDetailData: projDetailT[] = [
         notionUrl: "https://tourmaline-tugboat-5d2.notion.site/SORI-1903aa91e2794f73b17aff5105dcccb4",
         youtubeUrl: "https://youtu.be/GxtldlEV7vo",
         imgUrl: [sori_0, sori_1, sori_2],
-        projType: '게임',
+        projType: ProjType.game,
         youtubeId: "GxtldlEV7vo"
     },
     {
@@ -190,7 +190,7 @@ export const projDetailData: projDetailT[] = [
         gitUrl: "https://github.com/KY00JSSH/NEKOPARK",
         youtubeUrl: "https://www.youtube.com/watch?v=HEH-BjvP_3g&feature=youtu.be",
         imgUrl: [nekoparkImg],
-        projType: '게임',
+        projType: ProjType.game,
         youtubeId: "HEH-BjvP_3g"
     },
     {
@@ -211,7 +211,7 @@ export const projDetailData: projDetailT[] = [
         notionUrl: "https://tourmaline-tugboat-5d2.notion.site/The-Wild-Four-18e102a9da304b0d967cd2f5b5b84efa",
         youtubeUrl: "http://youtube.com/watch?v=buZiRSoVNWw&feature=youtu.be",
         imgUrl: [twf_0, twf_1, twf_2],
-        projType: '게임',
+        projType: ProjType.game,
         youtubeId: "buZiRSoVNWw"
     },
     {
@@ -229,7 +229,7 @@ export const projDetailData: projDetailT[] = [
         gitUrl: "https://github.com/Nuuuing/paperPlease",
         youtubeUrl: "https://www.youtube.com/watch?v=s95nBAnZJdo",
         imgUrl: [papaerPleaseImg],
-        projType: '게임',
+        projType: ProjType.game,
         youtubeId: "s95nBAnZJdo"
     }
 ]

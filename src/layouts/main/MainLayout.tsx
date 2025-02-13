@@ -2,6 +2,8 @@ import { Outlet } from "react-router-dom"
 import { InfoContainer, MainContainer, MobileInfoContainer } from "."
 import { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
+import { useRecoilState } from "recoil";
+import { isMobileAtom } from "src/modules";
 
 const fadeIn = keyframes`
     from { opacity: 0; transform: translateX(+100px); }
@@ -10,7 +12,7 @@ const fadeIn = keyframes`
 
 export const MainLayout = () => {
     const [expanded, setExpanded] = useState<boolean>(false);
-    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
+    const [isMobile, setIsMobile] = useRecoilState<boolean>(isMobileAtom);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
     useEffect(() => {

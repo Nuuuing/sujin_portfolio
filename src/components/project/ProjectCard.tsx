@@ -130,17 +130,17 @@ const StyledProjContents = styled.div`
     cursor: pointer;
     margin-top: 10px;
     h1 {
-        font-size: clamp(1.3rem, 5vw, 2rem); /* 최소 2rem, 최대 3rem, 화면 크기에 따라 조정 */
+        font-size: clamp(1.3rem, 5vw, 2rem); 
         line-height: 1.2;
     }
 
     p {
-        font-size: clamp(0.8rem, 2.5vw, 1.4rem); /* 최소 1rem, 최대 1.5rem */
-        line-height: 1.5;
+        font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+        line-height: 1.8;
     }
 
     span {
-        font-size: clamp(0.6rem, 2vw, 1rem); /* 최소 0.8rem, 최대 1rem */
+        font-size: clamp(0.8rem, 2vw, 1rem); 
     }
 
     div {
@@ -180,5 +180,5 @@ const StyledSkillTag = styled.span`
     border: 1px #e9e9e9 solid;
     border-radius: 10px;
     margin: 5px;
-    font-size: clamp(0.4rem, 1.5vw, 0.8rem);
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
 `

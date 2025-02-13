@@ -27,7 +27,13 @@ export interface projDetailT{
     notionUrl?:string;
     youtubeUrl?:string;
     imgUrl?:string[]|any[];
-    projType?:string;
+    projType?: ProjType;
     subTitle?:string;
     youtubeId?:string;
+}
+
+export enum ProjType{
+    default = 0,
+    game,
+    web
 }

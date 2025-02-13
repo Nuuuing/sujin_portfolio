@@ -1,13 +1,10 @@
 import dayjs from "dayjs"
-import { MiddleHeader } from "src/layouts"
 import { careerData, careerSubDataTG, careerSubT, skillStackT } from "src/modules"
 import styled from "styled-components"
 
 export const CareerContentTG = () => {
     return (
         <>
-            <MiddleHeader
-                title={'Career'} />
             <StyledCareerContentHeader
                 key={careerData[0].key}>
                 <h1>{careerData[0].company}</h1>
@@ -23,13 +20,13 @@ export const CareerContentTG = () => {
                     </h4>
                     <p style={{ marginBottom: 5 }}> {data.description} </p>
                     {data?.contents?.map((data: string) => { return (<p> ▪ {data} </p>) })}
-                    <p style={{ display: "flex", justifyContent: "left", marginTop: 10 }}>
+                    <StyledSkillContainer>
                         {data.skills?.map((skill: skillStackT, index: number) => (
-                            <StyledStackBubble key={index}>
+                            <StyledSkillTag key={index}>
                                 {skill.name}
-                            </StyledStackBubble>
+                            </StyledSkillTag>
                         ))}
-                    </p>
+                    </StyledSkillContainer>
                 </StyledCareerContents>
             ))}
         </>
@@ -52,18 +49,25 @@ const StyledCareerContentHeader = styled.div`
 `
 
 const StyledCareerContents = styled.div`
-    padding: 1rem;
+    padding: 2rem 0.8rem;
     border-bottom: solid 1px #e9e9e9;
     width: 100%;
     h4{
         margin: 10px 0;
     }
 `
+const StyledSkillContainer = styled.div`
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+`
 
-const StyledStackBubble = styled.div`
-    border-radius: 10px;
-    border: 1px #e9e9e9 solid;
+const StyledSkillTag = styled.div`
     padding: 5px;
-    font-size: 13px;
-    margin: 0 2px;
+    border: 1px #e9e9e9 solid;
+    border-radius: 10px;
+    margin: 5px;
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
 `

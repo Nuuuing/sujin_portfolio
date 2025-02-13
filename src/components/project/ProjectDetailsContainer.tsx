@@ -1,9 +1,10 @@
-import { projDetailT, skillStackT } from "src/modules"
-import styled from "styled-components";
+import { isMobileAtom, projDetailT, ProjType, skillStackT } from "src/modules"
+import styled, { css } from "styled-components";
 import youtubeLogo from 'src/assets/img/icon/youtube_logo.png';
 import notionLogo from 'src/assets/img/icon/notion_logo.png';
 import githubLogo from 'src/assets/img/icon/github_logo.png';
 import { YoutubePlayer } from "../common";
+import { useRecoilValue } from "recoil";
 
 interface ProjectDetailsContainerProps {
     data?: projDetailT;
@@ -11,44 +12,67 @@ interface ProjectDetailsContainerProps {
 export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => {
     const { data } = props;
 
+    const isMobile = useRecoilValue<boolean>(isMobileAtom);
+
     return (
-        <StyledContainer>
+        <div>
             <HeaderContainer>
                 <div>
-                    <Title>
+                    <StyledProjTag projType={data?.projType ?? ProjType.default}>
+                        {data?.projType === ProjType.game ? "GAME" :
+                            data?.projType === ProjType.web ? "WEB" : ""}
+                    </StyledProjTag>
+                    <Title isMobile={isMobile}>
                         <h1>{data?.projName}</h1>
-                        <p>{data?.projType},</p>
                         <p>{data?.startDate} - {data?.endDate}</p>
                     </Title>
                     <h2>
                         {data?.subTitle}
                     </h2>
-                    <div>
-                        {data?.gitUrl ? (
+                    <LinksContainer 
+                        isMobile={isMobile}>
+                    {(data?.gitUrl && !isMobile) ? (
                             <LinkAlink
                                 href={data.gitUrl}>
                                 <img src={githubLogo} alt="github" />
                                 <h3> GitHub </h3>
                                 <p>{data?.gitUrl}</p>
                             </LinkAlink>
+                        ) : (data?.gitUrl && isMobile) ? (
+                            <LinkAlink
+                                href={data.gitUrl}>
+                                <img src={githubLogo} alt="github" />
+                                <h3> GitHub </h3>
+                            </LinkAlink>
                         ) : <></>}
-                        {data?.notionUrl ? (
+                        {(data?.notionUrl && !isMobile) ? (
                             <LinkAlink
                                 href={data.notionUrl}>
                                 <img src={notionLogo} alt="notion" />
                                 <h3>Notion</h3>
                                 <p>{data?.notionUrl}</p>
                             </LinkAlink>
+                        ) : (data?.notionUrl && isMobile) ? (
+                            <LinkAlink
+                                href={data.notionUrl}>
+                                <img src={notionLogo} alt="notion" />
+                                <h3>Notion</h3>
+                            </LinkAlink>
                         ) : <></>}
-                        {data?.youtubeUrl ? (
+                        {(data?.youtubeUrl && !isMobile) ? (
                             <LinkAlink
                                 href={data.youtubeUrl}>
                                 <img src={youtubeLogo} alt="notion" />
                                 <h3>YouTube</h3>
                                 <p>{data?.youtubeUrl}</p>
                             </LinkAlink>
+                        ) : (data?.youtubeUrl && isMobile) ? (<LinkAlink
+                            href={data.youtubeUrl}>
+                            <img src={youtubeLogo} alt="notion" />
+                            <h3>YouTube</h3>
+                        </LinkAlink>
                         ) : <></>}
-                    </div>
+                    </LinksContainer>
                 </div>
             </HeaderContainer>
             <ContentsContainer>
@@ -76,61 +100,57 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                             }) : <></>
                     }
                 </TextContents>
-                <TextContents>
-                    <div style={{ marginLeft: "1.5rem" }}>
+                <StyledSkillContainer>
                         {data?.projSkills?.map((skill: skillStackT) => (
-                            <span
+                            <StyledSkillTag
                                 key={skill.name}
-                                style={{
-                                    padding: 5,
-                                    border: "1px #e9e9e9 solid",
-                                    borderRadius: 10,
-                                    margin: 5,
-                                }}
                             >
                                 {skill.name}
-                            </span>
+                            </StyledSkillTag>
                         ))}
-                    </div>
-                </TextContents>
+                </StyledSkillContainer>
             </ContentsContainer>
-        </StyledContainer>
+        </div>
     )
 }
-
-const StyledContainer = styled.div`
-    margin: 0px 3rem 2rem 3rem;
-    border-top: 1px #e9e9e9 solid;
-    padding: 1rem 1rem 0rem 1rem;
-`
 
 const ContentsContainer = styled.div`
     padding: 1rem 1rem 2rem 1rem;    
     margin: 0px 3rem 4rem 3rem;
 `
 
+const StyledProjTag = styled.span<{ projType: ProjType }>`
+    display: inline-block;
+    background-color:  ${({ projType }) => (projType === ProjType.game ? "#B7DFFF" : "#CDC1FF")};
+    font-size: clamp(0.75rem, 3vw, 1.1rem); 
+    font-weight: 600;
+    padding: 5px 11px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+`
+
 const ViewContents = styled.div`
     display: flex;
-    flex-wrap: wrap; /* 줄 바꿈 가능 */
-    gap: 0.2rem; /* 아이템 간 간격 */
-    justify-content: center; /* 가운데 정렬 */
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    justify-content: center;
     align-items: flex-start;
     padding: 0 3rem;
 
     > div {
-        flex: 1 1 calc(50% - 1rem); /* 기본적으로 50% 너비 */
-        max-width: calc(50% - 1rem); /* 최대 50% 너비 */
-        min-width: 300px; /* 최소 너비 */
-        flex-direction: column; /* 세로로 배치 */
-        max-width: 40rem; /* 최대 크기 */
+        flex: 1 1 calc(50% - 1rem);
+        max-width: calc(50% - 1rem);
+        min-width: 300px;
+        flex-direction: column;
+        max-width: 40rem; 
         img {
             width: 100%;
-            max-width: 40rem; /* 이미지 최대 크기 설정 */
+            max-width: 40rem; 
         }
 
         iframe {
             width: 100%;
-            max-width: 40rem; /* YouTube 플레이어 최대 크기 설정 */
+            max-width: 40rem; 
         }
     }
 
@@ -144,26 +164,40 @@ const ViewContents = styled.div`
 
 const TextContents = styled.div`
     margin-top: 2rem;
-    margin-left: 2rem;
 `
 
 const HeaderContainer = styled.div`
     padding: 2rem 6rem;
+    h2{
+        font-size: clamp(1.2rem, 3vw, 1.4rem); 
+    }
 `
 
-const Title = styled.div`
-    display: flex;
-    justify-content: left;
+const Title = styled.div<{ isMobile: boolean }>`
+    ${props => !props.isMobile && css`
+        display: flex;
+        justify-content: left;
+        `}
+    ${props => props.isMobile && css`
+        p{
+            padding: 4px;
+        }
+    `}
     align-items: baseline;
     gap: 10px;
     h1{
-        font-size: 3rem;
+        font-size: clamp(1.3rem, 5vw, 2.6rem); 
     }
     p{
         color: #394d8f;
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 5vw, 1.2rem); 
     }
 `
+const LinksContainer = styled.div<{ isMobile: boolean }>`
+    display: ${({ isMobile }) => isMobile ? 'flex' : 'block'}; 
+    flex-direction: ${({ isMobile }) => isMobile ? 'row' : 'column'}; 
+    gap: 10px;
+`;
 
 const LinkAlink = styled.a`
     display: flex;
@@ -179,16 +213,41 @@ const LinkAlink = styled.a`
     }
     h3{
         padding-top: 6px;
+        font-size: clamp(0.8rem, 5vw, 1rem); 
     }
     img{
-        vertical-align: middle; 
-        height: 30px;
-        width: auto;
+        vertical-align: middle;
+        width: 30px;
+    }
+    @media (max-width: 768px) {
+        img{
+            width: 20px;
+        }
+        h3{
+            font-size: 0.8rem;
+        }
     }
 `
 
 const StyledSentence = styled.p`
-    margin-left: 2rem;
+    margin-left: 1rem;
     font-size: 1.15rem;
     padding-bottom: 0.3rem;
+    font-size: clamp(1rem, 1.5vw, 1.4rem);
+`
+
+const StyledSkillContainer = styled.div`
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+`
+
+const StyledSkillTag = styled.span`
+    padding: 5px;
+    border: 1px #e9e9e9 solid;
+    border-radius: 10px;
+    margin: 5px;
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
 `

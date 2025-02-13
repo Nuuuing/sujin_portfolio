@@ -23,7 +23,10 @@ export const DetailHeader = () => {
 const StyledContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    margin: 1rem 3rem 4rem 3rem;
+    margin: 2rem;
+    @media (max-width: 768px) {
+        margin: 1rem;
+    }
 `
 
 const StyledBackButton = styled.div`
@@ -33,4 +36,9 @@ const StyledBackButton = styled.div`
     cursor: pointer;
     padding: 5px 10px;
     border-radius: 15px;
+    @media (max-width: 768px) {
+        width: 5rem;
+        padding: 5px 10px;
+        font-size: 13px;
+    }
 `
