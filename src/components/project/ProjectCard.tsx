@@ -12,7 +12,7 @@ interface ProjectCardProps {
 }
 export const ProjectCard = (props: ProjectCardProps) => {
     const { data } = props;
-    
+
     const navigate = useNavigate();
 
     const handleClickProj = (key: number) => {
@@ -24,7 +24,7 @@ export const ProjectCard = (props: ProjectCardProps) => {
             <StyledProjectContainer
                 key={data.key}>
                 <div style={{ display: "flex", justifyContent: "right" }}>
-                    <div>
+                    <StyledContentWrapper>
                         <StyledProjContents
                             onClick={() => handleClickProj(data.key)}>
                             <h1 >{data.projName}</h1>
@@ -40,46 +40,40 @@ export const ProjectCard = (props: ProjectCardProps) => {
                             </div>
                             <p>{data.projContents}</p>
                         </StyledProjContents>
-                        <div style={{ marginTop: "1rem" }}>
+                        <StyledLinkContainer>
                             {
                                 data.gitUrl ?
                                     <a href={data.gitUrl}>
-                                        <img src={githubLogo} alt="github" width="30" />
+                                        <img src={githubLogo} alt="github" />
                                     </a> : <></>
                             }
                             {
                                 data.notionUrl ?
                                     <a href={data.notionUrl}>
                                         <img src={notionLogo}
-                                            alt="notion" width="30" />
+                                            alt="notion" />
                                     </a> : <></>
                             }
                             {
                                 data.youtubeUrl ?
                                     <a href={data.youtubeUrl}>
                                         <img src={youtubeLogo}
-                                            alt="youtube" width="30" />
+                                            alt="youtube" />
                                     </a> : <></>
                             }
-                        </div>
-                        <div style={{ marginTop: "1rem", fontSize: '0.9rem' }}>
+                        </StyledLinkContainer>
+                        <StyledSkillContainer>
                             {data?.projSkills?.map((skill: skillStackT) => (
-                                <span
+                                <StyledSkillTag
                                     key={skill.name}
-                                    style={{
-                                        padding: 5,
-                                        border: "1px #e9e9e9 solid",
-                                        borderRadius: 10,
-                                        margin: 5,
-                                    }}
                                 >
                                     {skill.name}
-                                </span>
+                                </StyledSkillTag>
                             ))}
-                        </div>
-                    </div>
+                        </StyledSkillContainer>
+                    </StyledContentWrapper>
                     <StyledCardImg
-                        style={{ }}
+                        style={{}}
                         onClick={() => handleClickProj(data.key)}>
                         <img src={data.imgUrl} alt={data.projName} />
                     </StyledCardImg>
@@ -94,7 +88,7 @@ const StyledProjectContainer = styled.div`
     border-bottom: 1px #e9e9e9 solid;
     width: 90%;
     padding: 1rem 0 2rem 0;
-    margin-bottom: 15px;
+    margin: 0 5% 15px 5%;
     /* 기본 회색 처리 */
     color: #aaa; /* 텍스트 회색 */
     img {
@@ -111,31 +105,56 @@ const StyledProjectContainer = styled.div`
     }
 `
 
+const StyledLinkContainer = styled.div`
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+    img{
+        width : 30px;
+    }
+    @media (max-width: 768px) {
+        img{
+            width : 25px;
+            margin-left: 2px;
+        }
+    }
+`
+
+const StyledContentWrapper = styled.div`
+    width: 70%;
+    text-align: right;
+    cursor: pointer;
+`
+
 const StyledProjContents = styled.div`
     cursor: pointer;
     margin-top: 10px;
-      /* 반응형 텍스트 크기 */
     h1 {
-        font-size: clamp(1.8rem, 5vw, 3rem); /* 최소 2rem, 최대 3rem, 화면 크기에 따라 조정 */
+        font-size: clamp(1.3rem, 5vw, 2rem); /* 최소 2rem, 최대 3rem, 화면 크기에 따라 조정 */
         line-height: 1.2;
     }
 
     p {
-        font-size: clamp(0.8rem, 2.5vw, 1.5rem); /* 최소 1rem, 최대 1.5rem */
+        font-size: clamp(0.8rem, 2.5vw, 1.4rem); /* 최소 1rem, 최대 1.5rem */
         line-height: 1.5;
     }
 
     span {
-        font-size: clamp(0.6rem, 1.5vw, 1rem); /* 최소 0.8rem, 최대 1rem */
+        font-size: clamp(0.6rem, 2vw, 1rem); /* 최소 0.8rem, 최대 1rem */
     }
 
     div {
         margin-top: 5px;
     }
+    @media (max-width: 768px) {
+        h1{
+            font-size: clamp(1.3rem, 3vw, 2rem);
+        }
+    }
 `
 
 const StyledCardImg = styled.div`
-    width: 28%;
+    width: 30%;
     margin-left: 2rem;
     height: auto;
     cursor: pointer;
@@ -146,4 +165,20 @@ const StyledCardImg = styled.div`
         object-fit: cover;
         display: block;
     }
+`
+
+const StyledSkillContainer = styled.div`
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+`
+
+const StyledSkillTag = styled.span`
+    padding: 5px;
+    border: 1px #e9e9e9 solid;
+    border-radius: 10px;
+    margin: 5px;
+    font-size: clamp(0.4rem, 1.5vw, 0.8rem);
 `

@@ -1,7 +1,7 @@
 import { projectData, projectT } from "src/modules";
-import { ProjHeader } from "./ProjHeader";
 import { ProjectCard } from "./ProjectCard";
 import styled from "styled-components";
+import { MiddleHeader } from "src/layouts";
 
 export const DetailProjList = () => {
 
@@ -17,7 +17,8 @@ export const DetailProjList = () => {
 
     return (
         <StyledProjectContainer>
-            <ProjHeader />
+            <MiddleHeader
+                title={'Project'} />
             {projectList()}
         </StyledProjectContainer>
     )

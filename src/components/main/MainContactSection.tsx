@@ -107,12 +107,19 @@ const StyledContactContents = styled.div`
     border-radius: 5px;
     width: 40rem;
     p{
-        font-size: 1rem;
+        font-size: clamp(0.8rem, 2vw, 1rem);
         margin-bottom: 0.5rem;
     }
     img{
         margin-right: 0.5rem;
         height: 20px;
         width: 20px;
+    }
+    @media (max-width: 768px) {
+        padding: 1.5rem 3rem;
+        width: 20rem;
+        h1{
+            font-size: 1.2rem;
+        }
     }
 `

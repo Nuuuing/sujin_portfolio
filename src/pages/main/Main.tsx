@@ -3,11 +3,9 @@ import { MainCareerSection, MainContactSection, MainProjectSection, MainSplash }
 import styled from "styled-components";
 
 const Main = () => {
-
     const [selectNav, setSelectNav] = useState<number>(0);
 
     const menuItems = ["ME", "PROJECT", "CAREER"];
-
     const sections = [useRef(null), useRef(null), useRef(null)];
 
     const scrollToSection = (ref: any) => {
@@ -66,13 +64,17 @@ const NavContainer = styled.div`
 const HighlightBar = styled.div<{ selectedIndex: number }>`
     position: absolute;
     top: 50%;
-    left: ${({ selectedIndex }) => selectedIndex === 0 ? '20px' : selectedIndex === 1 ? '140px' : '260px'};
+    left: ${({ selectedIndex }) => selectedIndex === 0 ? '20px' : selectedIndex === 1 ? '138px' : '260px'};
     transform: translateY(-50%);
     width: 100px; 
     height: 3rem;
     background-color: #1e1e1e;
     border-radius: 15px;
     transition: left 0.3s ease-in-out;
+    @media (max-width: 768px) {
+        width: 76px;
+        left: ${({ selectedIndex }) => selectedIndex === 0 ? '10px' : selectedIndex === 1 ? '91px' : '171px'};
+    }
 `;
 
 const StyledMainNavArea = styled.div`
@@ -96,9 +98,14 @@ const MenuItem = styled.button<{ isActive: boolean }>`
     cursor: pointer;
     font-weight: 600;
     font-size: 14px;
+    font-family: 'omyu_pretty';
     width: 120px;
     color: ${({ isActive }) => isActive ? "#ffffff" : "#000000"};
     transition: color 0.3s ease-in-out;
+    @media (max-width: 768px) {
+        width: 80px;
+        font-size: 12px;
+    }
 `;
 
 const StyledMainContainer = styled.div`

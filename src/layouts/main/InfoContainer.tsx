@@ -83,12 +83,25 @@ const StyledInfoContainer = styled.div<{ expanded: boolean }>`
     width: ${({ expanded }) => (expanded ? "18rem" : "6rem")};
     background-color: #ffffff;
     border-radius: 40px;
-    margin: 2.5rem 2.5rem 2.5rem 1.5rem;
+    margin: 2.5rem 2.5rem 2.5rem 0;
     border: solid 1px #dddddd;
     padding: 1rem 2.2rem;
     overflow: hidden;
     position: relative;
     transition: width 0.1s ease-in-out;
+
+    @media (max-width: 768px) {
+        display: ${({ expanded }) => (expanded ? "flex" : "none")};
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 2rem;
+        border-radius: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
 `
 
 const StyledButtonArea = styled.div`
@@ -96,9 +109,6 @@ const StyledButtonArea = styled.div`
 `
 
 const StyledInfoDetail = styled.div<{ expanded: boolean }>`
-    left: 0px;
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     position: relative;

@@ -1,12 +1,13 @@
 import dayjs from "dayjs"
+import { MiddleHeader } from "src/layouts"
 import { careerData, careerSubDataTG, careerSubT, skillStackT } from "src/modules"
 import styled from "styled-components"
-import { CareerHeader } from "./CareerHeader"
 
 export const CareerContentTG = () => {
     return (
         <>
-            <CareerHeader/>
+            <MiddleHeader
+                title={'Career'} />
             <StyledCareerContentHeader
                 key={careerData[0].key}>
                 <h1>{careerData[0].company}</h1>
@@ -20,7 +21,7 @@ export const CareerContentTG = () => {
                     <h4>
                         {dayjs(data.startTerm || new Date()).format("YYYY.MM")} ~ {dayjs(data.endTerm || new Date()).format("YYYY.MM")} ({data?.dateString})
                     </h4>
-                    <p style={{marginBottom: 5}}> {data.description} </p>
+                    <p style={{ marginBottom: 5 }}> {data.description} </p>
                     {data?.contents?.map((data: string) => { return (<p> ▪ {data} </p>) })}
                     <p style={{ display: "flex", justifyContent: "left", marginTop: 10 }}>
                         {data.skills?.map((skill: skillStackT, index: number) => (
