@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CareerContentTG, Footer } from "src/components";
+import { CareerContentTG } from "src/components";
 import styled from "styled-components";
 
 const CareerDetail = () => {
@@ -23,7 +23,6 @@ const CareerDetail = () => {
                     }
                 </div>
             </StyledCareerContainer>
-            <Footer />
         </>
     )
 }

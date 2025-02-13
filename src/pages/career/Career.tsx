@@ -1,4 +1,4 @@
-import { CareerList, Footer } from "src/components";
+import { CareerList } from "src/components";
 import styled from "styled-components";
 
 const Career = () => {
@@ -7,7 +7,6 @@ const Career = () => {
             <Content>
                 <CareerList />
             </Content>
-            <Footer />
         </PageContainer>
     )
 }

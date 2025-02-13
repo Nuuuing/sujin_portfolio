@@ -1,12 +1,14 @@
-import { useRef } from "react";
-import { Footer } from "src/components";
+import { useRef, useState } from "react";
 import { MainCareerSection, MainContactSection, MainProjectSection, MainSplash } from "src/components/main";
 import styled from "styled-components";
 
 const Main = () => {
-    const projectRef = useRef(null);
-    const careerRef = useRef(null);
-    const contactRef = useRef(null);
+
+    const [selectNav, setSelectNav] = useState<number>(0);
+
+    const menuItems = ["ME", "PROJECT", "CAREER"];
+
+    const sections = [useRef(null), useRef(null), useRef(null)];
 
     const scrollToSection = (ref: any) => {
         if (ref.current) {
@@ -14,44 +16,90 @@ const Main = () => {
         }
     };
 
+    const handleClickMenu = (index: number) => {
+        setSelectNav(index);
+        scrollToSection(sections[index]);
+    }
+
     return (
         <StyledMainContainer>
-            <MainSplash />
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <StyledIndexContainer>
-                    <h2 onClick={() => scrollToSection(projectRef)}>💻 Projects</h2>
-                    <br/>
-                    <h2 onClick={() => scrollToSection(careerRef)}>💼 Career</h2>
-                    <br/>
-                    <h2 onClick={() => scrollToSection(contactRef)}>📧 Contact</h2>
-                </StyledIndexContainer>
+            <div ref={sections[0]}>
             </div>
-            <div ref={projectRef}>
+            <StyledMainNavArea>
+                <NavContainer>
+                    <HighlightBar selectedIndex={selectNav} />
+                    {menuItems.map((item, index) => (
+                        <MenuItem
+                            key={index}
+                            onClick={() => handleClickMenu(index)}
+                            isActive={selectNav === index}
+                        >
+                            {item}
+                        </MenuItem>
+                    ))}
+                </NavContainer>
+            </StyledMainNavArea>
+            <MainSplash />
+            <div ref={sections[1]}>
                 <MainProjectSection />
             </div>
-            <div ref={careerRef}>
+            <div ref={sections[2]}>
                 <MainCareerSection />
             </div>
-            <div ref={contactRef}>
+            <div>
                 <MainContactSection />
             </div>
-            <div style={{ marginBottom: "2rem" }} />
-            <Footer />
         </StyledMainContainer>
     )
 }
 export default Main;
 
-const StyledIndexContainer = styled.div`
-    width: 80%;
-    h2{
-        cursor: pointer;
-        display: inline-block;
-        margin-bottom: 1.5rem;
-        padding : 0 0.4rem 0.4rem 0.4rem;
-        border-bottom: 2px #e9e9e9 solid;
-    }
+const NavContainer = styled.div`
+    display: flex;
+    position: relative;
+    padding: 10px;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #e9e9e9;
+`;
+
+const HighlightBar = styled.div<{ selectedIndex: number }>`
+    position: absolute;
+    top: 50%;
+    left: ${({ selectedIndex }) => selectedIndex === 0 ? '20px' : selectedIndex === 1 ? '140px' : '260px'};
+    transform: translateY(-50%);
+    width: 100px; 
+    height: 3rem;
+    background-color: #1e1e1e;
+    border-radius: 15px;
+    transition: left 0.3s ease-in-out;
+`;
+
+const StyledMainNavArea = styled.div`
+    position:sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
 `
+
+const MenuItem = styled.button<{ isActive: boolean }>`
+    position: relative;
+    z-index: 1; 
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    width: 120px;
+    color: ${({ isActive }) => isActive ? "#ffffff" : "#000000"};
+    transition: color 0.3s ease-in-out;
+`;
 
 const StyledMainContainer = styled.div`
     width: 100%;

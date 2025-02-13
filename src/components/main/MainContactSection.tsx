@@ -10,7 +10,7 @@ export const MainContactSection = () => {
         >
             <StyledSectionHeader
                 key={3}>
-                <h1><span>Contact ME :)</span></h1>
+                <h2><span>Contact ME :)</span></h2>
             </StyledSectionHeader>
             <StyledSectionContents>
                 <StyledContactContents>
@@ -77,19 +77,19 @@ const StyledSectionHeader = styled.div`
         top: 50%;
         left: -10px;
         width: calc(100% + 20px);
-        height: 30%; /* 높이 조정 */
+        height: 30%;
         transform: translateY(-50%);
         z-index: -1;
-        background-color: rgba(176, 220, 255, 0.904); /* 투명도 추가 */
-        border-radius: 4px; /* 부드러운 테두리 */
+        background-color: rgba(176, 220, 255, 0.904);
+        border-radius: 4px;
     }
 
     @media (max-width: 768px) {
-        font-size: 1rem; /* 작은 화면에 맞게 폰트 크기 조정 */
+        font-size: 1rem;
         margin: 2rem auto;
 
         h1 span:before {
-            height: 40%; /* 더 적은 여백 */
+            height: 40%;
         }
     }
 `
@@ -101,12 +101,13 @@ const StyledSectionContents = styled.div`
 `
 
 const StyledContactContents = styled.div`
+    background-color: #ffffff;
     padding: 2rem 5rem;
     border: solid 1px #e9e9e9;
-    border-radius: 10px;
+    border-radius: 5px;
     width: 40rem;
     p{
-        font-size: 1.1rem;
+        font-size: 1rem;
         margin-bottom: 0.5rem;
     }
     img{

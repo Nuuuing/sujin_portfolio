@@ -5,7 +5,7 @@ export const Footer = () => {
         <StyledFooterContainer>
             <StyledFooterContentContainer>
                 <p style={{ marginBottom: 10 }}>본 페이지는 상업적 목적이 아닌 개인 포트폴리오용으로 제작되었습니다.</p>
-                <p>© 2024 Kim Sujin. All Rights Reserved.</p>
+                <p>© 2025 Kim Sujin. All Rights Reserved.</p>
             </StyledFooterContentContainer>
         </StyledFooterContainer>
     )
@@ -15,12 +15,13 @@ const StyledFooterContainer = styled.div`
     width: 100%;
     height: 7rem;
     display: flex;
-    justify-content: center;
-    background-color: #e9e9e9 ;
-    padding: 20px 5rem;
+    justify-content: left;
+    padding: 15px 5rem;
+    font-size: small;
+    border-top: 1px solid #e9e9e9;
 `
 
 const StyledFooterContentContainer = styled.div`
     padding-top: 1rem;
-    text-align: center;
+    text-align: left;
 `
