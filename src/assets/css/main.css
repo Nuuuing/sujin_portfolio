@@ -33,7 +33,7 @@ body {
             rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
     -ms-overflow-style: none;
 }
-
+    
 ::-webkit-scrollbar {
     display: none;
 }
@@ -48,17 +48,17 @@ a {
     justify-content: center;
 }
 
-.flex-spaceAround {
+.flex-spaceAround{
     display: flex;
     justify-content: space-around;
 }
 
-.flex-right {
+.flex-right{
     display: flex;
     justify-content: right;
 }
 
-.flex-left {
+.flex-left{
     display: flex;
     justify-content: left;
 }
@@ -87,20 +87,6 @@ a {
     opacity: .5;
     text-decoration: none;
 }
-
-.circle {
-    position: relative;
-    aspect-ratio: 1;
-}
-
-.letter {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    font-family: "MangoDdobak-B";
-    color: #B7DFFF;
-}
-
 
 @font-face {
     font-family: 'ghanachoco';
