@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/sujin_portfolio/static/css/main.c478c7a1.css",
-    "main.js": "/sujin_portfolio/static/js/main.d69da321.js",
+    "main.js": "/sujin_portfolio/static/js/main.09901b5b.js",
     "static/js/22.282060e9.chunk.js": "/sujin_portfolio/static/js/22.282060e9.chunk.js",
     "static/js/162.e3b30129.chunk.js": "/sujin_portfolio/static/js/162.e3b30129.chunk.js",
     "static/js/690.aca0699b.chunk.js": "/sujin_portfolio/static/js/690.aca0699b.chunk.js",
-    "static/js/165.cd36f4aa.chunk.js": "/sujin_portfolio/static/js/165.cd36f4aa.chunk.js",
+    "static/js/165.75e567d0.chunk.js": "/sujin_portfolio/static/js/165.75e567d0.chunk.js",
     "static/js/984.2aebe4d5.chunk.js": "/sujin_portfolio/static/js/984.2aebe4d5.chunk.js",
-    "static/js/331.95a200f1.chunk.js": "/sujin_portfolio/static/js/331.95a200f1.chunk.js",
+    "static/js/331.136185a4.chunk.js": "/sujin_portfolio/static/js/331.136185a4.chunk.js",
     "static/media/sori_0.png": "/sujin_portfolio/static/media/sori_0.16cf6e2858af7e9c20d6.png",
     "static/media/sori_2.png": "/sujin_portfolio/static/media/sori_2.91a269e21ac4218897a4.png",
     "static/media/twf_0.png": "/sujin_portfolio/static/media/twf_0.6f0f15e25c349e575692.png",
@@ -25,16 +25,16 @@
     "static/media/close_x.svg": "/sujin_portfolio/static/media/close_x.2791559aacff61e43e9830e6e86fe5c2.svg",
     "index.html": "/sujin_portfolio/index.html",
     "main.c478c7a1.css.map": "/sujin_portfolio/static/css/main.c478c7a1.css.map",
-    "main.d69da321.js.map": "/sujin_portfolio/static/js/main.d69da321.js.map",
+    "main.09901b5b.js.map": "/sujin_portfolio/static/js/main.09901b5b.js.map",
     "22.282060e9.chunk.js.map": "/sujin_portfolio/static/js/22.282060e9.chunk.js.map",
     "162.e3b30129.chunk.js.map": "/sujin_portfolio/static/js/162.e3b30129.chunk.js.map",
     "690.aca0699b.chunk.js.map": "/sujin_portfolio/static/js/690.aca0699b.chunk.js.map",
-    "165.cd36f4aa.chunk.js.map": "/sujin_portfolio/static/js/165.cd36f4aa.chunk.js.map",
+    "165.75e567d0.chunk.js.map": "/sujin_portfolio/static/js/165.75e567d0.chunk.js.map",
     "984.2aebe4d5.chunk.js.map": "/sujin_portfolio/static/js/984.2aebe4d5.chunk.js.map",
-    "331.95a200f1.chunk.js.map": "/sujin_portfolio/static/js/331.95a200f1.chunk.js.map"
+    "331.136185a4.chunk.js.map": "/sujin_portfolio/static/js/331.136185a4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c478c7a1.css",
-    "static/js/main.d69da321.js"
+    "static/js/main.09901b5b.js"
   ]
 }
