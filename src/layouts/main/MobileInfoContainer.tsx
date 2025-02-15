@@ -9,10 +9,10 @@ interface MobileInfoContainerProps {
 export const MobileInfoContainer = (props: MobileInfoContainerProps) => {
     const { handleClose } = props;
     return (
-        <div>
+        <div style={{width:'100%'}}>
             <StyledCloseArea
                 onClick={() => handleClose()}>
-                <img src={close} alt="close" width="40" />
+                <img src={close} alt="close" style={{width:'100%'}}/>
             </StyledCloseArea>
             <StyledInfoDetail>
                 <div style={{ textAlign: 'center' }}>
@@ -56,14 +56,10 @@ export const MobileInfoContainer = (props: MobileInfoContainerProps) => {
 const StyledInfoDetail = styled.div`
     display: flex;
     flex-direction: column;
-    position: relative;
-    overflow: hidden;
-    @media (max-width: 768px) {
-        font-size: 0.9rem;
-    }
-    @media (max-width: 480px) {
-        font-size: 0.8rem;
-    }
+    position: relative;    
+    font-size: 1rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
 `
 
 const StyledCloseArea = styled.div`
@@ -73,14 +69,6 @@ const StyledCloseArea = styled.div`
     height: 40px;
     margin-left: 5px;
     cursor: pointer;
-    @media (max-width: 768px) {
-        width: 30px;
-        height: 30px;
-    }
-    @media (max-width: 480px) {
-        width: 25px;
-        height: 25px;
-    }
 `
 
 const StyledIntro = styled.div`
@@ -90,11 +78,5 @@ const StyledIntro = styled.div`
     white-space: pre-wrap;
     p{
         margin-top: 5px;
-    }
-    @media (max-width: 768px) {
-        font-size: 0.85rem;
-    }
-    @media (max-width: 480px) {
-        font-size: 0.75rem;
     }
 `

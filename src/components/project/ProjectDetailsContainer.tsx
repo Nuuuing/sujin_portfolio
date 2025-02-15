@@ -22,6 +22,7 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                         {data?.projType === ProjType.game ? "GAME" :
                             data?.projType === ProjType.web ? "WEB" : ""}
                     </StyledProjTag>
+                    { isMobile && <br/> }
                     <Title isMobile={isMobile}>
                         <h1>{data?.projName}</h1>
                         <p>{data?.startDate} - {data?.endDate}</p>
@@ -86,7 +87,7 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                     {data?.imgUrl &&
                         data.imgUrl.map((value: string, index: number) => (
                             <div key={index}>
-                                <img src={value} alt={`image-${index}`} />
+                                <img src={value} alt={`image-${index}`} key={index}/>
                             </div>
                         ))}
                 </ViewContents>
@@ -117,6 +118,10 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
 const ContentsContainer = styled.div`
     padding: 1rem 1rem 2rem 1rem;    
     margin: 0px 3rem 4rem 3rem;
+    @media (max-width: 768px) {
+        padding: 1rem;
+        margin: 0 0.5rem 1rem 0.5rem;
+    }
 `
 
 const StyledProjTag = styled.span<{ projType: ProjType }>`
@@ -170,6 +175,9 @@ const HeaderContainer = styled.div`
     padding: 2rem 6rem;
     h2{
         font-size: clamp(1.2rem, 3vw, 1.4rem); 
+    }
+    @media (max-width: 768px) {
+        padding : 2rem;
     }
 `
 

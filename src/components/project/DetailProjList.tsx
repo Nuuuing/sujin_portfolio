@@ -6,10 +6,12 @@ import { MiddleHeader } from "src/layouts";
 export const DetailProjList = () => {
 
     const projectList = () => {
-        return projectData.map((data: projectT) => {
+        return projectData.map((data: projectT, index) => {
             return (
                 <ProjectCard
+                    key={index}
                     data={data}
+                    isMain={false}
                 />
             )
         });

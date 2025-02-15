@@ -61,7 +61,9 @@ const NavContainer = styled.div`
     border-bottom: 1px solid #e9e9e9;
 `;
 
-const HighlightBar = styled.div<{ selectedIndex: number }>`
+const HighlightBar = styled.div.withConfig({
+    shouldForwardProp: (prop) => !["selectedIndex"].includes(prop)
+})<{ selectedIndex: number }>`
     position: absolute;
     top: 50%;
     left: ${({ selectedIndex }) => selectedIndex === 0 ? '20px' : selectedIndex === 1 ? '138px' : '260px'};
@@ -90,7 +92,9 @@ const StyledMainNavArea = styled.div`
     z-index: 10;
 `
 
-const MenuItem = styled.button<{ isActive: boolean }>`
+const MenuItem = styled.div.withConfig({
+    shouldForwardProp: (prop) => !["isActive"].includes(prop)
+})<{ isActive: boolean}>`
     position: relative;
     z-index: 1; 
     background: none;

@@ -4,10 +4,9 @@ import styled from "styled-components"
 interface MainContainerProps {
     children?: React.ReactNode;
     expanded: boolean;
-    isMobile: boolean;
 }
 export const MainContainer = (props: MainContainerProps) => {
-    const { children, expanded, isMobile } = props;
+    const { children, expanded } = props;
 
     return (
         <StyledMainContainer
@@ -21,7 +20,9 @@ export const MainContainer = (props: MainContainerProps) => {
     )
 }
 
-const StyledMainContainer = styled.div<{ expanded: boolean }>`
+const StyledMainContainer = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== "expanded"
+})<{ expanded: boolean }>`
     width: ${({ expanded }) => (expanded ? "calc(100% - 18rem)" : "calc(100% - 6rem)")};
     background: radial-gradient(circle, rgba(229,242,255,1) 0%, rgba(255,255,255,1) 43%);
     border-radius: 40px;

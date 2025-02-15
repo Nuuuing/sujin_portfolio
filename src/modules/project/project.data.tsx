@@ -5,6 +5,7 @@ import prep from 'src/assets/img/projImg/preparing.png';
 
 //zonbie
 import zphImg from 'src/assets/img/projImg/zph.png';
+import zphImg1 from 'src/assets/img/projImg/zph_1.png';
 import zphImg2 from 'src/assets/img/projImg/zph_2.png';
 //sori
 import sori_0 from 'src/assets/img/projImg/sori_0.png';
@@ -27,7 +28,7 @@ export const projectData: projectT[] = [
         startDate: "2024.01",
         endDate: " ing ",
         projSkills: [
-            skills[2], skills[15], skills[18], skills[19], skills[20], skills[21], skills[13]
+            skills[18], skills[21], skills[13], skills[19], skills[15] , skills[20]
         ],
         notionUrl: "https://otheretc.notion.site/MyLIO-16c41e6afd5780f4ac3aeb14e5230ab6",
         imgUrl: prep,
@@ -118,30 +119,37 @@ export const projDetailData: projDetailT[] = [
         projName: "MyLIO_나의작은바다",
         projContents: ["개발 9인 (시스템 4인, 게임 5인)", "　",
             "바다 속을 컨셉으로 여러 미니게임을 이용할 수 있는 파티 게임입니다", "　",
-            "[담당 기능]", 
-            "- ASP.NET, RestAPI", "- Docker, DockerCompose, AWS"],
+            "[담당 기능]",           
+            "- 전체 아키텍처 및 DB 설계",
+            "- GitAction CI/CD 파이프라인 설정",
+            "- ASP.NET Core, RestAPI 개발", 
+            "- Docker, DockerCompose, AWS 구성"],
         projTag: ["3D", "캐주얼", "퍼즐"],
         startDate: "2024.01",
         endDate: " ing ",
         projSkills: [
-            skills[2], skills[15], skills[18], skills[19], skills[20], skills[21], skills[13]
+            skills[18], skills[21], skills[13], skills[19], skills[15] , skills[20]
         ],
         notionUrl: "https://otheretc.notion.site/MyLIO-16c41e6afd5780f4ac3aeb14e5230ab6",
         imgUrl: [prep],
         projType: ProjType.game,
-        subTitle: "기획 협업 진행 프로젝트"
+        subTitle: "모바일 미니게임"
     },
     {
         key: 4,
         projName: "좀비,펑펑!화르륵",
-        projContents: ["개발 4인, 기획 3인", "　", "협약 기업과 진행 시작하였으나 기업의 사정으로 인하여 협약이 무산 이슈!",
+        projContents: ["개발 4인, 기획 3인", "　",
             "2D 캐주얼/퍼즐 게임으로 ‘수박게임’을 모티브로 각 속성을 가지는 블럭 오브젝트의 충돌 상호작용하는 게임입니다.", "　",
-            "[담당 기능]",             
+            "[담당 기능]",          
+            "- 전체 아키텍처 및 DB 설계",      
+            "- 게임 내 오브젝트 상호작용 개발",  
             "- SpringBoot + RestAPI", 
             "- API : LOGIN (게스트 로그인, GPGS 로그인 연동, 유저 데이터, 로그아웃)", 
             "- API : 상점 (상점 목록, 구매 처리, Google 인앱결제 영수증 처리, 아이템 관련)", 
             "- API : 랭킹 (일, 월, 전체 랭킹 목록 및 My 랭킹, 점수 저장)", 
-            "- Apache + AddressableAssets", "- Nginx, React.js : 관리자 페이지", "- Docker, DockerCompose, AWS"],
+            "- Apache + AddressableAssets 세팅",
+            "- Nginx, React.js : 관리자 페이지 개발",
+            "- Docker, DockerCompose, AWS 구성"],
         projTag: ["2D", "협약 프로젝트", "캐주얼", "퍼즐"],
         startDate: "2024.11.01",
         endDate: "2024.12.27",
@@ -150,9 +158,9 @@ export const projDetailData: projDetailT[] = [
         ],
         notionUrl: "https://tourmaline-tugboat-5d2.notion.site/118b84bb5ebe8023b0cfd3a25485e101",
         gitUrl: "https://github.com/Team-AlphaNo/ZombieBoom",
-        imgUrl: [zphImg, zphImg2],
+        imgUrl: [zphImg, zphImg1, zphImg2],
         projType: ProjType.game,
-        subTitle: "기획 협업 진행 프로젝트."
+        subTitle: "기획 협업 진행 프로젝트"
     },
     {
         key: 3,

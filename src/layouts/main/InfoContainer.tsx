@@ -78,7 +78,9 @@ export const InfoContainer = (props: InfoContainerProps) => {
     )
 }
 
-const StyledInfoContainer = styled.div<{ expanded: boolean }>`
+const StyledInfoContainer = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== "expanded"
+})<{ expanded: boolean }>`
     box-shadow: 10px 10px 20px #231f2014;
     width: ${({ expanded }) => (expanded ? "18rem" : "6rem")};
     background-color: #ffffff;
@@ -86,7 +88,8 @@ const StyledInfoContainer = styled.div<{ expanded: boolean }>`
     margin: 2.5rem 2.5rem 2.5rem 0;
     border: solid 1px #dddddd;
     padding: 1rem 2.2rem;
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     position: relative;
     transition: width 0.1s ease-in-out;
 
@@ -108,7 +111,9 @@ const StyledButtonArea = styled.div`
     cursor: pointer;
 `
 
-const StyledInfoDetail = styled.div<{ expanded: boolean }>`
+const StyledInfoDetail = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== "expanded"
+})<{ expanded: boolean }>`
     display: flex;
     flex-direction: column;
     position: relative;

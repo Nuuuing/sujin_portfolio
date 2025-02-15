@@ -1,17 +1,19 @@
 import './assets/css/main.css';
 
 import { Suspense } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { MainRouter } from './routes';
 import { Spinner } from './components';
+import ScrollToTop from './components/common/ScrollToTop';
 
 function App() {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter>
+        <ScrollToTop />
         <MainRouter />
-      </BrowserRouter>
+      </HashRouter>
     </Suspense>
   );
 }

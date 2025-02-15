@@ -13,7 +13,6 @@ export const MiddleHeader = (props: MiddleHeaderProps) => {
         navigate(-1);
     }
 
-
     return (
         <>
             <StyledBackContainer>
@@ -54,7 +53,7 @@ const StyledBackButton = styled.div`
 `
 
 const StyledHeaderContent = styled.div`
-    margin: 8rem 5rem;
+    margin: 6rem 5rem;
     text-align: center;
     font-size: 1.2rem;
     font-weight: 800;
@@ -88,6 +87,7 @@ const StyledHeaderContent = styled.div`
     @media (max-width: 768px) {
         font-size: 1rem; /* 작은 화면에 맞게 폰트 크기 조정 */
         margin: 2rem auto;
+        padding-bottom: 4rem;
 
         h1 span:before {
             height: 40%; /* 더 적은 여백 */

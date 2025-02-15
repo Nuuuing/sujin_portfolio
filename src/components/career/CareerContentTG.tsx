@@ -40,20 +40,39 @@ const StyledCareerContentHeader = styled.div`
     margin-bottom: 4rem;
     padding: 2rem;
     h1{
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 1.5vw, 2rem);
     }
     p{
         margin-top: 0.5rem;
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 1.5vw, 1.2rem);
     }
 `
 
 const StyledCareerContents = styled.div`
-    padding: 2rem 0.8rem;
+    padding: 1rem 0.8rem;
     border-bottom: solid 1px #e9e9e9;
     width: 100%;
+    h3{
+        font-size: clamp(1rem, 2vw, 1.25rem);
+    }
     h4{
         margin: 10px 0;
+        font-size: clamp(0.8rem, 2vw, 1.05rem);
+    }
+    p{        
+        font-size: clamp(0.8rem, 2vw, 0.95rem);
+    }
+    @media (max-width: 768px) {
+        h3{
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
+        }
+        h4{
+        margin: 10px 0;
+        font-size: clamp(0.8rem, 2vw, 1.05rem);
+        }
+        p{        
+            font-size: clamp(0.8rem, 2vw, 1.1rem);
+        }
     }
 `
 const StyledSkillContainer = styled.div`
@@ -69,5 +88,8 @@ const StyledSkillTag = styled.div`
     border: 1px #e9e9e9 solid;
     border-radius: 10px;
     margin: 5px;
-    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+    @media (max-width: 768px) { 
+        margin: 3px;       
+    }
 `

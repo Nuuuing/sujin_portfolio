@@ -14,10 +14,12 @@ export const MainProjectSection = () => {
     const projectList = () => {
         return projectData
         .filter((data:projectT) => data.mainYn === true)
-        .map((data: projectT) => {
+        .map((data: projectT, index) => {
             return (
                 <ProjectCard
                     data={data}
+                    key={index}
+                    isMain={true}
                 />
             )
         });

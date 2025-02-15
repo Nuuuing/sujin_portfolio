@@ -39,7 +39,7 @@ export const Spinner = () => {
             );
         };
         animateLoader();
-    }, []);
+    }, [characters, animate, scope]);
 
     return (
         <div

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
 import { isMobileAtom } from "src/modules";
+import { throttle } from 'lodash';
 
 const fadeIn = keyframes`
     from { opacity: 0; transform: translateX(+100px); }
@@ -15,11 +16,19 @@ export const MainLayout = () => {
     const [isMobile, setIsMobile] = useRecoilState<boolean>(isMobileAtom);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
+
     useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth <= 768);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+        const handleResize = throttle(() => {
+            setIsMobile(window.innerWidth <= 768);
+        }, 200);
+
+        handleResize(); // 초기 실행
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [setIsMobile]);
 
     return (
         <StyledMain
@@ -33,8 +42,7 @@ export const MainLayout = () => {
                         />
                     ) :
                     (<MainContainer
-                        expanded={expanded}
-                        isMobile={isMobile}>
+                        expanded={expanded}>
                         <Outlet />
                     </MainContainer>)
             }
@@ -56,12 +64,14 @@ export const MainLayout = () => {
     )
 }
 
-const StyledMain = styled.div<{ isFullScreen: boolean, isMobile: boolean }>`
+const StyledMain = styled.div.withConfig({
+    shouldForwardProp: (prop) => !["isFullScreen", "isMobile"].includes(prop)
+})<{ isFullScreen: boolean, isMobile: boolean }>`
     display: flex;
     justify-content: space-around;
     width: 100vw;
     height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
 
     ${props => props.isFullScreen && props.isMobile && css`
@@ -74,13 +84,15 @@ const StyledMain = styled.div<{ isFullScreen: boolean, isMobile: boolean }>`
         left: 0;
         background-color: white;
         z-index: 9999;
-        animation: ${fadeIn} 0.5s ease-in-out;
+        animation: ${fadeIn} 0.5s ease-in-out;        
+        overflow-y: scroll;
+        overflow-x: hidden;
     `}
 
     @media (max-width: 768px) {
         flex-direction: column;
     }
-`
+`;
 
 const FloatingButton = styled.div`
     position: fixed;

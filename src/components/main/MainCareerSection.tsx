@@ -9,7 +9,7 @@ export const MainCareerSection = () => {
     const navigate = useNavigate();
 
     const handleClickCareerDetail = (key: number) => {
-        navigate(ROUT_CAREER_DETAIL_WITH_ID(key));
+        navigate(`${ROUTE_CAREER}/${ROUT_CAREER_DETAIL_WITH_ID(key)}`);
     }
 
     const handleClickCareerMain = () => {

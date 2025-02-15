@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { projectT, skillStackT } from "src/modules";
-import { ROUTE_PROJ_DETAIL_WITH_ID } from "src/routes/const";
+import { ROUTE_PROJ, ROUTE_PROJ_DETAIL_WITH_ID } from "src/routes/const";
 import styled from "styled-components";
 
 import youtubeLogo from 'src/assets/img/icon/youtube_logo.png';
@@ -9,14 +9,15 @@ import githubLogo from 'src/assets/img/icon/github_logo.png';
 
 interface ProjectCardProps {
     data: projectT;
+    isMain:boolean;
 }
 export const ProjectCard = (props: ProjectCardProps) => {
-    const { data } = props;
+    const { data, isMain } = props;
 
     const navigate = useNavigate();
 
     const handleClickProj = (key: number) => {
-        navigate(ROUTE_PROJ_DETAIL_WITH_ID(key));
+        isMain ? navigate(`${ROUTE_PROJ}/${ROUTE_PROJ_DETAIL_WITH_ID(key)}`) : navigate(ROUTE_PROJ_DETAIL_WITH_ID(key));
     }
 
     return (
@@ -31,9 +32,9 @@ export const ProjectCard = (props: ProjectCardProps) => {
                             <p>{data.startDate} - {data.endDate}</p>
                             <div>
                                 {
-                                    data.projTag?.map((data: string) => {
+                                    data.projTag?.map((data: string, index) => {
                                         return (
-                                            <span>#{data} </span>
+                                            <span key={index}>#{data} </span>
                                         )
                                     })
                                 }

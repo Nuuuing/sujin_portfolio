@@ -19,6 +19,9 @@ const StyledFooterContainer = styled.div`
     padding: 15px 5rem;
     font-size: small;
     border-top: 1px solid #e9e9e9;
+    @media (max-width: 768px) {
+        padding : 10px 1rem;
+    }
 `
 
 const StyledFooterContentContainer = styled.div`

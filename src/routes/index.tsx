@@ -10,32 +10,31 @@ export const MainRouter = () => {
     const mainRoutes = useRoutes([
         {
             path: paths.ROUTE_ROOT,
+            element: <MainLayout />,
             children: [
+                { index: true, element: <MainPage /> }, // 기본 메인 페이지
+
+                //  Career 
                 {
-                    element: <MainLayout />,
+                    path: paths.ROUTE_CAREER,
                     children: [
-                        {
-                            path: paths.ROUTE_MAIN,
-                            element: <MainPage />
-                        },
-                        {
-                            path: paths.ROUTE_CAREER,
-                            element: <CareerMainPage />
-                        },
-                        {
-                            path: paths.ROUTE_CAREER_DETAIL,
-                            element: <CareerDetailPage />
-                        },
-                        {
-                            path: paths.ROUTE_PROJ,
-                            element: <ProjectMainPage />
-                        },
-                        {
-                            path: paths.ROUTE_PROJ_DETAIL,
-                            element: <ProjectDetailPage />
-                        }
+                        { index: true, element: <CareerMainPage /> },
+                        { path: ":id", element: <CareerDetailPage /> }
                     ]
-                }
+                },
+
+                // Project
+                {
+                    path: paths.ROUTE_PROJ,
+                    children: [
+                        { index: true, element: <ProjectMainPage /> },
+                        { path: ":id", element: <ProjectDetailPage /> }
+                    ]
+                },
+
+                // Main > Detail 허용
+                { path: "career/:id", element: <CareerDetailPage /> },
+                { path: "proj/:id", element: <ProjectDetailPage /> }
             ]
         },
         {

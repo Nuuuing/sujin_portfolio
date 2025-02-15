@@ -40,8 +40,11 @@ const StyledCareerContainer = styled.div`
     text-align: center;
     width: 100%;
     padding: 1rem;
-    margin-bottom: 15px;
+    margin-bottom: 8rem;
     p{
         margin-top: 0.5rem;
+    }
+    @media (max-width: 768px) {
+        margin-bottom: 10rem;
     }
 `

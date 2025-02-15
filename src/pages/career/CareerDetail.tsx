@@ -11,7 +11,7 @@ const CareerDetail = () => {
 
     useEffect(() => {
         setParamId(id);
-    }, [])
+    }, [id])
 
     return (
         <>
@@ -37,4 +37,7 @@ const StyledCareerContainer = styled.div`
     display: flex;
     justify-content: center;
     margin-bottom: 4rem;
+    @media (max-width: 768px) {
+        margin-bottom: 2rem;
+    }
 `
