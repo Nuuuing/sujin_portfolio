@@ -9,7 +9,7 @@ interface MobileInfoContainerProps {
 export const MobileInfoContainer = (props: MobileInfoContainerProps) => {
     const { handleClose } = props;
     return (
-        <div style={{width:'100%'}}>
+        <div style={{width:'100%', height:'100%'}}>
             <StyledCloseArea
                 onClick={() => handleClose()}>
                 <img src={close} alt="close" style={{width:'100%'}}/>
@@ -67,7 +67,8 @@ const StyledCloseArea = styled.div`
     top: 0;
     width: 40px;
     height: 40px;
-    margin-left: 5px;
+    margin-left: 15px;
+    margin-top: 15px;
     cursor: pointer;
 `
 

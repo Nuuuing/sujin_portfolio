@@ -74,7 +74,6 @@ export const ProjectCard = (props: ProjectCardProps) => {
                         </StyledSkillContainer>
                     </StyledContentWrapper>
                     <StyledCardImg
-                        style={{}}
                         onClick={() => handleClickProj(data.key)}>
                         <img src={data.imgUrl} alt={data.projName} />
                     </StyledCardImg>
@@ -87,7 +86,7 @@ export const ProjectCard = (props: ProjectCardProps) => {
 const StyledProjectContainer = styled.div`
     text-align: right;
     border-bottom: 1px #e9e9e9 solid;
-    width: 90%;
+    width: 95%;
     padding: 1rem 0 2rem 0;
     margin: 0 5% 15px 5%;
     /* 기본 회색 처리 */
@@ -111,12 +110,18 @@ const StyledLinkContainer = styled.div`
     justify-content: end;
     margin-top: 10px;
     img{
-        width : 30px;
+        width : 35px;
+    }
+    a{
+        margin-left: 8px;
     }
     @media (max-width: 768px) {
         img{
-            width : 25px;
+            width : 30px;
             margin-left: 2px;
+        }
+        a{
+            margin-left: 5px;
         }
     }
 `
@@ -125,6 +130,10 @@ const StyledContentWrapper = styled.div`
     width: 70%;
     text-align: right;
     cursor: pointer;
+    
+    @media (max-width: 768px) {
+        width: 65%;
+    }
 `
 
 const StyledProjContents = styled.div`
@@ -165,6 +174,11 @@ const StyledCardImg = styled.div`
         height: 100%;
         object-fit: cover;
         display: block;
+    }
+    
+    @media (max-width: 768px) {
+        margin-left: 0.5rem;
+        width: 35%;
     }
 `
 

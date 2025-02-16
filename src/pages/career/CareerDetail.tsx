@@ -18,7 +18,7 @@ const CareerDetail = () => {
             <MiddleHeader
                 title={'Career'} />
             <StyledCareerContainer>
-                <div style={{ width: "90%" }}>
+                <div style={{ width: "95%" }}>
                     {
                         paramId === '0' ?
                             (<CareerContentTG />)

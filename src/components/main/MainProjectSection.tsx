@@ -34,14 +34,14 @@ export const MainProjectSection = () => {
                 <h1><span>Projects</span></h1>
             </StyledSectionHeader>
             <div style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop:'5rem' }}>
-                <div style={{ width: "90%" }}>
+                <ContentContainer>
                     {projectList()}
                     <p
                         onClick={() => handleClickProjectMain()}
-                        style={{ textAlign: "right", marginRight: '8%', cursor: 'pointer' }}>
+                        style={{ textAlign: "right", cursor: 'pointer' }}>
                         More Project →
                     </p>
-                </div>
+                </ContentContainer>
             </div>
         </StyledSectionContainer >
     )
@@ -95,5 +95,12 @@ const StyledSectionHeader = styled.div`
         h1 {
             font-size: 1.5rem;
         }
+    }
+`
+
+const ContentContainer = styled.div`
+    width: 90%;
+    @media (max-width: 768px) {
+        width: 95%;
     }
 `

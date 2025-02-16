@@ -26,7 +26,7 @@ export const MainCareerSection = () => {
                 <h1><span>Career</span></h1>
             </StyledSectionHeader>
             <div style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop:'1rem' }}>
-                <div style={{ width: "90%" }}>
+                <ContentContainer>
                     {careerData.map((data: careerT) => {
                         return (
                             <StyledCareerContainer
@@ -40,10 +40,10 @@ export const MainCareerSection = () => {
                         )})}
                     <p
                         onClick={() => handleClickCareerMain()}
-                        style={{ textAlign: "right", marginRight: '8%', cursor: 'pointer' }}>
+                        style={{ textAlign: "right", cursor: 'pointer' }}>
                         Detail →
                     </p>
-                </div>
+                </ContentContainer>
             </div>
         </StyledSectionContainer>
     )
@@ -103,7 +103,7 @@ const StyledSectionHeader = styled.div`
 const StyledCareerContainer = styled.div`
     text-align: right;
     border-bottom: 1px #e9e9e9 solid;
-    width: 90%;
+    width: 100%;
     padding: 1rem;
     margin-bottom: 15px;
     p{
@@ -122,5 +122,12 @@ const StyledCareerContainer = styled.div`
         h2{
             font-size: clamp(0.8rem, 5vw, 1.4rem);
         }
+    }
+`
+
+const ContentContainer = styled.div`
+    width: 90%;
+    @media (max-width: 768px) {
+        width: 95%;
     }
 `

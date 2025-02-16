@@ -13,6 +13,7 @@ export interface projectT {
     youtubeUrl?:string;
     mainYn:boolean;
     imgUrl?:string|any;
+    projSize?: ProjSize;
 }
 
 export interface projDetailT{
@@ -30,10 +31,16 @@ export interface projDetailT{
     projType?: ProjType;
     subTitle?:string;
     youtubeId?:string;
+    projSize?: ProjSize;
 }
 
 export enum ProjType{
     default = 0,
     game,
     web
+}
+export enum ProjSize{
+    side = 0,
+    toy,
+    work
 }

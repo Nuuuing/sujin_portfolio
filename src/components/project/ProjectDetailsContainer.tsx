@@ -94,17 +94,17 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                 <TextContents>
                     {
                         data?.projContents ?
-                            data?.projContents.map((value: string) => {
+                            data?.projContents.map((value: string, index) => {
                                 return (
-                                    <StyledSentence>{value}</StyledSentence>
+                                    <StyledSentence key={index}>{value}</StyledSentence>
                                 )
                             }) : <></>
                     }
                 </TextContents>
                 <StyledSkillContainer>
-                        {data?.projSkills?.map((skill: skillStackT) => (
+                        {data?.projSkills?.map((skill: skillStackT, index) => (
                             <StyledSkillTag
-                                key={skill.name}
+                                key={index}
                             >
                                 {skill.name}
                             </StyledSkillTag>
@@ -124,7 +124,9 @@ const ContentsContainer = styled.div`
     }
 `
 
-const StyledProjTag = styled.span<{ projType: ProjType }>`
+const StyledProjTag = styled.div.withConfig({
+    shouldForwardProp: (prop) => ![ "projType"].includes(prop)
+})<{ projType: ProjType }>`
     display: inline-block;
     background-color:  ${({ projType }) => (projType === ProjType.game ? "#B7DFFF" : "#CDC1FF")};
     font-size: clamp(0.75rem, 3vw, 1.1rem); 
@@ -181,7 +183,9 @@ const HeaderContainer = styled.div`
     }
 `
 
-const Title = styled.div<{ isMobile: boolean }>`
+const Title = styled.div.withConfig({
+    shouldForwardProp: (prop) => ![ "isMobile"].includes(prop)
+})<{ isMobile: boolean }>`
     ${props => !props.isMobile && css`
         display: flex;
         justify-content: left;
@@ -201,7 +205,10 @@ const Title = styled.div<{ isMobile: boolean }>`
         font-size: clamp(1rem, 5vw, 1.2rem); 
     }
 `
-const LinksContainer = styled.div<{ isMobile: boolean }>`
+
+const LinksContainer = styled.div.withConfig({
+    shouldForwardProp: (prop) => ![ "isMobile"].includes(prop)
+})<{ isMobile: boolean }>`
     display: ${({ isMobile }) => isMobile ? 'flex' : 'block'}; 
     flex-direction: ${({ isMobile }) => isMobile ? 'row' : 'column'}; 
     gap: 10px;

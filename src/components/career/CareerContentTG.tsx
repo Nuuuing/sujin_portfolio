@@ -11,7 +11,7 @@ export const CareerContentTG = () => {
                 <p>{dayjs(careerData[0].startTerm).format("YYYY.MM")} ~ {careerData[0]?.endTerm ? dayjs(careerData[0].endTerm).format("YYYY.MM") : "ing"} {careerData[0].dateString ? <>({careerData[0].dateString})</> : <></>}</p>
                 {careerData[0]?.contents ? <p>{careerData[0].contents}</p> : <></>}
             </StyledCareerContentHeader>
-            {careerSubDataTG.map((data: careerSubT, index: number) => (
+            {careerSubDataTG.map((data: careerSubT, index) => (
                 <StyledCareerContents
                     key={index}>
                     <h3>{data.projTitle}</h3>
@@ -19,9 +19,9 @@ export const CareerContentTG = () => {
                         {dayjs(data.startTerm || new Date()).format("YYYY.MM")} ~ {dayjs(data.endTerm || new Date()).format("YYYY.MM")} ({data?.dateString})
                     </h4>
                     <p style={{ marginBottom: 5 }}> {data.description} </p>
-                    {data?.contents?.map((data: string) => { return (<p> ▪ {data} </p>) })}
+                    {data?.contents?.map((data: string, index) => { return (<p key={index}> ▪ {data} </p>) })}
                     <StyledSkillContainer>
-                        {data.skills?.map((skill: skillStackT, index: number) => (
+                        {data.skills?.map((skill: skillStackT, index) => (
                             <StyledSkillTag key={index}>
                                 {skill.name}
                             </StyledSkillTag>
@@ -35,7 +35,7 @@ export const CareerContentTG = () => {
 
 const StyledCareerContentHeader = styled.div`
     margin-top: 1rem;
-    width: 90%;
+    width: 95%;
     text-align: right;
     margin-bottom: 4rem;
     padding: 2rem;
@@ -51,7 +51,8 @@ const StyledCareerContentHeader = styled.div`
 const StyledCareerContents = styled.div`
     padding: 1rem 0.8rem;
     border-bottom: solid 1px #e9e9e9;
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     h3{
         font-size: clamp(1rem, 2vw, 1.25rem);
     }
@@ -63,6 +64,7 @@ const StyledCareerContents = styled.div`
         font-size: clamp(0.8rem, 2vw, 0.95rem);
     }
     @media (max-width: 768px) {
+        width: 95%;
         h3{
         font-size: clamp(1.1rem, 2vw, 1.4rem);
         }
