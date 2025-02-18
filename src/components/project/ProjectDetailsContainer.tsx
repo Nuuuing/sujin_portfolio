@@ -1,10 +1,11 @@
-import { isMobileAtom, projDetailT, ProjType, skillStackT } from "src/modules"
+import { isMobileAtom, projDetailT, ProjSize, ProjType, skillStackT } from "src/modules"
 import styled, { css } from "styled-components";
 import youtubeLogo from 'src/assets/img/icon/youtube_logo.png';
 import notionLogo from 'src/assets/img/icon/notion_logo.png';
 import githubLogo from 'src/assets/img/icon/github_logo.png';
 import { YoutubePlayer } from "../common";
 import { useRecoilValue } from "recoil";
+import { Tooltip } from "react-tooltip";
 
 interface ProjectDetailsContainerProps {
     data?: projDetailT;
@@ -60,6 +61,41 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
         }
     }
 
+    const ProjSizeTag = (value?: ProjSize) => {
+        if (value === undefined) return <></>;
+
+        let label: string;
+        switch (value) {
+            case ProjSize.side:
+                label = "SIDE";
+                break;
+            case ProjSize.toy:
+                label = "TOY";
+                break;
+            case ProjSize.work:
+                label = "WORK";
+                break;
+            case ProjSize.study:
+                label = "STUDY";
+                break;
+            default:
+                label = "UNKNOWN";
+        }
+
+        return (
+            <>
+                <StyledProjSize projSize={value}
+                    data-tooltip-id='projSize'
+                    data-tooltip-content="프로젝트 사이즈"
+                >{label}</StyledProjSize>
+                <Tooltip
+                    id='projSize'
+                    place="right"
+                    arrowColor='transparent' />
+            </>
+        )
+    };
+
     return (
         <div>
             <HeaderContainer>
@@ -68,6 +104,9 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                         {data?.projType === ProjType.game ? "GAME" :
                             data?.projType === ProjType.web ? "WEB" : ""}
                     </StyledProjTag>
+                    {
+                        ProjSizeTag(data?.projSize)
+                    }
                     {isMobile && <br />}
                     <Title isMobile={isMobile}>
                         <h1>{data?.projName}</h1>
@@ -162,6 +201,19 @@ const StyledProjTag = styled.div.withConfig({
 }) <{ projType: ProjType }>`
     display: inline-block;
     background-color:  ${({ projType }) => (projType === ProjType.game ? "#B7DFFF" : "#CDC1FF")};
+    font-size: clamp(0.75rem, 3vw, 1.1rem); 
+    font-weight: 600;
+    padding: 5px 11px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+`
+const StyledProjSize = styled.div.withConfig({
+    shouldForwardProp: (prop) => !["projSize"].includes(prop)
+}) <{ projSize: ProjSize }>`
+    margin-left: 5px;
+    display: inline-block;
+    background-color:  ${({ projSize }) => (projSize === ProjSize.side ? "#B7DFFF" :
+        projSize === ProjSize.study ? "#CDC1FF" : projSize === ProjSize.toy ? "#da89b8F" : "#528d46")};
     font-size: clamp(0.75rem, 3vw, 1.1rem); 
     font-weight: 600;
     padding: 5px 11px;

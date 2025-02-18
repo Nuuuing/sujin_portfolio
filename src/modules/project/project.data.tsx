@@ -148,7 +148,7 @@ export const projDetailData: projDetailT[] = [
         imgUrl: [blue , blue1],
         projType: ProjType.game,
         subTitle: "모바일 미니게임",
-        projSize: ProjSize?.side
+        projSize: ProjSize.side
     },
     {
         key: 4,
@@ -176,7 +176,7 @@ export const projDetailData: projDetailT[] = [
         imgUrl: [zphImg, zphImg1, zphImg2],
         projType: ProjType.game,
         subTitle: "기획 협업 진행 프로젝트",
-        projSize: ProjSize?.side
+        projSize: ProjSize.side
     },
     {
         key: 3,
@@ -198,7 +198,7 @@ export const projDetailData: projDetailT[] = [
         imgUrl: [sori_0, sori_1, sori_2],
         projType: ProjType.game,
         youtubeId: "GxtldlEV7vo",
-        projSize: ProjSize?.side
+        projSize: ProjSize.side
     },
     {
         key: 2,
@@ -217,7 +217,7 @@ export const projDetailData: projDetailT[] = [
         imgUrl: [nekoparkImg],
         projType: ProjType.game,
         youtubeId: "HEH-BjvP_3g",
-        projSize: ProjSize?.toy
+        projSize: ProjSize.toy
     },
     {
         key: 1,
@@ -239,7 +239,7 @@ export const projDetailData: projDetailT[] = [
         imgUrl: [twf_0, twf_1, twf_2],
         projType: ProjType.game,
         youtubeId: "buZiRSoVNWw",
-        projSize: ProjSize?.side
+        projSize: ProjSize.side
     },
     {
         key: 0,
@@ -258,6 +258,6 @@ export const projDetailData: projDetailT[] = [
         imgUrl: [paperPleaseImg],
         projType: ProjType.game,
         youtubeId: "s95nBAnZJdo",
-        projSize: ProjSize?.side
+        projSize: ProjSize.side
     }
 ]
