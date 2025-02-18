@@ -42,5 +42,6 @@ export enum ProjType{
 export enum ProjSize{
     side = 0,
     toy,
-    work
+    work,
+    study
 }

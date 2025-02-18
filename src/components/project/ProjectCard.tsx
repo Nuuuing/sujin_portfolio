@@ -71,11 +71,17 @@ export const ProjectCard = (props: ProjectCardProps) => {
                 }
             } else {
                 return (
-                    <>
-                        <a href={data.gitUrl[0]}>
+                    <div>
+                        <a href={data.gitUrl[0]}
+                            data-tooltip-id='github'
+                            data-tooltip-content="GitHub">
                             <img src={githubLogo} alt="github" />
                         </a>
-                    </>
+                        <Tooltip
+                            id='github'
+                            place="top"
+                            arrowColor='transparent' />
+                    </div>
                 )
             }
         }
@@ -108,17 +114,34 @@ export const ProjectCard = (props: ProjectCardProps) => {
                             }
                             {
                                 data.notionUrl ?
-                                    <a href={data.notionUrl}>
-                                        <img src={notionLogo}
-                                            alt="notion" />
-                                    </a> : <></>
+                                    <div>
+                                        <a href={data.notionUrl}
+                                            data-tooltip-id='notion'
+                                            data-tooltip-content="Notion">
+                                            <img src={notionLogo}
+                                                alt="notion" />
+                                        </a>
+                                        <Tooltip
+                                            id='notion'
+                                            place="top"
+                                            arrowColor='transparent' />
+                                    </div>
+                                    : <></>
                             }
                             {
                                 data.youtubeUrl ?
-                                    <a href={data.youtubeUrl}>
-                                        <img src={youtubeLogo}
-                                            alt="youtube" />
-                                    </a> : <></>
+                                    <div>
+                                        <a href={data.youtubeUrl}
+                                            data-tooltip-id='youtube'
+                                            data-tooltip-content="Video">
+                                            <img src={youtubeLogo}
+                                                alt="youtube" />
+                                        </a>
+                                        <Tooltip
+                                            id='youtube'
+                                            place="top"
+                                            arrowColor='transparent' />
+                                    </div> : <></>
                             }
                         </StyledLinkContainer>
                         <StyledSkillContainer>

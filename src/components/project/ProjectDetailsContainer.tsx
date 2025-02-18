@@ -49,11 +49,11 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
             } else {
                 return (
                     <>
-                        <a href={data.gitUrl[0]}>
+                        <LinkAlink href={data.gitUrl[0]}>
                             <img src={githubLogo} alt="GitHub" />
                             <h3> GitHub </h3>
                             {!isMobile ? <p>{data?.gitUrl[0]}</p> : <></>}
-                        </a>
+                        </LinkAlink>
                     </>
                 )
             }
@@ -182,10 +182,13 @@ const ViewContents = styled.div`
         max-width: calc(50% - 1rem);
         min-width: 300px;
         flex-direction: column;
+        object-fit: cover;
         max-width: 40rem; 
         img {
             width: 100%;
             max-width: 40rem; 
+            aspect-ratio: 16/9;
+            object-fit: cover;
         }
 
         iframe {
@@ -279,9 +282,8 @@ const LinkAlink = styled.a`
 
 const StyledSentence = styled.p`
     margin-left: 1rem;
-    font-size: 1.15rem;
     padding-bottom: 0.3rem;
-    font-size: clamp(1rem, 1.5vw, 1.4rem);
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
 `
 
 const StyledSkillContainer = styled.div`

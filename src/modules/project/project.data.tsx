@@ -1,9 +1,12 @@
 import { skills } from "../common";
 import { projDetailT, projectT, ProjSize, ProjType } from "./project.types";
 
-import prep from 'src/assets/img/projImg/preparing.png';
+// import prep from 'src/assets/img/projImg/preparing.png';
 
-//zonbie
+//blue
+import blue from 'src/assets/img/projImg/blue_0.png';
+import blue1 from 'src/assets/img/projImg/blue_1.png';
+//zombie
 import zphImg from 'src/assets/img/projImg/zph.png';
 import zphImg1 from 'src/assets/img/projImg/zph_1.png';
 import zphImg2 from 'src/assets/img/projImg/zph_2.png';
@@ -24,7 +27,7 @@ export const projectData: projectT[] = [
     {
         key: 5,
         projName: "MyLIO_나의작은바다",
-        projTag: ["3D", "캐주얼", "퍼즐"],
+        projTag: ["3D", "캐주얼", "퍼즐", "미니게임"],
         startDate: "2024.01",
         endDate: " ing ",
         projSkills: [
@@ -32,7 +35,7 @@ export const projectData: projectT[] = [
         ],
         notionUrl: "https://otheretc.notion.site/MyLIO-16c41e6afd5780f4ac3aeb14e5230ab6",
         gitUrl: ["NONE", "https://github.com/BlueSeekers/MyLittleOcean_Backend"],
-        imgUrl: prep,
+        imgUrl: blue,
         mainYn: true,
         projSize: ProjSize?.side
     },
@@ -127,9 +130,12 @@ export const projDetailData: projDetailT[] = [
         projContents: ["개발 9인 (시스템 4인, 게임 5인)", "　",
             "바다 속을 컨셉으로 여러 미니게임을 이용할 수 있는 파티 게임입니다", "　",
             "[담당 기능]",
-            "- 전체 아키텍처 및 DB 설계",
+            "- 서버 및 시스템 총괄",
+            "- 전체 아키텍처 및 DB 설계, 구성",
             "- GitAction CI/CD 파이프라인 설정",
-            "- ASP.NET Core, RestAPI 개발",
+            "- ASP.NET Core + RestAPI 개발",
+            "- API : 전체 구조 및 프로젝트 세팅, Logging 설정",
+            "- API : JWT Authorization 설정",
             "- Docker, DockerCompose, AWS 구성"],
         projTag: ["3D", "캐주얼", "퍼즐", "미니게임"],
         startDate: "2024.01",
@@ -139,7 +145,7 @@ export const projDetailData: projDetailT[] = [
         ],
         notionUrl: "https://otheretc.notion.site/MyLIO-16c41e6afd5780f4ac3aeb14e5230ab6",
         gitUrl: ["NONE", "https://github.com/BlueSeekers/MyLittleOcean_Backend"],
-        imgUrl: [prep],
+        imgUrl: [blue , blue1],
         projType: ProjType.game,
         subTitle: "모바일 미니게임",
         projSize: ProjSize?.side
@@ -150,7 +156,7 @@ export const projDetailData: projDetailT[] = [
         projContents: ["개발 4인, 기획 3인", "　",
             "2D 캐주얼/퍼즐 게임으로 ‘수박게임’을 모티브로 각 속성을 가지는 블럭 오브젝트의 충돌 상호작용하는 게임입니다.", "　",
             "[담당 기능]",
-            "- 전체 아키텍처 및 DB 설계",
+            "- 전체 아키텍처 및 DB 설계, 구성",
             "- 게임 내 오브젝트 상호작용 개발",
             "- SpringBoot + RestAPI",
             "- API : LOGIN (게스트 로그인, GPGS 로그인 연동, 유저 데이터, 로그아웃)",
