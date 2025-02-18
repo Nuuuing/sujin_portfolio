@@ -6,10 +6,11 @@ import styled from "styled-components";
 import youtubeLogo from 'src/assets/img/icon/youtube_logo.png';
 import notionLogo from 'src/assets/img/icon/notion_logo.png';
 import githubLogo from 'src/assets/img/icon/github_logo.png';
+import { Tooltip } from "react-tooltip";
 
 interface ProjectCardProps {
     data: projectT;
-    isMain:boolean;
+    isMain: boolean;
 }
 export const ProjectCard = (props: ProjectCardProps) => {
     const { data, isMain } = props;
@@ -18,6 +19,66 @@ export const ProjectCard = (props: ProjectCardProps) => {
 
     const handleClickProj = (key: number) => {
         isMain ? navigate(`${ROUTE_PROJ}/${ROUTE_PROJ_DETAIL_WITH_ID(key)}`) : navigate(ROUTE_PROJ_DETAIL_WITH_ID(key));
+    }
+
+    const gitLinks = () => {
+        if (!data?.gitUrl) {
+            return <></>
+        } else {
+            if (data?.gitUrl.length > 1) {
+                if (data?.gitUrl[0] === "NONE") {
+                    return (
+                        <div>
+                            <a href={data.gitUrl[1]}
+                                data-tooltip-id='githubBack'
+                                data-tooltip-content="Backend GitHub">
+                                <img src={githubLogo} alt="Backend GitHub" />
+                            </a>
+                            <Tooltip
+                                id='githubBack'
+                                place="top"
+                                arrowColor='transparent' />
+                        </div>
+                    )
+                } else {
+                    return (
+                        <>
+                            <div>
+                                <a href={data.gitUrl[0]}
+                                    data-tooltip-id='githubClient'
+                                    data-tooltip-content="Front GitHub"
+                                >
+                                    <img src={githubLogo} alt="Front GitHub" />
+                                </a>
+                                <Tooltip
+                                    id='githubClient'
+                                    place="top"
+                                    arrowColor='transparent' />
+                            </div>
+                            <div>
+                                <a href={data.gitUrl[1]}
+                                    data-tooltip-id='githubBack'
+                                    data-tooltip-content="Backend GitHub">
+                                    <img src={githubLogo} alt="Backend GitHub" />
+                                </a>
+                                <Tooltip
+                                    id='githubBack'
+                                    place="top"
+                                    arrowColor='transparent' />
+                            </div>
+                        </>
+                    )
+                }
+            } else {
+                return (
+                    <>
+                        <a href={data.gitUrl[0]}>
+                            <img src={githubLogo} alt="github" />
+                        </a>
+                    </>
+                )
+            }
+        }
     }
 
     return (
@@ -43,10 +104,7 @@ export const ProjectCard = (props: ProjectCardProps) => {
                         </StyledProjContents>
                         <StyledLinkContainer>
                             {
-                                data.gitUrl ?
-                                    <a href={data.gitUrl}>
-                                        <img src={githubLogo} alt="github" />
-                                    </a> : <></>
+                                gitLinks()
                             }
                             {
                                 data.notionUrl ?
@@ -78,7 +136,7 @@ export const ProjectCard = (props: ProjectCardProps) => {
                         <img src={data.imgUrl} alt={data.projName} />
                     </StyledCardImg>
                 </div>
-            </StyledProjectContainer>
+            </StyledProjectContainer >
         </>
     )
 }

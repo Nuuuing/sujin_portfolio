@@ -8,7 +8,7 @@ export interface projectT {
     projSkills?: skillStackT[];
     startDate:string;
     endDate?:string;
-    gitUrl?:string;
+    gitUrl?:string[];
     notionUrl?:string;
     youtubeUrl?:string;
     mainYn:boolean;
@@ -24,7 +24,7 @@ export interface projDetailT{
     projSkills?: skillStackT[];
     startDate:string;
     endDate?:string;
-    gitUrl?:string;
+    gitUrl?:string[];
     notionUrl?:string;
     youtubeUrl?:string;
     imgUrl?:string[]|any[];

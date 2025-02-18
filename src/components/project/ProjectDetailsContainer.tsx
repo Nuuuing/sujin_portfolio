@@ -14,6 +14,52 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
 
     const isMobile = useRecoilValue<boolean>(isMobileAtom);
 
+    const gitLinks = () => {
+        if (!data?.gitUrl) {
+            return <></>
+        } else {
+            if (data?.gitUrl.length > 1) {
+                if (data?.gitUrl[0] === "NONE") {
+                    return (
+                        <div>
+                            <LinkAlink href={data.gitUrl[1]}>
+                                <img src={githubLogo} alt="Backend GitHub" />
+                                <h3> Backend GitHub </h3>
+                                {!isMobile ? <p>{data?.gitUrl[1]}</p> : <></>}
+                            </LinkAlink>
+                        </div>
+                    )
+                } else {
+                    return (
+                        <>
+                            <LinkAlink href={data.gitUrl[0]}
+                            >
+                                <img src={githubLogo} alt="Front GitHub" />
+                                <h3> Front GitHub </h3>
+                                {!isMobile ? <p>{data?.gitUrl[0]}</p> : <></>}
+                            </LinkAlink>
+                            <LinkAlink href={data.gitUrl[1]}>
+                                <img src={githubLogo} alt="Backend GitHub" />
+                                <h3> Backend GitHub </h3>
+                                {!isMobile ? <p>{data?.gitUrl[1]}</p> : <></>}
+                            </LinkAlink>
+                        </>
+                    )
+                }
+            } else {
+                return (
+                    <>
+                        <a href={data.gitUrl[0]}>
+                            <img src={githubLogo} alt="GitHub" />
+                            <h3> GitHub </h3>
+                            {!isMobile ? <p>{data?.gitUrl[0]}</p> : <></>}
+                        </a>
+                    </>
+                )
+            }
+        }
+    }
+
     return (
         <div>
             <HeaderContainer>
@@ -22,7 +68,7 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                         {data?.projType === ProjType.game ? "GAME" :
                             data?.projType === ProjType.web ? "WEB" : ""}
                     </StyledProjTag>
-                    { isMobile && <br/> }
+                    {isMobile && <br />}
                     <Title isMobile={isMobile}>
                         <h1>{data?.projName}</h1>
                         <p>{data?.startDate} - {data?.endDate}</p>
@@ -30,22 +76,9 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                     <h2>
                         {data?.subTitle}
                     </h2>
-                    <LinksContainer 
+                    <LinksContainer
                         isMobile={isMobile}>
-                    {(data?.gitUrl && !isMobile) ? (
-                            <LinkAlink
-                                href={data.gitUrl}>
-                                <img src={githubLogo} alt="github" />
-                                <h3> GitHub </h3>
-                                <p>{data?.gitUrl}</p>
-                            </LinkAlink>
-                        ) : (data?.gitUrl && isMobile) ? (
-                            <LinkAlink
-                                href={data.gitUrl}>
-                                <img src={githubLogo} alt="github" />
-                                <h3> GitHub </h3>
-                            </LinkAlink>
-                        ) : <></>}
+                        {gitLinks()}
                         {(data?.notionUrl && !isMobile) ? (
                             <LinkAlink
                                 href={data.notionUrl}>
@@ -87,7 +120,7 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                     {data?.imgUrl &&
                         data.imgUrl.map((value: string, index: number) => (
                             <div key={index}>
-                                <img src={value} alt={`image-${index}`} key={index}/>
+                                <img src={value} alt={`image-${index}`} key={index} />
                             </div>
                         ))}
                 </ViewContents>
@@ -102,13 +135,13 @@ export const ProjectDetailsContainer = (props: ProjectDetailsContainerProps) => 
                     }
                 </TextContents>
                 <StyledSkillContainer>
-                        {data?.projSkills?.map((skill: skillStackT, index) => (
-                            <StyledSkillTag
-                                key={index}
-                            >
-                                {skill.name}
-                            </StyledSkillTag>
-                        ))}
+                    {data?.projSkills?.map((skill: skillStackT, index) => (
+                        <StyledSkillTag
+                            key={index}
+                        >
+                            {skill.name}
+                        </StyledSkillTag>
+                    ))}
                 </StyledSkillContainer>
             </ContentsContainer>
         </div>
@@ -125,8 +158,8 @@ const ContentsContainer = styled.div`
 `
 
 const StyledProjTag = styled.div.withConfig({
-    shouldForwardProp: (prop) => ![ "projType"].includes(prop)
-})<{ projType: ProjType }>`
+    shouldForwardProp: (prop) => !["projType"].includes(prop)
+}) <{ projType: ProjType }>`
     display: inline-block;
     background-color:  ${({ projType }) => (projType === ProjType.game ? "#B7DFFF" : "#CDC1FF")};
     font-size: clamp(0.75rem, 3vw, 1.1rem); 
@@ -184,8 +217,8 @@ const HeaderContainer = styled.div`
 `
 
 const Title = styled.div.withConfig({
-    shouldForwardProp: (prop) => ![ "isMobile"].includes(prop)
-})<{ isMobile: boolean }>`
+    shouldForwardProp: (prop) => !["isMobile"].includes(prop)
+}) <{ isMobile: boolean }>`
     ${props => !props.isMobile && css`
         display: flex;
         justify-content: left;
@@ -207,8 +240,8 @@ const Title = styled.div.withConfig({
 `
 
 const LinksContainer = styled.div.withConfig({
-    shouldForwardProp: (prop) => ![ "isMobile"].includes(prop)
-})<{ isMobile: boolean }>`
+    shouldForwardProp: (prop) => !["isMobile"].includes(prop)
+}) <{ isMobile: boolean }>`
     display: ${({ isMobile }) => isMobile ? 'flex' : 'block'}; 
     flex-direction: ${({ isMobile }) => isMobile ? 'row' : 'column'}; 
     gap: 10px;
