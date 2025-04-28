@@ -2,6 +2,7 @@
 
 import { Header, Menu } from "@/components";
 import { useRef } from "react";
+import { MainSplash } from "./MainSplash";
 
 export default function MainPage() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -25,17 +26,17 @@ export default function MainPage() {
   };
 
   return (
-    <div style={{ width: '100%', height: '100%', padding: '3rem' }}>
+    <div style={{ width: '100vw', height: '100vh', padding: '3rem' }}>
       <Header />
-      <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-        <div className="hidden lg:block" style={{ width: '200px', marginRight: '2rem' }}>
+      <div style={{ width: '100%',height: 'calc(100vh - 3rem)', display: 'flex', justifyContent: 'flex-end', marginTop: '8rem' }}>
+        <div className="hidden lg:block" style={{ width: '200px', marginRight: '2rem', position: 'fixed', left: 40}}>
           <Menu onMenuClick={handleMenuClick} />
         </div>
-        <div style={{ flex: 1 }}>
+        <div style={{ width: 'calc(100% - 200px)' }}>
           <div ref={mainRef}>
-            <h1></h1>
+           <MainSplash />
           </div>
-          <div ref={projectRef} style={{ height: 400, background: '#eee' }}>
+          <div ref={projectRef} style={{ height: 400 }}>
             <h1>PROJECT 섹션</h1>
           </div>
           <div ref={careerRef} style={{ height: 400, background: '#ddd' }}>
