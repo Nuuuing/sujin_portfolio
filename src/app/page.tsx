@@ -2,7 +2,7 @@
 
 import { Header, Menu } from "@/components";
 import { useRef } from "react";
-import { MainSplash } from "./MainSplash";
+import { CareerSecton, ContactSection, MainSplash, ProjSection } from "./main";
 
 export default function MainPage() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -37,13 +37,13 @@ export default function MainPage() {
            <MainSplash />
           </div>
           <div ref={projectRef} style={{ height: 400 }}>
-            <h1>PROJECT 섹션</h1>
+            <ProjSection />
           </div>
           <div ref={careerRef} style={{ height: 400, background: '#ddd' }}>
-            <h1>CAREER 섹션</h1>
+            <CareerSecton />
           </div>
           <div ref={contactRef} style={{ height: 400, background: '#ccc' }}>
-            <h1>CONTACT 섹션</h1>
+            <ContactSection />
           </div>
         </div>
       </div>
