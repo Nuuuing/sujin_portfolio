@@ -1,4 +1,4 @@
-export const CareerSecton =() =>{
+export const CareerSection =() =>{
     return(
         <>
         </>

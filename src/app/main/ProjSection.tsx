@@ -1,5 +1,7 @@
 'use client';
 
+import { ProjCard, Search } from "@/components";
+import { projectData } from "@/modules/project";
 import { motion } from "framer-motion"
 import { useState } from 'react';
 
@@ -13,27 +15,23 @@ export const ProjSection = () => {
     const selectLeftArea = [0.5, 6, 11.5]
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.6 }}
-            transition={{ duration: 0.6 }}
-            className="mt-16"
-        >
-            <h1 className="text-3xl font-bold mb-6">PROJECT</h1>
+        <>
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0 }}
+                transition={{ duration: 0.6 }}
+                className="mt-16"
+                style={{ padding: '8rem 0px' }}
+            >
+                <h1 className="text-3xl font-bold mb-6">PROJECT</h1>
 
-            {/* 참여 형태 */}
-            <div className="flex items-center mb-4">
-                <p className="w-24 p-2">참여 형태</p>
-                <div className="relative flex justify-center bg-[#353535] rounded-full p-2 gap-2 min-w-[17rem]">
-                    <motion.div
-                        layoutId="ptcSelector"
-                        className="absolute top-1 bottom-1 w-20 rounded-full bg-black z-0"
-                        style={{
-                            left: `${selectLeftArea[ptcOptions.indexOf(participation)]}rem`
-                        }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                    />
+                <Search
+                    title={'참여 형태'}
+                    motionKey={'participation'}
+                    motionArea={selectLeftArea}
+                    motionIndex={ptcOptions.indexOf(participation)}
+                >
                     {ptcOptions.map((opt) => (
                         <div
                             key={opt}
@@ -43,21 +41,14 @@ export const ProjSection = () => {
                             <span className="text-sm text-gray-300 p-1">{opt}</span>
                         </div>
                     ))}
-                </div>
-            </div>
+                </Search>
 
-            {/* 기술 분야 */}
-            <div className="flex items-center">
-                <p className="w-24 p-2">기술 분야</p>
-                <div className="relative flex justify-center bg-[#353535] rounded-full p-2 gap-2 min-w-[17rem]">
-                    <motion.div
-                        layoutId="techSelector"
-                        className="absolute top-1 bottom-1 w-20 rounded-full bg-black z-0"
-                        style={{
-                            left: `${selectLeftArea[techOptions.indexOf(techField)]}rem`
-                        }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                    />
+                <Search
+                    title={'기술 분야'}
+                    motionKey={'tech'}
+                    motionArea={selectLeftArea}
+                    motionIndex={techOptions.indexOf(techField)}
+                >
                     {techOptions.map((opt) => (
                         <div
                             key={opt}
@@ -67,8 +58,20 @@ export const ProjSection = () => {
                             <span className="text-sm text-gray-300">{opt}</span>
                         </div>
                     ))}
-                </div>
-            </div>
-        </motion.div>
+                </Search>
+
+                <div style={{ marginTop: '4rem' }} />
+                {projectData?.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {projectData.map((data, index) => (
+                            <ProjCard key={index} data={data} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-gray-400">Loading...</div>
+                )}
+
+            </motion.div>
+        </>
     );
 };
