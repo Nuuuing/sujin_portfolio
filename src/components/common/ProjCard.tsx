@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { BaseCard } from "./BaseCard"
 import { projectT } from "@/modules/project"
+import { skills, skillStackT } from "@/modules/common";
 
 interface ProjCardProps {
     data: projectT;
@@ -20,9 +21,33 @@ export const ProjCard = (props: ProjCardProps) => {
                 />
             </div>
             <h2 className="font-black extrabold text-xl font-semibold text-gray-800 dark:text-gray-100">{data.projName}</h2>
-            <p className="mt-3 text-gray-600 dark:text-gray-300">{data.startDate} - {data?.endDate ? data.endDate : 'ing'}</p>
-            <p className="font-light mt-2 text-gray-600 dark:text-gray-300">{data.projDesc}</p>
+            <p className="font-medium mt-3 text-gray-600 dark:text-gray-300">{data.startDate} - {data?.endDate ? data.endDate : 'ing'}</p>
+            <p className="text-sm font-light mt-2 text-gray-600 dark:text-gray-300">{data.projDesc}</p>
+            {data?.projTag && (
+                <div className="text-sm flex flex-wrap gap-2 mt-2">
+                    {data.projTag.map((value: string, idx: number) => (
+                        <p
+                            key={idx}
+                            className="text-gray-400 px-0.3 py-1"
+                        >
+                            #{value}
+                        </p>
+                    ))}
+                </div>
+            )}
 
+            {data?.projSkills && (
+                <div className="mt-auto flex flex-wrap gap-2 pt-4">
+                    {data.projSkills.map((value:skillStackT, idx) => (
+                        <p
+                            key={idx}
+                            className="text-black text-xs font-medium px-1.5 py-1 rounded-lg bg-gray-200 dark:bg-white-100 dark:text-black"
+                        >
+                            {value.name}
+                        </p>
+                    ))}
+                </div>
+            )}
         </BaseCard>
     )
 }

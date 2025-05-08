@@ -32,7 +32,7 @@ export default function MainPage() {
         <div className="hidden lg:block" style={{ width: '200px', marginRight: '2rem', position: 'fixed', left: 40 }}>
           <Menu onMenuClick={handleMenuClick} />
         </div>
-        <div style={{ width: 'calc(100% - 200px)' }}>
+        <div style={{ width: 'calc(100% - 200px)', padding: '2rem 0px'}}>
           <div ref={mainRef}>
             <MainSplash />
           </div>

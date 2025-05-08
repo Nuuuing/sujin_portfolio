@@ -34,7 +34,8 @@ const MenuButton = (props: MenuButtonProps) => {
             style={{
                 margin: '10px',
                 cursor: 'pointer',
-                fontSize: '1.1rem'
+                fontSize: '1.1rem',
+                fontWeight: 800
             }}>
             {menuTxt}
         </p>
