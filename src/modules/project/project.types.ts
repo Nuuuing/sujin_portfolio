@@ -30,11 +30,6 @@ export interface contentsT {
     contents?: string;
 }
 
-export enum ProjType {
-    default = 0,
-    game,
-    web
-}
 
 export enum ProjSize {
     side = 0,
@@ -43,6 +38,6 @@ export enum ProjSize {
 }
 
 export enum ProjPtc {
-    SOLO = 0,
-    TEAM
+    TEAM = 1,
+    SOLO
 }

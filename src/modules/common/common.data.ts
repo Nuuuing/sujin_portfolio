@@ -94,7 +94,7 @@ export const skills:skillStackT[] =[
     {
         key: 18,
         name: "Unity",
-        type: stackType.ENGINE
+        type: stackType.UNITY
     },
     {
         key: 19,

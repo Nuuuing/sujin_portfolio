@@ -26,23 +26,23 @@ export default function MainPage() {
   };
 
   return (
-    <div style={{ width: '100vw', height: '100vh', padding: '3rem' }}>
+    <div className="w-screen h-screen p-12">
       <Header />
-      <div style={{ width: '100%', height: 'calc(100vh - 3rem)', display: 'flex', justifyContent: 'flex-end', marginTop: '8rem' }}>
-        <div className="hidden lg:block" style={{ width: '200px', marginRight: '2rem', position: 'fixed', left: 40 }}>
+      <div className="flex justify-end mt-32 h-[calc(100vh-3rem)]">
+        <div className="hidden lg:block fixed left-10 w-[200px] mr-8">
           <Menu onMenuClick={handleMenuClick} />
         </div>
-        <div style={{ width: 'calc(100% - 200px)', padding: '2rem 0px'}}>
+        <div className="flex-1 ml-[200px] py-8">
           <div ref={mainRef}>
             <MainSplash />
           </div>
-          <div ref={projectRef} >
+          <div ref={projectRef}>
             <ProjSection />
           </div>
-          <div ref={careerRef} style={{ height: 400, background: '#ddd' }}>
+          <div ref={careerRef} className="h-[400px] bg-gray-300">
             <CareerSection />
           </div>
-          <div ref={contactRef} style={{ height: 400, background: '#ccc' }}>
+          <div ref={contactRef} className="h-[400px] bg-gray-200">
             <ContactSection />
           </div>
         </div>

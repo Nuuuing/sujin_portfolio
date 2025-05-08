@@ -1,6 +1,7 @@
 'use client';
 
 import { ProjCard, Search } from "@/components";
+import { stackType } from "@/modules/common";
 import { projectData } from "@/modules/project";
 import { motion } from "framer-motion"
 import { useState } from 'react';
@@ -14,6 +15,21 @@ export const ProjSection = () => {
 
     const selectLeftArea = [0.5, 6, 11.5]
 
+    const filteredData = projectData.filter(data => {
+        const matchParticipation =
+            participation === 'ALL' || ptcOptions[data.projPtc] === participation;
+    
+            const matchTech =
+            techField === 'ALL'
+                ? true
+                : data?.projSkills?.some(d =>
+                    techField === 'WEB'
+                        ? d.type === stackType.WEB
+                        : d.type === stackType.UNITY
+                );
+    
+        return matchParticipation && matchTech;
+    });
     return (
         <>
             <motion.div
@@ -61,15 +77,15 @@ export const ProjSection = () => {
                 </Search>
 
                 <div style={{ marginTop: '4rem' }} />
-                {projectData?.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {projectData.map((data, index) => (
-                            <ProjCard key={index} data={data} />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-gray-400">Loading...</div>
-                )}
+            {filteredData.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredData.map((data, index) => (
+                        <ProjCard key={index} data={data} />
+                    ))}
+                </div>
+            ) : (
+                <div className="text-gray-400">조건에 맞는 프로젝트가 없습니다.</div>
+            )}
 
             </motion.div>
         </>
