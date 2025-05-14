@@ -1,0 +1,56 @@
+'use client';
+
+import { motion } from "framer-motion"
+import { BaseCard } from "../common/BaseCard"
+import { projectT } from "@/modules/project"
+import { skillStackT } from "@/modules/common";
+import Link from "next/link";
+
+interface ProjCardProps {
+    data: projectT;
+}
+export const ProjCard = (props: ProjCardProps) => {
+    const { data } = props;
+
+    return (
+        <Link href={{ pathname: '/project/detail', query: { id: data.key } }}>
+            <BaseCard className="group">
+                <div className="w-full h-48 overflow-hidden rounded-xl mb-4">
+                    <motion.img
+                        src={data.imgUrl}
+                        alt={data.projName}
+                        className="w-full h-48 object-cover rounded-xl mb-4 grayscale group-hover:grayscale-0 group-hover:scale-115 transition-all duration-300"
+                    />
+                </div>
+                <h2 className="font-black extrabold text-xl font-semibold text-gray-800 dark:text-gray-100">{data.projName}</h2>
+                <p className="font-medium mt-3 text-gray-600 dark:text-gray-300">{data.startDate} - {data?.endDate ? data.endDate : 'ing'}</p>
+                <p className="text-sm font-light mt-2 text-gray-600 dark:text-gray-300">{data.projDesc}</p>
+                {data?.projTag && (
+                    <div className="text-sm flex flex-wrap gap-2 mt-2">
+                        {data.projTag.map((value: string, idx: number) => (
+                            <p
+                                key={idx}
+                                className="text-gray-400 px-0.3 py-1"
+                            >
+                                #{value}
+                            </p>
+                        ))}
+                    </div>
+                )}
+
+                {data?.projSkills && (
+                    <div className="mt-auto flex flex-wrap gap-2 pt-4">
+                        {data.projSkills.map((value: skillStackT, idx) => (
+                            <p
+                                key={idx}
+                                className="text-black text-xs font-medium px-1.5 py-1 rounded-lg bg-gray-200 dark:bg-white-100 dark:text-black"
+                            >
+                                {value.name}
+                            </p>
+                        ))}
+                    </div>
+                )}
+            </BaseCard>
+        </Link>
+    )
+}

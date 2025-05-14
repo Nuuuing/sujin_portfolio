@@ -119,3 +119,37 @@ export const projectData: projectT[] = [
         projPtc: ProjPtc.SOLO
     }
 ]
+
+export const projectDetailData: projDetailT[] = [
+    {
+        key: 0,
+        projName: "PaperPlease",
+        projDesc: "PaperPlease 모작. 문화어 ver.",
+        projTag: ["2D", "1인", "퍼즐", "여권 내라우!"],
+        startDate: "2024.06.13",
+        endDate: "2024.06.24",
+        projSkills: [
+            skills[18]
+        ],
+        gitUrl: ["https://github.com/Nuuuing/paperPlease"],
+        youtubeUrl: "https://www.youtube.com/watch?v=s95nBAnZJdo",
+        imgUrl: [paperPleaseImg],
+        projSize: ProjSize.side,
+        projPtc: ProjPtc.SOLO,
+        projDescDetail: "overview text",
+        roles: [
+            {
+                imgUrl: prep,
+                midTitle: "ATEST",
+                contents: "ATEST"
+            }
+        ],
+        contents: [
+            {
+                imgUrl: prep,
+                midTitle: "ATEST",
+                contents: "ATEST"
+            }
+        ]
+    }
+]

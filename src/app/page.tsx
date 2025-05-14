@@ -1,7 +1,7 @@
 'use client'
 
 import { Header, Menu } from "@/components";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CareerSection, ContactSection, MainSplash, ProjSection } from "./main";
 
 export default function MainPage() {
@@ -10,10 +10,41 @@ export default function MainPage() {
   const careerRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
+  const [activeSection, setActiveSection] = useState<'PROJECT' | 'CAREER' | 'CONTACT' | null>(null);
 
-  const handleMenuClick = (section: 'MAIN' | 'PROJECT' | 'CAREER' | 'CONTACT') => {
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        { key: 'PROJECT', ref: projectRef },
+        { key: 'CAREER', ref: careerRef },
+        { key: 'CONTACT', ref: contactRef },
+      ] as const;
+
+      const scrollY = window.scrollY + window.innerHeight / 3;
+
+      for (const section of sections) {
+        const el = section.ref.current;
+        if (!el) continue;
+
+        const { top, bottom } = el.getBoundingClientRect();
+        const offsetTop = top + window.scrollY;
+        const offsetBottom = offsetTop + el.offsetHeight;
+
+        if (scrollY >= offsetTop && scrollY < offsetBottom) {
+          setActiveSection(section.key);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // 초기 상태
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleMenuClick = (section: 'PROJECT' | 'CAREER' | 'CONTACT') => {
     const refs = {
-      MAIN: mainRef,
       PROJECT: projectRef,
       CAREER: careerRef,
       CONTACT: contactRef,
@@ -23,6 +54,8 @@ export default function MainPage() {
     if (selectedRef?.current) {
       selectedRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+
+    setActiveSection(section);
   };
 
   return (
@@ -30,9 +63,9 @@ export default function MainPage() {
       <Header />
       <div className="flex justify-end mt-32 h-[calc(100vh-3rem)]">
         <div className="hidden lg:block fixed left-10 w-[200px] mr-8">
-          <Menu onMenuClick={handleMenuClick} />
+          <Menu onMenuClick={handleMenuClick} active={activeSection} />
         </div>
-        <div className="flex-1 ml-[200px] py-8">
+        <div className="flex-1 ml-0 lg:ml-[200px] py-8">
           <div ref={mainRef}>
             <MainSplash />
           </div>

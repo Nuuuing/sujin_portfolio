@@ -4,6 +4,7 @@ import { ProjCard, Search } from "@/components";
 import { stackType } from "@/modules/common";
 import { projectData } from "@/modules/project";
 import { motion } from "framer-motion"
+import Link from "next/link";
 import { useState } from 'react';
 
 export const ProjSection = () => {
@@ -18,8 +19,8 @@ export const ProjSection = () => {
     const filteredData = projectData.filter(data => {
         const matchParticipation =
             participation === 'ALL' || ptcOptions[data.projPtc] === participation;
-    
-            const matchTech =
+
+        const matchTech =
             techField === 'ALL'
                 ? true
                 : data?.projSkills?.some(d =>
@@ -27,7 +28,7 @@ export const ProjSection = () => {
                         ? d.type === stackType.WEB
                         : d.type === stackType.UNITY
                 );
-    
+
         return matchParticipation && matchTech;
     });
     return (
@@ -40,7 +41,12 @@ export const ProjSection = () => {
                 className="mt-16"
                 style={{ padding: '8rem 0px' }}
             >
-                <h1 className="text-3xl font-bold mb-6">PROJECT</h1>
+                <Link href="/project"
+                    className="mb-6 cursor-pointer w-[11rem]"
+                >
+                    <h1 className="text-3xl font-bold">PROJECT</h1>
+                    <h3 className="pl-0 text-[#a3a3a3] hover:text-[#f0f0f0]">더보기 &gt;</h3>
+                </Link>
 
                 <Search
                     title={'참여 형태'}
@@ -77,15 +83,15 @@ export const ProjSection = () => {
                 </Search>
 
                 <div style={{ marginTop: '4rem' }} />
-            {filteredData.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredData.map((data, index) => (
-                        <ProjCard key={index} data={data} />
-                    ))}
-                </div>
-            ) : (
-                <div className="text-gray-400">조건에 맞는 프로젝트가 없습니다.</div>
-            )}
+                {filteredData.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {filteredData.map((data, index) => (
+                            <ProjCard key={index} data={data} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-gray-400">조건에 맞는 프로젝트가 없습니다.</div>
+                )}
 
             </motion.div>
         </>
