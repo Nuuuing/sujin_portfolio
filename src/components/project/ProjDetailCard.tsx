@@ -11,7 +11,7 @@ export const ProjDetailCard = (props: ProjDetailCardProps) => {
 
     return (
         <Link href={{ pathname: '/project/detail', query: { id: data.key } }}>
-            <div className="group m-5 flex flex-col md:flex-row">
+            <div className="group m-2 p-4 flex flex-col md:flex-row hover:bg-[#3b3b3b] rounded-xl">
                 <div className="w-full md:w-1/5 flex justify-center">
                     <div className="w-48 h-48 overflow-hidden rounded-xl mb-4 md:mb-0">
                         <motion.img
@@ -23,11 +23,11 @@ export const ProjDetailCard = (props: ProjDetailCardProps) => {
                 </div>
 
                 <div className="w-full md:w-4/5 md:ml-5">
-                    <h2 className="font-black text-xl font-semibold text-gray-800 dark:text-gray-100">{data.projName}</h2>
-                    <p className="font-medium mt-3 text-gray-600 dark:text-gray-300">
+                    <h2 className="text-2xl font-extrabold text-gray-800 dark:text-gray-100">{data.projName}</h2>
+                    <p className="font-bold mt-3 text-xl text-gray-600 dark:text-gray-300">
                         {data.startDate} - {data?.endDate ? data.endDate : 'ing'}
                     </p>
-                    <p className="text-sm font-light mt-2 text-gray-600 dark:text-gray-300">{data.projDesc}</p>
+                    <p className="text-base font-light mt-2 text-gray-600 dark:text-gray-300">{data.projDesc}</p>
 
                     {data?.projTag && (
                         <div className="text-sm flex flex-wrap gap-2 mt-2">

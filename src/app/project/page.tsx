@@ -13,6 +13,8 @@ export default function ProjectPage() {
   const techOptions = ['ALL', 'WEB', 'UNITY'];
   const [techField, setTechField] = useState('ALL');
 
+  const selectLeftArea = [0.5, 6, 11.5]
+
   const filteredData = projectData.filter(data => {
     const matchParticipation =
       participation === 'ALL' || ptcOptions[data.projPtc] === participation;
@@ -28,14 +30,15 @@ export default function ProjectPage() {
 
     return matchParticipation && matchTech;
   });
-  return (
-    <DetailLayout>
-      <div
-        className="mb-6 cursor-pointer w-[11rem]">
-        <h1 className="text-3xl font-bold">PROJECT</h1>
-      </div>
 
-      <Search title={'참여 형태'} >
+  return (
+    <DetailLayout
+      title={'PROJECT'}>
+      <Search
+        title={'참여 형태'}
+        motionKey={'participationD'}
+        motionArea={selectLeftArea}
+        motionIndex={ptcOptions.indexOf(participation)}>
         {ptcOptions.map((opt) => (
           <div
             key={opt}
@@ -47,7 +50,11 @@ export default function ProjectPage() {
         ))}
       </Search>
 
-      <Search title={'기술 분야'} >
+      <Search
+        title={'기술 분야'}
+        motionKey={'techD'}
+        motionArea={selectLeftArea}
+        motionIndex={techOptions.indexOf(techField)}>
         {techOptions.map((opt) => (
           <div
             key={opt}
