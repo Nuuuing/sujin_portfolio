@@ -2,18 +2,20 @@
 
 
 import { DetailLayout } from "@/components";
-import { contentsT, projDetailT } from "@/modules/project";
+import { stackType } from "@/modules/common";
+import { contentsT, projDetailT, projectDetailData } from "@/modules/project";
 import { useSearchParams } from "next/navigation";
 
-interface ProjectDetailProps {
-    data: projDetailT;
-}
-export default function ProjectDetail(props: ProjectDetailProps) {
-    const { data } = props;
 
+export default function ProjectDetail() {
 
     const searchParams = useSearchParams();
-    const key = searchParams.get('id');
+    const keyParam = searchParams.get('id');
+    const key = keyParam ? Number(keyParam) : null;
+
+    const data = projectDetailData.find(
+        (data: projDetailT) => data.key === key
+    );
 
     return (
         <>
@@ -23,46 +25,68 @@ export default function ProjectDetail(props: ProjectDetailProps) {
                 {
                     <>
                         <p>
-                            {data.projTag}
+                            {
+                                data?.projSkills?.map((d, i) => {
+                                    if (d.type === stackType.WEB) {
+                                        return (
+                                            <span key={i}>WEB</span>
+                                        );
+                                    } else if (d.type === stackType.UNITY) {
+                                        return (
+                                            <span key={i}>UNITY</span>
+                                        );
+                                    } else {
+                                        return null;
+                                    }
+                                })
+                            }
                         </p>
 
                         {data?.projDescDetail &&
-                            (<>
-                                {
-                                    data?.imgUrl &&
-                                    data.imgUrl.map((url: string, index) => {
-                                        return (
-                                            <img src={url} alt={data.projName + index} />
-                                        )
-                                    })
-                                }
+                            (<div className="flex justify-center">
                                 <div>
-                                    <h1>OVERVIEW</h1>
-                                    <p>
-                                        {data.projDescDetail}
-                                    </p>
+                                    {
+                                        data?.imgUrl &&
+                                        data.imgUrl.map((url: string, index) => {
+                                            return (
+                                                <img className="w-lg h-auto" src={url} alt={data.projName + index} />
+                                            )
+                                        })
+                                    }
+                                    <div className="flex justify-center">
+                                        <h1>OVERVIEW</h1>
+                                        <p>
+                                            {data.projDescDetail}
+                                        </p>
+                                    </div>
                                 </div>
-                            </>)}
+                            </div>)}
                         {data?.roles &&
-                            (<>
-                                <h2>담당 부분</h2>
-                                {
-                                    data.roles.map((data: contentsT, index) => {
-                                        return (
-                                            <ContentsContainer
-                                                key={'r-' + index}
-                                                data={data}
-                                            />
-                                        )
-                                    })
-                                }
-                            </>)}
+                            (<div className="flex justify-center">
+                                <div>
+                                    <h2>담당 부분</h2>
+                                    {
+                                        data.roles.map((data: contentsT, index) => {
+                                            return (
+                                                <ContentsContainer
+                                                    key={'r-' + index}
+                                                    data={data}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>)}
                         {data?.contents &&
                             data.contents.map((data: contentsT, index) => {
                                 return (
-                                    <ContentsContainer
-                                        key={'c-' + index}
-                                        data={data} />
+                                    <div className="flex justify-center">
+                                        <div>
+                                            <ContentsContainer
+                                                key={'c-' + index}
+                                                data={data} />
+                                        </div>
+                                    </div>
                                 )
                             })}
                     </>
@@ -78,13 +102,13 @@ interface ContentsProps {
 const ContentsContainer = (props: ContentsProps) => {
     const { data } = props;
     return (
-        <>
+        <div>
             {
                 data?.imgUrl &&
-                <img src={data.imgUrl} alt={data.midTitle+'Img'} />
+                <img src={data.imgUrl} alt={data.midTitle + 'Img'} />
             }
             <h2> {data.midTitle}</h2>
             <p>{data.contents}</p>
-        </>
+        </div>
     )
 }
