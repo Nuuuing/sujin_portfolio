@@ -1,6 +1,6 @@
 'use client'
 
-import { Header, Menu } from "@/components";
+import { Header, Menu, ScrollToTopButton } from "@/components";
 import { useEffect, useRef, useState } from "react";
 import { CareerSection, ContactSection, MainSplash, ProjSection } from "./main";
 
@@ -72,14 +72,15 @@ export default function MainPage() {
           <div ref={projectRef}>
             <ProjSection />
           </div>
-          <div ref={careerRef} className="h-[400px] bg-gray-300">
+          <div ref={careerRef} className="mt-[10rem] mb-[6rem]">
             <CareerSection />
           </div>
-          <div ref={contactRef} className="h-[400px] bg-gray-200">
+          <div ref={contactRef} className="mb-[6rem]">
             <ContactSection />
           </div>
         </div>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 }

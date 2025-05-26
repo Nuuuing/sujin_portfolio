@@ -2,9 +2,14 @@
 
 
 import { DetailLayout } from "@/components";
-import { stackType } from "@/modules/common";
-import { contentsT, projDetailT, projectDetailData } from "@/modules/project";
+import { skillStackT, stackType } from "@/modules/common";
+import { contentsT, prepImg, projDetailT, projectDetailData } from "@/modules/project";
+import dayjs from "dayjs";
 import { useSearchParams } from "next/navigation";
+
+
+const gitIcon = '/icon/github_logo.png';
+const notionIcon = '/icon/notion_logo.png';
 
 
 export default function ProjectDetail() {
@@ -17,6 +22,18 @@ export default function ProjectDetail() {
         (data: projDetailT) => data.key === key
     );
 
+    const getProjSkillLabels = (projSkills?: skillStackT[]) => {
+        if (!projSkills) return [];
+
+        const types = new Set(projSkills.map((d) => d.type));
+
+        const labels: string[] = [];
+        if (types.has(stackType.WEB)) labels.push('WEB');
+        if (types.has(stackType.UNITY)) labels.push('UNITY');
+
+        return labels;
+    };
+
     return (
         <>
             <DetailLayout
@@ -24,47 +41,90 @@ export default function ProjectDetail() {
             >
                 {
                     <>
-                        <p>
-                            {
-                                data?.projSkills?.map((d, i) => {
-                                    if (d.type === stackType.WEB) {
-                                        return (
-                                            <span key={i}>WEB</span>
-                                        );
-                                    } else if (d.type === stackType.UNITY) {
-                                        return (
-                                            <span key={i}>UNITY</span>
-                                        );
-                                    } else {
-                                        return null;
-                                    }
-                                })
-                            }
-                        </p>
+                        <div className="flex gap-2">
+                            {getProjSkillLabels(data?.projSkills).map((label, idx) => (
+                                <p
+                                    key={idx}
+                                    className="inline-block bg-black text-white border-2 border-[#d4d4d4] rounded-4xl px-3 py-1 font-extrabold text-lg"
+                                >
+                                    {label}
+                                </p>
+                            ))}
+                        </div>
+                        <div className="flex justify-between items-end mx-1 mt-[1.5rem] mb-[1.5rem]">
+                            <p className='text-4xl font-bold text-[#e9e9e9]'>
+                                {data?.projName}
+                            </p>
+                            <p className="text-3xl">
+                                {dayjs(data?.startDate).format('YYYY.MM')} - {data?.endDate ? dayjs(data?.endDate).format('YYYY.MM') : 'ING'}
+                            </p>
+                        </div>
+                        {data?.gitUrl && data.notionUrl && (
+                            <div className="flex gap-4 items-center">
+                                {data.gitUrl.map((url: string, index) => (
+                                    <a
+                                        key={'git' + index}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-2">
+                                        <img
+                                            src={gitIcon}
+                                            className="w-auto h-[2.5rem] invert"
+                                            alt={'GITHUB ICON'} />
+                                    </a>
+                                ))}
+                                <a
+                                    href={data.notionUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2">
+                                    <img
+                                        src={notionIcon}
+                                        className="w-auto h-[2.5rem] invert"
+                                        alt={'NOTION ICON'} />
+                                </a>
+                            </div>
+                        )}
 
+                        {data?.projDesc}
+
+                        <div className="mb-[4rem]" />
                         {data?.projDescDetail &&
-                            (<div className="flex justify-center">
+                            (<div className="flex justify-center mb-[4rem]">
                                 <div>
                                     {
                                         data?.imgUrl &&
-                                        data.imgUrl.map((url: string, index) => {
-                                            return (
-                                                <img className="w-lg h-auto" src={url} alt={data.projName + index} />
-                                            )
-                                        })
+                                        (data?.imgUrl?.length > 0 ? data.imgUrl : [null]).map((url: string | null, index: number) => (
+                                            <img
+                                                key={index}
+                                                className="w-4xl h-auto rounded-3xl mb-[3rem]"
+                                                src={url || prepImg}
+                                                onError={(e) => {
+                                                    e.currentTarget.src = prepImg;
+                                                }}
+                                                alt={`${data?.projName || 'project'}_${index}`}
+                                            />
+                                        ))
                                     }
-                                    <div className="flex justify-center">
-                                        <h1>OVERVIEW</h1>
+                                    <div className="items-end mx-[5rem]">
+                                        <p className="text-xl font-bold text-[#72AAFF] mr-[0.7rem]">
+                                            OVERVIEW
+                                            </p>
                                         <p>
                                             {data.projDescDetail}
                                         </p>
                                     </div>
                                 </div>
                             </div>)}
+
                         {data?.roles &&
                             (<div className="flex justify-center">
                                 <div>
-                                    <h2>담당 부분</h2>
+                                    <p 
+                                    className="text-xl font-bold text-[#ffffff] mr-[0.7rem]">
+                                        담당 부분
+                                        </p>
                                     {
                                         data.roles.map((data: contentsT, index) => {
                                             return (
@@ -80,7 +140,9 @@ export default function ProjectDetail() {
                         {data?.contents &&
                             data.contents.map((data: contentsT, index) => {
                                 return (
-                                    <div className="flex justify-center">
+                                    <div
+                                        key={'cont-' + index}
+                                        className="flex justify-center">
                                         <div>
                                             <ContentsContainer
                                                 key={'c-' + index}
@@ -105,7 +167,10 @@ const ContentsContainer = (props: ContentsProps) => {
         <div>
             {
                 data?.imgUrl &&
-                <img src={data.imgUrl} alt={data.midTitle + 'Img'} />
+                <img 
+                className="w-2xl h-auto rounded-3xl mb-[3rem]"
+                src={data.imgUrl} 
+                alt={data.midTitle + 'Img'} />
             }
             <h2> {data.midTitle}</h2>
             <p>{data.contents}</p>

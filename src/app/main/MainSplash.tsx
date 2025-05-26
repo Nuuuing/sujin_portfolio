@@ -1,12 +1,28 @@
+import { ArrowIcon } from "@/components"
+import { motion } from "framer-motion"
+
 export const MainSplash = () => {
     return (
         <>
-            <div className="border-b-2 border-black dark:border-white h-[15rem] my-[0.5rem] lg:mx-[4rem]">
-                <p className="font-black text-center text-5xl">KIM SUJIN</p>
-            </div>
-            <div className="w-full flex place-content-between text-sm lg:text-lg lg:px-17 font-semibold">
-                <p>DEV PORTFOLIO</p>
-                <p>#REACT #NEXT #JAVA #ASP #UNITY</p>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 1.4, ease: "easeOut" }} 
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.3 }}
+                className="lg:mx-[5rem] font-medium text-center text-[2.8rem] ">
+                <p>
+                    다양한 경험, 더 넓은 시야.
+                </p>
+                <p>
+                    성장으로 길을 찾아가는
+                </p>
+                <p>
+                    개발자 <span className="font-semibold text-[#72AAFF]">김수진</span>입니다.
+                </p>
+            </motion.div>
+            <div className="mt-[6rem]">
+                <ArrowIcon />
             </div>
         </>
     )

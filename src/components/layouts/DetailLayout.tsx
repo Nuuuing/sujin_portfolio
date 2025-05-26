@@ -31,7 +31,7 @@ export const DetailLayout = (props: DetailLayoutProps) => {
             }
 
             <div className="m-10 border-t-1 border-[#f0f0f0]">
-                <div className="pt-10">
+                <div className="px-10 py-10">
                     {children}
                 </div>
             </div>

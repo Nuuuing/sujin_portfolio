@@ -39,7 +39,7 @@ export const ProjSection = () => {
                 viewport={{ once: false, amount: 0 }}
                 transition={{ duration: 0.6 }}
                 className="mt-16"
-                style={{ padding: '8rem 0px' }}
+                style={{ margin: '6rem 0px', paddingTop: '1rem', borderTop: '1px solid #e9e9e9' }}
             >
                 <Link href="/project"
                     className="mb-6 cursor-pointer w-[11rem]"

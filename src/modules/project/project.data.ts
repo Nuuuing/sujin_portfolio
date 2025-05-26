@@ -1,11 +1,11 @@
 import { skills } from "../common";
-import { projDetailT, projectT, ProjPtc, ProjSize, ProjType } from "./project.types";
+import { projDetailT, projectT, ProjPtc, ProjSize } from "./project.types";
 
-const prep = '/projImg/preparing.png';
+export const prepImg = '/projImg/preparing.png';
 
 //blue
-const blue_0 = 'projImg/blue_0.png';
-const blue_1 = 'projImg/blue_1.png';
+const blue_0 = '/projImg/blue_0.png';
+const blue_1 = '/projImg/blue_1.png';
 //zonbie
 const zphImg = '/projImg/zph.png';
 const zphImg1 = '/projImg/zph_1.png';
@@ -15,7 +15,7 @@ const sori_0 = '/projImg/sori_0.png';
 const sori_1 = '/projImg/sori_1.png';
 const sori_2 = '/projImg/sori_2.png';
 //nekopark
-const nekoparkImg = './/projImg/nekopark.png';
+const nekoparkImg = '/projImg/nekopark.png';
 //wildeight
 const twf_0 = '/projImg/twf_0.png';
 const twf_1 = '/projImg/twf_1.png';
@@ -35,7 +35,7 @@ export const projectData: projectT[] = [
         ],
         notionUrl: "https://otheretc.notion.site/MyLIO-16c41e6afd5780f4ac3aeb14e5230ab6",
         gitUrl: ["NONE", "https://github.com/BlueSeekers/MyLittleOcean_Backend"],
-        imgUrl: prep,
+        imgUrl: blue_0,
         projSize: ProjSize.side,
         projPtc: ProjPtc.TEAM
     },
@@ -141,14 +141,14 @@ export const projectDetailData: projDetailT[] = [
         projDescDetail: "overview text",
         roles: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
         ],
         contents: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
@@ -172,14 +172,14 @@ export const projectDetailData: projDetailT[] = [
         projDescDetail: "overview text",
         roles: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
         ],
         contents: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
@@ -204,14 +204,14 @@ export const projectDetailData: projDetailT[] = [
         projDescDetail: "overview text",
         roles: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
         ],
         contents: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
@@ -235,14 +235,14 @@ export const projectDetailData: projDetailT[] = [
         projDescDetail: "overview text",
         roles: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
         ],
         contents: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
@@ -267,14 +267,14 @@ export const projectDetailData: projDetailT[] = [
         projDescDetail: "overview text",
         roles: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
         ],
         contents: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
@@ -298,14 +298,14 @@ export const projectDetailData: projDetailT[] = [
         projDescDetail: "overview text",
         roles: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
         ],
         contents: [
             {
-                imgUrl: prep,
+                imgUrl: prepImg,
                 midTitle: "ATEST",
                 contents: "ATEST"
             }
