@@ -1,12 +1,10 @@
 'use client';
 
-
 import { DetailLayout } from "@/components";
 import { skillStackT, stackType } from "@/modules/common";
 import { contentsT, prepImg, projDetailT, projectDetailData } from "@/modules/project";
 import dayjs from "dayjs";
 import { useSearchParams } from "next/navigation";
-
 
 const gitIcon = '/icon/github_logo.png';
 const notionIcon = '/icon/notion_logo.png';

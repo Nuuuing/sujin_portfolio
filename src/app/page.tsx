@@ -61,11 +61,11 @@ export default function MainPage() {
   return (
     <div className="w-screen h-screen p-12">
       <Header />
-      <div className="flex justify-end mt-32 h-[calc(100vh-3rem)]">
+      <div className="mt-[2rem]">
         <div className="hidden lg:block fixed left-10 w-[200px] mr-8">
           <Menu onMenuClick={handleMenuClick} active={activeSection} />
         </div>
-        <div className="flex-1 ml-0 lg:ml-[200px] py-8">
+        <div className="flex-1 ml-0 lg:ml-[200px] py-6">
           <div ref={mainRef}>
             <MainSplash />
           </div>
@@ -75,9 +75,13 @@ export default function MainPage() {
           <div ref={careerRef} className="mt-[10rem] mb-[6rem]">
             <CareerSection />
           </div>
-          <div ref={contactRef} className="mb-[6rem]">
+          <div ref={contactRef} >
             <ContactSection />
           </div>
+        </div>
+        <div className='w-100% mx-20 py-8 border-[#f0f0f0] border-t-1 text-sm'>
+          <p>본 페이지는 상업적 목적이 아닌 개인 포트폴리오용으로 제작되었습니다.</p>
+          <p>© 2025 Kim Sujin. All Rights Reserved.</p>
         </div>
       </div>
       <ScrollToTopButton />
