@@ -66,16 +66,16 @@ export default function MainPage() {
           <Menu onMenuClick={handleMenuClick} active={activeSection} />
         </div>
         <div className="flex-1 ml-0 lg:ml-[200px] py-6">
-          <div ref={mainRef}>
+          <div ref={mainRef} className="mt-[11rem] mb-[14rem]">
             <MainSplash />
           </div>
           <div ref={projectRef}>
             <ProjSection />
           </div>
-          <div ref={careerRef} className="mt-[10rem] mb-[6rem]">
+          <div ref={careerRef} className="mt-[10rem] mb-[12rem]">
             <CareerSection />
           </div>
-          <div ref={contactRef} >
+          <div ref={contactRef} className="mt-[6rem] mb-[5rem]">
             <ContactSection />
           </div>
         </div>

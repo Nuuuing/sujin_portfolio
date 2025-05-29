@@ -9,7 +9,6 @@ import { useSearchParams } from "next/navigation";
 const gitIcon = '/icon/github_logo.png';
 const notionIcon = '/icon/notion_logo.png';
 
-
 export default function ProjectDetail() {
 
     const searchParams = useSearchParams();
