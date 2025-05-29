@@ -1,3 +1,5 @@
+'use client';
+
 import { CareerItem, DetailLayout } from "@/components";
 import { careerData, careerT } from "@/modules/career";
 

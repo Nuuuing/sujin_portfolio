@@ -26,7 +26,7 @@ export default function MainPage() {
         const el = section.ref.current;
         if (!el) continue;
 
-        const { top, bottom } = el.getBoundingClientRect();
+        const { top,  } = el.getBoundingClientRect();
         const offsetTop = top + window.scrollY;
         const offsetBottom = offsetTop + el.offsetHeight;
 

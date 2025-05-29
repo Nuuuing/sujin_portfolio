@@ -1,4 +1,4 @@
-const gitIcon = '/icon/github_logo.png';
+
 
 export const ContactSection = () => {
     return (

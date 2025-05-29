@@ -1,22 +1,18 @@
-'use client';
-
 import { DetailLayout } from "@/components";
 import { skillStackT, stackType } from "@/modules/common";
 import { contentsT, prepImg, projDetailT, projectDetailData } from "@/modules/project";
 import dayjs from "dayjs";
-import { useSearchParams } from "next/navigation";
+import Image from 'next/image';
 
 const gitIcon = '/icon/github_logo.png';
 const notionIcon = '/icon/notion_logo.png';
 
-export default function ProjectDetail() {
+export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
 
-    const searchParams = useSearchParams();
-    const keyParam = searchParams.get('id');
-    const key = keyParam ? Number(keyParam) : null;
-
+    const { id: key } = await params;
+    
     const data = projectDetailData.find(
-        (data: projDetailT) => data.key === key
+        (data: projDetailT) => data.key === (Number(key))
     );
 
     const getProjSkillLabels = (projSkills?: skillStackT[]) => {
@@ -65,7 +61,7 @@ export default function ProjectDetail() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-2">
-                                        <img
+                                        <Image
                                             src={gitIcon}
                                             className="w-auto h-[2.5rem] invert"
                                             alt={'GITHUB ICON'} />
@@ -76,7 +72,7 @@ export default function ProjectDetail() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2">
-                                    <img
+                                    <Image
                                         src={notionIcon}
                                         className="w-auto h-[2.5rem] invert"
                                         alt={'NOTION ICON'} />
@@ -93,7 +89,7 @@ export default function ProjectDetail() {
                                     {
                                         data?.imgUrl &&
                                         (data?.imgUrl?.length > 0 ? data.imgUrl : [null]).map((url: string | null, index: number) => (
-                                            <img
+                                            <Image
                                                 key={index}
                                                 className="w-4xl h-auto rounded-3xl mb-[3rem]"
                                                 src={url || prepImg}
@@ -107,7 +103,7 @@ export default function ProjectDetail() {
                                     <div className="items-end mx-[5rem]">
                                         <p className="text-xl font-bold text-[#72AAFF] mr-[0.7rem]">
                                             OVERVIEW
-                                            </p>
+                                        </p>
                                         <p>
                                             {data.projDescDetail}
                                         </p>
@@ -118,10 +114,10 @@ export default function ProjectDetail() {
                         {data?.roles &&
                             (<div className="flex justify-center">
                                 <div>
-                                    <p 
-                                    className="text-xl font-bold text-[#ffffff] mr-[0.7rem]">
+                                    <p
+                                        className="text-xl font-bold text-[#ffffff] mr-[0.7rem]">
                                         담당 부분
-                                        </p>
+                                    </p>
                                     {
                                         data.roles.map((data: contentsT, index) => {
                                             return (
@@ -164,10 +160,10 @@ const ContentsContainer = (props: ContentsProps) => {
         <div>
             {
                 data?.imgUrl &&
-                <img 
-                className="w-2xl h-auto rounded-3xl mb-[3rem]"
-                src={data.imgUrl} 
-                alt={data.midTitle + 'Img'} />
+                <Image
+                    className="w-2xl h-auto rounded-3xl mb-[3rem]"
+                    src={data.imgUrl}
+                    alt={data.midTitle + 'Img'} />
             }
             <h2> {data.midTitle}</h2>
             <p>{data.contents}</p>

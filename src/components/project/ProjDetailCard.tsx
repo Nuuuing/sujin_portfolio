@@ -1,3 +1,5 @@
+'use client'
+
 import { skillStackT } from "@/modules/common";
 import { projectT } from "@/modules/project";
 import { motion } from "framer-motion";

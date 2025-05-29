@@ -14,10 +14,10 @@ export interface projectT {
     //mainYn:boolean;               //메인 게시 여부   
     projSize?: ProjSize;            //프로젝트 규모
     projPtc: ProjPtc;                //프로젝트 참여 형태 (TEAM, SOLO)
-    imgUrl?: string | any;          //이미지 URL
+    imgUrl?: string;          //이미지 URL
 }
 
-export interface projDetailT extends projectT {
+export interface projDetailT extends  Omit<projectT, 'imgUrl'>{
     imgUrl?: string[];
     projDescDetail: string;                 //  overview text
     roles?: contentsT[];                    //  담당 정보

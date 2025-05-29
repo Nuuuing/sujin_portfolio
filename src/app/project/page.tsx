@@ -6,7 +6,6 @@ import { projectData } from "@/modules/project";
 import { useState } from "react";
 
 export default function ProjectPage() {
-
   const ptcOptions = ['ALL', 'TEAM', 'SOLO'];
   const [participation, setParticipation] = useState('ALL');
 
