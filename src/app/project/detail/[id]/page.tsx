@@ -1,4 +1,4 @@
-import { DetailLayout } from "@/components";
+import { DetailLayout, ImageWithFallback } from "@/components";
 import { skillStackT, stackType } from "@/modules/common";
 import { contentsT, prepImg, projDetailT, projectDetailData } from "@/modules/project";
 import dayjs from "dayjs";
@@ -7,12 +7,19 @@ import Image from 'next/image';
 const gitIcon = '/icon/github_logo.png';
 const notionIcon = '/icon/notion_logo.png';
 
-export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
+type Params = Promise<{ id: string }>
 
-    const { id: key } = await params;
-    
+export async function generateStaticParams() {
+    return projectDetailData.map(project => ({
+        id: project.key.toString(), // key가 숫자면 string으로 변환
+    }));
+}
+
+export default async function ProjectDetail(props: { params: Params }) {
+    const { id } = await props.params;
+
     const data = projectDetailData.find(
-        (data: projDetailT) => data.key === (Number(key))
+        (data: projDetailT) => data.key === (Number(id))
     );
 
     const getProjSkillLabels = (projSkills?: skillStackT[]) => {
@@ -61,7 +68,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-2">
-                                        <Image
+                                        <ImageWithFallback
                                             src={gitIcon}
                                             className="w-auto h-[2.5rem] invert"
                                             alt={'GITHUB ICON'} />
@@ -72,7 +79,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2">
-                                    <Image
+                                    <ImageWithFallback
                                         src={notionIcon}
                                         className="w-auto h-[2.5rem] invert"
                                         alt={'NOTION ICON'} />
@@ -89,13 +96,11 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
                                     {
                                         data?.imgUrl &&
                                         (data?.imgUrl?.length > 0 ? data.imgUrl : [null]).map((url: string | null, index: number) => (
-                                            <Image
+                                            <ImageWithFallback
                                                 key={index}
                                                 className="w-4xl h-auto rounded-3xl mb-[3rem]"
                                                 src={url || prepImg}
-                                                onError={(e) => {
-                                                    e.currentTarget.src = prepImg;
-                                                }}
+                                                fallbackSrc={prepImg}
                                                 alt={`${data?.projName || 'project'}_${index}`}
                                             />
                                         ))
