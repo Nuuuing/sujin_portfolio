@@ -3,9 +3,8 @@ import type { Config } from 'tailwindcss'
 const config: Config = {
   darkMode: 'media',
   content: [
-    './app/**/*.{ts,tsx}',
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
+    './src/pages/**/*.{ts,tsx}',
+    './src/components/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {

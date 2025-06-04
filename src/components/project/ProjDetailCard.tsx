@@ -17,7 +17,7 @@ export const ProjDetailCard = (props: ProjDetailCardProps) => {
                 <div className="w-full md:w-1/5 flex justify-center">
                     <div className="w-48 h-48 overflow-hidden rounded-xl mb-4 md:mb-0">
                         <motion.img
-                            src={data.imgUrl}
+                            src={`${process.env.BASE_PATH}/${data.imgUrl}`}
                             alt={data.projName}
                             className="w-48 h-48 object-cover rounded-xl grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-300"
                         />

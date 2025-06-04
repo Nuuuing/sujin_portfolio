@@ -167,7 +167,7 @@ const ContentsContainer = (props: ContentsProps) => {
                 data?.imgUrl &&
                 <Image
                     className="w-2xl h-auto rounded-3xl mb-[3rem]"
-                    src={data.imgUrl}
+                    src={`${data.imgUrl}`}
                     alt={data.midTitle + 'Img'} />
             }
             <h2> {data.midTitle}</h2>

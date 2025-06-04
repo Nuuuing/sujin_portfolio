@@ -7,7 +7,7 @@ export const prepImg = '/projImg/preparing.png';
 const blue_0 = '/projImg/blue_0.png';
 const blue_1 = '/projImg/blue_1.png';
 //zonbie
-const zphImg = '/projImg/zph.png';
+const zphImg = '/public/projImg/zph.png';
 const zphImg1 = '/projImg/zph_1.png';
 const zphImg2 = '/projImg/zph_2.png';
 //sori

@@ -20,14 +20,14 @@ export const ImageWithFallback = (props: ImageFallbackProps) => {
             {
                 fallbackSrc !== undefined ? (
                     <Image
-                        src={imgSrc}
+                        src={`${imgSrc}`}
                         alt={alt}
                         onError={() => setImgSrc(fallbackSrc)}
                         className={className}
                     />
                 ) : (
                     <Image
-                        src={imgSrc}
+                        src={`${imgSrc}`}
                         alt={alt}
                         className={className}
                     />

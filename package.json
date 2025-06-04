@@ -2,12 +2,14 @@
   "name": "sj_portf",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/Nuuuing/sujin_portfolio",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "next build && gh-pages -d out"
+    "predeploy": "npm run build && node scripts/nojekyll.js",
+    "deploy": "npm run predeploy && gh-pages -d out --dotfiles"
   },
   "dependencies": {
     "dayjs": "^1.11.13",
@@ -27,6 +29,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "gh-pages": "^6.3.0",
+    "shx": "^0.4.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

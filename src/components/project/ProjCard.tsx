@@ -17,7 +17,7 @@ export const ProjCard = (props: ProjCardProps) => {
             <BaseCard className="group">
                 <div className="w-full h-48 overflow-hidden rounded-xl mb-4">
                     <motion.img
-                        src={data.imgUrl}
+                        src={`${data.imgUrl}`}
                         alt={data.projName}
                         className="w-full h-48 object-cover rounded-xl mb-4 grayscale group-hover:grayscale-0 group-hover:scale-115 transition-all duration-300"
                     />
