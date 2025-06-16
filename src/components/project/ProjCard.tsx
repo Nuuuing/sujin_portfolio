@@ -12,7 +12,7 @@ export const ProjCard = (props: ProjCardProps) => {
     const { data } = props;
 
     return (
-        <Link href={{ pathname: '/project/detail', query: { id: data.key } }}>
+        <Link href={{ pathname: `/project/detail/${data.key}` }}>
             <BaseCard className="group">
                 <div className="w-full h-48 overflow-hidden rounded-xl mb-4">
                     <motion.img

@@ -1,7 +1,6 @@
 import { careerSubT, careerT } from "@/types"
 import { skills } from "./common.data"
 
-
 export const careerSubDataTG: careerSubT[] = [
     {
         key: 5,

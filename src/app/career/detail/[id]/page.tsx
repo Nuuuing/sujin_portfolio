@@ -1,4 +1,5 @@
 import { DetailLayout } from "@/components";
+import { CareerTg, CareerUph } from "@/components/career/Detail";
 import { careerData } from "@/data";
 
 type Params = Promise<{ id: string }>
@@ -22,7 +23,15 @@ export default async function CareerDetailPage(props: { params: Params }) {
         <DetailLayout
             title={'CAREER'}>
             <div className="py-[3rem]">
-                {id}
+
+                {
+                    id === '0' ? (
+                        <CareerTg />
+                    ) : id === '1' ? (
+                        <CareerUph />
+                    ) : (<></>)
+                }
+
             </div>
         </DetailLayout>
     )

@@ -4,14 +4,14 @@ import { contentsT, projDetailT, skillStackT, stackType } from "@/types";
 import dayjs from "dayjs";
 import Image from 'next/image';
 
-const gitIcon = `${process.env.BASE_PATH}//icon/github_logo.png`;
-const notionIcon = `${process.env.BASE_PATH}//icon/notion_logo.png`;
+const gitIcon = `${process.env.BASE_PATH}/icon/github_logo.png`;
+const notionIcon = `${process.env.BASE_PATH}/icon/notion_logo.png`;
 
 type Params = Promise<{ id: string }>
 
 export async function generateStaticParams() {
     return projectDetailData.map(project => ({
-        id: project.key.toString(), // key가 숫자면 string으로 변환
+        id: project.key.toString(),
     }));
 }
 
@@ -59,33 +59,45 @@ export default async function ProjectDetail(props: { params: Params }) {
                                 {dayjs(data?.startDate).format('YYYY.MM')} - {data?.endDate ? dayjs(data?.endDate).format('YYYY.MM') : 'ING'}
                             </p>
                         </div>
-                        {data?.gitUrl && data.notionUrl && (
-                            <div className="flex gap-4 items-center">
-                                {data.gitUrl.map((url: string, index) => (
-                                    <a
-                                        key={'git' + index}
-                                        href={url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center gap-2">
-                                        <ImageWithFallback
-                                            src={gitIcon}
-                                            className="w-auto h-[2.5rem] invert"
-                                            alt={'GITHUB ICON'} />
-                                    </a>
-                                ))}
-                                <a
-                                    href={data.notionUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-2">
-                                    <ImageWithFallback
-                                        src={notionIcon}
-                                        className="w-auto h-[2.5rem] invert"
-                                        alt={'NOTION ICON'} />
-                                </a>
-                            </div>
-                        )}
+                        {
+                            (data?.gitUrl || data?.notionUrl) && (
+                                <div className="flex gap-4 items-center">
+                                    {data?.gitUrl && data.gitUrl.map((url: string, index: number) => (
+                                        <a
+                                            key={'git' + index}
+                                            href={url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2"
+                                        >
+                                            <ImageWithFallback
+                                                src={gitIcon}
+                                                className="w-auto h-[2rem] invert"
+                                                alt={'GITHUB ICON'}
+                                                width={20}
+                                                height={20}
+                                            />
+                                        </a>
+                                    ))}
+                                    {data?.notionUrl && (
+                                        <a
+                                            href={data.notionUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2"
+                                        >
+                                            <ImageWithFallback
+                                                src={notionIcon}
+                                                className="w-auto h-[2rem] invert"
+                                                alt={'NOTION ICON'}
+                                                width={20}
+                                                height={20}
+                                            />
+                                        </a>
+                                    )}
+                                </div>
+                            )
+                        }
 
                         {data?.projDesc}
 
@@ -102,6 +114,8 @@ export default async function ProjectDetail(props: { params: Params }) {
                                                 src={url || `${prepImg}`}
                                                 fallbackSrc={`${prepImg}`}
                                                 alt={`${data?.projName || 'project'}_${index}`}
+                                                width={1200} 
+                                                height={800}
                                             />
                                         ))
                                     }
@@ -168,7 +182,10 @@ const ContentsContainer = (props: ContentsProps) => {
                 <Image
                     className="w-2xl h-auto rounded-3xl mb-[3rem]"
                     src={`${data.imgUrl}`}
-                    alt={data.midTitle + 'Img'} />
+                    alt={data.midTitle + 'Img'}                 
+                    width={500}
+                    height={500}
+                />
             }
             <h2> {data.midTitle}</h2>
             <p>{data.contents}</p>
