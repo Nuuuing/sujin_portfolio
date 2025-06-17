@@ -13,7 +13,9 @@ export const CareerItem = (props: CareerItemProps) => {
             href={{ pathname: `/career/detail/${data.key}` }}
             className="bg-[#1a1a1a] w-[20rem] text-white rounded-xl px-4 py-2 text-center block space-y-2 shadow-md my-4 cursor-pointer">
             <div className="bg-gray-700 text-sm px-3 py-1 rounded-full inline-block">
-                {dayjs(data?.startTerm).format('YYYY.MM')} - {data?.endTerm ? dayjs(data.endTerm).format('YYYY.MM') : 'ING'}
+                {data?.startTerm ? `${data.startTerm.getFullYear()}.${String(data.startTerm.getMonth()).padStart(2, '0')}` : ''}
+                &nbsp;-&nbsp;
+                {data?.endTerm ? `${data.endTerm.getFullYear()}.${String(data.endTerm.getMonth()).padStart(2, '0')}` : 'ING'}
             </div>
 
             <div className="text-xl font-semibold">

@@ -19,7 +19,7 @@ export const careerSubDataTG: careerSubT[] = [
         ],
         description: "기존 플랫폼 성능 개선 및 고객 요구사항 추가로 인한 기능 고도화",
         contents: ["ReactQuery 적용하여 성능 향상", "유저 피드백에 맞추어 기능 개선", "사용자 매뉴얼 작성 (관리자, 사용자)"],
-        result: ["성능과 TDD에 대해 중요성을 깊이 인식하게 됨"],
+        result: ["성능과 TDD에 대해 중요성을 깊이 인식"],
         type: 'FrontEnd'
     },
     {
