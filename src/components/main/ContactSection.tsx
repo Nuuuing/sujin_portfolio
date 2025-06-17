@@ -13,17 +13,25 @@ export const ContactSection = () => {
                 <div
                     className="mb-[4rem]">
                     <div className="flex w-[10rem]">
-                        <div style={{borderBottom:'1px #bdbdbd solid', width: '70%'}}></div>
-                        <p style={{width:'30%', fontSize: "0.72rem"}}>DEVELOPER</p>
-                        </div>
+                        <div style={{ borderBottom: '1px #bdbdbd solid', width: '70%' }}></div>
+                        <p style={{ width: '30%', fontSize: "0.72rem" }}>DEVELOPER</p>
+                    </div>
                     <p className="font-bold text-xl">김 수 진 • KIM SUJIN</p>
                     <p className="font-light text-[0.85rem]">웹 • 응용프로그램 • 게임 개발</p>
                 </div>
                 <div className="text-[0.9rem]">
                     <a
-                        className="group block hover:text-[#949494] w-[10rem] duration-150"
+                        className="group block flex items-center gap-2 hover:text-[#949494] w-[13rem] duration-150"
                         href="mailto:su_042@daum.net"
                     >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-[1.2rem] h-[1.2rem] fill-current"
+                        >
+                            <path d="M2 4C1.447 4 1 4.447 1 5V19C1 19.553 1.447 20 2 20H22C22.553 20 23 19.553 23 19V5C23 4.447 22.553 4 22 4H2zM2 6L12 13L22 6V8L12 15L2 8V6Z" />
+                        </svg>
                         <p className="group-hover:text-[#949494] duration-150 ">su_042@daum.net</p>
                     </a>
                 </div>
@@ -48,6 +56,25 @@ export const ContactSection = () => {
                             />
                         </svg>
                         <p className="text-inherit">GITHUB</p>
+                    </a>
+                </div>
+
+                <div className="mt-[0.4rem] text-[0.9rem]">
+                    <a
+                        className="group block flex items-center gap-2 w-[10rem] hover:text-[#949494] duration-150"
+                        href="https://nuu-stradamus.tistory.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-[1.2rem] h-[1.2rem] fill-current"
+                        >
+                            <path d="M3 17.25V21h3.75l11.06-11.06-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" />
+                        </svg>
+                        <p className="group-hover:text-[#949494] duration-150 ">BLOG</p>
                     </a>
                 </div>
             </div>

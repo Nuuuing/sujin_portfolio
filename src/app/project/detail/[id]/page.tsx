@@ -1,8 +1,7 @@
-import { DetailLayout, ImageWithFallback } from "@/components";
+import { ContentsContainer, DetailLayout, ImageWithFallback } from "@/components";
 import { prepImg, projectDetailData } from "@/data";
 import { contentsT, projDetailT, skillStackT, stackType } from "@/types";
 import dayjs from "dayjs";
-import Image from 'next/image';
 
 const gitIcon = `${process.env.BASE_PATH}/icon/github_logo.png`;
 const notionIcon = `${process.env.BASE_PATH}/icon/notion_logo.png`;
@@ -99,26 +98,29 @@ export default async function ProjectDetail(props: { params: Params }) {
                             )
                         }
 
-                        {data?.projDesc}
+                        <div className="text-xl mt-[1.5rem]">
+                            {data?.projDesc}
+                        </div>
 
                         <div className="mb-[4rem]" />
                         {data?.projDescDetail &&
                             (<div className="flex justify-center mb-[4rem]">
                                 <div>
-                                    {
-                                        data?.imgUrl &&
-                                        (data?.imgUrl?.length > 0 ? data.imgUrl : [null]).map((url: string | null, index: number) => (
-                                            <ImageWithFallback
-                                                key={index}
-                                                className="w-4xl h-auto rounded-3xl mb-[3rem]"
-                                                src={url || `${prepImg}`}
-                                                fallbackSrc={`${prepImg}`}
-                                                alt={`${data?.projName || 'project'}_${index}`}
-                                                width={1200} 
-                                                height={800}
-                                            />
-                                        ))
-                                    }
+                                    {data?.imgUrl && (
+                                        <div className="grid grid-cols-2 gap-4 mb-[3rem]">
+                                            {(data.imgUrl.length > 0 ? data.imgUrl : [null]).map((url: string | null, index: number) => (
+                                                <ImageWithFallback
+                                                    key={index}
+                                                    className="w-full h-auto rounded-3xl"
+                                                    src={url || `${prepImg}`}
+                                                    fallbackSrc={`${prepImg}`}
+                                                    alt={`${data?.projName || 'project'}_${index}`}
+                                                    width={600}
+                                                    height={400}
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
                                     <div className="items-end mx-[5rem]">
                                         <p className="text-xl font-bold text-[#72AAFF] mr-[0.7rem]">
                                             OVERVIEW
@@ -130,65 +132,29 @@ export default async function ProjectDetail(props: { params: Params }) {
                                 </div>
                             </div>)}
 
-                        {data?.roles &&
-                            (<div className="flex justify-center">
-                                <div>
-                                    <p
-                                        className="text-xl font-bold text-[#ffffff] mr-[0.7rem]">
-                                        담당 부분
-                                    </p>
-                                    {
-                                        data.roles.map((data: contentsT, index) => {
-                                            return (
-                                                <ContentsContainer
-                                                    key={'r-' + index}
-                                                    data={data}
-                                                />
-                                            )
-                                        })
-                                    }
+                        <div className="flex flex-col items-center">
+                            {data?.roles && (
+                                <div className="w-full max-w-[1200px] mx-[3rem]">
+                                    <p className="text-2xl font-bold text-[#FFFFFF] mb-4"> [ 담당 부분 ] </p>
+                                    {data.roles.map((role: contentsT, index: number) => (
+                                        <ContentsContainer key={`role-${index}`} data={role} />
+                                    ))}
                                 </div>
-                            </div>)}
-                        {data?.contents &&
-                            data.contents.map((data: contentsT, index) => {
-                                return (
-                                    <div
-                                        key={'cont-' + index}
-                                        className="flex justify-center">
-                                        <div>
-                                            <ContentsContainer
-                                                key={'c-' + index}
-                                                data={data} />
+                            )}
+
+                            {data?.contents && (
+                                <div className="w-full max-w-[1200px] mt-[3rem] mx-[5rem]">
+                                    {data.contents.map((content: contentsT, index: number) => (
+                                        <div key={`content-${index}`} className="mb-4">
+                                            <ContentsContainer key={`c-${index}`} data={content} />
                                         </div>
-                                    </div>
-                                )
-                            })}
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </>
                 }
             </DetailLayout>
         </>
-    )
-}
-interface ContentsProps {
-    data: contentsT;
-}
-
-const ContentsContainer = (props: ContentsProps) => {
-    const { data } = props;
-    return (
-        <div>
-            {
-                data?.imgUrl &&
-                <Image
-                    className="w-2xl h-auto rounded-3xl mb-[3rem]"
-                    src={`${data.imgUrl}`}
-                    alt={data.midTitle + 'Img'}                 
-                    width={500}
-                    height={500}
-                />
-            }
-            <h2> {data.midTitle}</h2>
-            <p>{data.contents}</p>
-        </div>
     )
 }

@@ -1,2 +1,2 @@
 export * from './ProjCard'
-export * from './ProjDetailCard'
+export * from './detail'
