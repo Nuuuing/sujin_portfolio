@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
 
 interface SearchProps {
     title: string;
