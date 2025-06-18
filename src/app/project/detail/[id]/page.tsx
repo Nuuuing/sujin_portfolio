@@ -1,6 +1,7 @@
 import { ContentsContainer, DetailLayout, ImageWithFallback } from "@/components";
 import { prepImg, projectDetailData } from "@/data";
 import { contentsT, projDetailT, skillStackT, stackType } from "@/types";
+import { parseContent } from "@/utils";
 import dayjs from "dayjs";
 
 const gitIcon = `${process.env.BASE_PATH}/icon/github_logo.png`;
@@ -107,27 +108,44 @@ export default async function ProjectDetail(props: { params: Params }) {
                             (<div className="flex justify-center mb-[4rem]">
                                 <div>
                                     {data?.imgUrl && (
-                                        <div className="grid grid-cols-2 gap-4 mb-[3rem]">
-                                            {(data.imgUrl.length > 0 ? data.imgUrl : [null]).map((url: string | null, index: number) => (
-                                                <ImageWithFallback
-                                                    key={index}
-                                                    className="w-full h-auto rounded-3xl"
-                                                    src={url || `${prepImg}`}
-                                                    fallbackSrc={`${prepImg}`}
-                                                    alt={`${data?.projName || 'project'}_${index}`}
-                                                    width={600}
-                                                    height={400}
-                                                />
-                                            ))}
-                                        </div>
+                                        data.imgUrl.length === 1 ? (
+                                            <div className="mb-[3rem] flex justify-center">
+                                                <div className="max-w-[900px] w-full">
+                                                    <ImageWithFallback
+                                                        className="w-full h-auto rounded-3xl"
+                                                        src={data.imgUrl[0] || `${prepImg}`}
+                                                        fallbackSrc={`${prepImg}`}
+                                                        alt={`${data?.projName || 'project'}_0`}
+                                                        width={1000}
+                                                        height={500}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="grid grid-cols-2 gap-4 mb-[3rem]">
+                                                {data.imgUrl.map((url: string, index: number) => (
+                                                    <ImageWithFallback
+                                                        key={index}
+                                                        className="w-full h-auto rounded-3xl"
+                                                        src={url || `${prepImg}`}
+                                                        fallbackSrc={`${prepImg}`}
+                                                        alt={`${data?.projName || 'project'}_${index}`}
+                                                        width={600}
+                                                        height={400}
+                                                    />
+                                                ))}
+                                            </div>
+                                        )
                                     )}
                                     <div className="items-end mx-[5rem]">
                                         <p className="text-xl font-bold text-[#72AAFF] mr-[0.7rem]">
                                             OVERVIEW
                                         </p>
-                                        <p>
-                                            {data.projDescDetail}
-                                        </p>
+                                        {data.projDescDetail.split('\n').map((paragraph, idx) => (
+                                            <p key={idx} className="leading-relaxed">
+                                                {parseContent(paragraph)}
+                                            </p>
+                                        ))}
                                     </div>
                                 </div>
                             </div>)}
@@ -154,7 +172,7 @@ export default async function ProjectDetail(props: { params: Params }) {
                         </div>
                     </>
                 }
-            </DetailLayout>
+            </DetailLayout >
         </>
     )
 }

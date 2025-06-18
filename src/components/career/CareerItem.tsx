@@ -1,6 +1,5 @@
 
 import { careerT } from "@/types";
-import dayjs from "dayjs";
 import Link from "next/link";
 
 interface CareerItemProps {

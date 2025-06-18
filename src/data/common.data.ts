@@ -111,5 +111,15 @@ export const skills:skillStackT[] =[
         key: 21,
         name: "ASP.NET",
         type: stackType.WEB
+    },
+    {
+        key: 22,
+        name: "MIRROR",
+        type: stackType.UNITY
+    },
+    {
+        key: 23,
+        name: "TCP SERVER",
+        type: stackType.OTHER
     }
 ]
