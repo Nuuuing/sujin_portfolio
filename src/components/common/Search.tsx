@@ -12,33 +12,24 @@ interface SearchProps {
 }
 
 export const Search = ({ title, motionKey, motionArea, motionIndex, children }: SearchProps) => {
-    const [isSmall, setIsSmall] = useState(false);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsSmall(window.innerWidth < 640); 
-        };
-        handleResize(); // 초기값 설정
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    const left = `${isSmall ? motionArea[motionIndex] * 0.9 : motionArea[motionIndex]}rem`;
+ 
 
     return (
-        <div className="mb-6 w-full">
-            <p className="font-extrabold mb-2 sm:mb-0 sm:w-24">{title}</p>
-            <div className="relative flex flex-wrap justify-start sm:justify-center bg-[#353535] rounded-full p-2 gap-2 w-fit max-w-full">
-                {motionKey && (
-                    <motion.div
-                        layoutId={motionKey}
-                        className="absolute top-1 bottom-1 w-[4.5rem] sm:w-20 rounded-full bg-black z-0"
-                        style={{ left }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                    />
-                )}
-                {children}
-            </div>
+      <div className="lg:flex lg:items-center mb-4 sm:w-full">
+        <p className="font-extrabold w-24 p-2 whitespace-nowrap">{title}</p>
+        <div className="font-extrabold relative flex justify-start sm:justify-center bg-[#353535] rounded-full p-2 gap-2 w-fit max-w-full">
+            {motionKey && (
+                <motion.div
+                    layoutId={motionKey}
+                    className="absolute top-1 bottom-1 w-[5rem] sm:w-20 rounded-full bg-black z-0"
+                        style={{
+                            left: `${motionArea[motionIndex]}rem`
+                        }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                />
+            )}
+            {children}
         </div>
+    </div>
     );
 };

@@ -14,7 +14,7 @@ export const ProjSection = () => {
     const techOptions = ['ALL', 'WEB', 'UNITY'];
     const [techField, setTechField] = useState('ALL');
 
-    const selectLeftArea = [0.5, 6, 11.5]
+    const selectLeftArea = [0.45, 5.3, 10.1]
 
     const filteredData = projectData.filter(data => {
         const matchParticipation =
