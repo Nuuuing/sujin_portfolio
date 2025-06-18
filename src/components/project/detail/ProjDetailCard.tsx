@@ -1,5 +1,6 @@
 'use client'
 
+import { BaseCard } from "@/components/common";
 import { projectT, skillStackT } from "@/types";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -12,15 +13,13 @@ export const ProjDetailCard = (props: ProjDetailCardProps) => {
 
     return (
         <Link href={{ pathname: `/project/detail/${data.key}`}}>
-            <div className="group m-2 p-4 flex flex-col md:flex-row hover:bg-[#3b3b3b] rounded-xl">
-                <div className="w-full md:w-1/5 flex justify-center">
-                    <div className="w-48 h-48 overflow-hidden rounded-xl mb-4 md:mb-0">
-                        <motion.img
-                            src={`${data.imgUrl}`}
-                            alt={data.projName}
-                            className="w-48 h-48 object-cover rounded-xl grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-300"
-                        />
-                    </div>
+            <BaseCard className="group">
+                  <div className="w-full h-48 overflow-hidden rounded-xl mb-4">
+                    <motion.img
+                        src={`${data.imgUrl}`}
+                        alt={data.projName}
+                        className="w-full h-48 object-cover rounded-xl mb-4 grayscale group-hover:grayscale-0 group-hover:scale-115 transition-all duration-300"
+                    />
                 </div>
 
                 <div className="w-full md:w-4/5 md:ml-5">
@@ -51,7 +50,7 @@ export const ProjDetailCard = (props: ProjDetailCardProps) => {
                         </div>
                     )}
                 </div>
-            </div>
+            </BaseCard>
         </Link>
     )
 }

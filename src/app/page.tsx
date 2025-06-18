@@ -58,13 +58,13 @@ export default function Home() {
     };
 
     return (
-        <div className="w-screen h-screen p-12">
+        <div className="w-full min-h-screen px-4 sm:px-8 lg:px-12">
             <Header />
             <div className="mt-[2rem]">
-                <div className="hidden lg:block fixed left-10 w-[200px] mr-8">
+                <div className="hidden lg:block fixed left-4 top-[8rem] w-[200px]">
                     <Menu onMenuClick={handleMenuClick} active={activeSection} />
                 </div>
-                <div className="flex-1 ml-0 lg:ml-[200px] py-6">
+                <div className="w-full flex-1 ml-0 lg:ml-[200px] py-6">
                     <div ref={mainRef} className="mt-[11rem] mb-[14rem]">
                         <MainSplash />
                     </div>
@@ -78,12 +78,12 @@ export default function Home() {
                         <ContactSection />
                     </div>
                 </div>
-                <div className='w-100% mx-20 py-8 border-[#f0f0f0] border-t-1 text-sm'>
+                <div className="w-full px-4 sm:px-8 md:px-20 py-8 border-t border-[#f0f0f0] text-sm text-center">
                     <p>본 페이지는 상업적 목적이 아닌 개인 포트폴리오용으로 제작되었습니다.</p>
                     <p>© 2025 Kim Sujin. All Rights Reserved.</p>
                 </div>
             </div>
             <ScrollToTopButton />
         </div>
-  );
+    );
 }

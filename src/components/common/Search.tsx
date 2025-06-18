@@ -1,31 +1,39 @@
 'use client';
 
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 interface SearchProps {
     title: string;
-    motionArea?: number[];
-    motionIndex?: number;
     motionKey?: string;
-    children: React.ReactNode
+    motionArea: number[];
+    motionIndex: number;
+    children: React.ReactNode;
 }
 
-export const Search = (props: SearchProps) => {
-    const { title, motionArea, motionIndex, children, motionKey } = props;
+export const Search = ({ title, motionKey, motionArea, motionIndex, children }: SearchProps) => {
+    const [isSmall, setIsSmall] = useState(false);
 
-    const shouldAnimate = motionArea && motionKey && typeof motionIndex === 'number';
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmall(window.innerWidth < 640); 
+        };
+        handleResize(); // 초기값 설정
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const left = `${isSmall ? motionArea[motionIndex] * 0.9 : motionArea[motionIndex]}rem`;
 
     return (
-        <div className="flex items-center mb-4">
-            <p className="w-24 p-2 font-extrabold">{title}</p>
-            <div className="font-extrabold relative flex justify-center bg-[#353535] rounded-full p-2 gap-2 min-w-[17rem]">
-                {shouldAnimate && (
+        <div className="mb-6 w-full">
+            <p className="font-extrabold mb-2 sm:mb-0 sm:w-24">{title}</p>
+            <div className="relative flex flex-wrap justify-start sm:justify-center bg-[#353535] rounded-full p-2 gap-2 w-fit max-w-full">
+                {motionKey && (
                     <motion.div
                         layoutId={motionKey}
-                        className="absolute top-1 bottom-1 w-20 rounded-full bg-black z-0"
-                        style={{
-                            left: `${motionArea[motionIndex]}rem`
-                        }}
+                        className="absolute top-1 bottom-1 w-[4.5rem] sm:w-20 rounded-full bg-black z-0"
+                        style={{ left }}
                         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                     />
                 )}
@@ -33,4 +41,4 @@ export const Search = (props: SearchProps) => {
             </div>
         </div>
     );
-}
+};

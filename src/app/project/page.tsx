@@ -41,7 +41,7 @@ export default function ProjectPage() {
         {ptcOptions.map((opt) => (
           <div
             key={opt}
-            className="w-20 text-center cursor-pointer z-10"
+            className="min-w-[4.5rem] text-center cursor-pointer z-10 px-2"
             onClick={() => setParticipation(opt)}
           >
             <span className="text-sm text-gray-300 p-1">{opt}</span>
@@ -57,7 +57,7 @@ export default function ProjectPage() {
         {techOptions.map((opt) => (
           <div
             key={opt}
-            className="w-20 text-center cursor-pointer z-10"
+            className="min-w-[4.5rem] text-center cursor-pointer z-10 px-2"
             onClick={() => setTechField(opt)}
           >
             <span className="text-sm text-gray-300">{opt}</span>
@@ -67,14 +67,11 @@ export default function ProjectPage() {
 
       <div style={{ marginTop: '4rem' }} />
       {filteredData.length > 0 ? (
-        <>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredData.map((data, index) => (
-            <ProjDetailCard
-              key={index}
-              data={data}
-            />
+            <ProjDetailCard key={index} data={data} />
           ))}
-        </>
+        </div>
       ) : (
         <div className="text-gray-400">조건에 맞는 프로젝트가 없습니다.</div>
       )}

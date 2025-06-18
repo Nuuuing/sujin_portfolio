@@ -5,14 +5,17 @@ import { careerT } from "@/types";
 import React from "react";
 
 export const CareerSection = () => {
-    const CareerMainData = careerData.map((data: careerT, index: number) => (
-        <React.Fragment key={`carr-wrap-${index}`}>
-            <CareerItem key={`carr-${index}`} data={data} />
-            {index < careerData.length - 1 && (
-                <p className="w-[19rem] text-center mx-2 text-[#d3d3d3] font-bold text-xl">•</p>
-            )}
-        </React.Fragment>
-    ));
+    const CareerMainData = careerData
+        .slice()
+        .reverse()
+        .map((data: careerT, index: number) => (
+            <React.Fragment key={`carr-wrap-${index}`}>
+                <CareerItem key={`carr-${index}`} data={data} />
+                {index < careerData.length - 1 && (
+                    <p className="w-[19rem] text-center mx-2 text-[#d3d3d3] font-bold text-xl">•</p>
+                )}
+            </React.Fragment>
+        ));
 
     return (
         <div >

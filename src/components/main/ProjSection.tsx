@@ -57,7 +57,7 @@ export const ProjSection = () => {
                     {ptcOptions.map((opt) => (
                         <div
                             key={opt}
-                            className="w-20 text-center cursor-pointer z-10"
+                            className="min-w-[4.5rem] text-center cursor-pointer z-10 px-2"
                             onClick={() => setParticipation(opt)}
                         >
                             <span className="text-sm text-gray-300 p-1">{opt}</span>
@@ -74,7 +74,7 @@ export const ProjSection = () => {
                     {techOptions.map((opt) => (
                         <div
                             key={opt}
-                            className="w-20 text-center cursor-pointer z-10"
+                            className="min-w-[4.5rem] text-center cursor-pointer z-10 px-2"
                             onClick={() => setTechField(opt)}
                         >
                             <span className="text-sm text-gray-300">{opt}</span>

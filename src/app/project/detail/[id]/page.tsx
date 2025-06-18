@@ -51,11 +51,11 @@ export default async function ProjectDetail(props: { params: Params }) {
                                 </p>
                             ))}
                         </div>
-                        <div className="flex justify-between items-end mx-1 mt-[1.5rem] mb-[1.5rem]">
-                            <p className='text-4xl font-bold text-[#e9e9e9]'>
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 mx-1 mt-[1.5rem] mb-[1.5rem]">
+                            <p className="text-4xl font-bold text-[#e9e9e9]">
                                 {data?.projName}
                             </p>
-                            <p className="text-3xl">
+                            <p className="text-3xl text-gray-300">
                                 {dayjs(data?.startDate).format('YYYY.MM')} - {data?.endDate ? dayjs(data?.endDate).format('YYYY.MM') : 'ING'}
                             </p>
                         </div>
@@ -102,15 +102,13 @@ export default async function ProjectDetail(props: { params: Params }) {
                         <div className="text-xl mt-[1.5rem]">
                             {data?.projDesc}
                         </div>
-
-                        <div className="mb-[4rem]" />
-                        {data?.projDescDetail &&
-                            (<div className="flex justify-center mb-[4rem]">
-                                <div>
+                        {data?.projDescDetail && (
+                            <div className="flex justify-center mb-[4rem]">
+                                <div className="w-full px-2 sm:px-0">
                                     {data?.imgUrl && (
                                         data.imgUrl.length === 1 ? (
                                             <div className="mb-[3rem] flex justify-center">
-                                                <div className="max-w-[900px] w-full">
+                                                <div className="w-full max-w-[100%] sm:max-w-[900px]">
                                                     <ImageWithFallback
                                                         className="w-full h-auto rounded-3xl"
                                                         src={data.imgUrl[0] || `${prepImg}`}
@@ -122,7 +120,7 @@ export default async function ProjectDetail(props: { params: Params }) {
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="grid grid-cols-2 gap-4 mb-[3rem]">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-[3rem]">
                                                 {data.imgUrl.map((url: string, index: number) => (
                                                     <ImageWithFallback
                                                         key={index}
@@ -137,10 +135,8 @@ export default async function ProjectDetail(props: { params: Params }) {
                                             </div>
                                         )
                                     )}
-                                    <div className="items-end mx-[5rem]">
-                                        <p className="text-xl font-bold text-[#72AAFF] mr-[0.7rem]">
-                                            OVERVIEW
-                                        </p>
+                                    <div className="px-0 sm:px-2"> 
+                                        <p className="text-xl font-bold text-[#72AAFF] mb-2">OVERVIEW</p>
                                         {data.projDescDetail.split('\n').map((paragraph, idx) => (
                                             <p key={idx} className="leading-relaxed">
                                                 {parseContent(paragraph)}
@@ -148,12 +144,12 @@ export default async function ProjectDetail(props: { params: Params }) {
                                         ))}
                                     </div>
                                 </div>
-                            </div>)}
-
+                            </div>
+                        )}
                         <div className="flex flex-col items-center">
                             {data?.roles && (
                                 <div className="w-full max-w-[1200px] mx-[3rem]">
-                                    <p className="text-2xl font-bold text-[#FFFFFF] mb-4"> [ 담당 부분 ] </p>
+                                    <p className="text-2xl font-bold text-[#FFFFFF] mb-4 sm:mb-2"> [ 담당 부분 ] </p>
                                     {data.roles.map((role: contentsT, index: number) => (
                                         <ContentsContainer key={`role-${index}`} data={role} />
                                     ))}
