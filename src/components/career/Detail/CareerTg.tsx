@@ -32,7 +32,7 @@ export const CareerTg = () => {
              {/* 기술 스택 */}
             <div className="mb-8 flex flex-wrap gap-2">
                 {['JAVA', 'JSP', 'SPRING', 'SPRING BOOT', 'REACT.JS', 'ORACLE', 'MYSQL'].map((skill) => (
-                    <p key={skill} className="bg-gray-200 dark:bg-gray-700 text-sm px-3 py-1 rounded-full font-medium text-gray-800 dark:text-white">
+                    <p key={skill} className="bg-gray-200 dark:bg-gray-600 text-sm px-3 py-1 rounded-full font-medium text-gray-800 dark:text-white">
                         {skill}
                     </p>
                 ))}
@@ -59,7 +59,7 @@ const CareerDetailItem = (props: CareerDetailItemProps) => {
     const { data } = props;
 
     return (
-        <div className="bg-gray-100 dark:bg-gray-900 shadow-md rounded-2xl p-4 border border-gray-700">
+        <div className="bg-[#fafafa] dark:bg-[#161616] shadow-md rounded-2xl p-4 border border-gray-400">
             {/* 상단 제목 영역 */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-1">
                 <div className="font-bold text-lg">
@@ -68,7 +68,7 @@ const CareerDetailItem = (props: CareerDetailItemProps) => {
                     {data?.endTerm ? `${data.endTerm.getFullYear()}.${String(data.endTerm.getMonth() + 1).padStart(2, '0')}` : 'ING'}
                     <p className="font-medium text-lg mt-1">{data.projTitle}</p>
                 </div>
-                <div className="font-semibold text-[#6f95ce] dark:text-blue-100 text-base">{data.type}</div>
+                <div className="font-semibold text-gray-600 dark:text-gray-200 text-base pr-[0.5rem]">{data.type}</div>
             </div>
 
             {/* 설명 */}
@@ -80,7 +80,7 @@ const CareerDetailItem = (props: CareerDetailItemProps) => {
             <div className="flex flex-wrap gap-2">
                 {data.skills?.map((data: skillStackT, index) => (
                     <span
-                        className="bg-[#d3e6ff] text-blue-800 text-xs px-2 py-1 rounded-full font-medium"
+                        className="bg-[#dadada] dark:bg-[#414141] text-[#636363] dark:text-[#e9e9e9] text-xs px-2 py-1 rounded-full font-medium"
                         key={'sk-' + index}
                     >
                         {data.name}
