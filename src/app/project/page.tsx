@@ -12,7 +12,7 @@ export default function ProjectPage() {
   const techOptions = ['ALL', 'WEB', 'UNITY'];
   const [techField, setTechField] = useState('ALL');
 
-  const selectLeftArea = [0.5, 6, 11.5]
+  const selectLeftArea = [0.4, 5.3, 10]
 
   const filteredData = projectData.filter(data => {
     const matchParticipation =
@@ -35,34 +35,53 @@ export default function ProjectPage() {
       title={'PROJECT'}>
       <Search
         title={'참여 형태'}
-        motionKey={'participationD'}
+        motionKey={'participation'}
         motionArea={selectLeftArea}
-        motionIndex={ptcOptions.indexOf(participation)}>
-        {ptcOptions.map((opt) => (
-          <div
-            key={opt}
-            className="min-w-[4.5rem] text-center cursor-pointer z-10 px-2"
-            onClick={() => setParticipation(opt)}
-          >
-            <span className="text-sm text-gray-300 p-1">{opt}</span>
-          </div>
-        ))}
+        motionIndex={ptcOptions.indexOf(participation)}
+      >
+        {ptcOptions.map((opt) => {
+          const isSelected = opt === participation;
+
+          return (
+            <div
+              key={opt}
+              className="min-w-[4.3rem] text-center cursor-pointer z-10 px-2"
+              onClick={() => setParticipation(opt)}
+            >
+              <span
+                className={`text-sm p-1 transition-colors duration-200
+                                    ${isSelected ? 'text-[#f3f3f3] dark:text-gray-300' : 'text-black dark:text-gray-400'}`}
+              >
+                {opt}
+              </span>
+            </div>
+          );
+        })}
       </Search>
 
       <Search
         title={'기술 분야'}
-        motionKey={'techD'}
+        motionKey={'tech'}
         motionArea={selectLeftArea}
-        motionIndex={techOptions.indexOf(techField)}>
-        {techOptions.map((opt) => (
-          <div
-            key={opt}
-            className="min-w-[4.5rem] text-center cursor-pointer z-10 px-2"
-            onClick={() => setTechField(opt)}
-          >
-            <span className="text-sm text-gray-300">{opt}</span>
-          </div>
-        ))}
+        motionIndex={techOptions.indexOf(techField)}
+      >
+        {techOptions.map((opt) => {
+          const isSelected = opt === techField;
+          return (
+            <div
+              key={opt}
+              className="min-w-[4.3rem] text-center cursor-pointer z-10 px-2"
+              onClick={() => setTechField(opt)}
+            >
+              <span
+                className={`text-sm p-1 transition-colors duration-200
+                                    ${isSelected ? 'text-[#f3f3f3] dark:text-gray-300' : 'text-black dark:text-gray-400'}`}
+              >
+                {opt}
+              </span>
+            </div>
+          )
+        })}
       </Search>
 
       <div style={{ marginTop: '4rem' }} />

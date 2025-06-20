@@ -42,7 +42,7 @@ export const ProjCard = (props: ProjCardProps) => {
                         {data.projSkills.map((value: skillStackT, idx) => (
                             <p
                                 key={idx}
-                                className="text-black text-xs font-medium px-1.5 py-1 rounded-lg bg-gray-200 dark:bg-white-100 dark:text-black"
+                                className="text-black text-xs font-medium px-2 py-1 rounded-full bg-gray-800 text-white dark:bg-gray-600 dark:text-[#e9e9e9]"
                             >
                                 {value.name}
                             </p>

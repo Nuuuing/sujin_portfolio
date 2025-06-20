@@ -12,9 +12,9 @@ export const ProjDetailCard = (props: ProjDetailCardProps) => {
     const { data } = props;
 
     return (
-        <Link href={{ pathname: `/project/detail/${data.key}`}}>
+        <Link href={{ pathname: `/project/detail/${data.key}` }}>
             <BaseCard className="group">
-                  <div className="w-full h-48 overflow-hidden rounded-xl mb-4">
+                <div className="w-full h-48 overflow-hidden rounded-xl mb-4">
                     <motion.img
                         src={`${data.imgUrl}`}
                         alt={data.projName}
@@ -22,7 +22,7 @@ export const ProjDetailCard = (props: ProjDetailCardProps) => {
                     />
                 </div>
 
-                <div className="w-full md:w-4/5 md:ml-5">
+                <div className="w-full md:w-4/5 md:ml-2">
                     <h2 className="text-2xl font-extrabold text-gray-800 dark:text-gray-100">{data.projName}</h2>
                     <p className="font-bold mt-3 text-xl text-gray-600 dark:text-gray-300">
                         {data.startDate} - {data?.endDate ? data.endDate : 'ing'}
@@ -30,9 +30,9 @@ export const ProjDetailCard = (props: ProjDetailCardProps) => {
                     <p className="text-base font-light mt-2 text-gray-600 dark:text-gray-300">{data.projDesc}</p>
 
                     {data?.projTag && (
-                        <div className="text-sm flex flex-wrap gap-2 mt-2">
+                        <div className="text-sm flex flex-wrap gap-1 mt-2">
                             {data.projTag.map((value: string, idx: number) => (
-                                <p key={idx} className="text-gray-400 px-1 py-1">#{value}</p>
+                                <p key={idx} className="text-gray-500 dark:text-gray-400 px-1 py-1">#{value}</p>
                             ))}
                         </div>
                     )}
@@ -42,7 +42,7 @@ export const ProjDetailCard = (props: ProjDetailCardProps) => {
                             {data.projSkills.map((value: skillStackT, idx) => (
                                 <p
                                     key={idx}
-                                    className="text-black text-xs font-medium px-1.5 py-1 rounded-lg bg-gray-200 dark:bg-white-100 dark:text-black"
+                                    className="text-black text-xs font-medium px-1.5 py-1 text-white rounded-full bg-gray-800 dark:bg-white-100 dark:text-black"
                                 >
                                     {value.name}
                                 </p>

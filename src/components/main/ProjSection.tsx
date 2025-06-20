@@ -14,7 +14,7 @@ export const ProjSection = () => {
     const techOptions = ['ALL', 'WEB', 'UNITY'];
     const [techField, setTechField] = useState('ALL');
 
-    const selectLeftArea = [0.45, 5.3, 10.1]
+    const selectLeftArea = [0.4, 5.3, 10]
 
     const filteredData = projectData.filter(data => {
         const matchParticipation =
@@ -45,7 +45,7 @@ export const ProjSection = () => {
                     className="mb-6 cursor-pointer w-[11rem]"
                 >
                     <h1 className="text-3xl font-bold">PROJECT</h1>
-                    <h3 className="pl-0 text-[#a3a3a3] hover:text-[#f0f0f0]">더보기 &gt;</h3>
+                    <h3 className="pl-0 text-[#a3a3a3] hover:text-[#72AAFF] dark:hover:text-[#f0f0f0]">더보기 &gt;</h3>
                 </Link>
 
                 <Search
@@ -54,15 +54,24 @@ export const ProjSection = () => {
                     motionArea={selectLeftArea}
                     motionIndex={ptcOptions.indexOf(participation)}
                 >
-                    {ptcOptions.map((opt) => (
-                        <div
-                            key={opt}
-                            className="min-w-[4.5rem] text-center cursor-pointer z-10 px-2"
-                            onClick={() => setParticipation(opt)}
-                        >
-                            <span className="text-sm text-gray-300 p-1">{opt}</span>
-                        </div>
-                    ))}
+                    {ptcOptions.map((opt) => {
+                        const isSelected = opt === participation;
+
+                        return (
+                            <div
+                                key={opt}
+                                className="min-w-[4.3rem] text-center cursor-pointer z-10 px-2"
+                                onClick={() => setParticipation(opt)}
+                            >
+                                <span
+                                    className={`text-sm p-1 transition-colors duration-200
+                                    ${isSelected ? 'text-[#f3f3f3] dark:text-gray-300' : 'text-black dark:text-gray-400'}`}
+                                >
+                                    {opt}
+                                </span>
+                            </div>
+                        );
+                    })}
                 </Search>
 
                 <Search
@@ -71,15 +80,23 @@ export const ProjSection = () => {
                     motionArea={selectLeftArea}
                     motionIndex={techOptions.indexOf(techField)}
                 >
-                    {techOptions.map((opt) => (
-                        <div
-                            key={opt}
-                            className="min-w-[4.5rem] text-center cursor-pointer z-10 px-2"
-                            onClick={() => setTechField(opt)}
-                        >
-                            <span className="text-sm text-gray-300">{opt}</span>
-                        </div>
-                    ))}
+                    {techOptions.map((opt) => {
+                        const isSelected = opt === techField;
+                        return (
+                            <div
+                                key={opt}
+                                className="min-w-[4.3rem] text-center cursor-pointer z-10 px-2"
+                                onClick={() => setTechField(opt)}
+                            >
+                                <span
+                                    className={`text-sm p-1 transition-colors duration-200
+                                    ${isSelected ? 'text-[#f3f3f3] dark:text-gray-300' : 'text-black dark:text-gray-400'}`}
+                                >
+                                    {opt}
+                                </span>
+                            </div>
+                        )
+                    })}
                 </Search>
 
                 <div style={{ marginTop: '4rem' }} />

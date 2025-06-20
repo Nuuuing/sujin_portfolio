@@ -8,7 +8,7 @@ export const CareerTg = () => {
             <div className="mb-[4rem]">
                 <div className="mb-[1rem]">
                     <h2 className="text-3xl font-bold">(주)티지</h2>
-                    <div className="mt-2 space-y-1 text-sm sm:text-base text-gray-300">
+                    <div className="mt-2 space-y-1 text-sm sm:text-base text-gray-500 dark:text-gray-300">
                         <p>공공 IT(데이터, ISP) 컨설팅</p>
                         <p>플랫폼팀 • 주임</p>
                     </div>
@@ -21,13 +21,23 @@ export const CareerTg = () => {
                     ].map((label, i) => (
                         <p
                             key={i}
-                            className="bg-gray-600 text-sm px-3 py-1 rounded-full font-bold"
+                            className="bg-gray-600 text-sm px-3 py-1 rounded-full font-bold text-white"
                         >
                             {label}
                         </p>
                     ))}
                 </div>
             </div>
+
+             {/* 기술 스택 */}
+            <div className="mb-8 flex flex-wrap gap-2">
+                {['JAVA', 'JSP', 'SPRING', 'SPRING BOOT', 'REACT.JS', 'ORACLE', 'MYSQL'].map((skill) => (
+                    <p key={skill} className="bg-gray-200 dark:bg-gray-700 text-sm px-3 py-1 rounded-full font-medium text-gray-800 dark:text-white">
+                        {skill}
+                    </p>
+                ))}
+            </div>
+
             <h2 className="text-3xl font-bold mb-[1rem] py-3">Project</h2>
             {
                 careerSubDataTG.map((data: careerSubT, index) => {
@@ -49,7 +59,7 @@ const CareerDetailItem = (props: CareerDetailItemProps) => {
     const { data } = props;
 
     return (
-        <div className="bg-gray-900 shadow-md rounded-2xl p-4 border border-gray-700">
+        <div className="bg-gray-100 dark:bg-gray-900 shadow-md rounded-2xl p-4 border border-gray-700">
             {/* 상단 제목 영역 */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-1">
                 <div className="font-bold text-lg">
@@ -58,7 +68,7 @@ const CareerDetailItem = (props: CareerDetailItemProps) => {
                     {data?.endTerm ? `${data.endTerm.getFullYear()}.${String(data.endTerm.getMonth() + 1).padStart(2, '0')}` : 'ING'}
                     <p className="font-medium text-lg mt-1">{data.projTitle}</p>
                 </div>
-                <div className="font-semibold text-blue-100 text-base">{data.type}</div>
+                <div className="font-semibold text-[#6f95ce] dark:text-blue-100 text-base">{data.type}</div>
             </div>
 
             {/* 설명 */}
@@ -70,7 +80,7 @@ const CareerDetailItem = (props: CareerDetailItemProps) => {
             <div className="flex flex-wrap gap-2">
                 {data.skills?.map((data: skillStackT, index) => (
                     <span
-                        className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium"
+                        className="bg-[#d3e6ff] text-blue-800 text-xs px-2 py-1 rounded-full font-medium"
                         key={'sk-' + index}
                     >
                         {data.name}

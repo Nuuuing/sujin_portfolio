@@ -45,17 +45,17 @@ export default async function ProjectDetail(props: { params: Params }) {
                             {getProjSkillLabels(data?.projSkills).map((label, idx) => (
                                 <p
                                     key={idx}
-                                    className="inline-block bg-black text-white border-2 border-[#d4d4d4] rounded-4xl px-3 py-1 font-extrabold text-lg"
+                                    className="inline-block bg-black text-white border-2 dark:border-[#d4d4d4] rounded-4xl px-3 py-1 font-extrabold text-lg"
                                 >
                                     {label}
                                 </p>
                             ))}
                         </div>
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 mx-1 mt-[1.5rem] mb-[1.5rem]">
-                            <p className="text-4xl font-bold text-[#e9e9e9]">
+                            <p className="text-4xl font-bold dark:text-[#e9e9e9] text-gray-700">
                                 {data?.projName}
                             </p>
-                            <p className="text-3xl text-gray-300">
+                            <p className="text-3xl dark:text-gray-300 text-gray-700">
                                 {dayjs(data?.startDate).format('YYYY.MM')} - {data?.endDate ? dayjs(data?.endDate).format('YYYY.MM') : 'ING'}
                             </p>
                         </div>
@@ -72,7 +72,7 @@ export default async function ProjectDetail(props: { params: Params }) {
                                         >
                                             <ImageWithFallback
                                                 src={gitIcon}
-                                                className="w-auto h-[2rem] invert"
+                                                className="w-auto h-[2rem] filter dark:invert"
                                                 alt={'GITHUB ICON'}
                                                 width={20}
                                                 height={20}
@@ -88,7 +88,7 @@ export default async function ProjectDetail(props: { params: Params }) {
                                         >
                                             <ImageWithFallback
                                                 src={notionIcon}
-                                                className="w-auto h-[2rem] invert"
+                                                className="w-auto h-[2rem] filter dark:invert"
                                                 alt={'NOTION ICON'}
                                                 width={20}
                                                 height={20}
@@ -99,7 +99,7 @@ export default async function ProjectDetail(props: { params: Params }) {
                             )
                         }
 
-                        <div className="text-xl mt-[1.5rem]">
+                        <div className="text-xl mt-[1.5rem] mb-[2rem]">
                             {data?.projDesc}
                         </div>
                         {data?.projDescDetail && (

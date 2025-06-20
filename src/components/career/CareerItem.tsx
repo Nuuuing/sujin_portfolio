@@ -10,8 +10,8 @@ export const CareerItem = (props: CareerItemProps) => {
     return (
         <Link
             href={{ pathname: `/career/detail/${data.key}` }}
-            className="w-[20rem] dark:text-white px-4 py-2 text-center block space-y-2 shadow-md my-4 cursor-pointer">
-            <div className="bg-gray-700 text-sm px-3 py-1 rounded-full inline-block">
+            className="w-[20rem] dark:text-white px-4 py-2 text-center block space-y-2 my-4 cursor-pointer">
+            <div className="bg-[#e9e9e9] dark:bg-gray-700 text-sm px-3 py-1 rounded-full inline-block">
                 {data?.startTerm ? `${data.startTerm.getFullYear()}.${String(data.startTerm.getMonth()).padStart(2, '0')}` : ''}
                 &nbsp;-&nbsp;
                 {data?.endTerm ? `${data.endTerm.getFullYear()}.${String(data.endTerm.getMonth()).padStart(2, '0')}` : 'ING'}
@@ -21,11 +21,11 @@ export const CareerItem = (props: CareerItemProps) => {
                 {data.company}
             </div>
 
-            <div className="text-sm text-gray-300">
+            <div className="text-sm text-gray-700 dark:text-gray-300">
                 {data?.teamName}팀 &nbsp; • &nbsp;{data?.position}
             </div>
 
-            <div className="bg-gray-600 text-xs px-2 py-1 rounded-full inline-block">
+            <div className="bg-[#e9e9e9] dark:bg-gray-700 text-xs px-2 py-1 rounded-full inline-block">
                 {data?.contents}
             </div>
         </Link>)

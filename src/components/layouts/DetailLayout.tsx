@@ -32,7 +32,7 @@ export const DetailLayout = (props: DetailLayoutProps) => {
                 </div>
             )}
 
-            <div className="w-full border-t border-[#f0f0f0]">
+            <div className="w-full border-t dark:border-[#f0f0f0] border-gray-700">
                 <div className="px-4 sm:px-8 py-10">
                     {children}
                 </div>

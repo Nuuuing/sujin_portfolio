@@ -21,7 +21,7 @@ export const ContactSection = () => {
                 </div>
                 <div className="text-[0.9rem]">
                     <a
-                        className="group block flex items-center gap-2 hover:text-[#949494] w-[13rem] duration-150"
+                        className="group block flex items-center gap-2 hover:text-[#72AAFF] dark:hover:text-[#949494] w-[13rem] duration-150"
                         href="mailto:su_042@daum.net"
                     >
                         <svg
@@ -32,7 +32,7 @@ export const ContactSection = () => {
                         >
                             <path d="M2 4C1.447 4 1 4.447 1 5V19C1 19.553 1.447 20 2 20H22C22.553 20 23 19.553 23 19V5C23 4.447 22.553 4 22 4H2zM2 6L12 13L22 6V8L12 15L2 8V6Z" />
                         </svg>
-                        <p className="group-hover:text-[#949494] duration-150 ">su_042@daum.net</p>
+                        <p className="group-hover:text-[#72AAFF] dark:group-hover:text-[#949494] duration-150 ">su_042@daum.net</p>
                     </a>
                 </div>
 
@@ -41,7 +41,7 @@ export const ContactSection = () => {
                         href="https://github.com/Nuuuing"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group block flex items-center gap-2 w-[10rem] hover:text-[#949494] transition-colors duration-150"
+                        className="group block flex items-center gap-2 w-[10rem] hover:text-[#77AAFF] dark:hover:text-[#949494] transition-colors duration-150"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +61,7 @@ export const ContactSection = () => {
 
                 <div className="mt-[0.4rem] text-[0.9rem]">
                     <a
-                        className="group block flex items-center gap-2 w-[10rem] hover:text-[#949494] duration-150"
+                        className="group block flex items-center gap-2 w-[10rem] hover:text-[#77AAFF] dark:hover:text-[#949494] duration-150"
                         href="https://nuu-stradamus.tistory.com/"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -74,7 +74,7 @@ export const ContactSection = () => {
                         >
                             <path d="M3 17.25V21h3.75l11.06-11.06-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" />
                         </svg>
-                        <p className="group-hover:text-[#949494] duration-150 ">BLOG</p>
+                        <p className="group-hover:text-[#72AAFF] dark:group-hover:text-[#949494] duration-150 ">BLOG</p>
                     </a>
                 </div>
             </div>

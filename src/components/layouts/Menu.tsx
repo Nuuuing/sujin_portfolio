@@ -37,7 +37,7 @@ const MenuButton = (props: MenuButtonProps) => {
         <p
             onClick={onClick}
             className={`m-2 cursor-pointer text-[1.1rem] font-extrabold transition-colors duration-200 
-        ${isActive ? 'text-white' : 'text-[#525252] hover:text-[#ffffff]'}`}
+        ${isActive ? 'text-[#72AAFF] dark:text-white' : 'text-[#525252] hover:text-[#72AAFF] dark:hover:text-[#ffffff]'}`}
         >
             {menuTxt}
         </p>

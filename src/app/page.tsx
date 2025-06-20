@@ -58,14 +58,16 @@ export default function Home() {
     };
 
     return (
-        <div className="w-full min-h-screen px-4 sm:px-8 lg:px-12">
+        <div className="w-full min-h-screen overflow-x-hidden">
             <Header />
-            <div className="mt-[2rem]">
-                <div className="hidden lg:block fixed left-4 top-[8rem] w-[200px]">
+
+            <div className="mt-[2rem] flex">
+                <div className="hidden lg:block fixed top-[8rem] left-0 w-[180px] z-40">
                     <Menu onMenuClick={handleMenuClick} active={activeSection} />
                 </div>
-                <div className="w-full flex-1 ml-0 lg:ml-[200px] py-6">
-                    <div ref={mainRef} className="mt-[11rem] mb-[14rem]">
+
+                <div className="flex-1 w-full lg:ml-[100px] px-4 sm:px-8 md:px-12 py-6">
+                    <div ref={mainRef} className="mt-[13rem] mb-[14rem]">
                         <MainSplash />
                     </div>
                     <div ref={projectRef}>
@@ -77,12 +79,13 @@ export default function Home() {
                     <div ref={contactRef} className="mt-[6rem] mb-[5rem]">
                         <ContactSection />
                     </div>
-                </div>
-                <div className="w-full px-4 sm:px-8 md:px-20 py-8 border-t border-[#f0f0f0] text-sm text-center">
-                    <p>본 페이지는 상업적 목적이 아닌 개인 포트폴리오용으로 제작되었습니다.</p>
-                    <p>© 2025 Kim Sujin. All Rights Reserved.</p>
+                    <div className="w-full py-8 border-t border-[#f0f0f0] text-sm text-center">
+                        <p>본 페이지는 상업적 목적이 아닌 개인 포트폴리오용으로 제작되었습니다.</p>
+                        <p>© 2025 Kim Sujin. All Rights Reserved.</p>
+                    </div>
                 </div>
             </div>
+
             <ScrollToTopButton />
         </div>
     );

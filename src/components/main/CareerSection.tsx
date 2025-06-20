@@ -12,7 +12,7 @@ export const CareerSection = () => {
             <React.Fragment key={`carr-wrap-${index}`}>
                 <CareerItem key={`carr-${index}`} data={data} />
                 {index < careerData.length - 1 && (
-                    <p className="w-[19rem] text-center mx-2 text-[#d3d3d3] font-bold text-xl">•</p>
+                    <p className="w-[19rem] text-center mx-2 text-gray-700 dark:text-[#d3d3d3] font-bold text-xl">•</p>
                 )}
             </React.Fragment>
         ));

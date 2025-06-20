@@ -5,7 +5,7 @@ export const CareerUph = () => {
             <div className="mb-12">
                 <div className="mb-4">
                     <h2 className="text-3xl font-bold">(주)유팜몰</h2>
-                    <div className="mt-2 space-y-1 text-sm sm:text-base text-gray-300">
+                    <div className="mt-2 space-y-1 text-sm sm:text-base text-gray-500 dark:text-gray-300">
                         <p>약국 전자상거래</p>
                         <p>개발팀 • 주임</p>
                     </div>
@@ -13,15 +13,15 @@ export const CareerUph = () => {
 
                 {/* 기간 & 포지션 */}
                 <div className="flex flex-wrap gap-2 mt-2">
-                    <p className="bg-gray-600 text-xs sm:text-sm px-3 py-1 rounded-full font-bold">2025.03 - ING</p>
-                    <p className="bg-gray-600 text-xs sm:text-sm px-3 py-1 rounded-full font-bold">WEB FULLSTACK</p>
+                    <p className="bg-gray-600 text-xs sm:text-sm px-3 py-1 rounded-full font-bold text-white">2025.03 - ING</p>
+                    <p className="bg-gray-600 text-xs sm:text-sm px-3 py-1 rounded-full font-bold text-white">WEB FULLSTACK</p>
                 </div>
             </div>
 
             {/* 기술 스택 */}
             <div className="mb-8 flex flex-wrap gap-2">
                 {['C#', 'ASP.NET', 'IIS', 'MSSQL', 'JAVA'].map((skill) => (
-                    <p key={skill} className="bg-gray-700 text-sm px-3 py-1 rounded-full font-medium">
+                    <p key={skill} className="bg-gray-200 dark:bg-gray-700 text-sm px-3 py-1 rounded-full font-medium text-gray-800 dark:text-white">
                         {skill}
                     </p>
                 ))}
