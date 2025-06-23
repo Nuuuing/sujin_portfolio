@@ -3,9 +3,6 @@ import { skills } from "./common.data";
 
 export const prepImg = `${process.env.BASE_PATH}/projImg/preparing.png`;
 
-//blue
-const blue_0 = `${process.env.BASE_PATH}/projImg/blue_0.png`;
-const blue_1 = `${process.env.BASE_PATH}/projImg/blue_1.png`;
 //zonbie
 const zphImg = `${process.env.BASE_PATH}/projImg/zph.png`;
 const zphImg1 = `${process.env.BASE_PATH}/projImg/zph_1.png`;
@@ -26,21 +23,6 @@ const twf_2 = `${process.env.BASE_PATH}/projImg/twf_2.png`;
 const paperPleaseImg = `${process.env.BASE_PATH}/projImg/pp.png`;
 
 export const projectData: projectT[] = [
-    {
-        key: 5,
-        projName: "MyLIO_나의작은바다",
-        projTag: ["3D", "캐주얼", "퍼즐"],
-        startDate: "2024.01",
-        endDate: " 2025.03 ",
-        projSkills: [
-            skills[18], skills[21], skills[13], skills[19], skills[15], skills[20]
-        ],
-        notionUrl: "https://otheretc.notion.site/MyLIO-16c41e6afd5780f4ac3aeb14e5230ab6",
-        gitUrl: ["NONE", "https://github.com/BlueSeekers/MyLittleOcean_Backend"],
-        imgUrl: blue_0,
-        projSize: ProjSize.side,
-        projPtc: ProjPtc.TEAM
-    },
     {
         key: 4,
         projName: "좀비,펑펑!화르륵",
@@ -126,36 +108,6 @@ export const projectData: projectT[] = [
 ]
 
 export const projectDetailData: projDetailT[] = [
-    {
-        key: 5,
-        projName: "MyLIO_나의작은바다",
-        projTag: ["3D", "캐주얼", "퍼즐"],
-        startDate: "2024.01",
-        endDate: " 2025.03 ",
-        projSkills: [
-            skills[18], skills[21], skills[13], skills[19], skills[15], skills[20]
-        ],
-        notionUrl: "https://otheretc.notion.site/MyLIO-16c41e6afd5780f4ac3aeb14e5230ab6",
-        gitUrl: ["NONE", "https://github.com/BlueSeekers/MyLittleOcean_Backend"],
-        imgUrl: [blue_0, blue_1],
-        projSize: ProjSize.side,
-        projPtc: ProjPtc.TEAM,
-        projDescDetail: "overview text",
-        roles: [
-            {
-                imgUrl: prepImg,
-                midTitle: "ATEST",
-                contents: "ATEST"
-            }
-        ],
-        contents: [
-            {
-                imgUrl: prepImg,
-                midTitle: "ATEST",
-                contents: "ATEST"
-            }
-        ]
-    },
     {
         key: 4,
         projName: "좀비,펑펑!화르륵",
