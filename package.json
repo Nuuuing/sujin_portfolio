@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "gh-pages -d out -b gh-pages -t", 
+    "deploy": "gh-pages -d out -b gh-pages -t",
     "predeploy": "npm run build && node scripts/create-nojekyll.js",
     "postdeploy": "echo 'Deployment complete!'"
   },
@@ -17,7 +17,8 @@
     "motion": "^12.17.3",
     "next": "15.3.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-tooltip": "^5.29.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

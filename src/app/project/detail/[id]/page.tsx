@@ -1,11 +1,9 @@
-import { ContentsContainer, DetailLayout, ImageWithFallback } from "@/components";
+import { ContentsContainer, DetailLayout, GitTooltip, ImageWithFallback, NotionTooltip } from "@/components";
 import { prepImg, projectDetailData } from "@/data";
 import { contentsT, projDetailT, skillStackT, stackType } from "@/types";
 import { parseContent } from "@/utils";
 import dayjs from "dayjs";
 
-const gitIcon = `${process.env.BASE_PATH}/icon/github_logo.png`;
-const notionIcon = `${process.env.BASE_PATH}/icon/notion_logo.png`;
 
 type Params = Promise<{ id: string }>
 
@@ -62,38 +60,11 @@ export default async function ProjectDetail(props: { params: Params }) {
                         {
                             (data?.gitUrl || data?.notionUrl) && (
                                 <div className="flex gap-4 items-center">
-                                    {data?.gitUrl && data.gitUrl.map((url: string, index: number) => (
-                                        <a
-                                            key={'git' + index}
-                                            href={url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-2"
-                                        >
-                                            <ImageWithFallback
-                                                src={gitIcon}
-                                                className="w-auto h-[2rem] filter dark:invert"
-                                                alt={'GITHUB ICON'}
-                                                width={20}
-                                                height={20}
-                                            />
-                                        </a>
-                                    ))}
+                                    {data?.gitUrl && (
+                                        <GitTooltip url={data.gitUrl} />
+                                    )}
                                     {data?.notionUrl && (
-                                        <a
-                                            href={data.notionUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-2"
-                                        >
-                                            <ImageWithFallback
-                                                src={notionIcon}
-                                                className="w-auto h-[2rem] filter dark:invert"
-                                                alt={'NOTION ICON'}
-                                                width={20}
-                                                height={20}
-                                            />
-                                        </a>
+                                        <NotionTooltip url={data.notionUrl} />
                                     )}
                                 </div>
                             )
@@ -135,7 +106,7 @@ export default async function ProjectDetail(props: { params: Params }) {
                                             </div>
                                         )
                                     )}
-                                    <div className="px-0 sm:px-2"> 
+                                    <div className="px-0 sm:px-2">
                                         <p className="text-xl font-bold text-[#72AAFF] mb-2">OVERVIEW</p>
                                         {data.projDescDetail.split('\n').map((paragraph, idx) => (
                                             <p key={idx} className="leading-relaxed">
