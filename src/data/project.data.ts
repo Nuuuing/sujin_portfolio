@@ -24,6 +24,24 @@ const paperPleaseImg = `${process.env.BASE_PATH}/projImg/pp.png`;
 
 export const projectData: projectT[] = [
     {
+        key: 5,
+        projName: "타로 Master",
+        projDesc: "애니메이션을 적용하여 제작한 간단한 타로 점괘 WEBSITE",
+        projTag: ["타로카드", "점괘"],
+        startDate: "2025.06.11",
+        endDate: "ing",
+        projSkills: [
+            skills[2], skills[24]
+        ],
+        gitUrl: [{
+            url: "https://github.com/Nuuuing/Tarot-Front",
+            title: "Front Git Repository"
+        }],
+        imgUrl: prepImg,
+        projSize: ProjSize.toy,
+        projPtc: ProjPtc.SOLO
+    },
+    {
         key: 4,
         projName: "좀비,펑펑!화르륵",
         projDesc: "수박게임 스타일의 2D 퍼즐 게임, 기획팀과 협업한 모바일 캐주얼 퍼즐",
@@ -34,7 +52,14 @@ export const projectData: projectT[] = [
             skills[18], skills[13], skills[16], skills[20], skills[19], skills[8], skills[3]
         ],
         notionUrl: "https://tourmaline-tugboat-5d2.notion.site/118b84bb5ebe8023b0cfd3a25485e101",
-        gitUrl: ["https://github.com/Team-AlphaNo/ZombieBoom", "https://github.com/Team-AlphaNo/Zombie_Back"],
+        gitUrl: [{
+            url: "https://github.com/Team-AlphaNo/ZombieBoom",
+            title: "Client Git Repository"
+        }
+            , {
+            url: "https://github.com/Team-AlphaNo/Zombie_Back",
+            title: "Back Server Git Repository"
+        }],
         imgUrl: zphImg,
         projSize: ProjSize.side,
         projPtc: ProjPtc.TEAM
@@ -49,7 +74,10 @@ export const projectData: projectT[] = [
         projSkills: [
             skills[18]
         ],
-        gitUrl: ["https://github.com/Yogurtsharbet/SORI"],
+        gitUrl: [{
+            url: "https://github.com/Yogurtsharbet/SORI",
+            title: "Client Git Repository"
+        }],
         notionUrl: "https://tourmaline-tugboat-5d2.notion.site/SORI-1903aa91e2794f73b17aff5105dcccb4",
         youtubeUrl: "https://youtu.be/GxtldlEV7vo",
         imgUrl: sori_0,
@@ -66,7 +94,10 @@ export const projectData: projectT[] = [
         projSkills: [
             skills[18], skills[13], skills[19], skills[22], skills[23]
         ],
-        gitUrl: ["https://github.com/KY00JSSH/NEKOPARK"],
+        gitUrl: [{
+            url: "https://github.com/KY00JSSH/NEKOPARK",
+            title: "Client Git Repository"
+        }],
         youtubeUrl: "https://www.youtube.com/watch?v=HEH-BjvP_3g&feature=youtu.be",
         imgUrl: nekoparkImg,
         projSize: ProjSize.toy,
@@ -82,7 +113,10 @@ export const projectData: projectT[] = [
         projSkills: [
             skills[18]
         ],
-        gitUrl: ["https://github.com/KY00JSSH/TheWildFour"],
+        gitUrl: [{
+            url: "https://github.com/KY00JSSH/TheWildFour",
+            title: "Client Git Repository"
+        }],
         notionUrl: "https://tourmaline-tugboat-5d2.notion.site/The-Wild-Four-18e102a9da304b0d967cd2f5b5b84efa",
         youtubeUrl: "http://youtube.com/watch?v=buZiRSoVNWw&feature=youtu.be",
         imgUrl: twf_0,
@@ -99,7 +133,10 @@ export const projectData: projectT[] = [
         projSkills: [
             skills[18]
         ],
-        gitUrl: ["https://github.com/Nuuuing/paperPlease"],
+        gitUrl: [{
+            url: "https://github.com/Nuuuing/paperPlease",
+            title: "Client Git Repository"
+        }],
         youtubeUrl: "https://www.youtube.com/watch?v=s95nBAnZJdo",
         imgUrl: paperPleaseImg,
         projSize: ProjSize.side,
@@ -108,6 +145,25 @@ export const projectData: projectT[] = [
 ]
 
 export const projectDetailData: projDetailT[] = [
+    {
+        key: 5,
+        projName: "타로 Master",
+        projDesc: "애니메이션을 적용하여 제작한 간단한 타로 점괘 WEBSITE",
+        projTag: ["타로카드", "점괘"],
+        startDate: "2025.06.11",
+        endDate: "ing",
+        projSkills: [
+            skills[2], skills[24]
+        ],
+        gitUrl: [{
+            url: "https://github.com/Nuuuing/Tarot-Front",
+            title: "Front Git Repository"
+        }],
+        imgUrl: [prepImg],
+        projSize: ProjSize.toy,
+        projPtc: ProjPtc.SOLO,
+        projDescDetail: ""
+    },
     {
         key: 4,
         projName: "좀비,펑펑!화르륵",
@@ -119,7 +175,14 @@ export const projectDetailData: projDetailT[] = [
             skills[18], skills[13], skills[16], skills[20], skills[19], skills[8], skills[3]
         ],
         notionUrl: "https://tourmaline-tugboat-5d2.notion.site/118b84bb5ebe8023b0cfd3a25485e101",
-        gitUrl: ["https://github.com/Team-AlphaNo/ZombieBoom", "https://github.com/Team-AlphaNo/Zombie_Back"],
+        gitUrl: [{
+            url: "https://github.com/Team-AlphaNo/ZombieBoom",
+            title: "Client Git Repository"
+        }
+            , {
+            url: "https://github.com/Team-AlphaNo/Zombie_Back",
+            title: "Back Server Git Repository"
+        }],
         imgUrl: [zphImg, zphImg2],
         projSize: ProjSize.side,
         projPtc: ProjPtc.TEAM,
@@ -160,7 +223,10 @@ export const projectDetailData: projDetailT[] = [
         projSkills: [
             skills[18]
         ],
-        gitUrl: ["https://github.com/Yogurtsharbet/SORI"],
+        gitUrl: [{
+            url: "https://github.com/Yogurtsharbet/SORI",
+            title: "Client Git Repository"
+        }],
         notionUrl: "https://tourmaline-tugboat-5d2.notion.site/SORI-1903aa91e2794f73b17aff5105dcccb4",
         youtubeUrl: "https://youtu.be/GxtldlEV7vo",
         imgUrl: [sori_0, sori_1, sori_2],
@@ -216,7 +282,10 @@ export const projectDetailData: projDetailT[] = [
         projSkills: [
             skills[18], skills[13], skills[19], skills[22], skills[23]
         ],
-        gitUrl: ["https://github.com/KY00JSSH/NEKOPARK"],
+        gitUrl: [{
+            url: "https://github.com/KY00JSSH/NEKOPARK",
+            title: "Client Git Repository"
+        }],
         youtubeUrl: "https://www.youtube.com/watch?v=HEH-BjvP_3g&feature=youtu.be",
         imgUrl: [nekoparkImg],
         projSize: ProjSize.toy,
@@ -251,7 +320,10 @@ export const projectDetailData: projDetailT[] = [
         projSkills: [
             skills[18]
         ],
-        gitUrl: ["https://github.com/KY00JSSH/TheWildFour"],
+        gitUrl: [{
+            url: "https://github.com/KY00JSSH/TheWildFour",
+            title: "Client Git Repository"
+        }],
         notionUrl: "https://tourmaline-tugboat-5d2.notion.site/The-Wild-Four-18e102a9da304b0d967cd2f5b5b84efa",
         youtubeUrl: "http://youtube.com/watch?v=buZiRSoVNWw&feature=youtu.be",
         imgUrl: [twf_0, twf_1, twf_2],
@@ -303,7 +375,10 @@ export const projectDetailData: projDetailT[] = [
         projSkills: [
             skills[18]
         ],
-        gitUrl: ["https://github.com/Nuuuing/paperPlease"],
+        gitUrl: [{
+            url: "https://github.com/Nuuuing/paperPlease",
+            title: "Client Git Repository"
+        }],
         youtubeUrl: "https://www.youtube.com/watch?v=s95nBAnZJdo",
         imgUrl: [paperPleaseImg],
         projSize: ProjSize.side,

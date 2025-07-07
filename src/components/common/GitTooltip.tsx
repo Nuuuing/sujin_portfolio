@@ -1,5 +1,6 @@
 'use client';
 
+import { gitUrlT } from '@/types';
 import { ImageWithFallback } from './ImageFallback';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
@@ -7,28 +8,21 @@ import 'react-tooltip/dist/react-tooltip.css';
 const gitIcon = `${process.env.BASE_PATH}/icon/github_logo.png`;
 
 interface GitTooltipProps {
-    url: string[];
+    git: gitUrlT[];
 }
 
-export const GitTooltip = ({ url }: GitTooltipProps) => {
-    const isMulti = url.length > 1;
+export const GitTooltip = ({ git }: GitTooltipProps) => {
 
     return (
         <>
-            {url.map((urlItem: string, index: number) => {
+            {git.map((data: gitUrlT, index: number) => {
                 const tooltipId = `git-tooltip-${index}`;
-                const tooltipContent = isMulti
-                    ? index === 0
-                        ? 'Front Git Repository'
-                        : index === 1
-                            ? 'Back Git Repository'
-                            : 'Git Repository'
-                    : 'Git Repository';
+                const tooltipContent = data.title;
 
                 return (
                     <div key={`git${index}`} className="relative">
                         <a
-                            href={urlItem}
+                            href={data.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2"

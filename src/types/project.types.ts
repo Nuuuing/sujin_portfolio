@@ -8,7 +8,7 @@ export interface projectT {
     projSkills?: skillStackT[];     //프로젝트 기술 스택
     startDate: string;              //프로젝트 시작일자
     endDate?: string;               //프로젝트 종료일자
-    gitUrl?: string[];              //git URL
+    gitUrl?: gitUrlT[];             //git URL
     notionUrl?: string;             //notion URL
     youtubeUrl?: string;            //youtube URL
     //mainYn:boolean;               //메인 게시 여부   
@@ -40,4 +40,9 @@ export enum ProjSize {
 export enum ProjPtc {
     TEAM = 1,
     SOLO
+}
+
+export interface gitUrlT{
+    url: string;
+    title: string; 
 }

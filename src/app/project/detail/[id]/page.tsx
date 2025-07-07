@@ -61,7 +61,7 @@ export default async function ProjectDetail(props: { params: Params }) {
                             (data?.gitUrl || data?.notionUrl) && (
                                 <div className="flex gap-4 items-center">
                                     {data?.gitUrl && (
-                                        <GitTooltip url={data.gitUrl} />
+                                        <GitTooltip git={data.gitUrl} />
                                     )}
                                     {data?.notionUrl && (
                                         <NotionTooltip url={data.notionUrl} />

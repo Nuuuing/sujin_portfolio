@@ -121,5 +121,25 @@ export const skills:skillStackT[] =[
         key: 23,
         name: "TCP SERVER",
         type: stackType.OTHER
+    },
+    {
+        key: 24,
+        name: "NEXT.js",
+        type: stackType.WEB
+    },
+    {
+        key: 25,
+        name: "Three.js",
+        type: stackType.WEB
+    },
+    {
+        key: 26,
+        name: "Python",
+        type: stackType.OTHER
+    },
+    {
+        key: 27,
+        name: "WebGL",
+        type: stackType.WEB
     }
 ]
