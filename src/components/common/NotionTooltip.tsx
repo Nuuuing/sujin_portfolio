@@ -4,7 +4,7 @@ import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { ImageWithFallback } from './ImageFallback';
 
-const notionIcon = `${process.env.BASE_PATH}/icon/notion_logo.png`;
+const notionIcon = `/icon/notion_logo.png`;
 
 interface NotionTooltipProps {
     url: string;

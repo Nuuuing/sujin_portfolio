@@ -5,7 +5,7 @@ import { ImageWithFallback } from './ImageFallback';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 
-const gitIcon = `${process.env.BASE_PATH}/icon/github_logo.png`;
+const gitIcon = `/icon/github_logo.png`;
 
 interface GitTooltipProps {
     git: gitUrlT[];

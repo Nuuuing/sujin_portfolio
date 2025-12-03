@@ -1,42 +1,43 @@
 import { projDetailT, projectT, ProjPtc, ProjSize } from "@/types";
 import { skills } from "./common.data";
 
-export const prepImg = `${process.env.BASE_PATH}/projImg/preparing.png`;
+export const prepImg = `/projImg/preparing.png`;
 
 //zonbie
-const zphImg = `${process.env.BASE_PATH}/projImg/zph.png`;
-const zphImg1 = `${process.env.BASE_PATH}/projImg/zph_1.png`;
-const zphImg2 = `${process.env.BASE_PATH}/projImg/zph_2.png`;
-const zphImg3 = `${process.env.BASE_PATH}/projImg/zph_3.png`;
-const zphImg4 = `${process.env.BASE_PATH}/projImg/zph_4.png`;
+const zphImg = `/projImg/zph.png`;
+const zphImg1 = `/projImg/zph_1.png`;
+const zphImg2 = `/projImg/zph_2.png`;
+const zphImg3 = `/projImg/zph_3.png`;
+const zphImg4 = `/projImg/zphImg_4.png`;
 //sori
-const sori_0 = `${process.env.BASE_PATH}/projImg/sori_0.png`;
-const sori_1 = `${process.env.BASE_PATH}/projImg/sori_1.png`;
-const sori_2 = `${process.env.BASE_PATH}/projImg/sori_2.png`;
+const sori_0 = `/projImg/sori_0.png`;
+const sori_1 = `/projImg/sori_1.png`;
+const sori_2 = `/projImg/sori_2.png`;
 //nekopark
-const nekoparkImg = `${process.env.BASE_PATH}/projImg/nekopark.png`;
+const nekoparkImg = `/projImg/nekopark.png`;
 //wildeight
-const twf_0 = `${process.env.BASE_PATH}/projImg/twf_0.png`;
-const twf_1 = `${process.env.BASE_PATH}/projImg/twf_1.png`;
-const twf_2 = `${process.env.BASE_PATH}/projImg/twf_2.png`;
+const twf_0 = `/projImg/twf_0.png`;
+const twf_1 = `/projImg/twf_1.png`;
+const twf_2 = `/projImg/twf_2.png`;
 //pp
-const paperPleaseImg = `${process.env.BASE_PATH}/projImg/pp.png`;
+const paperPleaseImg = `/projImg/pp.png`;
 
 export const projectData: projectT[] = [
     {
         key: 5,
-        projName: "타로 Master",
-        projDesc: "애니메이션을 적용하여 제작한 간단한 타로 점괘 WEBSITE",
-        projTag: ["타로카드", "점괘"],
-        startDate: "2025.06.11",
-        endDate: "ing",
+        projName: "PDF Converter",
+        projDesc: "이미지 파일을 파일 선택/폴더 선택 방식으로 업로드하여 PDF로 변환해주는 간단한 Utility WEBSITE",
+        projTag: ["Utility", "PDF", "Converter"],
+        startDate: "2025.11.04",
+        endDate: "2025.11.21",
         projSkills: [
-            skills[2], skills[24]
+            skills[24], skills[28], skills[29], skills[30]
         ],
         gitUrl: [{
-            url: "https://github.com/Nuuuing/Tarot-Front",
+            url: "https://github.com/Nuuuing/PDF-Converter",
             title: "Front Git Repository"
         }],
+        siteUrl: 'https://pdf-converter-18eb5.web.app/',
         imgUrl: prepImg,
         projSize: ProjSize.toy,
         projPtc: ProjPtc.SOLO
@@ -147,22 +148,29 @@ export const projectData: projectT[] = [
 export const projectDetailData: projDetailT[] = [
     {
         key: 5,
-        projName: "타로 Master",
-        projDesc: "애니메이션을 적용하여 제작한 간단한 타로 점괘 WEBSITE",
-        projTag: ["타로카드", "점괘"],
-        startDate: "2025.06.11",
-        endDate: "ing",
+        projName: "PDF Converter",
+        projDesc: "이미지 파일을 파일 선택/폴더 선택 방식으로 업로드하여 PDF로 변환해주는 간단한 Utility WEBSITE",
+        projTag: ["Utility", "PDF", "Converter"],
+        startDate: "2025.11.04",
+        endDate: "2025.11.21",
         projSkills: [
-            skills[2], skills[24]
+            skills[24], skills[28], skills[29], skills[30]
         ],
         gitUrl: [{
-            url: "https://github.com/Nuuuing/Tarot-Front",
+            url: "https://github.com/Nuuuing/PDF-Converter",
             title: "Front Git Repository"
         }],
+        siteUrl: 'https://pdf-converter-18eb5.web.app/',
         imgUrl: [prepImg],
         projSize: ProjSize.toy,
         projPtc: ProjPtc.SOLO,
-        projDescDetail: ""
+        projDescDetail: "",
+        roles: [
+            {
+                imgUrl: zphImg4,
+                midTitle: "",
+                contents: ""
+            }]
     },
     {
         key: 4,

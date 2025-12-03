@@ -1,7 +1,7 @@
 import { skillStackT, stackType } from "@/types";
 
 
-export const skills:skillStackT[] =[
+export const skills: skillStackT[] = [
     {
         key: 0,
         name: "React.js",
@@ -26,7 +26,7 @@ export const skills:skillStackT[] =[
         key: 4,
         name: "Java",
         type: stackType.LANG
-    }, 
+    },
     {
         key: 5,
         name: "Recoil",
@@ -140,6 +140,21 @@ export const skills:skillStackT[] =[
     {
         key: 27,
         name: "WebGL",
+        type: stackType.WEB
+    },
+    {
+        key: 28,
+        name: "Tailwind CSS",
+        type: stackType.WEB
+    },
+    {
+        key: 29,
+        name: "Zustand",
+        type: stackType.WEB
+    },
+    {
+        key: 30,
+        name: "Firebase Hosting",
         type: stackType.WEB
     }
 ]

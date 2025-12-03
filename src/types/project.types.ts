@@ -10,6 +10,7 @@ export interface projectT {
     endDate?: string;               //프로젝트 종료일자
     gitUrl?: gitUrlT[];             //git URL
     notionUrl?: string;             //notion URL
+    siteUrl?: string;
     youtubeUrl?: string;            //youtube URL
     //mainYn:boolean;               //메인 게시 여부   
     projSize?: ProjSize;            //프로젝트 규모
@@ -17,7 +18,7 @@ export interface projectT {
     imgUrl?: string;          //이미지 URL
 }
 
-export interface projDetailT extends  Omit<projectT, 'imgUrl'>{
+export interface projDetailT extends Omit<projectT, 'imgUrl'> {
     imgUrl?: string[];
     projDescDetail: string;                 //  overview text
     roles?: contentsT[];                    //  담당 정보
@@ -42,7 +43,7 @@ export enum ProjPtc {
     SOLO
 }
 
-export interface gitUrlT{
+export interface gitUrlT {
     url: string;
-    title: string; 
+    title: string;
 }
