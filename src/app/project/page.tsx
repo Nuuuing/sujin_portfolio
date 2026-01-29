@@ -1,11 +1,14 @@
 'use client';
 
 import { DetailLayout, ProjDetailCard, Search } from "@/components";
-import { projectData } from "@/data";
-import { stackType } from "@/types";
-import { useState } from "react";
+import { getProjects } from "@/utils";
+import { projectT } from "@/types";
+import { useState, useEffect } from "react";
 
 export default function ProjectPage() {
+  const [projectData, setProjectData] = useState<projectT[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const ptcOptions = ['ALL', 'TEAM', 'SOLO'];
   const [participation, setParticipation] = useState('ALL');
 
@@ -13,6 +16,16 @@ export default function ProjectPage() {
   const [techField, setTechField] = useState('ALL');
 
   const selectLeftArea = [0.4, 5.3, 10]
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      setIsLoading(true);
+      const data = await getProjects();
+      setProjectData(data);
+      setIsLoading(false);
+    };
+    fetchProjects();
+  }, []);
 
   const filteredData = projectData.filter(data => {
     const matchParticipation =
@@ -23,8 +36,8 @@ export default function ProjectPage() {
         ? true
         : data?.projSkills?.some(d =>
           techField === 'WEB'
-            ? d.type === stackType.WEB
-            : d.type === stackType.UNITY
+            ? d.type === 'WEB'
+            : d.type === 'UNITY'
         );
 
     return matchParticipation && matchTech;
@@ -85,7 +98,9 @@ export default function ProjectPage() {
       </Search>
 
       <div style={{ marginTop: '4rem' }} />
-      {filteredData.length > 0 ? (
+      {isLoading ? (
+        <div className="text-gray-400">로딩 중...</div>
+      ) : filteredData.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredData.map((data, index) => (
             <ProjDetailCard key={index} data={data} />

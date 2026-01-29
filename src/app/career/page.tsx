@@ -1,10 +1,10 @@
-'use client';
-
 import { CareerItem, DetailLayout } from "@/components";
-import { careerData } from "@/data";
-import { careerT } from "@/types";
+import { careerT } from "@/features";
+import { getCareers } from "@/utils";
 
-export default function CareerPage() {
+export default async function CareerPage() {
+  const careerData = await getCareers();
+
   const CareerMainData = careerData.map((data: careerT, index: number) => {
     return (
       <CareerItem

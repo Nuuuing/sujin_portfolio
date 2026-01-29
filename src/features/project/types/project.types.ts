@@ -1,4 +1,4 @@
-import { skillStackT } from "./common.types";
+import { skillStackT } from '@/types/common.types';
 
 export interface projectT {
     key: number;
@@ -14,8 +14,8 @@ export interface projectT {
     youtubeUrl?: string;            //youtube URL
     //mainYn:boolean;               //메인 게시 여부   
     projSize?: ProjSize;            //프로젝트 규모
-    projPtc: ProjPtc;                //프로젝트 참여 형태 (TEAM, SOLO)
-    imgUrl?: string;          //이미지 URL
+    projPtc: ProjPtc;               //프로젝트 참여 형태 (TEAM, SOLO)
+    imgUrl?: string;                //이미지 URL
 }
 
 export interface projDetailT extends Omit<projectT, 'imgUrl'> {
@@ -30,7 +30,6 @@ export interface contentsT {
     midTitle?: string;
     contents?: string;
 }
-
 
 export enum ProjSize {
     side = 0,

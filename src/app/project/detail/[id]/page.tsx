@@ -1,13 +1,14 @@
 import { ContentsContainer, DetailLayout, GitTooltip, ImageWithFallback, NotionTooltip } from "@/components";
-import { prepImg, projectDetailData } from "@/data";
-import { contentsT, projDetailT, skillStackT, stackType } from "@/types";
+import { contentsT, projDetailT, skillStackT } from "@/features";
+import { getProjectDetails } from "@/utils";
 import { parseContent } from "@/utils";
 import dayjs from "dayjs";
-
+import { prepImg } from "@/data";
 
 type Params = Promise<{ id: string }>
 
 export async function generateStaticParams() {
+    const projectDetailData = await getProjectDetails();
     return projectDetailData.map(project => ({
         id: project.key.toString(),
     }));
@@ -15,6 +16,7 @@ export async function generateStaticParams() {
 
 export default async function ProjectDetail(props: { params: Params }) {
     const { id } = await props.params;
+    const projectDetailData = await getProjectDetails();
 
     const data = projectDetailData.find(
         (data: projDetailT) => data.key === (Number(id))
@@ -26,8 +28,8 @@ export default async function ProjectDetail(props: { params: Params }) {
         const types = new Set(projSkills.map((d) => d.type));
 
         const labels: string[] = [];
-        if (types.has(stackType.WEB)) labels.push('WEB');
-        if (types.has(stackType.UNITY)) labels.push('UNITY');
+        if (types.has('WEB')) labels.push('WEB');
+        if (types.has('UNITY')) labels.push('UNITY');
 
         return labels;
     };

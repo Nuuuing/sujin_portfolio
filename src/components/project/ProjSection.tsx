@@ -1,13 +1,16 @@
 'use client';
 
 import { ProjCard, Search } from "@/components";
-import { projectData } from "@/data";
-import { stackType } from "@/types";
+import { projectT } from "@/features";
+import { getProjects } from "@/utils";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const ProjSection = () => {
+    const [projectData, setProjectData] = useState<projectT[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
     const ptcOptions = ['ALL', 'TEAM', 'SOLO'];
     const [participation, setParticipation] = useState('ALL');
 
@@ -15,6 +18,16 @@ export const ProjSection = () => {
     const [techField, setTechField] = useState('ALL');
 
     const selectLeftArea = [0.4, 5.3, 10]
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            setIsLoading(true);
+            const data = await getProjects();
+            setProjectData(data);
+            setIsLoading(false);
+        };
+        fetchProjects();
+    }, []);
 
     const filteredData = projectData.filter(data => {
         const matchParticipation =
@@ -25,8 +38,8 @@ export const ProjSection = () => {
                 ? true
                 : data?.projSkills?.some(d =>
                     techField === 'WEB'
-                        ? d.type === stackType.WEB
-                        : d.type === stackType.UNITY
+                        ? d.type === 'WEB'
+                        : d.type === 'UNITY'
                 );
 
         return matchParticipation && matchTech;
@@ -100,7 +113,9 @@ export const ProjSection = () => {
                 </Search>
 
                 <div style={{ marginTop: '4rem' }} />
-                {filteredData.length > 0 ? (
+                {isLoading ? (
+                    <div className="text-gray-400">로딩 중...</div>
+                ) : filteredData.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {filteredData.map((data, index) => (
                             <ProjCard key={index} data={data} />

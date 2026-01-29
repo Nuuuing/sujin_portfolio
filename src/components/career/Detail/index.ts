@@ -1,2 +1,1 @@
-export * from './CareerTg';
-export * from './CareerUph';
+export * from './CareerDetail';

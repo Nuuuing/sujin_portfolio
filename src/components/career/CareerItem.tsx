@@ -12,9 +12,9 @@ export const CareerItem = (props: CareerItemProps) => {
             href={{ pathname: `/career/detail/${data.key}` }}
             className="w-[20rem] dark:text-white px-4 py-2 text-center block space-y-2 my-4 cursor-pointer">
             <div className="bg-[#e9e9e9] dark:bg-gray-700 text-sm px-3 py-1 rounded-full inline-block">
-                {data?.startTerm ? `${data.startTerm.getFullYear()}.${String(data.startTerm.getMonth()).padStart(2, '0')}` : ''}
+                {data?.startTerm ? `${data.startTerm.getFullYear()}.${String(data.startTerm.getMonth() + 1).padStart(2, '0')}` : ''}
                 &nbsp;-&nbsp;
-                {data?.endTerm ? `${data.endTerm.getFullYear()}.${String(data.endTerm.getMonth()).padStart(2, '0')}` : 'ING'}
+                {data?.endTerm ? `${data.endTerm.getFullYear()}.${String(data.endTerm.getMonth() + 1).padStart(2, '0')}` : 'ING'}
             </div>
 
             <div className="text-xl font-semibold">

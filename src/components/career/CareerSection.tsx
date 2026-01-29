@@ -1,10 +1,24 @@
+'use client';
 
 import { CareerItem } from "@/components";
-import { careerData } from "@/data";
-import { careerT } from "@/types";
-import React from "react";
+import { careerT } from "@/features";
+import { getCareers } from "@/utils";
+import React, { useEffect, useState } from "react";
 
 export const CareerSection = () => {
+    const [careerData, setCareerData] = useState<careerT[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchCareers = async () => {
+            setIsLoading(true);
+            const data = await getCareers();
+            setCareerData(data);
+            setIsLoading(false);
+        };
+        fetchCareers();
+    }, []);
+
     const CareerMainData = careerData
         .slice()
         .reverse()
@@ -25,7 +39,11 @@ export const CareerSection = () => {
             </div>
             <div className="mt-[4rem] flex justify-center">
                 <div>
-                    {CareerMainData}
+                    {isLoading ? (
+                        <div className="text-gray-400">로딩 중...</div>
+                    ) : (
+                        CareerMainData
+                    )}
                 </div>
             </div>
         </div>
