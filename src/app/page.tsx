@@ -67,15 +67,15 @@ export default function Home() {
                 </div>
 
                 <div className="flex-1 w-full lg:ml-[100px] px-4 sm:px-8 md:px-12 py-6">
-                    <div ref={mainRef} className="mt-[13rem] mb-[14rem]">
+                    <div ref={mainRef}>
                         <MainSplash />
                     </div>
-                    <div ref={projectRef}>
+                    {/* <div ref={projectRef}>
                         <ProjSection />
                     </div>
                     <div ref={careerRef} className="mt-[10rem] mb-[12rem]">
                         <CareerSection />
-                    </div>
+                    </div> */}
                     <div ref={contactRef} className="mt-[6rem] mb-[5rem]">
                         <ContactSection />
                     </div>
