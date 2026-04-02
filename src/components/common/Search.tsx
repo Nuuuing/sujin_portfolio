@@ -1,34 +1,19 @@
 'use client';
 
-import { motion } from "motion/react";
+import React from "react";
 
 interface SearchProps {
     title: string;
-    motionKey?: string;
-    motionArea: number[];
-    motionIndex: number;
     children: React.ReactNode;
 }
 
-export const Search = ({ title, motionKey, motionArea, motionIndex, children }: SearchProps) => {
- 
-
+export const Search = ({ title, children }: SearchProps) => {
     return (
-      <div className="lg:flex lg:items-center mb-4 sm:w-full">
-        <p className="font-extrabold w-24 p-2 whitespace-nowrap">{title}</p>
-        <div className="font-extrabold relative flex justify-start sm:justify-center bg-[#f1f1f1] dark:bg-[#353535] rounded-full p-2 gap-2 w-fit max-w-full">
-            {motionKey && (
-                <motion.div
-                    layoutId={motionKey}
-                    className="absolute top-1 bottom-1 w-[4.5rem] rounded-full bg-black z-0"
-                        style={{
-                            left: `${motionArea[motionIndex]}rem`
-                        }}
-                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                />
-            )}
-            {children}
+        <div className="flex flex-col md:flex-row items-center justify-center mb-3 md:mb-4 w-full">
+            <p className="font-medium text-xs md:text-sm w-auto md:w-20 p-1 md:p-2 whitespace-nowrap text-gray-500 dark:text-gray-500 text-center md:text-right">{title}</p>
+            <div className="relative flex bg-[#e8e8e8] dark:bg-[#2a2a2a] rounded-full p-1 gap-1 w-fit max-w-full">
+                {children}
+            </div>
         </div>
-    </div>
     );
 };

@@ -1,4 +1,4 @@
-import { skillStackT } from '@/types/common.types';
+import { skillStackT } from '@/features';
 
 export interface projectT {
     key: number;
@@ -12,7 +12,9 @@ export interface projectT {
     notionUrl?: string;             //notion URL
     siteUrl?: string;
     youtubeUrl?: string;            //youtube URL
-    //mainYn:boolean;               //메인 게시 여부   
+    mainviewyn?: boolean;           //메인 게시 여부   
+    role?: string;                  //역할
+    achievements?: string[];        //주요 성과
     projSize?: ProjSize;            //프로젝트 규모
     projPtc: ProjPtc;               //프로젝트 참여 형태 (TEAM, SOLO)
     imgUrl?: string;                //이미지 URL
@@ -26,9 +28,17 @@ export interface projDetailT extends Omit<projectT, 'imgUrl'> {
 }
 
 export interface contentsT {
+    contentType?: ContentType;     // 콘텐츠 타입
     imgUrl?: string;
     midTitle?: string;
     contents?: string;
+}
+
+// 콘텐츠 타입 enum
+export enum ContentType {
+    TROUBLESHOOT = 'troubleshoot',  // 고민 -> 해결
+    IMPROVEMENT = 'improvement',     // 향후 개선
+    GENERAL = 'general'              // 일반 (태그 표시 안함)
 }
 
 export enum ProjSize {

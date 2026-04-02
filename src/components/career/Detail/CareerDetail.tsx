@@ -1,15 +1,25 @@
 'use client';
 
-import { careerSubT, careerT, skillStackT } from "@/features";
-import { getCareerSubs, getSkills } from "@/utils";
+import { CareerT, CareerProjectT, skillStackT } from "@/features";
+import { getSkills, parseContent } from "@/utils";
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import { SkillIcon } from "@/components";
+
+// YYYYMM 형식을 YYYY.MM으로 변환
+const formatTerm = (term: string | undefined): string => {
+    if (!term) return '';
+    if (term.length === 6) {
+        return `${term.slice(0, 4)}.${term.slice(4, 6)}`;
+    }
+    return term;
+};
 
 interface CareerDetailProps {
-    career: careerT;
+    career: CareerT;
 }
 
 export const CareerDetail = ({ career }: CareerDetailProps) => {
-    const [projects, setProjects] = useState<careerSubT[]>([]);
     const [skills, setSkills] = useState<skillStackT[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -21,73 +31,74 @@ export const CareerDetail = ({ career }: CareerDetailProps) => {
             const skillsData = await getSkills();
             setSkills(skillsData);
 
-            // projects 가져오기
-            if (career.docId) {
-                const projectsData = await getCareerSubs(career.docId);
-                setProjects(projectsData);
-            }
-
             setIsLoading(false);
         };
         fetchData();
-    }, [career.docId]);
+    }, []);
+
+    const projectCount = career.projects?.length ?? 0;
 
     return (
-        <div className="px-4 sm:px-8">
-            <div className="mb-[4rem]">
-                <div className="mb-[1rem]">
-                    <h2 className="text-3xl font-bold">{career.company}</h2>
-                    <div className="mt-2 space-y-1 text-sm sm:text-base text-gray-500 dark:text-gray-300">
-                        <p>{career.contents}</p>
-                        <p>{career.teamName}팀 • {career.position}</p>
-                    </div>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    <p className="bg-gray-600 text-sm px-3 py-1 rounded-full font-bold text-white">
-                        {career.startTerm ? `${career.startTerm.getFullYear()}.${String(career.startTerm.getMonth() + 1).padStart(2, '0')}` : ''}
-                        &nbsp;-&nbsp;
-                        {career.endTerm ? `${career.endTerm.getFullYear()}.${String(career.endTerm.getMonth() + 1).padStart(2, '0')}` : 'ING'}
-                        {career.dateString && ` (${career.dateString})`}
+        <div>
+            {/* 헤더 영역 */}
+            <div className="mb-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
+                        {career.company}
+                    </h1>
+                    <p className="text-lg sm:text-xl text-gray-500 dark:text-gray-400 mb-4">
+                        {career.position}{career.team && ` / ${career.team}팀`}
                     </p>
-                </div>
+                    <div className="flex items-center gap-3">
+                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#72AAFF]/10 border border-[#72AAFF]/30 text-[#72AAFF] text-sm font-semibold">
+                            {formatTerm(career.startTerm)} - {career.endTerm ? formatTerm(career.endTerm) : '현재'}
+                        </span>
+                    </div>
+                </motion.div>
             </div>
 
-            {career.displayType === 'contents' ? (
-                // Contents 형
-                <div>
-                    {career.detailContents && career.detailContents.length > 0 ? (
-                        <div className="bg-[#fafafa] dark:bg-[#161616] shadow-md rounded-2xl p-4">
-                            <ul className="list-disc list-inside space-y-2">
-                                {career.detailContents.map((content, idx) => (
-                                    <li key={idx} className="text-sm leading-relaxed">{content}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    ) : (
-                        <div className="text-gray-400">상세 내용이 없습니다.</div>
-                    )}
+            {/* Projects */}
+            {projectCount > 0 && (
+                <motion.div
+                    className="flex items-center gap-3 mb-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                    <span className="w-8 h-1 bg-[#72AAFF] rounded-full"></span>
+                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Projects</h2>
+                    <span className="text-[#72AAFF] font-semibold">({projectCount})</span>
+                </motion.div>
+            )}
+
+            {isLoading ? (
+                <div className="flex items-center justify-center py-20">
+                    <div className="w-8 h-8 border-2 border-[#72AAFF] border-t-transparent rounded-full animate-spin" />
                 </div>
             ) : (
-                // Project 형
-                <>
-                    <h2 className="text-3xl font-bold mb-[1rem] py-3">Project</h2>
-                    {isLoading ? (
-                        <div className="text-gray-400">로딩 중...</div>
-                    ) : (
-                        projects.map((data: careerSubT, index) => (
-                            <div key={'c-' + index} className="mb-6">
-                                <CareerDetailItem data={data} allSkills={skills} />
-                            </div>
-                        ))
-                    )}
-                </>
+                <div className="space-y-6">
+                    {career.projects?.map((project: CareerProjectT, index) => (
+                        <motion.div
+                            key={'c-' + index}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
+                        >
+                            <CareerDetailItem data={project} allSkills={skills} />
+                        </motion.div>
+                    ))}
+                </div>
             )}
         </div>
     );
 };
 
 interface CareerDetailItemProps {
-    data: careerSubT;
+    data: CareerProjectT;
     allSkills: skillStackT[];
 }
 
@@ -95,7 +106,7 @@ const CareerDetailItem = ({ data, allSkills }: CareerDetailItemProps) => {
     // skills는 항상 number 배열 (key)
     const skillsList = data.skills && Array.isArray(data.skills)
         ? data.skills
-            .map((skillKey: any) => {
+            .map((skillKey) => {
                 const key = typeof skillKey === 'number' ? skillKey : Number(skillKey);
                 return allSkills.find(s => s.key === key);
             })
@@ -103,81 +114,76 @@ const CareerDetailItem = ({ data, allSkills }: CareerDetailItemProps) => {
         : [];
 
     return (
-        <div className="bg-[#fafafa] dark:bg-[#161616] shadow-md rounded-2xl p-4 border border-gray-400">
-            {/* 상단 제목 영역 */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-1">
-                <div className="font-bold text-lg">
-                    {data?.startTerm ? `${data.startTerm.getFullYear()}.${String(data.startTerm.getMonth() + 1).padStart(2, '0')}` : ''}
-                    &nbsp;-&nbsp;
-                    {data?.endTerm ? `${data.endTerm.getFullYear()}.${String(data.endTerm.getMonth() + 1).padStart(2, '0')}` : 'ING'}
-                    {data.dateString && ` (${data.dateString})`}
-                    <p className="font-medium text-lg mt-1">{data.projTitle}</p>
+        <div className="bg-white dark:bg-[#1c1c1c] rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:border-[#72AAFF]/30 transition-colors">
+            {/* 상단 헤더 */}
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{data.projName}</h3>
+                    {data.description && (
+                        <p className="text-base text-gray-600 dark:text-gray-300 mb-2">{parseContent(data.description)}</p>
+                    )}
+                    <p className="text-base text-gray-500 dark:text-gray-400">
+                        {data.startDate} - {data.endDate || 'Present'}
+                        {data.duration && ` (${data.duration})`}
+                    </p>
                 </div>
-                <div className="font-semibold text-gray-600 dark:text-gray-200 text-base pr-[0.5rem]">{data.type}</div>
+                {data.role && (
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-semibold shrink-0">
+                        {data.role}
+                    </span>
+                )}
             </div>
 
-            {/* 설명 */}
-            {data.description && (
-                <div className="mb-3 text-sm leading-relaxed">
-                    <p>{data.description}</p>
-                </div>
-            )}
-
             {/* 담당 내용 */}
-            {data.task && Array.isArray(data.task) && data.task.length > 0 && (
-                <div className="mb-3">
-                    <p className="text-sm font-semibold mb-1">담당 내용:</p>
-                    <ul className="list-disc list-inside text-sm space-y-1">
-                        {data.task.map((item, idx) => (
-                            <li key={idx}>{item}</li>
+            {data.tasks && data.tasks.length > 0 && (
+                <div className="mb-4">
+                    <h4 className="text-base font-semibold text-[#72AAFF] mb-3 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#72AAFF]"></span>
+                        담당 업무
+                    </h4>
+                    <ul className="space-y-2 pl-4">
+                        {data.tasks.map((item, idx) => (
+                            <li key={idx} className="text-gray-600 dark:text-gray-300 text-base flex items-start gap-2">
+                                <span className="text-gray-400 dark:text-gray-500 mt-1">•</span>
+                                <span>{parseContent(item)}</span>
+                            </li>
                         ))}
                     </ul>
                 </div>
             )}
 
-            {/* 개발 내용 */}
-            {data.contents && Array.isArray(data.contents) && data.contents.length > 0 && (
-                <div className="mb-3">
-                    <p className="text-sm font-semibold mb-1">개발 내용:</p>
-                    <ul className="list-disc list-inside text-sm space-y-1">
-                        {data.contents.map((content, idx) => (
-                            <li key={idx}>{content}</li>
+            {/* 성과 */}
+            {data.achievements && data.achievements.length > 0 && (
+                <div className="mb-4">
+                    <h4 className="text-base font-semibold text-green-400 mb-3 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-green-400"></span>
+                        성과
+                    </h4>
+                    <ul className="space-y-2 pl-4">
+                        {data.achievements.map((res, idx) => (
+                            <li key={idx} className="text-gray-600 dark:text-gray-300 text-base flex items-start gap-2">
+                                <span className="text-green-500 mt-1">✓</span>
+                                <span>{parseContent(res)}</span>
+                            </li>
                         ))}
                     </ul>
-                </div>
-            )}
-
-            {/* 결과 - 배열인 경우 */}
-            {data.result && Array.isArray(data.result) && data.result.length > 0 && (
-                <div className="mb-3">
-                    <p className="text-sm font-semibold mb-1">결과:</p>
-                    <ul className="list-disc list-inside text-sm space-y-1">
-                        {data.result.map((res, idx) => (
-                            <li key={idx}>{res}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-
-            {/* 결과 - 문자열인 경우 */}
-            {data.result && typeof data.result === 'string' && (
-                <div className="mb-3">
-                    <p className="text-sm font-semibold mb-1">결과:</p>
-                    <p className="text-sm">{data.result}</p>
                 </div>
             )}
 
             {/* 기술 스택 */}
             {skillsList.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                    {skillsList.map((skill, index) => (
-                        <span
-                            className="bg-[#dadada] dark:bg-[#414141] text-[#636363] dark:text-[#e9e9e9] text-xs px-2 py-1 rounded-full font-medium"
-                            key={'sk-' + index}
-                        >
-                            {skill.name}
-                        </span>
-                    ))}
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-800">
+                    <div className="flex flex-wrap gap-2">
+                        {skillsList.map((skill, index) => (
+                            <span
+                                className="text-[10px] font-medium px-2.5 py-1 rounded-full bg-[#72AAFF]/10 text-[#72AAFF] border border-[#72AAFF]/20 flex items-center gap-1"
+                                key={'sk-' + index}
+                            >
+                                <SkillIcon skillName={skill.name} size={12} />
+                                {skill.name}
+                            </span>
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

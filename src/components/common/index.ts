@@ -3,7 +3,10 @@ export * from './BaseCard'
 export * from './ArrowIcon'
 export * from './Button'
 export * from './ImageFallback'
+export * from './ExperienceItem'
 
 //Tooltip
-export * from './GitTooltip'
-export * from './NotionTooltip'
+export * from './tooltip'
+
+//Icons
+export * from './icons'

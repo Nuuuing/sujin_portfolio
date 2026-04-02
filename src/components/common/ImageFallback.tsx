@@ -1,29 +1,52 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-interface ImageFallbackProps {
+const DEFAULT_FALLBACK = '/preparing.png';
+
+interface ImageWithFallbackProps {
     src: string;
-    fallbackSrc?: string;
     alt: string;
+    fallbackSrc?: string;
     className?: string;
     width?: number;
     height?: number;
 }
 
-export const ImageWithFallback = (props: ImageFallbackProps) => {
-    const { src, fallbackSrc, alt, className, width, height } = props;
+export const ImageWithFallback = ({
+    src,
+    alt,
+    fallbackSrc = DEFAULT_FALLBACK,
+    className,
+    width,
+    height
+}: ImageWithFallbackProps) => {
+    const [imgSrc, setImgSrc] = useState(src || fallbackSrc);
+    const [hasError, setHasError] = useState(false);
 
-    const [imgSrc, setImgSrc] = useState(src);
+    useEffect(() => {
+        setImgSrc(src || fallbackSrc);
+        setHasError(false);
+    }, [src, fallbackSrc]);
+
+    const handleError = () => {
+        if (!hasError) {
+            setHasError(true);
+            setImgSrc(fallbackSrc);
+        }
+    };
 
     return (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
             src={imgSrc}
             alt={alt}
-            onError={() => fallbackSrc && setImgSrc(fallbackSrc)}
+            onError={handleError}
             className={className}
             width={width}
             height={height}
+            loading="lazy"
+            decoding="async"
         />
     );
-}
+};

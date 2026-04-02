@@ -1,1 +1,1 @@
-export const prepImg = `/preparing.png`;
+﻿export const prepImg = `/preparing.png`;

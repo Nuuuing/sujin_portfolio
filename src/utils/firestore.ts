@@ -25,6 +25,6 @@ export function toDateSafe(value: unknown): Date | undefined {
     return undefined;
 }
 
-export { getCareers, getCareerSubs } from '@/features/career';
+export { getCareers, getCareerByKey } from '@/features/career';
 export { getProjects, getProjectDetails } from '@/features/project';
 export { getSkills } from '@/features/skill';

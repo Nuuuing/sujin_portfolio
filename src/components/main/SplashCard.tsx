@@ -1,25 +1,24 @@
 interface SplashCardProps {
     title?: string;
     children?: React.ReactNode;
-    bgColor?: string;
     showDot?: boolean;
     className?: string;
 }
 
 export const SplashCard = (props: SplashCardProps) => {
-    const { title, children, bgColor = '#333335', showDot = false, className = '' } = props;
+    const { title, children, showDot = false, className = '' } = props;
 
     return (
         <div
-            className={`flex flex-col rounded-2xl p-5 md:p-6 ${className}`}
-            style={{ backgroundColor: bgColor }}>
+            className={`flex flex-col rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg min-h-[80px] sm:min-h-[100px] bg-gray-100 dark:bg-[#333335] ${className}`}
+        >
             {title && (
-                <div className="flex items-center gap-2 mb-3">
-                    {showDot && <span className="w-1.5 h-1.5 rounded-full bg-white"></span>}
-                    <p className="text-white text-sm font-medium">{title}</p>
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                    {showDot && <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gray-900 dark:bg-white"></span>}
+                    <p className="text-gray-900 dark:text-white text-sm sm:text-base font-semibold">{title}</p>
                 </div>
             )}
-            <div className="text-left text-white text-sm">
+            <div className="text-left text-gray-900 dark:text-white text-xs sm:text-sm flex-1 flex items-center justify-center">
                 {children}
             </div>
         </div>

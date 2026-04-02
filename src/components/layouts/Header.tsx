@@ -1,20 +1,93 @@
 'use client'
 
-export const Header = () => {
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
+import { MenuIcon, CloseIcon } from '../common/icons'
+
+interface HeaderProps {
+    onMenuClick?: (section: string) => void
+    onMenuOpenChange?: (isOpen: boolean) => void
+}
+
+export const Header = ({ onMenuClick, onMenuOpenChange }: HeaderProps) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+    const toggleMenu = (open: boolean) => {
+        setIsMenuOpen(open)
+        onMenuOpenChange?.(open)
+    }
+
+    const menuItems = [
+        { label: '소개', section: 'INTRO' },
+        { label: '경력', section: 'CAREER' },
+        { label: '프로젝트', section: 'PROJECT' },
+        { label: '블로그', section: 'BLOG' },
+        { label: '연락처', section: 'CONTACT' },
+    ]
+
+    const handleMenuItemClick = (section: string) => {
+        toggleMenu(false)
+        onMenuClick?.(section)
+    }
+
     return (
-        <div className="w-[100%] flex justify-between z-50 h-10 mt-[0.3rem]">
-            <img
-                src="/logo.png"
-                alt="Logo"
-                className="object-contain w-[10rem] h-full"
-            />
-            <div className="hidden md:flex gap-6 text-sm font-medium mr-[2rem] items-center">
-                <p>소개</p>
-                <p>기술</p>
-                <p>경력</p>
-                <p>프로젝트</p>
-                <p>블로그</p>
-            </div>
-        </div>
+        <>
+            <header className="w-full fixed top-0 left-0 flex justify-between items-center z-50 h-12 sm:h-14 px-3 sm:px-4 lg:px-6 bg-white dark:bg-[#1a1a1a] shadow-sm">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                    src="/logo.png"
+                    alt="Logo"
+                    className="object-contain w-24 sm:w-28 lg:w-32 h-full"
+                />
+                {/* Desktop Menu */}
+                <nav className="hidden lg:flex gap-6 xl:gap-8 text-sm lg:text-base font-semibold items-center">
+                    {menuItems.map((item) => (
+                        <button
+                            key={item.section}
+                            className="cursor-pointer hover:text-[#72AAFF] transition-colors relative group"
+                            onClick={() => handleMenuItemClick(item.section)}
+                        >
+                            {item.label}
+                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#72AAFF] group-hover:w-full transition-all duration-300" />
+                        </button>
+                    ))}
+                </nav>
+                {/* Mobile Menu Button */}
+                <button
+                    className="lg:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 cursor-pointer z-50"
+                    onClick={() => toggleMenu(!isMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    {isMenuOpen ? <CloseIcon size={22} /> : <MenuIcon size={22} />}
+                </button>
+            </header>
+
+            {/* Mobile Fullscreen Menu */}
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.nav
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                        className="lg:hidden fixed inset-0 z-40 bg-white dark:bg-[#1a1a1a] flex flex-col items-center justify-center gap-6 sm:gap-8"
+                    >
+                        {menuItems.map((item, index) => (
+                            <motion.button
+                                key={item.section}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                transition={{ duration: 0.3, delay: index * 0.1 }}
+                                className="text-xl sm:text-2xl font-semibold cursor-pointer hover:text-[#72AAFF] transition-colors"
+                                onClick={() => handleMenuItemClick(item.section)}
+                            >
+                                {item.label}
+                            </motion.button>
+                        ))}
+                    </motion.nav>
+                )}
+            </AnimatePresence>
+        </>
     )
 }

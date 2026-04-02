@@ -1,1 +1,1 @@
-export { getProjects, getProjectDetails } from './project.firestore';
+export { getProjects, getProjectDetails, addProject, addProjectDetail } from './project.firestore';

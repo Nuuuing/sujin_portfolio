@@ -1,42 +1,36 @@
-import { DetailLayout } from "@/components";
-import { CareerDetail } from "@/components/career/Detail";
+import { CareerT } from "@/features";
 import { getCareers } from "@/utils";
+import { CareerDetailClient } from "./CareerDetailClient";
 
 type Params = Promise<{ id: string }>
 
+// SSG용 정적 파라미터 생성
 export async function generateStaticParams() {
-    const careerData = await getCareers();
-    const params = careerData.map((item) => {
-        if (item && item.key !== undefined && item.key !== null) {
-            return { id: item.key.toString() };
-        } else {
-            return null;
+    try {
+        const careerData = await getCareers();
+        const params = careerData
+            .filter(item => item && item.key !== undefined)
+            .map(item => ({ id: String(item.key) }));
+        if (params.length === 0) {
+            return [{ id: '0' }];
         }
-    }).filter(Boolean);
-
-    return params;
+        return params;
+    } catch (error) {
+        console.error('Error generating static params:', error);
+        return [{ id: '0' }];
+    }
 }
 
 export default async function CareerDetailPage(props: { params: Params }) {
     const { id } = await props.params;
-    const careerData = await getCareers();
-    const career = careerData.find(c => c.key === Number(id));
 
-    if (!career) {
-        return (
-            <DetailLayout title={'CAREER'}>
-                <div className="py-[3rem] text-center">
-                    <p>해당 경력 정보를 찾을 수 없습니다.</p>
-                </div>
-            </DetailLayout>
-        );
+    let initialData: CareerT | null = null;
+    try {
+        const careerData = await getCareers();
+        initialData = careerData.find(c => String(c.key) === id) || null;
+    } catch (error) {
+        console.error('Error fetching initial career data:', error);
     }
 
-    return (
-        <DetailLayout title={'CAREER'}>
-            <div className="py-[3rem]">
-                <CareerDetail career={career} />
-            </div>
-        </DetailLayout>
-    );
+    return <CareerDetailClient id={id} initialData={initialData} />;
 }
