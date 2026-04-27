@@ -1,10 +1,62 @@
 'use client'
 
+import { useEffect, useState } from "react"
 import { motion } from "motion/react"
 import { SplashCard } from "./SplashCard"
-import { DownloadIcon, MailIcon, GithubIcon, BlogIcon, SkillIcon, ExperienceItem } from "../common"
+import { ExternalLinkIcon, MailIcon, GithubIcon, BlogIcon, SkillIcon, ExperienceItem } from "../common"
+import { getDocs, getPreviewUrl, DocsDataT } from "@/features/docs"
+
+// 문서 버튼 컴포넌트
+const DocButton = ({
+    url,
+    label,
+    variant = 'primary'
+}: {
+    url: string
+    label: string
+    variant?: 'primary' | 'secondary'
+}) => {
+    const isPrimary = variant === 'primary'
+    const bgColor = isPrimary ? 'bg-[#72AAFF]' : 'bg-[#535353]'
+    const hoverColor = isPrimary ? 'hover:bg-[#5a9aef]' : 'hover:bg-[#4a4a4a]'
+
+    return (
+        <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`
+                ${bgColor} ${hoverColor}
+                text-white px-5 py-2.5 rounded-full
+                text-sm font-medium
+                inline-flex items-center gap-2
+                hover:scale-105 hover:shadow-lg
+                active:scale-95
+                transition-all duration-200
+            `}
+        >
+            <span>{label}</span>
+            <ExternalLinkIcon size={14} />
+        </a>
+    )
+}
+
+// 버튼 스켈레톤
+const DocButtonSkeleton = () => (
+    <div className="h-10 w-24 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+)
 
 export const MainSplash = () => {
+    const [docsData, setDocsData] = useState<DocsDataT>({ resume: null, portfolio: null })
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        getDocs().then((data) => {
+            setDocsData(data)
+            setIsLoading(false)
+        })
+    }, [])
+
     return (
         <>
             <motion.div
@@ -36,9 +88,9 @@ export const MainSplash = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.6 }}
-                        className="text-gray-500 dark:text-gray-400 text-base sm:text-lg mb-6 max-w-md"
+                        className="text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg mb-6 max-w-md px-4"
                     >
-                        프론트엔드부터 백엔드까지, <br />서비스의 모든 과정을 경험하고 성장하고 있습니다.
+                        프론트엔드부터 백엔드까지, <br className="hidden sm:block" />서비스의 모든 과정을 경험하고 성장하고 있습니다.
                     </motion.p>
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
@@ -46,22 +98,19 @@ export const MainSplash = () => {
                         transition={{ duration: 0.6, delay: 0.8 }}
                         className="flex flex-row gap-3"
                     >
-                        <a
-                            href="https://drive.google.com/uc?export=download&id=1E_b19a5rAa_CVtc7_cChuYSv3XV4r-35"
-                            download
-                            className="bg-[#535353] text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-full cursor-pointer inline-flex items-center justify-center gap-1.5 hover:bg-[#3a3a3a] hover:scale-105 transition-all duration-200 text-sm sm:text-base"
-                        >
-                            <span>이력서</span>
-                            <DownloadIcon size={18} />
-                        </a>
-                        <a
-                            href="https://drive.google.com/uc?export=download&id=YOUR_PORTFOLIO_FILE_ID"
-                            download
-                            className="bg-[#72AAFF] text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-full cursor-pointer inline-flex items-center justify-center gap-1.5 hover:bg-[#5a8fd9] hover:scale-105 transition-all duration-200 text-sm sm:text-base"
-                        >
-                            <span>포트폴리오</span>
-                            <DownloadIcon size={18} />
-                        </a>
+                        {isLoading ? (
+                            <DocButtonSkeleton />
+                        ) : (
+                            <>
+                                {(docsData.portfolio || docsData.resume) && (
+                                    <DocButton
+                                        url={getPreviewUrl((docsData.portfolio || docsData.resume)!.url)}
+                                        label="이력서/포폴"
+                                        variant="primary"
+                                    />
+                                )}
+                            </>
+                        )}
                     </motion.div>
                 </div>
 
@@ -72,15 +121,15 @@ export const MainSplash = () => {
                     className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-3"
                 >
                     <SplashCard title="Contact" showDot className="col-span-1">
-                        <div className="flex items-center justify-center gap-3 sm:gap-4">
+                        <div className="flex items-center justify-center gap-6 sm:gap-8">
                             <a
                                 className="group flex flex-col items-center gap-1.5 hover:text-[#72AAFF] duration-150"
                                 href="mailto:su_042@daum.net"
                             >
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-current flex items-center justify-center group-hover:scale-105 transition-transform duration-150">
-                                    <MailIcon size={18} className="fill-current sm:w-5 sm:h-5" />
+                                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-current flex items-center justify-center group-hover:scale-110 group-hover:border-[#72AAFF] transition-all duration-200">
+                                    <MailIcon size={20} className="fill-current" />
                                 </div>
-                                <p className="text-[10px] sm:text-xs">MAIL</p>
+                                <p className="text-[10px] sm:text-xs font-medium">MAIL</p>
                             </a>
                             <a
                                 href="https://github.com/Nuuuing"
@@ -88,10 +137,10 @@ export const MainSplash = () => {
                                 rel="noopener noreferrer"
                                 className="group flex flex-col items-center gap-1.5 hover:text-[#72AAFF] transition-colors duration-150"
                             >
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-current flex items-center justify-center group-hover:scale-105 transition-transform duration-150">
-                                    <GithubIcon size={18} className="fill-current sm:w-5 sm:h-5" />
+                                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-current flex items-center justify-center group-hover:scale-110 group-hover:border-[#72AAFF] transition-all duration-200">
+                                    <GithubIcon size={20} className="fill-current" />
                                 </div>
-                                <p className="text-[10px] sm:text-xs">GITHUB</p>
+                                <p className="text-[10px] sm:text-xs font-medium">GITHUB</p>
                             </a>
                             <a
                                 className="group flex flex-col items-center gap-1.5 hover:text-[#72AAFF] duration-150"
@@ -99,16 +148,13 @@ export const MainSplash = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-current flex items-center justify-center group-hover:scale-105 transition-transform duration-150">
-                                    <BlogIcon size={18} className="fill-current sm:w-5 sm:h-5" />
+                                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-current flex items-center justify-center group-hover:scale-110 group-hover:border-[#72AAFF] transition-all duration-200">
+                                    <BlogIcon size={20} className="fill-current" />
                                 </div>
-                                <p className="text-[10px] sm:text-xs">BLOG</p>
+                                <p className="text-[10px] sm:text-xs font-medium">BLOG</p>
                             </a>
                         </div>
                     </SplashCard>
-                    {/* <SplashCard title="Certifications" showDot className="col-span-1">
-                        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">준비중</p>
-                    </SplashCard> */}
                     <SplashCard title="Experience" showDot className="col-span-1 sm:row-span-2">
                         <div className="space-y-4 text-left">
                             <ExperienceItem
@@ -136,15 +182,14 @@ export const MainSplash = () => {
                         </div>
                     </SplashCard>
                     <SplashCard title="Skills" showDot className="col-span-1">
-                        <div className="grid grid-cols-5 gap-2 justify-items-center">
+                        <div className="grid grid-cols-5 gap-1.5 sm:gap-2 justify-items-center">
                             {['TypeScript', 'JavaScript', 'React', 'Next.js', 'Tanstack', 'Java', 'Spring Boot', 'C#', 'Unity', '.NET', 'Tailwind CSS', 'MySQL', 'Linux', 'Photoshop', 'Figma'].map((skill) => (
                                 <div
                                     key={skill}
-                                    className="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 hover:scale-110 transition-transform"
-                                    style={{ width: '2.8rem', height: '2.8rem' }}
+                                    className="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 hover:scale-110 hover:shadow-md transition-all duration-200 w-10 h-10 sm:w-11 sm:h-11"
                                     title={skill}
                                 >
-                                    <SkillIcon skillName={skill} size={42} />
+                                    <SkillIcon skillName={skill} size={38} />
                                 </div>
                             ))}
                         </div>
