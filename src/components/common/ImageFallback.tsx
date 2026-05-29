@@ -11,6 +11,8 @@ interface ImageWithFallbackProps {
     className?: string;
     width?: number;
     height?: number;
+    hideOnError?: boolean;
+    onHidden?: () => void;
 }
 
 export const ImageWithFallback = ({
@@ -19,7 +21,9 @@ export const ImageWithFallback = ({
     fallbackSrc = DEFAULT_FALLBACK,
     className,
     width,
-    height
+    height,
+    hideOnError = false,
+    onHidden
 }: ImageWithFallbackProps) => {
     const [imgSrc, setImgSrc] = useState(src || fallbackSrc);
     const [hasError, setHasError] = useState(false);
@@ -32,9 +36,23 @@ export const ImageWithFallback = ({
     const handleError = () => {
         if (!hasError) {
             setHasError(true);
+            if (hideOnError) {
+                onHidden?.();
+                return;
+            }
             setImgSrc(fallbackSrc);
         }
     };
+
+    useEffect(() => {
+        if (hideOnError && (!src || src === '-')) {
+            onHidden?.();
+        }
+    }, [hideOnError, onHidden, src]);
+
+    if (hideOnError && (!src || src === '-' || hasError)) {
+        return null;
+    }
 
     return (
         // eslint-disable-next-line @next/next/no-img-element

@@ -2,7 +2,7 @@
 
 import { BaseCard } from "@/components";
 import { CareerT } from "@/features";
-import { getCareers } from "@/utils";
+import { getCareers, parseContent } from "@/utils";
 import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -14,6 +14,108 @@ const formatTerm = (term: string | undefined): string => {
         return `${term.slice(0, 4)}.${term.slice(4, 6)}`;
     }
     return term;
+};
+
+const parseLabeledLine = (text: string) => {
+    const match = text.match(/^(문제|해결|설계\/구현|결과|결과\/역량):\s*(.*)$/);
+    if (!match) return null;
+
+    const label = match[1];
+    const field: 'challenge' | 'implementation' | 'outcome' =
+        label === '문제' ? 'challenge' :
+            label === '해결' || label === '설계/구현' ? 'implementation' :
+                'outcome';
+
+    return { field, text: match[2] };
+};
+
+const getCareerHighlights = (career: CareerT) => {
+    const groups: Array<{
+        challenge?: string;
+        implementation?: string;
+        outcome?: string;
+    }> = [];
+
+    career.detailContents?.forEach((content) => {
+        const parsed = parseLabeledLine(content.contents);
+
+        if (!parsed) {
+            groups.push({ outcome: content.contents });
+            return;
+        }
+
+        if (parsed.field === 'challenge' || groups.length === 0) {
+            groups.push({});
+        }
+
+        groups[groups.length - 1][parsed.field] = parsed.text;
+    });
+
+    return groups.filter(group => group.challenge || group.implementation || group.outcome);
+};
+
+const getCareerKeywords = (career: CareerT) => {
+    const text = [
+        career.description,
+        career.contents,
+        ...(career.detailContents?.map(item => item.contents) || []),
+        ...(career.projects?.flatMap(project => [
+            project.projName,
+            project.description,
+            ...(project.tasks || []),
+            ...(project.achievements || []),
+        ]) || []),
+    ].filter(Boolean).join(' ');
+
+    const keywordRules = [
+        ['ReactQuery', 'ReactQuery'],
+        ['React.js', 'React'],
+        ['React', 'React'],
+        ['WebRTC', 'WebRTC'],
+        ['MSSQL', 'MSSQL'],
+        ['ERP', 'ERP 연동'],
+        ['OpenAPI', 'OpenAPI'],
+        ['공공', '공공 SI/SM'],
+        ['관리자', '관리자 시스템'],
+        ['데이터', '데이터 처리'],
+        ['매뉴얼', '문서화'],
+    ] as const;
+
+    return Array.from(new Set(
+        keywordRules
+            .filter(([token]) => text.includes(token))
+            .map(([, label]) => label)
+    )).slice(0, 5);
+};
+
+const getHighlightTitle = (group: { challenge?: string; implementation?: string; outcome?: string }) => {
+    const text = `${group.challenge || ''} ${group.implementation || ''} ${group.outcome || ''}`;
+
+    if (text.includes('MSSQL') || text.includes('ERP') || text.includes('거래 데이터')) {
+        return '데이터 처리 및 연동 안정화';
+    }
+
+    if (text.includes('현업') || text.includes('요구사항') || text.includes('업무 시스템')) {
+        return '업무 시스템 운영 개선';
+    }
+
+    if (text.includes('OpenAPI')) {
+        return '외부 연계 기반 구축';
+    }
+
+    if (text.includes('ReactQuery')) {
+        return '화면 응답성과 데이터 흐름 개선';
+    }
+
+    return '운영 개선';
+};
+
+const getCompactText = (text?: string) => {
+    if (!text) return '';
+    return text
+        .replace(/^(문제|해결|설계\/구현|결과|결과\/역량):\s*/, '')
+        .replace(/\s+/g, ' ')
+        .trim();
 };
 
 export const CareerSection = () => {
@@ -50,15 +152,6 @@ export const CareerSection = () => {
 
     return (
         <div className="relative">
-            {/* 배경 장식 */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-10 left-1/4 w-80 h-80 bg-[#72AAFF]/5 rounded-full blur-3xl" />
-                <div className="absolute bottom-10 right-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" />
-                {/* 장식 라인 */}
-                <div className="absolute top-1/2 left-0 w-px h-32 bg-gradient-to-b from-transparent via-[#72AAFF]/20 to-transparent" />
-                <div className="absolute top-1/2 right-0 w-px h-32 bg-gradient-to-b from-transparent via-[#72AAFF]/20 to-transparent" />
-            </div>
-
             <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -128,6 +221,12 @@ export const CareerSection = () => {
                                     transition={{ duration: 0.4 }}
                                     key={selectedCareer.key}
                                 >
+                                    {(() => {
+                                        const keywords = getCareerKeywords(selectedCareer);
+                                        const highlights = getCareerHighlights(selectedCareer);
+
+                                        return (
+                                            <>
                                     <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-1.5 sm:mb-2 text-gray-900 dark:text-white">
                                         {selectedCareer.company}
                                     </h2>
@@ -135,31 +234,33 @@ export const CareerSection = () => {
                                         {selectedCareer?.position}{selectedCareer?.team && ` / ${selectedCareer.team}팀`}
                                     </p>
 
-                                    {/* 경력 설명 */}
-                                    {selectedCareer.description && (
-                                        <motion.p
-                                            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-4 leading-relaxed"
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.1 }}
-                                        >
-                                            {selectedCareer.description}
-                                        </motion.p>
-                                    )}
-
-                                    {/* 경력 내용 요약 */}
-                                    {selectedCareer.contents && (
-                                        <motion.div
-                                            className="mb-4 pl-4 border-l-4 border-[#72AAFF]"
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.12 }}
-                                        >
-                                            <p className="text-gray-700 dark:text-gray-200 text-base leading-relaxed">
-                                                {selectedCareer.contents}
+                                    <motion.div
+                                        className="mb-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#161616] sm:p-6"
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.12 }}
+                                    >
+                                        <div className="mb-4 flex flex-wrap gap-2">
+                                            {selectedCareer.description && (
+                                                <span className="rounded-md border border-[#72AAFF]/20 bg-[#72AAFF]/10 px-2.5 py-1 text-xs font-semibold text-[#72AAFF]">
+                                                    {selectedCareer.description}
+                                                </span>
+                                            )}
+                                            {keywords.map((keyword) => (
+                                                <span
+                                                    key={keyword}
+                                                    className="rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-600 dark:border-white/10 dark:bg-white/5 dark:text-gray-300"
+                                                >
+                                                    {keyword}
+                                                </span>
+                                            ))}
+                                        </div>
+                                        {selectedCareer.contents && (
+                                            <p className="line-clamp-3 text-[15px] leading-7 text-gray-600 dark:text-gray-300 sm:text-base">
+                                                {parseContent(selectedCareer.contents)}
                                             </p>
-                                        </motion.div>
-                                    )}
+                                        )}
+                                    </motion.div>
 
                                     {/* 프로젝트 요약 */}
                                     {hasProjects(selectedCareer) && selectedCareer.projects && (
@@ -196,19 +297,52 @@ export const CareerSection = () => {
 
                                     {/* contents 타입일 때 detailContents 표시 */}
                                     {selectedCareer.displayType === 'contents' && selectedCareer.detailContents && selectedCareer.detailContents.length > 0 && (
-                                        <motion.ul
-                                            className="space-y-2 mb-6"
+                                        <motion.div
+                                            className="mb-6 grid gap-3 sm:grid-cols-2"
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.15 }}
                                         >
-                                            {selectedCareer.detailContents.map((content, idx) => (
-                                                <li key={idx} className="flex items-start gap-2 text-base text-gray-600 dark:text-gray-300">
-                                                    <span className="w-2 h-2 rounded-full bg-[#72AAFF] shrink-0 mt-2"></span>
-                                                    <span>{content.contents}</span>
-                                                </li>
+                                            {highlights.map((group, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-colors hover:border-[#72AAFF]/30 dark:border-white/10 dark:bg-[#161616]"
+                                                >
+                                                    <div className="mb-4 flex items-start justify-between gap-3">
+                                                        <div>
+                                                            <p className="mb-1 text-xs font-semibold text-[#72AAFF]">
+                                                                Focus {String(idx + 1).padStart(2, '0')}
+                                                            </p>
+                                                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                                                {getHighlightTitle(group)}
+                                                            </h3>
+                                                        </div>
+                                                        <span className="rounded-md bg-gray-100 px-2 py-1 text-[11px] font-semibold text-gray-500 dark:bg-white/5 dark:text-gray-400">
+                                                            {group.outcome ? '성과 포함' : '진행'}
+                                                        </span>
+                                                    </div>
+
+                                                    <div className="space-y-3">
+                                                        {group.implementation && (
+                                                            <div>
+                                                                <p className="mb-1 text-xs font-semibold text-gray-500 dark:text-gray-500">구현</p>
+                                                                <p className="line-clamp-2 text-[15px] leading-7 text-gray-600 dark:text-gray-300">
+                                                                    {parseContent(getCompactText(group.implementation))}
+                                                                </p>
+                                                            </div>
+                                                        )}
+                                                        {group.outcome && (
+                                                            <div className="rounded-lg bg-amber-400/10 p-3">
+                                                                <p className="mb-1 text-xs font-semibold text-amber-600 dark:text-amber-300">성과</p>
+                                                                <p className="line-clamp-2 text-[15px] leading-7 text-gray-700 dark:text-gray-200">
+                                                                    {parseContent(getCompactText(group.outcome))}
+                                                                </p>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
                                             ))}
-                                        </motion.ul>
+                                        </motion.div>
                                     )}
 
                                     {/* 프로젝트가 있는 경력인 경우 detail 페이지 링크 버튼 */}
@@ -231,6 +365,9 @@ export const CareerSection = () => {
                                             </Link>
                                         </motion.div>
                                     )}
+                                            </>
+                                        );
+                                    })()}
                                 </motion.div>
                             )}
                         </div>

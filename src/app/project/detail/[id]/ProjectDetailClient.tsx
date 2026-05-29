@@ -2,10 +2,9 @@
 
 import { ContentsContainer, DetailLayout, GitTooltip, ImageWithFallback, NotionTooltip, RoleAccordion } from "@/components";
 import { contentsT, projDetailT, skillStackT } from "@/features";
-import { getProjectDetails, getYoutubeEmbedUrl } from "@/utils";
+import { getProjectDetails, getYoutubeEmbedUrl, isDisplayableImage } from "@/utils";
 import { parseContent } from "@/utils";
 import dayjs from "dayjs";
-import { prepImg } from "@/data";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -102,7 +101,7 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
                         </span>
                     ))}
                     <span className="text-gray-500 text-sm">
-                        {dayjs(data?.startDate).format('YYYY.MM')} — {data?.endDate ? dayjs(data?.endDate).format('YYYY.MM') : 'Present'}
+                        {dayjs(data?.startDate).format('YYYY.MM')} - {data?.endDate ? dayjs(data?.endDate).format('YYYY.MM') : 'Present'}
                     </span>
                 </div>
 
@@ -119,7 +118,7 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
                 )}
 
                 {/* 프로젝트 설명 */}
-                <p className="text-xl sm:text-2xl text-gray-500 dark:text-gray-400 font-light w-full mb-6">
+                <p className="mb-6 w-full max-w-4xl text-lg leading-8 text-gray-600 dark:text-gray-300 sm:text-xl">
                     {parseContent(data?.projDesc || '')}
                 </p>
 
@@ -129,7 +128,7 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
                         {data?.projTag && data.projTag.length > 0 && (
                             <div className="flex items-center gap-2">
                                 {data.projTag.map((tag: string, idx: number) => (
-                                    <span key={idx} className="text-sm text-gray-500">
+                                    <span key={idx} className="rounded-md border border-gray-200 bg-white px-2.5 py-1 text-xs text-gray-500 dark:border-white/10 dark:bg-white/5 dark:text-gray-400">
                                         #{tag}
                                     </span>
                                 ))}
@@ -137,7 +136,7 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
                         )}
 
                         {data?.projTag && data.projTag.length > 0 && data?.projSkills && data.projSkills.length > 0 && (
-                            <span className="text-gray-700">|</span>
+                            <span className="hidden text-gray-300 dark:text-white/20 sm:inline">|</span>
                         )}
 
                         {data?.projSkills && data.projSkills.length > 0 && (
@@ -184,8 +183,9 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
             </div>
 
             {/* 미디어 갤러리 */}
-            {(data?.youtubeUrl || (data?.imgUrl && data.imgUrl.length > 0)) && (() => {
-                const mediaCount = (data?.youtubeUrl ? 1 : 0) + (data?.imgUrl?.length || 0);
+            {(data?.youtubeUrl || (data?.imgUrl && data.imgUrl.some(isDisplayableImage))) && (() => {
+                const imageUrls = data?.imgUrl?.filter(isDisplayableImage) || [];
+                const mediaCount = (data?.youtubeUrl ? 1 : 0) + imageUrls.length;
 
                 return (
                     <div className="mb-12">
@@ -204,11 +204,11 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
                                 ) : (
                                     <ImageWithFallback
                                         className="w-full h-auto"
-                                        src={data?.imgUrl?.[0] || prepImg}
-                                        fallbackSrc={prepImg}
+                                        src={imageUrls[0] || ''}
                                         alt={`${data?.projName || 'project'}_0`}
                                         width={800}
                                         height={450}
+                                        hideOnError
                                     />
                                 )}
                             </div>
@@ -227,15 +227,15 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
                                         </div>
                                     </div>
                                 )}
-                                {data?.imgUrl?.map((url: string, index: number) => (
+                                {imageUrls.map((url: string, index: number) => (
                                     <div key={index} className="rounded-2xl overflow-hidden">
                                         <ImageWithFallback
                                             className="w-full h-auto"
-                                            src={url || prepImg}
-                                            fallbackSrc={prepImg}
+                                            src={url}
                                             alt={`${data?.projName || 'project'}_${index}`}
                                             width={600}
                                             height={400}
+                                            hideOnError
                                         />
                                     </div>
                                 ))}
@@ -248,20 +248,16 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
             {/* 주요 성과 섹션 */}
             {data?.achievements && data.achievements.length > 0 && (
                 <div className="mb-16">
-                    <div className="bg-amber-50 dark:bg-gray-900/50 rounded-2xl p-6 border border-amber-200 dark:border-gray-800/50">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                                <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                                </svg>
-                            </div>
-                            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Key Achievements</h3>
-                        </div>
-                        <ul className="space-y-4">
+                    <div className="mb-5">
+                        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#72AAFF]">Impact</p>
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Key Achievements</h2>
+                    </div>
+                    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#161616] sm:p-6">
+                        <ul className="grid gap-3 sm:grid-cols-2">
                             {data.achievements.map((ach, idx) => (
-                                <li key={idx} className="flex items-start gap-3 text-gray-600 dark:text-gray-300 text-base sm:text-lg">
-                                    <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0 mt-2"></span>
-                                    <span className="leading-relaxed">{parseContent(ach)}</span>
+                                <li key={idx} className="flex items-start gap-3 rounded-lg bg-gray-50 p-4 text-[15px] leading-7 text-gray-600 dark:bg-white/[0.03] dark:text-gray-300">
+                                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400"></span>
+                                    <span>{parseContent(ach)}</span>
                                 </li>
                             ))}
                         </ul>
@@ -272,17 +268,13 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
             {/* Overview 섹션 */}
             {data?.projDescDetail && (
                 <div className="mb-16">
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="w-10 h-10 rounded-lg bg-[#72AAFF]/10 flex items-center justify-center">
-                            <svg className="w-5 h-5 text-[#72AAFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                        </div>
+                    <div className="mb-5">
+                        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#72AAFF]">Context</p>
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Overview</h2>
                     </div>
-                    <div className="bg-gray-100 dark:bg-gray-900/50 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800/50">
-                        <div className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed space-y-4">
-                            {data.projDescDetail.split('\n').map((paragraph, idx) => (
+                    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#161616] sm:p-6">
+                        <div className="space-y-4 text-[15px] leading-7 text-gray-600 dark:text-gray-300 sm:text-base">
+                            {data.projDescDetail.split('\n').filter(Boolean).map((paragraph, idx) => (
                                 <p key={idx}>{parseContent(paragraph)}</p>
                             ))}
                         </div>
@@ -293,9 +285,9 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
             {/* 담당 부분 - 아코디언 */}
             {data?.roles && data.roles.length > 0 && (
                 <div className="mb-16">
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                            <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="mb-5 flex items-center gap-4">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#72AAFF]/10">
+                            <svg className="h-4 w-4 text-[#72AAFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                             </svg>
                         </div>
@@ -308,10 +300,16 @@ export function ProjectDetailClient({ id, initialData }: ProjectDetailClientProp
 
             {/* 추가 콘텐츠 */}
             {data?.contents && data.contents.length > 0 && (
-                <div className="space-y-8">
-                    {data.contents.map((content: contentsT, index: number) => (
-                        <ContentsContainer key={`content-${index}`} data={content} />
-                    ))}
+                <div>
+                    <div className="mb-5">
+                        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#72AAFF]">Details</p>
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Problem Solving</h2>
+                    </div>
+                    <div className="space-y-4">
+                        {data.contents.map((content: contentsT, index: number) => (
+                            <ContentsContainer key={`content-${index}`} data={content} />
+                        ))}
+                    </div>
                 </div>
             )}
         </DetailLayout>

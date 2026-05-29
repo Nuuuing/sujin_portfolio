@@ -2,26 +2,32 @@
 
 import { BaseCard } from "../common/BaseCard";
 import { ImageWithFallback } from "@/components";
-import { prepImg } from "@/data";
 import Link from "next/link";
 import { projectT } from "@/features";
-import { parseContent } from "@/utils";
+import { isDisplayableImage, parseContent } from "@/utils";
+import { useState } from "react";
 
 interface ProjCardProps {
     data: projectT;
 }
 
-export const ProjCard = ({ data }: ProjCardProps) => (
+export const ProjCard = ({ data }: ProjCardProps) => {
+    const [imageVisible, setImageVisible] = useState(isDisplayableImage(data.imgUrl));
+
+    return (
     <Link href={`/project/detail/${data.key}`}>
         <BaseCard className="group flex flex-col h-full">
+            {imageVisible && (
             <div className="w-full h-48 overflow-hidden rounded-xl mb-4">
                 <ImageWithFallback
                     src={data.imgUrl || ''}
-                    fallbackSrc={prepImg}
                     alt={data.projName}
                     className="w-full h-48 object-cover rounded-xl grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-300"
+                    hideOnError
+                    onHidden={() => setImageVisible(false)}
                 />
             </div>
+            )}
 
             {/* 프로젝트 이름 */}
             <h2 className="text-3xl font-extrabold text-gray-800 dark:text-gray-100">
@@ -87,4 +93,5 @@ export const ProjCard = ({ data }: ProjCardProps) => (
             )}
         </BaseCard>
     </Link>
-);
+    );
+};

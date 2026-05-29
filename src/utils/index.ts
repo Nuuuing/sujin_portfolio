@@ -64,3 +64,9 @@ export function convertDriveUrl(url: string | undefined): string {
     const hasExtension = /\.(png|jpg|jpeg|gif|webp|svg)$/i.test(url);
     return `/projImg/${url}${hasExtension ? '' : '.png'}`;
 }
+
+export function isDisplayableImage(url: string | undefined): boolean {
+    if (!url) return false;
+    const normalized = url.trim();
+    return normalized !== '-' && !normalized.includes('preparing.png');
+}

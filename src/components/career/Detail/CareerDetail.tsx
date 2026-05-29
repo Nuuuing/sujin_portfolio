@@ -102,6 +102,35 @@ interface CareerDetailItemProps {
     allSkills: skillStackT[];
 }
 
+const briefMeta: Record<string, { title: string; className: string }> = {
+    '문제': { title: '과제', className: 'border-gray-300 dark:border-white/15' },
+    '해결': { title: '구현', className: 'border-[#72AAFF]/45' },
+    '설계/구현': { title: '구현', className: 'border-[#72AAFF]/45' },
+    '결과': { title: '성과', className: 'border-amber-400/50' },
+    '결과/역량': { title: '성과', className: 'border-amber-400/50' },
+};
+
+const getProjectBrief = (description?: string) => {
+    if (!description) return [];
+
+    return description
+        .replace(/\\n/g, '\n')
+        .replace(/\s+(설계\/구현|결과\/역량|해결|결과):/g, '\n$1:')
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean)
+        .map(line => {
+            const match = line.match(/^(문제|해결|설계\/구현|결과|결과\/역량):\s*(.*)$/);
+            if (!match) return null;
+
+            return {
+                label: match[1],
+                text: match[2],
+            };
+        })
+        .filter((item): item is { label: string; text: string } => Boolean(item));
+};
+
 const CareerDetailItem = ({ data, allSkills }: CareerDetailItemProps) => {
     // skills는 항상 number 배열 (key)
     const skillsList = data.skills && Array.isArray(data.skills)
@@ -112,67 +141,95 @@ const CareerDetailItem = ({ data, allSkills }: CareerDetailItemProps) => {
             })
             .filter((skill): skill is skillStackT => skill !== undefined)
         : [];
+    const brief = getProjectBrief(data.description);
 
     return (
-        <div className="bg-white dark:bg-[#1c1c1c] rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:border-[#72AAFF]/30 transition-colors">
+        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-colors hover:border-[#72AAFF]/30 dark:border-white/10 dark:bg-[#151515]">
             {/* 상단 헤더 */}
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
-                <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{data.projName}</h3>
-                    {data.description && (
-                        <p className="text-base text-gray-600 dark:text-gray-300 mb-2">{parseContent(data.description)}</p>
+            <div className="border-b border-gray-100 p-5 dark:border-white/10 sm:p-6">
+                <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="min-w-0">
+                        <h3 className="mb-2 text-xl font-semibold leading-tight text-gray-900 dark:text-white sm:text-2xl">
+                            {data.projName}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {data.startDate} - {data.endDate || 'Present'}
+                            {data.duration && ` (${data.duration})`}
+                        </p>
+                    </div>
+                    {data.role && (
+                        <span className="inline-flex w-fit shrink-0 items-center rounded-md border border-[#72AAFF]/20 bg-[#72AAFF]/10 px-3 py-1 text-xs font-semibold text-[#72AAFF]">
+                            {data.role}
+                        </span>
                     )}
-                    <p className="text-base text-gray-500 dark:text-gray-400">
-                        {data.startDate} - {data.endDate || 'Present'}
-                        {data.duration && ` (${data.duration})`}
-                    </p>
                 </div>
-                {data.role && (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-semibold shrink-0">
-                        {data.role}
-                    </span>
+
+                {brief.length > 0 ? (
+                    <div className="grid gap-3 lg:grid-cols-3">
+                        {brief.map((item, idx) => {
+                            const meta = briefMeta[item.label] || briefMeta['문제'];
+
+                            return (
+                                <div
+                                    key={`${item.label}-${idx}`}
+                                    className={`rounded-xl border-l-2 bg-gray-50/80 p-4 dark:bg-white/[0.035] ${meta.className}`}
+                                >
+                                    <p className="mb-2 text-xs font-semibold text-gray-500 dark:text-gray-500">
+                                        {meta.title}
+                                    </p>
+                                    <div className="line-clamp-3 text-[15px] leading-7 text-gray-600 dark:text-gray-300">
+                                        {parseContent(item.text)}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : data.description && (
+                    <div className="text-[15px] leading-7 text-gray-600 dark:text-gray-300">
+                        {parseContent(data.description)}
+                    </div>
                 )}
             </div>
 
-            {/* 담당 내용 */}
-            {data.tasks && data.tasks.length > 0 && (
-                <div className="mb-4">
-                    <h4 className="text-base font-semibold text-[#72AAFF] mb-3 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#72AAFF]"></span>
-                        담당 업무
-                    </h4>
-                    <ul className="space-y-2 pl-4">
-                        {data.tasks.map((item, idx) => (
-                            <li key={idx} className="text-gray-600 dark:text-gray-300 text-base flex items-start gap-2">
-                                <span className="text-gray-400 dark:text-gray-500 mt-1">•</span>
-                                <span>{parseContent(item)}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+            <div className="grid gap-5 p-5 sm:p-6 lg:grid-cols-2">
+                {/* 담당 내용 */}
+                {data.tasks && data.tasks.length > 0 && (
+                    <section>
+                        <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#72AAFF]"></span>
+                            담당 범위
+                        </h4>
+                        <ul className="space-y-2.5">
+                            {data.tasks.map((item, idx) => (
+                                <li key={idx} className="rounded-lg bg-gray-50 px-3 py-2.5 text-[15px] leading-7 text-gray-600 dark:bg-white/[0.035] dark:text-gray-300">
+                                    {parseContent(item)}
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                )}
 
-            {/* 성과 */}
-            {data.achievements && data.achievements.length > 0 && (
-                <div className="mb-4">
-                    <h4 className="text-base font-semibold text-green-400 mb-3 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-green-400"></span>
-                        성과
-                    </h4>
-                    <ul className="space-y-2 pl-4">
-                        {data.achievements.map((res, idx) => (
-                            <li key={idx} className="text-gray-600 dark:text-gray-300 text-base flex items-start gap-2">
-                                <span className="text-green-500 mt-1">✓</span>
-                                <span>{parseContent(res)}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+                {/* 성과 */}
+                {data.achievements && data.achievements.length > 0 && (
+                    <section>
+                        <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
+                            <span className="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
+                            주요 성과
+                        </h4>
+                        <ul className="space-y-2.5">
+                            {data.achievements.map((res, idx) => (
+                                <li key={idx} className="rounded-lg bg-amber-400/10 px-3 py-2.5 text-[15px] leading-7 text-gray-700 dark:text-gray-200">
+                                    {parseContent(res)}
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                )}
+            </div>
 
             {/* 기술 스택 */}
             {skillsList.length > 0 && (
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-800">
+                <div className="border-t border-gray-200 px-5 py-4 dark:border-white/10 sm:px-6">
                     <div className="flex flex-wrap gap-2">
                         {skillsList.map((skill, index) => (
                             <span

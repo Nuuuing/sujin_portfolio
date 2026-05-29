@@ -14,13 +14,6 @@ export const DetailLayout = ({ children, title }: DetailLayoutProps) => {
 
     return (
         <div className="w-full min-h-screen relative">
-            {/* 전역 배경 장식 */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[20%] -left-32 w-64 h-64 bg-[#72AAFF]/3 rounded-full blur-3xl" />
-                <div className="absolute top-[50%] -right-32 w-72 h-72 bg-[#72AAFF]/3 rounded-full blur-3xl" />
-                <div className="absolute top-[80%] left-1/4 w-48 h-48 bg-purple-500/3 rounded-full blur-3xl" />
-            </div>
-
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* 돌아가기 버튼 */}
                 <motion.div

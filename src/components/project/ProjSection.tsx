@@ -1,9 +1,8 @@
 'use client';
 
-import { prepImg } from "@/data";
 import { projDetailT } from "@/features";
 import { ImageWithFallback } from "@/components";
-import { getProjectDetails, parseContent } from "@/utils";
+import { getProjectDetails, isDisplayableImage, parseContent } from "@/utils";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import Link from "next/link";
 import { useState, useEffect, useRef } from 'react';
@@ -25,6 +24,8 @@ const Card = ({
 }) => {
 
     const scale = useTransform(progress, range, [1, targetScale]);
+    const imageUrl = Array.isArray(project.imgUrl) ? project.imgUrl.find(isDisplayableImage) : project.imgUrl;
+    const [imageVisible, setImageVisible] = useState(isDisplayableImage(imageUrl));
 
     return (
         <div
@@ -42,7 +43,7 @@ const Card = ({
                     }}
                     className="bg-white dark:bg-[#1c1c1c] rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col lg:flex-row shadow-xl dark:shadow-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-shadow duration-300 min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] group border border-gray-200 dark:border-gray-800 origin-top"
                 >
-                    <div className="p-5 sm:p-8 lg:p-12 lg:w-1/2 flex flex-col justify-center order-2 lg:order-1 relative z-10">
+                    <div className={`p-5 sm:p-8 lg:p-12 ${imageVisible ? 'lg:w-1/2' : 'lg:w-full'} flex flex-col justify-center order-2 lg:order-1 relative z-10`}>
                         <div>
                             {/* 프로젝트 이름 */}
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white group-hover:text-[#72AAFF] transition-colors mb-2">
@@ -68,14 +69,17 @@ const Card = ({
                         </div>
                     </div>
 
+                    {imageVisible && (
                     <div className="lg:w-1/2 min-h-[180px] sm:min-h-[220px] lg:min-h-full bg-gray-100 dark:bg-gray-900 relative overflow-hidden order-1 lg:order-2">
                         <ImageWithFallback
-                            src={Array.isArray(project.imgUrl) ? project.imgUrl[0] : project.imgUrl || ''}
-                            fallbackSrc={prepImg}
+                            src={imageUrl || ''}
                             alt={project.projName}
                             className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-transform duration-500 ease-out"
+                            hideOnError
+                            onHidden={() => setImageVisible(false)}
                         />
                     </div>
+                    )}
                 </motion.div>
             </Link>
         </div>
@@ -114,15 +118,6 @@ export const ProjSection = () => {
 
     return (
         <section className="w-full relative">
-            {/* 배경 장식 */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-20 -left-20 w-80 h-80 bg-[#72AAFF]/5 rounded-full blur-3xl" />
-                <div className="absolute top-40 -right-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" />
-                {/* 장식 라인 */}
-                <div className="absolute top-1/2 left-0 w-px h-32 bg-gradient-to-b from-transparent via-[#72AAFF]/20 to-transparent" />
-                <div className="absolute top-1/2 right-0 w-px h-32 bg-gradient-to-b from-transparent via-[#72AAFF]/20 to-transparent" />
-            </div>
-
             {/* 섹션 헤더 */}
             <motion.div
                 className="flex flex-col items-center mb-8 sm:mb-12 gap-4 sm:gap-6 relative z-10"

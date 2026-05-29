@@ -2,26 +2,32 @@
 
 import { projectT } from "@/features";
 import { ImageWithFallback } from "@/components";
-import { prepImg } from "@/data";
 import Link from "next/link";
-import { parseContent } from "@/utils";
+import { isDisplayableImage, parseContent } from "@/utils";
+import { useState } from "react";
 
 interface ProjDetailCardProps {
     data: projectT;
 }
 
-export const ProjDetailCard = ({ data }: ProjDetailCardProps) => (
+export const ProjDetailCard = ({ data }: ProjDetailCardProps) => {
+    const [imageVisible, setImageVisible] = useState(isDisplayableImage(data.imgUrl));
+
+    return (
     <Link href={`/project/detail/${data.key}`} className="block w-full h-full">
         <div className="bg-white dark:bg-[#1c1c1c] rounded-2xl overflow-hidden flex flex-col shadow-xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-300 h-full group border border-gray-200 dark:border-gray-800 hover:border-[#72AAFF]/30">
             {/* 이미지 영역 */}
+            {imageVisible && (
             <div className="h-48 bg-gray-100 dark:bg-gray-900 relative overflow-hidden">
                 <ImageWithFallback
                     src={data.imgUrl || ''}
-                    fallbackSrc={prepImg}
                     alt={data.projName}
                     className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-transform duration-500 ease-out"
+                    hideOnError
+                    onHidden={() => setImageVisible(false)}
                 />
             </div>
+            )}
 
             {/* 콘텐츠 영역 */}
             <div className="p-5 flex flex-col flex-1">
@@ -93,4 +99,5 @@ export const ProjDetailCard = ({ data }: ProjDetailCardProps) => (
             </div>
         </div>
     </Link>
-)
+    );
+};

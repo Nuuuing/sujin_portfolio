@@ -5,68 +5,93 @@ import { parseContent } from "@/utils";
 import { motion } from "motion/react";
 import { ImageWithFallback } from "@/components";
 import { prepImg } from "@/data";
+import { useState } from "react";
 
 interface ContentsContainerProps {
     data: contentsT;
 }
 
-// 콘텐츠 타입별 스타일 설정
 const contentTypeStyles: Record<string, {
-    borderColor: string;
-    hoverBorderColor: string;
-    bgColor: string;
-    dotColor: string;
-    tagBg: string;
-    tagText: string;
     tagLabel: string;
-    icon: React.ReactNode;
+    accent: string;
 }> = {
     [ContentType.TROUBLESHOOT]: {
-        borderColor: 'border-emerald-500/30',
-        hoverBorderColor: 'hover:border-emerald-500/50',
-        bgColor: 'bg-emerald-500/5',
-        dotColor: 'bg-emerald-400',
-        tagBg: 'bg-emerald-500/15',
-        tagText: 'text-emerald-400',
-        tagLabel: '고민 → 해결',
-        icon: (
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-            </svg>
-        )
+        tagLabel: '문제 해결',
+        accent: 'bg-[#72AAFF]'
     },
     [ContentType.IMPROVEMENT]: {
-        borderColor: 'border-amber-500/30',
-        hoverBorderColor: 'hover:border-amber-500/50',
-        bgColor: 'bg-amber-500/5',
-        dotColor: 'bg-amber-400',
-        tagBg: 'bg-amber-500/15',
-        tagText: 'text-amber-400',
         tagLabel: '향후 개선',
-        icon: (
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-        )
+        accent: 'bg-amber-400'
     },
     [ContentType.GENERAL]: {
-        borderColor: 'border-gray-200 dark:border-gray-800',
-        hoverBorderColor: 'hover:border-gray-300 dark:hover:border-gray-700',
-        bgColor: 'bg-gray-50 dark:bg-gray-800/30',
-        dotColor: 'bg-[#72AAFF]',
-        tagBg: '',
-        tagText: '',
         tagLabel: '',
-        icon: null
+        accent: 'bg-slate-300 dark:bg-white/20'
     }
 };
 
 // 기본 스타일 (GENERAL)
 const defaultStyles = contentTypeStyles[ContentType.GENERAL];
 
+const sectionMeta: Record<string, {
+    title: string;
+    headingClass: string;
+    borderClass: string;
+}> = {
+    '문제': {
+        title: '과제',
+        headingClass: 'text-gray-900 dark:text-white',
+        borderClass: 'border-gray-300 dark:border-white/15',
+    },
+    '해결': {
+        title: '구현',
+        headingClass: 'text-[#72AAFF]',
+        borderClass: 'border-[#72AAFF]/40',
+    },
+    '설계/구현': {
+        title: '구현',
+        headingClass: 'text-[#72AAFF]',
+        borderClass: 'border-[#72AAFF]/40',
+    },
+    '결과': {
+        title: '성과',
+        headingClass: 'text-amber-500 dark:text-amber-300',
+        borderClass: 'border-amber-400/45',
+    },
+    '결과/역량': {
+        title: '성과',
+        headingClass: 'text-amber-500 dark:text-amber-300',
+        borderClass: 'border-amber-400/45',
+    },
+};
+
+const normalizeContent = (text: string) => text
+    .replace(/\\n/g, '\n')
+    .replace(/\s+(설계\/구현|결과\/역량|해결|결과):/g, '\n$1:');
+
+const getStructuredSections = (text?: string) => {
+    if (!text) return [];
+
+    return normalizeContent(text)
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean)
+        .map(line => {
+            const match = line.match(/^(문제|해결|설계\/구현|결과|결과\/역량):\s*(.*)$/);
+            if (!match) return null;
+            return {
+                label: match[1],
+                content: match[2],
+            };
+        })
+        .filter((section): section is { label: string; content: string } => Boolean(section));
+};
+
 export const ContentsContainer = ({ data }: ContentsContainerProps) => {
     const contentType = data.contentType || ContentType.GENERAL;
     const styles = contentTypeStyles[contentType] || defaultStyles;
+    const [imageVisible, setImageVisible] = useState(Boolean(data.imgUrl && data.imgUrl !== '-'));
+    const structuredSections = getStructuredSections(data.contents);
+    const hasStructuredFlow = structuredSections.length >= 2;
 
     const renderContents = () => {
         if (!data?.contents) return null;
@@ -80,40 +105,71 @@ export const ContentsContainer = ({ data }: ContentsContainerProps) => {
 
     return (
         <motion.div
-            className={`p-6 rounded-2xl ${styles.bgColor} border ${styles.borderColor} ${styles.hoverBorderColor} transition-all`}
+            className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-colors hover:border-[#72AAFF]/30 dark:border-white/10 dark:bg-[#151515]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             viewport={{ once: true }}
         >
-            {/* 콘텐츠 타입 태그 (GENERAL이 아닌 경우만 표시) */}
-            {contentType !== ContentType.GENERAL && styles.tagLabel && (
-                <div className="mb-4">
-                    <span className={`inline-flex items-center gap-2 text-sm font-semibold px-3 py-1.5 rounded-full ${styles.tagBg} ${styles.tagText}`}>
-                        {styles.icon}
-                        {styles.tagLabel}
-                    </span>
+            <div>
+                <div className="border-b border-gray-100 p-5 dark:border-white/10 sm:p-6">
+                    <div className="flex flex-wrap items-center gap-3">
+                        {styles.tagLabel && (
+                            <span className="inline-flex items-center rounded-md border border-[#72AAFF]/20 bg-[#72AAFF]/10 px-2.5 py-1 text-[11px] font-semibold text-[#72AAFF]">
+                                {styles.tagLabel}
+                            </span>
+                        )}
+                        <h3 className="text-xl font-semibold leading-tight text-gray-900 dark:text-white sm:text-2xl">
+                            {data.midTitle}
+                        </h3>
+                    </div>
                 </div>
-            )}
 
-            {data?.imgUrl && (
-                <div className="mb-6 rounded-xl overflow-hidden">
-                    <ImageWithFallback
-                        className="w-full h-auto"
-                        src={data.imgUrl}
-                        fallbackSrc={prepImg}
-                        alt={data.midTitle + ' Img'}
-                        width={600}
-                        height={400}
-                    />
+                <div className="min-w-0 p-5 sm:p-6">
+
+                    {imageVisible && (
+                        <div className="mb-5 overflow-hidden rounded-lg border border-gray-200 dark:border-white/10">
+                            <ImageWithFallback
+                                className="h-auto w-full"
+                                src={data.imgUrl || ''}
+                                fallbackSrc={prepImg}
+                                alt={data.midTitle + ' Img'}
+                                width={600}
+                                height={400}
+                                hideOnError
+                                onHidden={() => setImageVisible(false)}
+                            />
+                        </div>
+                    )}
+
+                    {hasStructuredFlow ? (
+                        <div className="grid gap-3 lg:grid-cols-3">
+                            {structuredSections.map((section, index) => {
+                                const meta = sectionMeta[section.label] || sectionMeta['문제'];
+
+                                return (
+                                    <section
+                                        key={`${section.label}-${index}`}
+                                        className={`min-w-0 rounded-xl border-l-2 bg-gray-50/80 p-4 dark:bg-white/[0.035] sm:p-5 ${meta.borderClass}`}
+                                    >
+                                        <div className="mb-3 flex items-center gap-2">
+                                            <h4 className={`text-sm font-semibold ${meta.headingClass}`}>
+                                                {meta.title}
+                                            </h4>
+                                        </div>
+                                        <div className="text-[15px] leading-7 text-gray-600 dark:text-gray-300">
+                                            {parseContent(section.content)}
+                                        </div>
+                                    </section>
+                                );
+                            })}
+                        </div>
+                    ) : (
+                        <div className="space-y-3 text-[15px] leading-7 text-gray-600 dark:text-gray-300 sm:text-base">
+                            {renderContents()}
+                        </div>
+                    )}
                 </div>
-            )}
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${styles.dotColor}`}></span>
-                {data.midTitle}
-            </h3>
-            <div className="text-gray-300 text-base sm:text-lg leading-relaxed space-y-3">
-                {renderContents()}
             </div>
         </motion.div>
     );
