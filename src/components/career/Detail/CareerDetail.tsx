@@ -15,6 +15,77 @@ const formatTerm = (term: string | undefined): string => {
     return term;
 };
 
+// ===== contents 타입 경력의 detailContents 파싱 (CareerSection과 동일 규칙) =====
+interface HighlightGroup {
+    title?: string;
+    challenge?: string;
+    implementation?: string;
+    outcome?: string;
+}
+
+const parseLabeledLine = (text: string) => {
+    const match = text.match(/^(문제|해결|설계\/구현|결과|결과\/역량):\s*(.*)$/);
+    if (!match) return null;
+
+    const label = match[1];
+    const field: keyof HighlightGroup =
+        label === '문제' ? 'challenge' :
+            label === '해결' || label === '설계/구현' ? 'implementation' :
+                'outcome';
+
+    return { field, text: match[2] };
+};
+
+const getCareerHighlights = (career: CareerT): HighlightGroup[] => {
+    const groups: HighlightGroup[] = [];
+
+    career.detailContents?.forEach((content) => {
+        const parsed = parseLabeledLine(content.contents);
+
+        if (!parsed) {
+            groups.push({ title: content.title, outcome: content.contents });
+            return;
+        }
+
+        if (parsed.field === 'challenge' || groups.length === 0) {
+            groups.push({ title: content.title });
+        }
+
+        groups[groups.length - 1][parsed.field] = parsed.text;
+    });
+
+    return groups.filter(group => group.challenge || group.implementation || group.outcome);
+};
+
+const getHighlightTitle = (group: HighlightGroup) => {
+    if (group.title?.trim()) return group.title.trim();
+
+    const text = `${group.challenge || ''} ${group.implementation || ''} ${group.outcome || ''}`;
+
+    if (text.includes('MSSQL') || text.includes('ERP') || text.includes('거래 데이터')) return '데이터 처리 및 연동 안정화';
+    if (text.includes('현업') || text.includes('요구사항') || text.includes('업무 시스템')) return '업무 시스템 운영 개선';
+    if (text.includes('OpenAPI')) return '외부 연계 기반 구축';
+    if (text.includes('ReactQuery')) return '화면 응답성과 데이터 흐름 개선';
+    return '운영 개선';
+};
+
+// 지표 개수에 맞춰 데스크탑 열 수를 정해 빈 칸 없이 정렬
+const metricsColsClass = (count: number): string => {
+    if (count === 1) return 'sm:grid-cols-1';
+    if (count === 3) return 'sm:grid-cols-3';
+    if (count % 4 === 0 || count > 4) return 'sm:grid-cols-4';
+    if (count % 3 === 0) return 'sm:grid-cols-3';
+    return 'sm:grid-cols-2';
+};
+
+const getCompactText = (text?: string) => {
+    if (!text) return '';
+    return text
+        .replace(/^(문제|해결|설계\/구현|결과|결과\/역량):\s*/, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+};
+
 interface CareerDetailProps {
     career: CareerT;
 }
@@ -37,6 +108,11 @@ export const CareerDetail = ({ career }: CareerDetailProps) => {
     }, []);
 
     const projectCount = career.projects?.length ?? 0;
+    const highlights = getCareerHighlights(career);
+    // 지표를 일반(상단) / Focus 귀속(카드 하위)으로 분리
+    const generalMetrics = career.metrics?.filter(m => !m.group) ?? [];
+    const metricsForGroup = (group: HighlightGroup) =>
+        career.metrics?.filter(m => m.group && m.group === getHighlightTitle(group)) ?? [];
 
     return (
         <div>
@@ -47,51 +123,173 @@ export const CareerDetail = ({ career }: CareerDetailProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-3">
                         {career.company}
                     </h1>
-                    <p className="text-lg sm:text-xl text-gray-500 dark:text-gray-400 mb-4">
+                    <p className="text-base sm:text-lg text-ink-soft mb-4">
                         {career.position}{career.team && ` / ${career.team}팀`}
                     </p>
-                    <div className="flex items-center gap-3">
-                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#72AAFF]/10 border border-[#72AAFF]/30 text-[#72AAFF] text-sm font-semibold">
+                    <div className="flex flex-wrap items-center gap-3">
+                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[var(--taupe)]/10 border border-[var(--taupe)]/30 text-[var(--taupe)] text-sm font-semibold">
                             {formatTerm(career.startTerm)} - {career.endTerm ? formatTerm(career.endTerm) : '현재'}
                         </span>
+                        {career.description && (
+                            <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-line bg-cream text-ink-soft text-sm font-medium">
+                                {career.description}
+                            </span>
+                        )}
                     </div>
+                    {career.contents && (
+                        <p className="mt-5 max-w-3xl text-[15px] leading-7 text-ink-soft sm:text-base">
+                            {parseContent(career.contents)}
+                        </p>
+                    )}
                 </motion.div>
             </div>
 
-            {/* Projects */}
-            {projectCount > 0 && (
+            {/* 통계(지표) — 그룹(Focus 귀속) 없는 일반 지표만 상단에 표시 */}
+            {generalMetrics.length > 0 && (
                 <motion.div
-                    className="flex items-center gap-3 mb-8"
+                    className={`mb-10 grid grid-cols-2 gap-3 sm:gap-4 ${metricsColsClass(generalMetrics.length)}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
                 >
-                    <span className="w-8 h-1 bg-[#72AAFF] rounded-full"></span>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Projects</h2>
-                    <span className="text-[#72AAFF] font-semibold">({projectCount})</span>
+                    {generalMetrics.map((metric, idx) => (
+                        <div
+                            key={'m-' + idx}
+                            className="rounded-2xl border border-line bg-[var(--bg-card)] p-5 text-center shadow-[0_2px_14px_-6px_rgba(63,59,48,0.12)]"
+                        >
+                            <p className="text-3xl font-bold text-[var(--taupe)] sm:text-4xl">{metric.value}</p>
+                            <p className="mt-2 text-sm font-medium text-ink">{metric.label}</p>
+                            {metric.caption && (
+                                <p className="mt-1 text-xs text-ink-soft/70">{metric.caption}</p>
+                            )}
+                        </div>
+                    ))}
                 </motion.div>
             )}
 
-            {isLoading ? (
-                <div className="flex items-center justify-center py-20">
-                    <div className="w-8 h-8 border-2 border-[#72AAFF] border-t-transparent rounded-full animate-spin" />
-                </div>
-            ) : (
-                <div className="space-y-6">
-                    {career.projects?.map((project: CareerProjectT, index) => (
-                        <motion.div
-                            key={'c-' + index}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-                        >
-                            <CareerDetailItem data={project} allSkills={skills} />
-                        </motion.div>
-                    ))}
-                </div>
+            {/* Projects */}
+            {projectCount > 0 && (
+                <>
+                    <motion.div
+                        className="flex items-center gap-3 mb-8"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                        <span className="w-8 h-1 bg-[var(--taupe)] rounded-full"></span>
+                        <h2 className="text-2xl sm:text-3xl font-bold text-ink">Projects</h2>
+                        <span className="text-[var(--taupe)] font-semibold">({projectCount})</span>
+                    </motion.div>
+
+                    {isLoading ? (
+                        <div className="flex items-center justify-center py-20">
+                            <div className="w-8 h-8 border-2 border-[var(--taupe)] border-t-transparent rounded-full animate-spin" />
+                        </div>
+                    ) : (
+                        <div className="space-y-6">
+                            {career.projects?.map((project: CareerProjectT, index) => (
+                                <motion.div
+                                    key={'c-' + index}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
+                                >
+                                    <CareerDetailItem data={project} allSkills={skills} />
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
+                </>
+            )}
+
+            {/* 주요 활동 (contents 타입 경력) */}
+            {highlights.length > 0 && (
+                <>
+                    <motion.div
+                        className="flex items-center gap-3 mb-8"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                        <span className="w-8 h-1 bg-[var(--taupe)] rounded-full"></span>
+                        <h2 className="text-2xl sm:text-3xl font-bold text-ink">주요 활동</h2>
+                        <span className="text-[var(--taupe)] font-semibold">({highlights.length})</span>
+                    </motion.div>
+
+                    <div className="grid gap-5 sm:grid-cols-2">
+                        {highlights.map((group, idx) => (
+                            <motion.div
+                                key={'h-' + idx}
+                                className="rounded-2xl border border-line bg-[var(--bg-card)] p-6 shadow-[0_2px_14px_-6px_rgba(63,59,48,0.12)]"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4, delay: 0.1 + idx * 0.05 }}
+                            >
+                                <div className="mb-5 flex items-start justify-between gap-3">
+                                    <div>
+                                        <p className="mb-1 text-xs font-semibold text-taupe">
+                                            Focus {String(idx + 1).padStart(2, '0')}
+                                        </p>
+                                        <h3 className="text-xl font-semibold text-ink">
+                                            {getHighlightTitle(group)}
+                                        </h3>
+                                    </div>
+                                    <span className="shrink-0 rounded-full border border-line bg-cream px-2.5 py-1 text-[11px] font-semibold text-ink-soft">
+                                        {group.outcome ? '성과 포함' : '진행'}
+                                    </span>
+                                </div>
+
+                                <div className="relative pl-[30px]">
+                                    {group.challenge && (
+                                        <div className="relative pb-5 last:pb-0 [&:not(:last-child)]:before:absolute [&:not(:last-child)]:before:left-[-20px] [&:not(:last-child)]:before:top-[24px] [&:not(:last-child)]:before:bottom-0 [&:not(:last-child)]:before:w-0.5 [&:not(:last-child)]:before:bg-[var(--line)] [&:not(:last-child)]:before:content-['']">
+                                            <span className="absolute left-[-30px] top-0 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-[#9c9684] text-[11px] font-extrabold text-white">1</span>
+                                            <p className="mb-1.5 text-[12px] font-extrabold tracking-wide text-ink-soft">과제</p>
+                                            <p className="text-[14.5px] leading-[1.7] text-ink">
+                                                {parseContent(getCompactText(group.challenge))}
+                                            </p>
+                                        </div>
+                                    )}
+                                    {group.implementation && (
+                                        <div className="relative pb-5 last:pb-0 [&:not(:last-child)]:before:absolute [&:not(:last-child)]:before:left-[-20px] [&:not(:last-child)]:before:top-[24px] [&:not(:last-child)]:before:bottom-0 [&:not(:last-child)]:before:w-0.5 [&:not(:last-child)]:before:bg-[var(--line)] [&:not(:last-child)]:before:content-['']">
+                                            <span className="absolute left-[-30px] top-0 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-[var(--taupe)] text-[11px] font-extrabold text-white">2</span>
+                                            <p className="mb-1.5 text-[12px] font-extrabold tracking-wide text-[#6e6648]">구현</p>
+                                            <p className="text-[14.5px] leading-[1.7] text-ink">
+                                                {parseContent(getCompactText(group.implementation))}
+                                            </p>
+                                        </div>
+                                    )}
+                                    {group.outcome && (
+                                        <div className="relative pb-5 last:pb-0 [&:not(:last-child)]:before:absolute [&:not(:last-child)]:before:left-[-20px] [&:not(:last-child)]:before:top-[24px] [&:not(:last-child)]:before:bottom-0 [&:not(:last-child)]:before:w-0.5 [&:not(:last-child)]:before:bg-[var(--line)] [&:not(:last-child)]:before:content-['']">
+                                            <span className="absolute left-[-30px] top-0 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-[#9aa861] text-[11px] font-extrabold text-white">3</span>
+                                            <p className="mb-1.5 text-[12px] font-extrabold tracking-wide text-[#566324]">성과</p>
+                                            <p className="text-[14.5px] leading-[1.7] text-ink">
+                                                {parseContent(getCompactText(group.outcome))}
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* 이 Focus에 귀속된 통계 지표 */}
+                                {metricsForGroup(group).length > 0 && (
+                                    <div className="mt-4 grid grid-cols-3 gap-2">
+                                        {metricsForGroup(group).map((m, mi) => (
+                                            <div key={'gm-' + mi} className="rounded-xl border border-line bg-cream/70 px-2 py-3 text-center">
+                                                <p className="text-lg font-bold leading-none text-[var(--taupe)] sm:text-xl">{m.value}</p>
+                                                <p className="mt-1.5 text-[11px] font-medium leading-tight text-ink">{m.label}</p>
+                                                {m.caption && (
+                                                    <p className="mt-0.5 text-[10px] leading-tight text-ink-soft/70">{m.caption}</p>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </motion.div>
+                        ))}
+                    </div>
+                </>
             )}
         </div>
     );
@@ -103,11 +301,18 @@ interface CareerDetailItemProps {
 }
 
 const briefMeta: Record<string, { title: string; className: string }> = {
-    '문제': { title: '과제', className: 'border-gray-300 dark:border-white/15' },
-    '해결': { title: '구현', className: 'border-[#72AAFF]/45' },
-    '설계/구현': { title: '구현', className: 'border-[#72AAFF]/45' },
-    '결과': { title: '성과', className: 'border-amber-400/50' },
-    '결과/역량': { title: '성과', className: 'border-amber-400/50' },
+    '문제': { title: '과제', className: 'border-line-strong' },
+    '해결': { title: '구현', className: 'border-[var(--taupe)]/40' },
+    '설계/구현': { title: '구현', className: 'border-[var(--taupe)]/40' },
+    '결과': { title: '성과', className: 'border-[var(--sage)]/45' },
+    '결과/역량': { title: '성과', className: 'border-[var(--sage)]/45' },
+};
+
+// 브리프 단계별 색 코딩 (부드러운 틴트 + 컬러 라벨)
+const briefStyle: Record<string, { box: string; lab: string; body: string }> = {
+    '과제': { box: 'bg-[rgba(63,59,48,0.05)]', lab: 'text-ink-soft', body: 'text-ink-soft' },
+    '구현': { box: 'bg-[rgba(138,130,102,0.10)]', lab: 'text-[#6e6648]', body: 'text-ink' },
+    '성과': { box: 'bg-[rgba(150,160,95,0.16)]', lab: 'text-[#566324]', body: 'text-ink' },
 };
 
 const getProjectBrief = (description?: string) => {
@@ -144,96 +349,28 @@ const CareerDetailItem = ({ data, allSkills }: CareerDetailItemProps) => {
     const brief = getProjectBrief(data.description);
 
     return (
-        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-colors hover:border-[#72AAFF]/30 dark:border-white/10 dark:bg-[#151515]">
-            {/* 상단 헤더 */}
-            <div className="border-b border-gray-100 p-5 dark:border-white/10 sm:p-6">
-                <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="min-w-0">
-                        <h3 className="mb-2 text-xl font-semibold leading-tight text-gray-900 dark:text-white sm:text-2xl">
-                            {data.projName}
-                        </h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {data.startDate} - {data.endDate || 'Present'}
-                            {data.duration && ` (${data.duration})`}
-                        </p>
-                    </div>
-                    {data.role && (
-                        <span className="inline-flex w-fit shrink-0 items-center rounded-md border border-[#72AAFF]/20 bg-[#72AAFF]/10 px-3 py-1 text-xs font-semibold text-[#72AAFF]">
+        <div className="overflow-hidden rounded-2xl border border-line bg-[var(--bg-card)] shadow-sm transition-colors hover:border-[var(--taupe)]/25 lg:grid lg:grid-cols-[240px_1fr]">
+            {/* 좌측 메타 사이드바 */}
+            <div className="border-b border-line bg-[rgba(138,130,102,0.07)] p-5 sm:p-6 lg:border-b-0 lg:border-r">
+                <h3 className="text-lg font-semibold leading-snug text-ink">
+                    {data.projName}
+                </h3>
+                <p className="mt-1.5 text-sm text-ink-soft">
+                    {data.startDate} - {data.endDate || 'Present'}
+                    {data.duration && ` (${data.duration})`}
+                </p>
+                {data.role && (
+                    <div className="mt-3">
+                        <span className="inline-flex w-fit items-center rounded-md border border-[var(--taupe)]/20 bg-[var(--taupe)]/10 px-3 py-1 text-xs font-semibold text-[var(--taupe)]">
                             {data.role}
                         </span>
-                    )}
-                </div>
-
-                {brief.length > 0 ? (
-                    <div className="grid gap-3 lg:grid-cols-3">
-                        {brief.map((item, idx) => {
-                            const meta = briefMeta[item.label] || briefMeta['문제'];
-
-                            return (
-                                <div
-                                    key={`${item.label}-${idx}`}
-                                    className={`rounded-xl border-l-2 bg-gray-50/80 p-4 dark:bg-white/[0.035] ${meta.className}`}
-                                >
-                                    <p className="mb-2 text-xs font-semibold text-gray-500 dark:text-gray-500">
-                                        {meta.title}
-                                    </p>
-                                    <div className="line-clamp-3 text-[15px] leading-7 text-gray-600 dark:text-gray-300">
-                                        {parseContent(item.text)}
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                ) : data.description && (
-                    <div className="text-[15px] leading-7 text-gray-600 dark:text-gray-300">
-                        {parseContent(data.description)}
                     </div>
                 )}
-            </div>
-
-            <div className="grid gap-5 p-5 sm:p-6 lg:grid-cols-2">
-                {/* 담당 내용 */}
-                {data.tasks && data.tasks.length > 0 && (
-                    <section>
-                        <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#72AAFF]"></span>
-                            담당 범위
-                        </h4>
-                        <ul className="space-y-2.5">
-                            {data.tasks.map((item, idx) => (
-                                <li key={idx} className="rounded-lg bg-gray-50 px-3 py-2.5 text-[15px] leading-7 text-gray-600 dark:bg-white/[0.035] dark:text-gray-300">
-                                    {parseContent(item)}
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
-                )}
-
-                {/* 성과 */}
-                {data.achievements && data.achievements.length > 0 && (
-                    <section>
-                        <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
-                            <span className="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
-                            주요 성과
-                        </h4>
-                        <ul className="space-y-2.5">
-                            {data.achievements.map((res, idx) => (
-                                <li key={idx} className="rounded-lg bg-amber-400/10 px-3 py-2.5 text-[15px] leading-7 text-gray-700 dark:text-gray-200">
-                                    {parseContent(res)}
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
-                )}
-            </div>
-
-            {/* 기술 스택 */}
-            {skillsList.length > 0 && (
-                <div className="border-t border-gray-200 px-5 py-4 dark:border-white/10 sm:px-6">
-                    <div className="flex flex-wrap gap-2">
+                {skillsList.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-1.5">
                         {skillsList.map((skill, index) => (
                             <span
-                                className="text-[10px] font-medium px-2.5 py-1 rounded-full bg-[#72AAFF]/10 text-[#72AAFF] border border-[#72AAFF]/20 flex items-center gap-1"
+                                className="flex items-center gap-1 rounded-full border border-[var(--taupe)]/20 bg-[var(--taupe)]/10 px-2.5 py-1 text-[10px] font-medium text-[var(--taupe)]"
                                 key={'sk-' + index}
                             >
                                 <SkillIcon skillName={skill.name} size={12} />
@@ -241,8 +378,68 @@ const CareerDetailItem = ({ data, allSkills }: CareerDetailItemProps) => {
                             </span>
                         ))}
                     </div>
+                )}
+            </div>
+
+            {/* 우측 콘텐츠 */}
+            <div className="p-5 sm:p-6">
+                {brief.length > 0 ? (
+                    <div className="mb-5 grid gap-2.5 sm:grid-cols-3">
+                        {brief.map((item, idx) => {
+                            const meta = briefMeta[item.label] || briefMeta['문제'];
+                            const st = briefStyle[meta.title] || briefStyle['과제'];
+
+                            return (
+                                <div key={`${item.label}-${idx}`} className={`rounded-xl p-4 ${st.box}`}>
+                                    <span className={`mb-2 block text-[11px] font-extrabold tracking-wide ${st.lab}`}>
+                                        {meta.title}
+                                    </span>
+                                    <div className={`text-[13.5px] leading-[1.62] ${st.body}`}>
+                                        {parseContent(item.text)}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : data.description && (
+                    <div className="mb-5 text-[14.5px] leading-7 text-ink-soft">
+                        {parseContent(data.description)}
+                    </div>
+                )}
+
+                <div className="grid gap-5 sm:grid-cols-2">
+                    {/* 담당 내용 — 번호 배지 + 흐린 구분선 */}
+                    {data.tasks && data.tasks.length > 0 && (
+                        <section>
+                            <h4 className="mb-2 text-sm font-bold text-ink">담당 범위</h4>
+                            <ul>
+                                {data.tasks.map((item, idx) => (
+                                    <li key={idx} className="grid grid-cols-[24px_1fr] items-start gap-3 py-2.5 [&:not(:first-child)]:border-t [&:not(:first-child)]:border-[rgba(63,59,48,0.08)]">
+                                        <span className="flex h-[22px] w-[22px] items-center justify-center rounded-md bg-[rgba(138,130,102,0.16)] text-[11px] font-extrabold text-[#6e6648]">
+                                            {String(idx + 1).padStart(2, '0')}
+                                        </span>
+                                        <span className="text-[14px] leading-[1.55] text-ink-soft">{parseContent(item)}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+                    )}
+
+                    {/* 성과 — 세이지 행 */}
+                    {data.achievements && data.achievements.length > 0 && (
+                        <section>
+                            <h4 className="mb-2 text-sm font-bold text-ink">주요 성과</h4>
+                            <ul className="space-y-2">
+                                {data.achievements.map((res, idx) => (
+                                    <li key={idx} className="rounded-lg bg-[var(--sage)]/22 px-3 py-2.5 text-[14px] leading-[1.55] text-ink">
+                                        {parseContent(res)}
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+                    )}
                 </div>
-            )}
+            </div>
         </div>
     );
 };

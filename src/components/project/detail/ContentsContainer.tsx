@@ -17,15 +17,15 @@ const contentTypeStyles: Record<string, {
 }> = {
     [ContentType.TROUBLESHOOT]: {
         tagLabel: '문제 해결',
-        accent: 'bg-[#72AAFF]'
+        accent: 'bg-[var(--taupe)]'
     },
     [ContentType.IMPROVEMENT]: {
         tagLabel: '향후 개선',
-        accent: 'bg-amber-400'
+        accent: 'bg-[var(--taupe)]'
     },
     [ContentType.GENERAL]: {
         tagLabel: '',
-        accent: 'bg-slate-300 dark:bg-white/20'
+        accent: 'bg-[var(--taupe)]/40'
     }
 };
 
@@ -36,31 +36,37 @@ const sectionMeta: Record<string, {
     title: string;
     headingClass: string;
     borderClass: string;
+    dotClass: string;
 }> = {
     '문제': {
         title: '과제',
-        headingClass: 'text-gray-900 dark:text-white',
-        borderClass: 'border-gray-300 dark:border-white/15',
+        headingClass: 'text-ink',
+        borderClass: 'border-line-strong',
+        dotClass: 'bg-line-strong',
     },
     '해결': {
         title: '구현',
-        headingClass: 'text-[#72AAFF]',
-        borderClass: 'border-[#72AAFF]/40',
+        headingClass: 'text-[var(--taupe)]',
+        borderClass: 'border-[var(--taupe)]/40',
+        dotClass: 'bg-[var(--taupe)]',
     },
     '설계/구현': {
         title: '구현',
-        headingClass: 'text-[#72AAFF]',
-        borderClass: 'border-[#72AAFF]/40',
+        headingClass: 'text-[var(--taupe)]',
+        borderClass: 'border-[var(--taupe)]/40',
+        dotClass: 'bg-[var(--taupe)]',
     },
     '결과': {
         title: '성과',
-        headingClass: 'text-amber-500 dark:text-amber-300',
-        borderClass: 'border-amber-400/45',
+        headingClass: 'text-[var(--taupe)]',
+        borderClass: 'border-[var(--sage)]/45',
+        dotClass: 'bg-[var(--sage)]',
     },
     '결과/역량': {
         title: '성과',
-        headingClass: 'text-amber-500 dark:text-amber-300',
-        borderClass: 'border-amber-400/45',
+        headingClass: 'text-[var(--taupe)]',
+        borderClass: 'border-[var(--sage)]/45',
+        dotClass: 'bg-[var(--sage)]',
     },
 };
 
@@ -105,21 +111,21 @@ export const ContentsContainer = ({ data }: ContentsContainerProps) => {
 
     return (
         <motion.div
-            className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-colors hover:border-[#72AAFF]/30 dark:border-white/10 dark:bg-[#151515]"
+            className="overflow-hidden rounded-2xl border border-line bg-[var(--bg-card)] shadow-sm transition-colors hover:border-[var(--taupe)]/30"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             viewport={{ once: true }}
         >
             <div>
-                <div className="border-b border-gray-100 p-5 dark:border-white/10 sm:p-6">
+                <div className="border-b border-line p-5 sm:p-6">
                     <div className="flex flex-wrap items-center gap-3">
                         {styles.tagLabel && (
-                            <span className="inline-flex items-center rounded-md border border-[#72AAFF]/20 bg-[#72AAFF]/10 px-2.5 py-1 text-[11px] font-semibold text-[#72AAFF]">
+                            <span className="inline-flex items-center rounded-md border border-[var(--taupe)]/20 bg-[var(--taupe)]/10 px-2.5 py-1 text-[11px] font-semibold text-[var(--taupe)]">
                                 {styles.tagLabel}
                             </span>
                         )}
-                        <h3 className="text-xl font-semibold leading-tight text-gray-900 dark:text-white sm:text-2xl">
+                        <h3 className="text-xl font-semibold leading-tight text-ink sm:text-2xl">
                             {data.midTitle}
                         </h3>
                     </div>
@@ -128,7 +134,7 @@ export const ContentsContainer = ({ data }: ContentsContainerProps) => {
                 <div className="min-w-0 p-5 sm:p-6">
 
                     {imageVisible && (
-                        <div className="mb-5 overflow-hidden rounded-lg border border-gray-200 dark:border-white/10">
+                        <div className="mb-5 overflow-hidden rounded-lg border border-line">
                             <ImageWithFallback
                                 className="h-auto w-full"
                                 src={data.imgUrl || ''}
@@ -150,14 +156,15 @@ export const ContentsContainer = ({ data }: ContentsContainerProps) => {
                                 return (
                                     <section
                                         key={`${section.label}-${index}`}
-                                        className={`min-w-0 rounded-xl border-l-2 bg-gray-50/80 p-4 dark:bg-white/[0.035] sm:p-5 ${meta.borderClass}`}
+                                        className={`min-w-0 rounded-xl border-l-2 bg-cream/80 p-4 sm:p-5 ${meta.borderClass}`}
                                     >
                                         <div className="mb-3 flex items-center gap-2">
-                                            <h4 className={`text-sm font-semibold ${meta.headingClass}`}>
+                                            <span className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />
+                                            <h4 className={`text-xs font-bold uppercase tracking-wide ${meta.headingClass}`}>
                                                 {meta.title}
                                             </h4>
                                         </div>
-                                        <div className="text-[15px] leading-7 text-gray-600 dark:text-gray-300">
+                                        <div className="text-[15px] leading-7 text-ink-soft">
                                             {parseContent(section.content)}
                                         </div>
                                     </section>
@@ -165,7 +172,7 @@ export const ContentsContainer = ({ data }: ContentsContainerProps) => {
                             })}
                         </div>
                     ) : (
-                        <div className="space-y-3 text-[15px] leading-7 text-gray-600 dark:text-gray-300 sm:text-base">
+                        <div className="space-y-3 text-[15px] leading-7 text-ink-soft sm:text-base">
                             {renderContents()}
                         </div>
                     )}

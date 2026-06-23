@@ -95,10 +95,10 @@ export const SkillIcon = ({ skillName, className, size = 20 }: SkillIconProps) =
     if (!imagePath) {
         return (
             <div
-                className={`inline-flex items-center justify-center rounded-md bg-gray-200 dark:bg-gray-700 overflow-hidden ${className || ''}`}
+                className={`inline-flex items-center justify-center rounded-md bg-cream overflow-hidden ${className || ''}`}
                 style={{ width: size, height: size }}
             >
-                <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                <span className="text-xs font-medium text-ink-soft">
                     {skillName.slice(0, 2).toUpperCase()}
                 </span>
             </div>

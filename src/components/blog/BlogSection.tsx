@@ -171,8 +171,8 @@ export const BlogSection = () => {
         <div className="relative overflow-hidden">
             {/* 배경 장식 - 컨테이너 내부로 제한 */}
             <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#72AAFF]/5 rounded-full blur-3xl" />
-                <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" />
+                <div className="absolute -top-20 -right-20 w-80 h-80 bg-[var(--taupe)]/5 rounded-full blur-3xl" />
+                <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-[var(--sage)]/8 rounded-full blur-3xl" />
             </div>
 
             <motion.div
@@ -186,14 +186,14 @@ export const BlogSection = () => {
                 <div className="flex flex-col items-center mb-8 sm:mb-12">
                     <div className="text-center">
                         <motion.div
-                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#72AAFF]/10 border border-[#72AAFF]/20 mb-3 sm:mb-4"
+                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--taupe)]/10 border border-[var(--taupe)]/20 mb-3 sm:mb-4"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
                         >
-                            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#72AAFF] animate-pulse" />
-                            <span className="text-[10px] sm:text-xs font-semibold text-[#72AAFF] tracking-widest">STUDY & INSIGHTS</span>
+                            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[var(--taupe)] animate-pulse" />
+                            <span className="text-[10px] sm:text-xs font-semibold text-[var(--taupe)] tracking-widest">STUDY & INSIGHTS</span>
                         </motion.div>
                         <motion.h2
                             className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3"
@@ -202,11 +202,11 @@ export const BlogSection = () => {
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
                         >
-                            <span className="text-gray-900 dark:text-white">BL</span>
-                            <span className="text-[#72AAFF]">OG</span>
+                            <span className="text-ink">BL</span>
+                            <span className="text-[var(--taupe)]">OG</span>
                         </motion.h2>
                         <motion.p
-                            className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-md mx-auto"
+                            className="text-sm sm:text-base text-ink-soft max-w-md mx-auto"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -217,14 +217,14 @@ export const BlogSection = () => {
                     </div>
                 </div>
                 {loading ? (
-                    <div className="text-center text-gray-500 text-sm sm:text-base py-8">
+                    <div className="text-center text-ink-soft text-sm sm:text-base py-8">
                         <div className="inline-flex items-center gap-2">
-                            <div className="w-4 h-4 border-2 border-[#72AAFF] border-t-transparent rounded-full animate-spin" />
+                            <div className="w-4 h-4 border-2 border-[var(--taupe)] border-t-transparent rounded-full animate-spin" />
                             <span>블로그 글을 불러오는 중...</span>
                         </div>
                     </div>
                 ) : error && posts.length === 0 ? (
-                    <div className="text-center text-gray-500 text-sm sm:text-base py-8">
+                    <div className="text-center text-ink-soft text-sm sm:text-base py-8">
                         <p>블로그 글을 불러올 수 없습니다.</p>
                         <p className="text-xs mt-1">직접 블로그를 방문해주세요.</p>
                     </div>
@@ -263,7 +263,7 @@ export const BlogSection = () => {
                         href="https://nuu-stradamus.tistory.com/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-[#72AAFF] hover:text-[#72AAFF] hover:bg-[#72AAFF]/5 transition-all duration-300 text-sm sm:text-base font-medium"
+                        className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-line bg-card-soft text-ink-soft hover:border-line-strong hover:text-ink transition-all duration-300 text-sm sm:text-base font-medium"
                     >
                         블로그 보러가기
                         <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">

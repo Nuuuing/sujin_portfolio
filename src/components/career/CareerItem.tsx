@@ -19,8 +19,8 @@ export const CareerItem = (props: CareerItemProps) => {
     return (
         <Link
             href={{ pathname: `/career/detail/${data.key}` }}
-            className="w-[20rem] dark:text-white px-4 py-2 text-center block space-y-2 my-4 cursor-pointer">
-            <div className="bg-[#e9e9e9] dark:bg-gray-700 text-base px-3 py-1 rounded-full inline-block">
+            className="w-[20rem] text-ink px-4 py-2 text-center block space-y-2 my-4 cursor-pointer">
+            <div className="bg-cream text-base px-3 py-1 rounded-full inline-block border border-line">
                 {formatTerm(data.startTerm)}
                 &nbsp;-&nbsp;
                 {data.endTerm ? formatTerm(data.endTerm) : '현재'}
@@ -30,12 +30,12 @@ export const CareerItem = (props: CareerItemProps) => {
                 {data.company}
             </div>
 
-            <div className="text-base text-gray-700 dark:text-gray-300">
+            <div className="text-base text-ink-soft">
                 {data.team && `${data.team}팀`} &nbsp; • &nbsp;{data.position}
             </div>
 
             {data.projects && data.projects.length > 0 && (
-                <div className="bg-[#e9e9e9] dark:bg-gray-700 text-sm px-2 py-1 rounded-full inline-block">
+                <div className="bg-cream border border-line text-sm px-2 py-1 rounded-full inline-block">
                     프로젝트 {data.projects.length}개
                 </div>
             )}

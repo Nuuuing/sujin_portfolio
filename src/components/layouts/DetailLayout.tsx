@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { motion } from 'motion/react';
 
 interface DetailLayoutProps {
@@ -11,6 +11,11 @@ interface DetailLayoutProps {
 
 export const DetailLayout = ({ children, title }: DetailLayoutProps) => {
     const router = useRouter();
+
+    // 페이지 진입 시 항상 상단에서 시작 (목록/상세 이동 시 스크롤 위치가 남는 문제 방지)
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div className="w-full min-h-screen relative">
@@ -24,7 +29,7 @@ export const DetailLayout = ({ children, title }: DetailLayoutProps) => {
                 >
                     <button
                         onClick={() => router.back()}
-                        className="inline-flex items-center gap-2 text-gray-400 hover:text-[#72AAFF] transition-colors cursor-pointer group"
+                        className="inline-flex items-center gap-2 text-ink-soft/60 hover:text-[var(--taupe)] transition-colors cursor-pointer group"
                     >
                         <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -41,8 +46,8 @@ export const DetailLayout = ({ children, title }: DetailLayoutProps) => {
                         className="mb-8 sm:mb-12"
                     >
                         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
-                            <span className="text-gray-900 dark:text-white">{title.slice(0, Math.ceil(title.length / 2))}</span>
-                            <span className="text-[#72AAFF]">{title.slice(Math.ceil(title.length / 2))}</span>
+                            <span className="text-ink">{title.slice(0, Math.ceil(title.length / 2))}</span>
+                            <span className="text-[var(--taupe)]">{title.slice(Math.ceil(title.length / 2))}</span>
                         </h1>
                     </motion.div>
                 )}
@@ -56,9 +61,9 @@ export const DetailLayout = ({ children, title }: DetailLayoutProps) => {
                     {children}
                 </motion.div>
 
-                <footer className="py-8 sm:py-12 border-t border-gray-800 text-center text-gray-500">
+                <footer className="py-8 sm:py-12 border-t border-line text-center text-ink-soft">
                     <p className="text-xs sm:text-sm mb-2">본 페이지는 상업적 목적이 아닌 개인 포트폴리오용으로 제작되었습니다.</p>
-                    <p className="text-xs sm:text-sm text-gray-600">© 2026 Kim Sujin. All Rights Reserved.</p>
+                    <p className="text-xs sm:text-sm text-ink-soft">© 2026 Kim Sujin. All Rights Reserved.</p>
                 </footer>
             </div>
         </div>

@@ -23,7 +23,7 @@ export const BaseCard = (props: BaseCardProps) => {
     onClick,
     isSelected,
     selectedClassName = "",
-    defaultClassName = "bg-[#f0f0f0] dark:bg-[#353535]"
+    defaultClassName = "bg-[var(--bg-card)]"
   } = props;
 
   const bgClass = isSelected !== undefined

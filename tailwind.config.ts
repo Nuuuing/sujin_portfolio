@@ -26,6 +26,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['Paperlogy', 'sans-serif'],
+        serif: ['var(--font-garamond)', 'Garamond', 'Georgia', 'serif'],
       },
     },
   },

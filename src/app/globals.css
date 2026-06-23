@@ -1,99 +1,106 @@
 @import "tailwindcss";
 
+/* dark: 유틸리티는 .dark 클래스가 있을 때만 동작하도록 제한 (따뜻한 단일 테마 유지) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* 표지 톤: 크림 / 세이지 그린 / 슬레이트 블루 / 토프 */
+  --bg: #ece7db;          /* 메인 배경 (warm cream) */
+  --bg-soft: #e4ddcc;     /* 카드 / 서피스 */
+  --bg-card: #f1ece1;     /* 밝은 카드 */
+  --ink: #3f3b30;         /* 본문 진한 글자 */
+  --ink-soft: #6b6657;    /* 보조 글자 */
+  --taupe: #8a8266;       /* 디스플레이 헤딩 (KIM SUJIN 톤) */
+  --sage: #c7cba6;        /* 세이지 그린 도형 */
+  --sage-soft: #d7dabd;
+  --slate: #7c8696;       /* 슬레이트 블루 액센트 */
+  --slate-soft: #9aa3ae;  /* 라벨용 옅은 슬레이트 */
+  --line: rgba(63, 59, 48, 0.16);
+  --line-strong: rgba(63, 59, 48, 0.3);
+
+  --background: var(--bg);
+  --foreground: var(--ink);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
+  font-size: 15px;            /* 전체 폰트·여백을 약 6% 축소 (rem 기반 일괄, 비례 유지) */
 }
 
 @layer base {
   body {
     background: var(--background);
     color: var(--foreground);
-    font-family: 'Paperlogy', sans-serif;
+    font-family: var(--font-noto-sans-kr), var(--font-noto-sans), system-ui, sans-serif;
+    /* 고급스러운 렌더링: 안티앨리어싱 + 가독성 우선 + 부드러운 자간/행간 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.011em;             /* 한글·라틴 본문 밀도를 살짝 조여 정돈된 인상 */
+    font-feature-settings: "kern", "liga", "calt", "tnum";
+    word-break: keep-all;                 /* 한글 어절 단위 줄바꿈으로 가독성 향상 */
+    line-height: 1.7;                     /* 본문 기본 행간을 넉넉하게 */
+  }
+
+  /* 디스플레이/헤딩: 큰 글자는 자간을 더 조이고 행간을 좁혀 우아하게 */
+  h1, h2, h3 {
+    letter-spacing: -0.022em;
+    line-height: 1.18;
   }
 }
 
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
+/* ── 디자인 토큰 유틸리티 ───────────────────────── */
+.bg-cream { background-color: var(--bg); }
+.bg-surface { background-color: var(--bg-soft); }
+.bg-card-soft { background-color: var(--bg-card); }
+.bg-sage { background-color: var(--sage); }
+.bg-sage-soft { background-color: var(--sage-soft); }
 
-@font-face {
-  font-family: 'Paperlogy';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-1Thin.woff2') format('woff2');
-  font-weight: 100;
-  font-style: normal;
-}
+.text-ink { color: var(--ink); }
+.text-ink-soft { color: var(--ink-soft); }
+.text-taupe { color: var(--taupe); }
+.text-slate-accent { color: var(--slate); }
+.text-slate-label { color: var(--slate-soft); }
 
-@font-face {
-  font-family: 'Paperlogy';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-2ExtraLight.woff2') format('woff2');
-  font-weight: 200;
-  font-style: normal;
-}
+.border-line { border-color: var(--line); }
+.border-line-strong { border-color: var(--line-strong); }
 
-@font-face {
-  font-family: 'Paperlogy';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Paperlogy';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Paperlogy';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Paperlogy';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2');
+/* 작은 대문자 라벨 (PORTFOLIO / SERVICE FLOW 느낌) */
+.eyebrow {
+  font-size: 0.72rem;
   font-weight: 600;
-  font-style: normal;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--slate-soft);
 }
 
-@font-face {
-  font-family: 'Paperlogy';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
+/* ── 브라우저 전체 스크롤바 ───────────────────── */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 130, 102, 0.4) rgba(236, 231, 219, 0.6);
 }
 
-@font-face {
-  font-family: 'Paperlogy';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-@font-face {
-  font-family: 'Paperlogy';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
+::-webkit-scrollbar-track {
+  background: rgba(236, 231, 219, 0.6);
 }
 
-/* 커스텀 스크롤바 스타일 */
+::-webkit-scrollbar-thumb {
+  background: rgba(138, 130, 102, 0.4);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(138, 130, 102, 0.7);
+}
+
+/* ── 커스텀 스크롤바 (내부 요소용) ──────────────── */
 .scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: rgba(114, 170, 255, 0.3) transparent;
+  scrollbar-color: rgba(138, 130, 102, 0.35) transparent;
 }
 
 .scrollbar-thin::-webkit-scrollbar {
@@ -103,15 +110,14 @@
 
 .scrollbar-thin::-webkit-scrollbar-track {
   background: transparent;
-  border-radius: 10px;
+  border-radius: 999px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(114, 170, 255, 0.3);
-  border-radius: 10px;
-  transition: background 0.2s ease;
+  background: rgba(138, 130, 102, 0.35);
+  border-radius: 999px;
 }
 
-.scrollbar-thin:hover::-webkit-scrollbar-thumb {
-  background: rgba(114, 170, 255, 0.5);
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(138, 130, 102, 0.6);
 }

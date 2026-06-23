@@ -32,29 +32,29 @@ export const Header = ({ onMenuClick, onMenuOpenChange }: HeaderProps) => {
 
     return (
         <>
-            <header className="w-full fixed top-0 left-0 flex justify-between items-center z-50 h-12 sm:h-14 px-3 sm:px-4 lg:px-6 bg-white dark:bg-[#1a1a1a] shadow-sm">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                    src="/logo.png"
-                    alt="Logo"
-                    className="object-contain w-24 sm:w-28 lg:w-32 h-full"
-                />
+            <header className="w-full fixed top-0 left-0 flex justify-between items-center z-50 h-12 sm:h-14 px-4 sm:px-6 lg:px-8 bg-[var(--bg)]/85 backdrop-blur-md border-b border-line">
+                <button
+                    onClick={() => handleMenuItemClick('INTRO')}
+                    className="text-sm font-semibold tracking-[0.22em] text-taupe uppercase cursor-pointer"
+                >
+                    Kim Sujin
+                </button>
                 {/* Desktop Menu */}
-                <nav className="hidden lg:flex gap-6 xl:gap-8 text-sm lg:text-base font-semibold items-center">
+                <nav className="hidden lg:flex gap-7 xl:gap-9 text-sm font-medium items-center">
                     {menuItems.map((item) => (
                         <button
                             key={item.section}
-                            className="cursor-pointer hover:text-[#72AAFF] transition-colors relative group"
+                            className="cursor-pointer text-ink-soft hover:text-ink transition-colors relative group"
                             onClick={() => handleMenuItemClick(item.section)}
                         >
                             {item.label}
-                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#72AAFF] group-hover:w-full transition-all duration-300" />
+                            <span className="absolute -bottom-1 left-0 w-0 h-px bg-[var(--taupe)] group-hover:w-full transition-all duration-300" />
                         </button>
                     ))}
                 </nav>
                 {/* Mobile Menu Button */}
                 <button
-                    className="lg:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 cursor-pointer z-50"
+                    className="lg:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 cursor-pointer z-50 text-ink"
                     onClick={() => toggleMenu(!isMenuOpen)}
                     aria-label="Toggle menu"
                 >
@@ -70,7 +70,7 @@ export const Header = ({ onMenuClick, onMenuOpenChange }: HeaderProps) => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3, ease: 'easeOut' }}
-                        className="lg:hidden fixed inset-0 z-40 bg-white dark:bg-[#1a1a1a] flex flex-col items-center justify-center gap-6 sm:gap-8"
+                        className="lg:hidden fixed inset-0 z-40 bg-[var(--bg)] flex flex-col items-center justify-center gap-6 sm:gap-8"
                     >
                         {menuItems.map((item, index) => (
                             <motion.button
@@ -79,7 +79,7 @@ export const Header = ({ onMenuClick, onMenuOpenChange }: HeaderProps) => {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 20 }}
                                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                                className="text-xl sm:text-2xl font-semibold cursor-pointer hover:text-[#72AAFF] transition-colors"
+                                className="text-xl sm:text-2xl font-medium text-ink cursor-pointer hover:text-taupe transition-colors"
                                 onClick={() => handleMenuItemClick(item.section)}
                             >
                                 {item.label}

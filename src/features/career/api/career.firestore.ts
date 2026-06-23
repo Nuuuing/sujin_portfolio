@@ -57,6 +57,7 @@ export async function getCareers(): Promise<CareerT[]> {
                     endTerm: data.endTerm,
                     projects,
                     detailContents: data.detailContents || [],
+                    metrics: data.metrics || [],
                 } as CareerT;
             });
 

@@ -29,9 +29,9 @@ export const ContactSection = () => {
         <div className="w-full relative">
             {/* 배경 장식 */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gradient-radial from-[#72AAFF]/10 via-purple-500/5 to-transparent rounded-full blur-3xl" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gradient-radial from-[var(--taupe)]/8 via-[var(--sage)]/5 to-transparent rounded-full blur-3xl" />
                 {/* 장식 라인 */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-[#72AAFF]/30 to-transparent" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-[var(--taupe)]/30 to-transparent" />
             </div>
 
             {/* 헤더 메시지 */}
@@ -43,14 +43,14 @@ export const ContactSection = () => {
                 className="text-center mb-8 sm:mb-12 relative z-10"
             >
                 <motion.div
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#72AAFF]/10 border border-[#72AAFF]/20 mb-3 sm:mb-4"
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--taupe)]/10 border border-[var(--taupe)]/20 mb-3 sm:mb-4"
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.1 }}
                 >
-                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#72AAFF] animate-pulse" />
-                    <span className="text-xs sm:text-sm font-semibold text-[#72AAFF] tracking-widest">GET IN TOUCH</span>
+                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[var(--taupe)] animate-pulse" />
+                    <span className="text-xs sm:text-sm font-semibold text-[var(--taupe)] tracking-widest">GET IN TOUCH</span>
                 </motion.div>
                 <motion.h2
                     className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4"
@@ -59,11 +59,11 @@ export const ContactSection = () => {
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 }}
                 >
-                    <span className="text-gray-900 dark:text-white">THANK </span>
-                    <span className="text-[#72AAFF]">YOU</span>
+                    <span className="text-ink">THANK </span>
+                    <span className="text-[var(--taupe)]">YOU</span>
                 </motion.h2>
                 <motion.p
-                    className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-md mx-auto"
+                    className="text-sm sm:text-base text-ink-soft max-w-md mx-auto"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -92,13 +92,13 @@ export const ContactSection = () => {
                         transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                         viewport={{ once: true }}
                         whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                        className="group relative flex-1 w-full sm:w-auto flex flex-col items-center gap-2 sm:gap-3 px-6 sm:px-8 py-4 sm:py-6 rounded-xl sm:rounded-2xl bg-gray-100 dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 hover:border-[#72AAFF]/50 hover:bg-[#72AAFF]/5 transition-all duration-300"
+                        className="group relative flex-1 w-full sm:w-auto flex flex-col items-center gap-2 sm:gap-3 px-6 sm:px-8 py-4 sm:py-6 rounded-xl sm:rounded-2xl bg-card-soft border border-line hover:border-[var(--taupe)]/50 hover:bg-[var(--taupe)]/5 transition-all duration-300"
                     >
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#72AAFF]/10 flex items-center justify-center text-[#72AAFF] group-hover:bg-[#72AAFF] group-hover:text-white transition-all duration-300 [&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-5 sm:[&>svg]:h-5">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[var(--taupe)]/10 flex items-center justify-center text-[var(--taupe)] group-hover:bg-[var(--taupe)] group-hover:text-[var(--bg-card)] transition-all duration-300 [&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-5 sm:[&>svg]:h-5">
                             {item.icon}
                         </div>
                         <div className="text-center">
-                            <p className="text-sm sm:text-base font-medium text-gray-900 dark:text-white group-hover:text-[#72AAFF] transition-colors">
+                            <p className="text-sm sm:text-base font-medium text-ink group-hover:text-[var(--taupe)] transition-colors">
                                 {item.value}
                             </p>
                         </div>
@@ -106,7 +106,7 @@ export const ContactSection = () => {
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
                             fill="currentColor"
-                            className="absolute top-3 right-3 sm:top-4 sm:right-4 w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 group-hover:text-[#72AAFF] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300"
+                            className="absolute top-3 right-3 sm:top-4 sm:right-4 w-3.5 h-3.5 sm:w-4 sm:h-4 text-ink-soft group-hover:text-[var(--taupe)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300"
                         >
                             <path fillRule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clipRule="evenodd" />
                         </svg>

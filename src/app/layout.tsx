@@ -1,27 +1,37 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Noto_Sans, Noto_Sans_KR, EB_Garamond } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const notoSans = Noto_Sans({
+  variable: "--font-noto-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const ebGaramond = EB_Garamond({
+  variable: "--font-garamond",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const notoSansKr = Noto_Sans_KR({
+  variable: "--font-noto-sans-kr",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "SUJIN's PORTFOLIO",
-  description: "Sujin's portfolio website showcasing web development projects and experience.",
-  keywords: ["portfolio", "web developer", "frontend", "React", "Next.js", "TypeScript"],
+  description: "Sujin's portfolio website showcasing full-cycle service development projects and experience.",
+  keywords: ["portfolio", "full-stack", "service development", "React", "Next.js", "TypeScript", "ASP.NET", "MSSQL"],
   authors: [{ name: "Sujin Kim" }],
   openGraph: {
     title: "SUJIN's PORTFOLIO",
-    description: "Sujin's portfolio website showcasing web development projects and experience.",
+    description: "Sujin's portfolio website showcasing full-cycle service development projects and experience.",
     type: "website",
     locale: "ko_KR",
   },
@@ -41,7 +51,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${notoSans.variable} ${notoSansKr.variable} ${ebGaramond.variable} antialiased`}
       >
         {children}
       </body>

@@ -31,6 +31,7 @@ const parseLabeledLine = (text: string) => {
 
 const getCareerHighlights = (career: CareerT) => {
     const groups: Array<{
+        title?: string;
         challenge?: string;
         implementation?: string;
         outcome?: string;
@@ -40,12 +41,12 @@ const getCareerHighlights = (career: CareerT) => {
         const parsed = parseLabeledLine(content.contents);
 
         if (!parsed) {
-            groups.push({ outcome: content.contents });
+            groups.push({ title: content.title, outcome: content.contents });
             return;
         }
 
         if (parsed.field === 'challenge' || groups.length === 0) {
-            groups.push({});
+            groups.push({ title: content.title });
         }
 
         groups[groups.length - 1][parsed.field] = parsed.text;
@@ -88,7 +89,9 @@ const getCareerKeywords = (career: CareerT) => {
     )).slice(0, 5);
 };
 
-const getHighlightTitle = (group: { challenge?: string; implementation?: string; outcome?: string }) => {
+const getHighlightTitle = (group: { title?: string; challenge?: string; implementation?: string; outcome?: string }) => {
+    if (group.title?.trim()) return group.title.trim();
+
     const text = `${group.challenge || ''} ${group.implementation || ''} ${group.outcome || ''}`;
 
     if (text.includes('MSSQL') || text.includes('ERP') || text.includes('거래 데이터')) {
@@ -108,14 +111,6 @@ const getHighlightTitle = (group: { challenge?: string; implementation?: string;
     }
 
     return '운영 개선';
-};
-
-const getCompactText = (text?: string) => {
-    if (!text) return '';
-    return text
-        .replace(/^(문제|해결|설계\/구현|결과|결과\/역량):\s*/, '')
-        .replace(/\s+/g, ' ')
-        .trim();
 };
 
 export const CareerSection = () => {
@@ -150,6 +145,11 @@ export const CareerSection = () => {
         return career.displayType === 'project' && career.projects && career.projects.length > 0;
     };
 
+    // 상세 페이지로 이동 가능한 경력인지 확인 (프로젝트형 또는 콘텐츠형)
+    const hasDetail = (career: CareerT) => {
+        return hasProjects(career) || (career.detailContents && career.detailContents.length > 0);
+    };
+
     return (
         <div className="relative">
             <motion.div
@@ -169,14 +169,14 @@ export const CareerSection = () => {
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
                         >
-                            <span className="text-gray-900 dark:text-white">CAR</span>
-                            <span className="text-[#72AAFF]">EER</span>
+                            <span className="text-ink">CAR</span>
+                            <span className="text-[var(--taupe)]">EER</span>
                         </motion.h2>
                     </div>
                 </div>
                 <div className="mt-4 sm:mt-8">
                     {isLoading ? (
-                        <div className="text-gray-400 text-center text-sm sm:text-base">로딩 중...</div>
+                        <div className="text-ink-soft/60 text-center text-sm sm:text-base">로딩 중...</div>
                     ) : (
                         <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-10">
                             <div className="flex flex-row lg:flex-col gap-2 sm:gap-3 lg:w-[280px] flex-shrink-0 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 scrollbar-thin">
@@ -195,17 +195,17 @@ export const CareerSection = () => {
                                             <BaseCard
                                                 onClick={() => setSelectedCareer(data)}
                                                 isSelected={isSelected}
-                                                selectedClassName="bg-[#72AAFF]/20 border-2 border-[#72AAFF] shadow-lg shadow-[#72AAFF]/10"
-                                                defaultClassName="bg-gray-100 dark:bg-[#2a2a2a] border-2 border-transparent hover:bg-gray-200 dark:hover:bg-[#333] hover:border-gray-300 dark:hover:border-gray-600"
+                                                selectedClassName="bg-[var(--taupe)]/15 border-2 border-[var(--taupe)] shadow-lg shadow-[var(--taupe)]/10"
+                                                defaultClassName="bg-card-soft border-2 border-transparent hover:border-line-strong"
                                                 hoverEffect={false}
-                                                className="p-3 sm:p-4 min-w-[200px] lg:min-w-0"
+                                                className="p-3.5 min-w-[190px] lg:min-w-0"
                                             >
-                                                <p className={`text-xs sm:text-sm mb-0.5 sm:mb-1 ${isSelected ? 'text-[#72AAFF]' : 'text-[#72AAFF]/50'}`}>
+                                                <p className={`mb-1 text-[11px] font-medium tracking-wide ${isSelected ? 'text-[var(--taupe)]' : 'text-ink-soft/45'}`}>
                                                     {formatTerm(data.startTerm)} - {data.endTerm ? formatTerm(data.endTerm) : '현재'}
                                                 </p>
-                                                <h3 className={`text-lg sm:text-xl font-bold ${isSelected ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>{data.company}</h3>
-                                                <p className={`text-sm sm:text-base ${isSelected ? 'text-gray-700 dark:text-gray-300' : 'text-gray-500'}`}>
-                                                    {data?.position}{data?.team && ` / ${data.team}팀`}
+                                                <h3 className={`text-base font-bold leading-tight ${isSelected ? 'text-ink' : 'text-ink-soft'}`}>{data.company}</h3>
+                                                <p className={`mt-0.5 text-xs ${isSelected ? 'text-ink-soft' : 'text-ink-soft/60'}`}>
+                                                    {data?.position}{data?.team && ` · ${data.team}팀`}
                                                 </p>
                                             </BaseCard>
                                         </motion.div>
@@ -227,36 +227,52 @@ export const CareerSection = () => {
 
                                         return (
                                             <>
-                                    <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-1.5 sm:mb-2 text-gray-900 dark:text-white">
-                                        {selectedCareer.company}
-                                    </h2>
-                                    <p className="text-base sm:text-lg lg:text-xl text-gray-500 dark:text-gray-400 mb-3 sm:mb-4">
-                                        {selectedCareer?.position}{selectedCareer?.team && ` / ${selectedCareer.team}팀`}
-                                    </p>
+                                    <div className="mb-3 flex items-start justify-between gap-4 sm:mb-4">
+                                        <div>
+                                            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-1.5 sm:mb-2 text-ink">
+                                                {selectedCareer.company}
+                                            </h2>
+                                            <p className="text-base sm:text-lg lg:text-xl text-ink-soft">
+                                                {selectedCareer?.position}{selectedCareer?.team && ` / ${selectedCareer.team}팀`}
+                                            </p>
+                                        </div>
+                                        {hasDetail(selectedCareer) && (
+                                            <Link
+                                                href={`/career/detail/${selectedCareer.key}`}
+                                                scroll={true}
+                                                className="group inline-flex shrink-0 items-center gap-2 rounded-full border border-line bg-card-soft px-4 py-2 text-xs font-medium text-ink-soft transition-all duration-300 hover:border-line-strong hover:text-ink sm:px-5 sm:py-2.5 sm:text-sm"
+                                            >
+                                                {selectedCareer.displayType === 'project' ? '프로젝트 상세 보기' : '경력 상세 보기'}
+                                                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                                </svg>
+                                            </Link>
+                                        )}
+                                    </div>
 
                                     <motion.div
-                                        className="mb-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#161616] sm:p-6"
+                                        className="mb-6 rounded-2xl border border-line bg-[var(--bg-card)] p-5 shadow-[0_2px_14px_-6px_rgba(63,59,48,0.14)] sm:p-6"
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: 0.12 }}
                                     >
                                         <div className="mb-4 flex flex-wrap gap-2">
                                             {selectedCareer.description && (
-                                                <span className="rounded-md border border-[#72AAFF]/20 bg-[#72AAFF]/10 px-2.5 py-1 text-xs font-semibold text-[#72AAFF]">
+                                                <span className="rounded-full border border-[var(--taupe)]/30 bg-[var(--taupe)]/12 px-3 py-1 text-xs font-semibold tracking-wide text-[var(--taupe)]">
                                                     {selectedCareer.description}
                                                 </span>
                                             )}
                                             {keywords.map((keyword) => (
                                                 <span
                                                     key={keyword}
-                                                    className="rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-600 dark:border-white/10 dark:bg-white/5 dark:text-gray-300"
+                                                    className="rounded-full border border-line bg-cream px-3 py-1 text-xs font-medium text-ink-soft"
                                                 >
                                                     {keyword}
                                                 </span>
                                             ))}
                                         </div>
                                         {selectedCareer.contents && (
-                                            <p className="line-clamp-3 text-[15px] leading-7 text-gray-600 dark:text-gray-300 sm:text-base">
+                                            <p className="line-clamp-5 text-[14px] leading-6 text-ink-soft sm:text-[15px]">
                                                 {parseContent(selectedCareer.contents)}
                                             </p>
                                         )}
@@ -270,24 +286,24 @@ export const CareerSection = () => {
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.15, duration: 0.4 }}
                                         >
-                                            <p className="text-lg text-[#72AAFF] mb-3">
+                                            <p className="text-base text-[var(--taupe)] mb-3">
                                                 프로젝트 {selectedCareer.projects.length}개 참여
                                             </p>
                                             <ul className="space-y-2">
                                                 {selectedCareer.projects.slice(0, 3).map((project, idx) => (
                                                     <motion.li
                                                         key={idx}
-                                                        className="flex items-start gap-2 text-lg text-gray-600 dark:text-gray-300"
+                                                        className="flex items-start gap-2 text-base text-ink-soft"
                                                         initial={{ opacity: 0, y: 10 }}
                                                         animate={{ opacity: 1, y: 0 }}
                                                         transition={{ delay: 0.2 + idx * 0.05 }}
                                                     >
-                                                        <span className="w-2 h-2 rounded-full bg-[#72AAFF] shrink-0 mt-2"></span>
+                                                        <span className="w-2 h-2 rounded-full bg-[var(--taupe)] shrink-0 mt-2"></span>
                                                         <span>{project.projName}</span>
                                                     </motion.li>
                                                 ))}
                                                 {selectedCareer.projects.length > 2 && (
-                                                    <li className="text-base text-gray-500 pl-4">
+                                                    <li className="text-base text-ink-soft/70 pl-4">
                                                         외 {selectedCareer.projects.length - 3}개
                                                     </li>
                                                 )}
@@ -298,73 +314,55 @@ export const CareerSection = () => {
                                     {/* contents 타입일 때 detailContents 표시 */}
                                     {selectedCareer.displayType === 'contents' && selectedCareer.detailContents && selectedCareer.detailContents.length > 0 && (
                                         <motion.div
-                                            className="mb-6 grid gap-3 sm:grid-cols-2"
+                                            className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.15 }}
                                         >
                                             {highlights.map((group, idx) => (
-                                                <div
+                                                <motion.div
                                                     key={idx}
-                                                    className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-colors hover:border-[#72AAFF]/30 dark:border-white/10 dark:bg-[#161616]"
+                                                    initial={{ opacity: 0, y: 12 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ delay: 0.2 + idx * 0.08, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                                                    className="relative overflow-hidden rounded-xl border border-line bg-[var(--bg-card)] p-4 shadow-[0_2px_14px_-6px_rgba(63,59,48,0.12)]"
                                                 >
-                                                    <div className="mb-4 flex items-start justify-between gap-3">
-                                                        <div>
-                                                            <p className="mb-1 text-xs font-semibold text-[#72AAFF]">
-                                                                Focus {String(idx + 1).padStart(2, '0')}
-                                                            </p>
-                                                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                                                                {getHighlightTitle(group)}
-                                                            </h3>
-                                                        </div>
-                                                        <span className="rounded-md bg-gray-100 px-2 py-1 text-[11px] font-semibold text-gray-500 dark:bg-white/5 dark:text-gray-400">
+                                                    {/* 좌측 강조선 */}
+                                                    <span className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-[var(--taupe)]/60 to-[var(--sage)]/40" />
+
+                                                    <div className="flex items-center justify-between gap-2">
+                                                        <p className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-taupe">
+                                                            <span className="h-1.5 w-1.5 rounded-full bg-[var(--taupe)]" />
+                                                            Focus {String(idx + 1).padStart(2, '0')}
+                                                        </p>
+                                                        <span className="shrink-0 rounded-full border border-line bg-cream px-2 py-0.5 text-[10px] font-semibold text-ink-soft">
                                                             {group.outcome ? '성과 포함' : '진행'}
                                                         </span>
                                                     </div>
 
-                                                    <div className="space-y-3">
+                                                    <h3 className="mt-2.5 text-[15px] font-semibold leading-snug text-ink">
+                                                        {getHighlightTitle(group)}
+                                                    </h3>
+
+                                                    <div className="mt-3 h-px w-full bg-line" />
+
+                                                    <div className="mt-3 flex flex-wrap items-center gap-1.5">
                                                         {group.implementation && (
-                                                            <div>
-                                                                <p className="mb-1 text-xs font-semibold text-gray-500 dark:text-gray-500">구현</p>
-                                                                <p className="line-clamp-2 text-[15px] leading-7 text-gray-600 dark:text-gray-300">
-                                                                    {parseContent(getCompactText(group.implementation))}
-                                                                </p>
-                                                            </div>
+                                                            <span className="rounded-full bg-[var(--bg)] px-2.5 py-0.5 text-[10px] font-medium text-ink-soft">
+                                                                구현
+                                                            </span>
                                                         )}
                                                         {group.outcome && (
-                                                            <div className="rounded-lg bg-amber-400/10 p-3">
-                                                                <p className="mb-1 text-xs font-semibold text-amber-600 dark:text-amber-300">성과</p>
-                                                                <p className="line-clamp-2 text-[15px] leading-7 text-gray-700 dark:text-gray-200">
-                                                                    {parseContent(getCompactText(group.outcome))}
-                                                                </p>
-                                                            </div>
+                                                            <span className="rounded-full border border-[var(--sage)]/40 bg-[var(--sage)]/20 px-2.5 py-0.5 text-[10px] font-medium text-[var(--taupe)]">
+                                                                성과 달성
+                                                            </span>
                                                         )}
                                                     </div>
-                                                </div>
+                                                </motion.div>
                                             ))}
                                         </motion.div>
                                     )}
 
-                                    {/* 프로젝트가 있는 경력인 경우 detail 페이지 링크 버튼 */}
-                                    {hasProjects(selectedCareer) && (
-                                        <motion.div
-                                            className="mt-6"
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.3 }}
-                                        >
-                                            <Link
-                                                href={`/career/detail/${selectedCareer.key}`}
-                                                scroll={true}
-                                                className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#72AAFF]/10 border border-[#72AAFF]/30 text-[#72AAFF] hover:bg-[#72AAFF] hover:text-white transition-all duration-300 text-sm font-medium"
-                                            >
-                                                프로젝트 상세 보기
-                                                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                                </svg>
-                                            </Link>
-                                        </motion.div>
-                                    )}
                                             </>
                                         );
                                     })()}

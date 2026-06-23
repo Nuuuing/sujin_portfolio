@@ -41,17 +41,17 @@ const Card = ({
                     style={{
                         scale,
                     }}
-                    className="bg-white dark:bg-[#1c1c1c] rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col lg:flex-row shadow-xl dark:shadow-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-shadow duration-300 min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] group border border-gray-200 dark:border-gray-800 origin-top"
+                    className="bg-[var(--bg-card)] rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col lg:flex-row shadow-[0_8px_30px_-12px_rgba(63,59,48,0.18)] hover:shadow-[0_22px_50px_-16px_rgba(63,59,48,0.28)] transition-shadow duration-300 min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] group border border-line origin-top"
                 >
                     <div className={`p-5 sm:p-8 lg:p-12 ${imageVisible ? 'lg:w-1/2' : 'lg:w-full'} flex flex-col justify-center order-2 lg:order-1 relative z-10`}>
                         <div>
                             {/* 프로젝트 이름 */}
-                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white group-hover:text-[#72AAFF] transition-colors mb-2">
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink group-hover:text-[var(--taupe)] transition-colors mb-2">
                                 {project.projName}
                             </h2>
 
                             {/* 역할 */}
-                            <p className="text-base sm:text-lg text-[#72AAFF] font-medium mb-4">
+                            <p className="text-sm sm:text-base text-[var(--taupe)] font-medium mb-4">
                                 {project.role || 'Developer'}
                             </p>
 
@@ -59,8 +59,8 @@ const Card = ({
                             {project.achievements && project.achievements.length > 0 && (
                                 <ul className="space-y-2">
                                     {project.achievements.slice(0, 3).map((achievement, idx) => (
-                                        <li key={idx} className="flex items-start gap-2 text-gray-700 dark:text-gray-300 text-base sm:text-lg">
-                                            <span className="text-[#72AAFF] mt-1">•</span>
+                                        <li key={idx} className="flex items-start gap-2 text-ink-soft text-sm sm:text-base">
+                                            <span className="text-[var(--taupe)] mt-1">•</span>
                                             <span className="line-clamp-2">{parseContent(achievement)}</span>
                                         </li>
                                     ))}
@@ -70,7 +70,7 @@ const Card = ({
                     </div>
 
                     {imageVisible && (
-                    <div className="lg:w-1/2 min-h-[180px] sm:min-h-[220px] lg:min-h-full bg-gray-100 dark:bg-gray-900 relative overflow-hidden order-1 lg:order-2">
+                    <div className="lg:w-1/2 min-h-[180px] sm:min-h-[220px] lg:min-h-full bg-cream relative overflow-hidden order-1 lg:order-2">
                         <ImageWithFallback
                             src={imageUrl || ''}
                             alt={project.projName}
@@ -120,75 +120,46 @@ export const ProjSection = () => {
         <section className="w-full relative">
             {/* 섹션 헤더 */}
             <motion.div
-                className="flex flex-col items-center mb-8 sm:mb-12 gap-4 sm:gap-6 relative z-10"
-                initial={{ opacity: 0, y: 40 }}
+                className="mb-8 sm:mb-12 relative z-10"
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                <div className="text-center">
-                    <motion.div
-                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#72AAFF]/10 border border-[#72AAFF]/20 mb-3 sm:mb-4"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                    >
-                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#72AAFF] animate-pulse" />
-                        <span className="text-[10px] sm:text-xs font-semibold text-[#72AAFF] tracking-widest">PERSONAL PROJECTS</span>
-                    </motion.div>
-                    <motion.h1
-                        className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                    >
-                        <span className="text-gray-900 dark:text-white">PROJ</span>
-                        <span className="text-[#72AAFF]">ECT</span>
-                    </motion.h1>
-                    <motion.p
-                        className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-md mx-auto"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3 }}
-                    >
-                        개인적으로 진행한 사이드 프로젝트들을 소개합니다.
-                    </motion.p>
-                </div>
-
-                {/* 통계 + 더보기 버튼 */}
-                <motion.div
-                    className="flex items-center gap-4 sm:gap-6 justify-center lg:justify-end"
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
-                >
-                    <div className="flex gap-4 sm:gap-6 items-center">
-                        <div className="text-center">
-                            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#72AAFF]">{filteredData.length}</p>
-                            <p className="text-[10px] sm:text-xs text-gray-500">HIGHLIGHT</p>
-                        </div>
-                        <div className="w-px h-8 sm:h-10 bg-gray-300 dark:bg-gray-700" />
-                        <div className="text-center">
-                            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">{allProjects.length}</p>
-                            <p className="text-[10px] sm:text-xs text-gray-500">TOTAL</p>
-                        </div>
+                <div className="flex items-end justify-between gap-4">
+                    <div>
+                        <p className="eyebrow mb-2">Projects</p>
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink">
+                            Works
+                        </h2>
+                        <p className="mt-2 text-sm text-ink-soft sm:text-base">
+                            개인적으로 진행한 사이드 프로젝트들을 소개합니다.
+                        </p>
                     </div>
-                    <div className="hidden sm:block w-px h-8 sm:h-10 bg-gray-300 dark:bg-gray-700" />
-                    <Link
-                        href="/project"
-                        scroll={true}
-                        className="hidden sm:inline-flex group items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#72AAFF]/10 border border-[#72AAFF]/30 text-[#72AAFF] hover:bg-[#72AAFF] hover:text-white transition-all duration-300 text-xs sm:text-sm font-medium"
-                    >
-                        전체보기
-                        <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </Link>
-                </motion.div>
+                    <div className="flex shrink-0 items-center gap-5 pb-1">
+                        <div className="text-right">
+                            <p className="text-2xl font-bold text-[var(--taupe)] sm:text-3xl">{filteredData.length}</p>
+                            <p className="text-[10px] text-ink-soft">HIGHLIGHT</p>
+                        </div>
+                        <div className="h-8 w-px bg-[var(--line-strong)]" />
+                        <div className="text-right">
+                            <p className="text-2xl font-bold text-ink sm:text-3xl">{allProjects.length}</p>
+                            <p className="text-[10px] text-ink-soft">TOTAL</p>
+                        </div>
+                        <div className="hidden h-8 w-px bg-[var(--line-strong)] sm:block" />
+                        <Link
+                            href="/project"
+                            scroll={true}
+                            className="hidden sm:inline-flex group items-center gap-2 rounded-full border border-line bg-card-soft px-4 py-2 text-xs font-medium text-ink-soft transition-all hover:border-line-strong hover:text-ink"
+                        >
+                            전체보기
+                            <svg className="h-3 w-3 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </Link>
+                    </div>
+                </div>
+                <div className="mt-5 h-px w-full bg-[var(--line)]" />
             </motion.div>
 
             <div ref={container} className="flex flex-col gap-0 max-w-6xl mx-auto pb-0 relative">
@@ -225,7 +196,7 @@ export const ProjSection = () => {
                 <Link
                     href="/project"
                     scroll={true}
-                    className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-[#72AAFF] hover:text-[#72AAFF] hover:bg-[#72AAFF]/5 transition-all duration-300 text-sm sm:text-base font-medium"
+                    className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-line bg-card-soft text-ink-soft hover:border-line-strong hover:text-ink transition-all duration-300 text-sm sm:text-base font-medium"
                 >
                     모든 프로젝트 보기
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">

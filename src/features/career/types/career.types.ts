@@ -6,7 +6,16 @@ export type CareerDisplayType = "project" | "contents";
 // 경력 상세 콘텐츠 타입
 export interface DetailContentT {
     img?: string;      // 이미지 URL
-    contents: string;  // 내용
+    title?: string;    // Focus 카드 제목 (그룹 시작 줄에 지정, 없으면 키워드로 자동 생성)
+    contents: string;  // 내용 (예: "문제: ...", "설계/구현: ...", "결과/역량: ...")
+}
+
+// 경력 통계(지표) 타입
+export interface CareerMetricT {
+    value: string;     // 수치 (예: "40%", "1,200만 건", "3건")
+    label: string;     // 지표 이름 (예: "조회 응답 개선")
+    caption?: string;  // 부가 설명 (예: "실행계획 분석 기반")
+    group?: string;    // 귀속 Focus 제목 (지정 시 상단 대신 해당 Focus 카드 하위에 표시)
 }
 
 // 경력 프로젝트 타입
@@ -37,6 +46,7 @@ export interface CareerT {
     endTerm?: string;       // YYYYMM (재직중이면 비워둠)
     projects?: CareerProjectT[];     // displayType이 "project"일 때
     detailContents?: DetailContentT[];       // displayType이 "contents"일 때
+    metrics?: CareerMetricT[];       // 통계(지표) - 선택, 상세 페이지 상단에 노출
 }
 
 // 경력 폼 데이터 타입
@@ -52,6 +62,7 @@ export interface CareerFormData {
     endTerm: string;
     projects: CareerProjectT[];
     detailContents: DetailContentT[];
+    metrics: CareerMetricT[];
 }
 
 // 하위 호환용 (deprecated)

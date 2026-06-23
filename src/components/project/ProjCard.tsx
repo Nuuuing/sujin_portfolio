@@ -30,17 +30,17 @@ export const ProjCard = ({ data }: ProjCardProps) => {
             )}
 
             {/* 프로젝트 이름 */}
-            <h2 className="text-3xl font-extrabold text-gray-800 dark:text-gray-100">
+            <h2 className="text-3xl font-extrabold text-ink">
                 {data.projName}
             </h2>
 
             {/* 기간 */}
-            <p className="font-bold mt-2 text-lg text-gray-500 dark:text-gray-400">
+            <p className="font-bold mt-2 text-base text-ink-soft">
                 {data.startDate} - {data.endDate || 'ing'}
             </p>
 
             {/* 프로젝트 설명 */}
-            <p className="text-lg font-light mt-2 text-gray-600 dark:text-gray-300 line-clamp-2">
+            <p className="text-base font-light mt-2 text-ink-soft line-clamp-2">
                 {parseContent(data.projDesc || '')}
             </p>
 
@@ -53,20 +53,20 @@ export const ProjCard = ({ data }: ProjCardProps) => {
                             {data.projTag.slice(0, 3).map((tag: string, idx: number) => (
                                 <span
                                     key={idx}
-                                    className="text-sm text-gray-500 dark:text-gray-400"
+                                    className="text-sm text-ink-soft"
                                 >
                                     #{tag}
                                 </span>
                             ))}
                             {data.projTag.length > 3 && (
-                                <span className="text-sm text-gray-400">+{data.projTag.length - 3}</span>
+                                <span className="text-sm text-ink-soft/60">+{data.projTag.length - 3}</span>
                             )}
                         </div>
                     )}
 
                     {/* 구분선 */}
                     {data.projTag && data.projTag.length > 0 && data.projSkills && data.projSkills.length > 0 && (
-                        <span className="text-gray-600 dark:text-gray-700">|</span>
+                        <span className="text-ink-soft">|</span>
                     )}
 
                     {/* 기술 스택 */}
@@ -78,14 +78,14 @@ export const ProjCard = ({ data }: ProjCardProps) => {
                                 return (
                                     <span
                                         key={idx}
-                                        className="text-sm px-2 py-0.5 rounded-full bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/10"
+                                        className="text-sm px-2 py-0.5 rounded-full bg-cream text-ink-soft border border-line"
                                     >
                                         {skillName}
                                     </span>
                                 );
                             })}
                             {data.projSkills.length > 4 && (
-                                <span className="text-sm text-gray-400">+{data.projSkills.length - 4}</span>
+                                <span className="text-sm text-ink-soft/60">+{data.projSkills.length - 4}</span>
                             )}
                         </div>
                     )}

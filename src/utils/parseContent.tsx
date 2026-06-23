@@ -1,11 +1,11 @@
 
 // 라벨 스타일 정의
 const labelStyles: Record<string, { bg: string; text: string; border: string }> = {
-    '문제': { bg: 'bg-slate-100 dark:bg-white/5', text: 'text-slate-700 dark:text-slate-200', border: 'border-slate-200 dark:border-white/10' },
-    '해결': { bg: 'bg-[#72AAFF]/10', text: 'text-[#72AAFF]', border: 'border-[#72AAFF]/20' },
-    '설계/구현': { bg: 'bg-[#72AAFF]/10', text: 'text-[#72AAFF]', border: 'border-[#72AAFF]/20' },
-    '결과': { bg: 'bg-amber-400/10', text: 'text-amber-500 dark:text-amber-300', border: 'border-amber-400/20' },
-    '결과/역량': { bg: 'bg-amber-400/10', text: 'text-amber-500 dark:text-amber-300', border: 'border-amber-400/20' },
+    '문제': { bg: 'bg-[var(--taupe)]/8', text: 'text-[var(--taupe)]', border: 'border-[var(--taupe)]/25' },
+    '해결': { bg: 'bg-[var(--taupe)]/10', text: 'text-[var(--taupe)]', border: 'border-[var(--taupe)]/20' },
+    '설계/구현': { bg: 'bg-[var(--taupe)]/10', text: 'text-[var(--taupe)]', border: 'border-[var(--taupe)]/20' },
+    '결과': { bg: 'bg-[var(--sage)]/22', text: 'text-[var(--taupe)]', border: 'border-[var(--sage)]/45' },
+    '결과/역량': { bg: 'bg-[var(--sage)]/22', text: 'text-[var(--taupe)]', border: 'border-[var(--sage)]/45' },
 };
 
 const labelText: Record<string, string> = {
@@ -65,7 +65,7 @@ const parseBoldText = (text: string) => {
         if (match.index > lastIndex) {
             parts.push(text.substring(lastIndex, match.index));
         }
-        parts.push(<strong key={match.index} className="font-semibold text-gray-900 dark:text-white">{match[1]}</strong>);
+        parts.push(<strong key={match.index} className="font-semibold text-ink">{match[1]}</strong>);
         lastIndex = regex.lastIndex;
     }
     if (lastIndex < text.length) {

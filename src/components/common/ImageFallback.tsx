@@ -1,8 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { convertDriveUrl } from '@/utils';
 
 const DEFAULT_FALLBACK = '/preparing.png';
+
+// 표시 불가로 간주하는 src (빈값 / '-' / preparing 플레이스홀더)
+const isUnusableSrc = (value?: string): boolean => {
+    if (!value) return true;
+    const v = value.trim();
+    return v === '' || v === '-' || v.includes('preparing.png');
+};
 
 interface ImageWithFallbackProps {
     src: string;
@@ -25,13 +33,18 @@ export const ImageWithFallback = ({
     hideOnError = false,
     onHidden
 }: ImageWithFallbackProps) => {
-    const [imgSrc, setImgSrc] = useState(src || fallbackSrc);
+    // convertDriveUrl은 멱등이라 이미 변환된 값(http/슬래시 경로)은 그대로 통과한다.
+    // 호출부가 변환을 누락했더라도 여기서 한 번 더 안전하게 정규화.
+    const normalizedSrc = convertDriveUrl(src);
+    const invalidSrc = isUnusableSrc(src);
+
+    const [imgSrc, setImgSrc] = useState(invalidSrc ? fallbackSrc : normalizedSrc);
     const [hasError, setHasError] = useState(false);
 
     useEffect(() => {
-        setImgSrc(src || fallbackSrc);
+        setImgSrc(invalidSrc ? fallbackSrc : normalizedSrc);
         setHasError(false);
-    }, [src, fallbackSrc]);
+    }, [normalizedSrc, fallbackSrc, invalidSrc]);
 
     const handleError = () => {
         if (!hasError) {
@@ -40,17 +53,18 @@ export const ImageWithFallback = ({
                 onHidden?.();
                 return;
             }
+            // fallback이 또 실패해도 hasError가 true라 재진입하지 않음 (무한 루프 방지)
             setImgSrc(fallbackSrc);
         }
     };
 
     useEffect(() => {
-        if (hideOnError && (!src || src === '-')) {
+        if (hideOnError && invalidSrc) {
             onHidden?.();
         }
-    }, [hideOnError, onHidden, src]);
+    }, [hideOnError, onHidden, invalidSrc]);
 
-    if (hideOnError && (!src || src === '-' || hasError)) {
+    if (hideOnError && (invalidSrc || hasError)) {
         return null;
     }
 

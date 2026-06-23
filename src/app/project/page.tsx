@@ -25,8 +25,8 @@ const FilterButton = ({
     onClick={onClick}
     className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer
       ${isSelected
-        ? 'bg-[#72AAFF] text-white shadow-lg shadow-[#72AAFF]/20'
-        : 'bg-gray-100 dark:bg-[#2a2a2a] text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-[#333] hover:text-gray-800 dark:hover:text-gray-200'}`}
+        ? 'bg-[var(--taupe)] text-[var(--bg-card)]'
+        : 'border border-line bg-card-soft text-ink-soft hover:border-line-strong hover:text-ink'}`}
   >
     {option.label}
   </button>
@@ -88,7 +88,7 @@ export default function ProjectPage() {
       <div className="space-y-6 mb-10">
         {/* 참여 형태 필터 */}
         <div className="space-y-3">
-          <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">참여 형태</h3>
+          <h3 className="text-sm font-medium text-ink-soft">참여 형태</h3>
           <div className="flex flex-wrap gap-2">
             {ptcOptions.map((opt) => (
               <FilterButton
@@ -103,7 +103,7 @@ export default function ProjectPage() {
 
         {/* 기술 분야 필터 */}
         <div className="space-y-3">
-          <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">기술 분야</h3>
+          <h3 className="text-sm font-medium text-ink-soft">기술 분야</h3>
           <div className="flex flex-wrap gap-2">
             {techOptions.map((opt) => (
               <FilterButton
@@ -119,15 +119,15 @@ export default function ProjectPage() {
 
       {/* 결과 카운트 */}
       <div className="mb-6">
-        <p className="text-sm text-gray-500">
-          총 <span className="text-[#72AAFF] font-semibold">{filteredData.length}</span>개의 프로젝트
+        <p className="text-sm text-ink-soft">
+          총 <span className="text-[var(--taupe)] font-semibold">{filteredData.length}</span>개의 프로젝트
         </p>
       </div>
 
       {/* 프로젝트 그리드 */}
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
-          <div className="w-8 h-8 border-2 border-[#72AAFF] border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-[var(--taupe)] border-t-transparent rounded-full animate-spin" />
         </div>
       ) : filteredData.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -138,13 +138,13 @@ export default function ProjectPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05, duration: 0.4 }}
             >
-              <ProjDetailCard data={data} />
+              <ProjDetailCard data={data} index={index} />
             </motion.div>
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-20 text-gray-500">
-          <svg className="w-16 h-16 mb-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="flex flex-col items-center justify-center py-20 text-ink-soft">
+          <svg className="w-16 h-16 mb-4 text-ink-soft" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <p className="text-lg">조건에 맞는 프로젝트가 없습니다.</p>

@@ -13,8 +13,7 @@ export default function Home() {
     const contactRef = useRef<HTMLDivElement>(null);
     const blogRef = useRef<HTMLDivElement>(null);
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_activeSection, setActiveSection] = useState<Section | null>(null);
+    const [activeSection, setActiveSection] = useState<Section | null>(null);
 
     const sectionRefs: Record<Section, React.RefObject<HTMLDivElement | null>> = {
         INTRO: introRef,
@@ -45,7 +44,7 @@ export default function Home() {
                 const offsetBottom = offsetTop + el.offsetHeight;
 
                 if (scrollY >= offsetTop && scrollY < offsetBottom) {
-                    setActiveSection(section.key);
+                    setActiveSection(section.key as Section);
                     break;
                 }
             }
@@ -63,38 +62,32 @@ export default function Home() {
             selectedRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
         }
         setActiveSection(section as Section);
-    };
+    }
+
+    const NAV_SECTIONS: { key: Section; label: string }[] = [
+        { key: 'INTRO', label: '소개' },
+        { key: 'CAREER', label: '경력' },
+        { key: 'PROJECT', label: '프로젝트' },
+        { key: 'BLOG', label: '블로그' },
+        { key: 'CONTACT', label: '연락처' },
+    ];;
 
     return (
         <div className="w-full min-h-screen relative">
             {/* 전역 배경 장식 */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[20%] -left-32 w-64 h-64 bg-[#72AAFF]/3 rounded-full blur-3xl" />
-                <div className="absolute top-[50%] -right-32 w-72 h-72 bg-[#72AAFF]/3 rounded-full blur-3xl" />
-                <div className="absolute top-[80%] left-1/4 w-48 h-48 bg-purple-500/3 rounded-full blur-3xl" />
+                <div className="absolute top-[18%] -left-40 w-80 h-80 bg-[var(--sage)]/25 rounded-full blur-3xl" />
+                <div className="absolute top-[55%] -right-40 w-96 h-96 bg-[var(--sage)]/20 rounded-full blur-3xl" />
+                <div className="absolute top-[82%] left-1/4 w-56 h-56 bg-[var(--taupe)]/8 rounded-full blur-3xl" />
             </div>
 
             <Header onMenuClick={handleMenuClick} onMenuOpenChange={setIsMenuOpen} />
 
             <main className="pt-16 relative z-10">
                 <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <section ref={introRef} className="min-h-[calc(90vh-4rem)] flex items-center py-4 sm:py-6">
+                    <section ref={introRef} className="flex items-start py-10 sm:py-14">
                         <MainSplash />
                     </section>
-
-                    <div className="flex flex-col items-center pb-12">
-                        <div className="w-5 h-8 sm:w-6 sm:h-10 rounded-full border-2 border-gray-600 flex justify-center pt-1.5 sm:pt-2">
-                            <div className="w-1 h-1.5 sm:h-2 bg-[#72AAFF] rounded-full animate-bounce" />
-                        </div>
-                        <svg
-                            className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 mt-2 animate-pulse"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                        </svg>
-                    </div>
 
                     <section ref={careerRef} className="py-12 sm:py-16 lg:py-20">
                         <CareerSection />
@@ -112,12 +105,37 @@ export default function Home() {
                         <ContactSection />
                     </section>
 
-                    <footer className="py-8 sm:py-12 border-t border-gray-800 text-center text-gray-500">
+                    <footer className="py-8 sm:py-12 border-t border-line text-center text-ink-soft">
                         <p className="text-xs sm:text-sm mb-2">본 페이지는 상업적 목적이 아닌 개인 포트폴리오용으로 제작되었습니다.</p>
-                        <p className="text-xs sm:text-sm text-gray-600">© 2026 Kim Sujin. All Rights Reserved.</p>
+                        <p className="text-xs sm:text-sm text-ink-soft/70">© 2026 Kim Sujin. All Rights Reserved.</p>
                     </footer>
                 </div>
             </main>
+
+            {/* 우측 섹션 dot nav */}
+            <nav className="fixed right-5 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center">
+                {NAV_SECTIONS.map((s, i) => (
+                    <div key={s.key} className="flex flex-col items-center">
+                        {i > 0 && (
+                            <div className={`w-px transition-all duration-500 ${activeSection === s.key ? 'h-7 bg-[var(--taupe)]/30' : 'h-7 bg-line'}`} />
+                        )}
+                        <button
+                            onClick={() => handleMenuClick(s.key)}
+                            className="group relative flex items-center justify-center p-1.5 cursor-pointer"
+                            aria-label={s.label}
+                        >
+                            <span className="absolute right-6 whitespace-nowrap text-[11px] font-medium text-ink-soft opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                {s.label}
+                            </span>
+                            <span className={`rounded-full transition-all duration-300 ${
+                                activeSection === s.key
+                                    ? 'w-2 h-2 bg-[var(--taupe)] ring-2 ring-[var(--taupe)]/30 ring-offset-2 ring-offset-[var(--bg)]'
+                                    : 'w-1.5 h-1.5 bg-[var(--line-strong)] group-hover:bg-[var(--taupe)]/60 group-hover:scale-125'
+                            }`} />
+                        </button>
+                    </div>
+                ))}
+            </nav>
 
             <ScrollToTopButton className={isMenuOpen ? 'z-30' : 'z-50'} />
         </div>
