@@ -11,8 +11,8 @@
   --c-sky:#1689cc; --c-lime:#74ac12; --c-yellow:#d99400; --c-pink:#e85383; --c-mint:#16a897;
   --c-sky-soft:#d4ecf9; --c-lime-soft:#e6f3cc; --c-yellow-soft:#fbeec4; --c-pink-soft:#fcdde7; --c-mint-soft:#ccf0eb;
   --ink:#1b1f22; --ink-soft:#51585d; --ink-mute:#7d858a; --ink-faint:#aeb4b8;
-  --line:rgba(0,0,0,.1); --line-strong:rgba(0,0,0,.2);
-  --r-xl:14px; --r-lg:11px; --r-pill:999px;
+  --line:rgba(0,0,0,.1);
+  --r-xl:13px; --r-lg:10px; --r-pill:999px;
   --shadow:0 2px 8px rgba(20,24,28,.08);
   --ac:var(--c-sky); --ac-soft:var(--c-sky-soft);
 }
@@ -23,545 +23,1285 @@
 .c-mint{--ac:var(--c-mint);--ac-soft:var(--c-mint-soft)}
 
 *{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-@page{size:A4;margin:0}
-
+@page{size:A4 landscape;margin:0}
 html,body{margin:0;padding:0}
 body{
-  width:210mm;background:var(--bg);color:var(--ink);
+  width:297mm;background:var(--bg);color:var(--ink);
   font-family:'Figtree','Noto Sans KR',system-ui,sans-serif;
-  font-size:9.6pt;line-height:1.72;word-break:keep-all;
-  font-variant-numeric:tabular-nums;
+  font-size:9pt;line-height:1.7;word-break:keep-all;font-variant-numeric:tabular-nums;
 }
-.page{
-  width:210mm;padding:11mm 13mm;position:relative;
-}
-/* 첫 장을 뺀 주요 구획만 새 페이지에서 시작한다.
-   고정 높이로 297mm 를 잡으면 내용이 넘칠 때 빈 페이지가 끼어든다. */
-.page.break{break-before:page;page-break-before:always}
-.page.cover{min-height:297mm;display:flex;flex-direction:column;padding:14mm 13mm 12mm}
+h1,h2,h3,h4,h5{margin:0;font-weight:700;letter-spacing:-.025em;line-height:1.18}
+p{margin:0} ul{margin:0;padding:0;list-style:none}
+dl{margin:0}
 
-h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.025em;line-height:1.18}
-p{margin:0}
-ul{margin:0;padding:0;list-style:none}
+/* ── 페이지 ── */
+.pg{width:297mm;height:210mm;padding:11mm 13mm 9mm;position:relative;
+  display:flex;flex-direction:column;overflow:hidden;break-after:page;page-break-after:always}
+.pg:last-child{break-after:auto;page-break-after:auto}
+.foot{position:absolute;left:13mm;right:13mm;bottom:5mm;display:flex;justify-content:space-between;
+  font-size:7.4pt;color:var(--ink-faint)}
 
 .script{font-family:'Sacramento',cursive;font-weight:400;line-height:1}
-.fig{font-weight:700;letter-spacing:-.03em;line-height:1}
+.fig{font-weight:800;letter-spacing:-.035em;line-height:1}
+
+/* ── 페이지 머리 ── */
+.ph{display:flex;align-items:flex-end;justify-content:space-between;gap:8mm;margin-bottom:5mm}
+.ph .eyebrow{font-size:7.6pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+.ph h2{font-size:17pt;margin-top:1.5mm;display:flex;align-items:baseline;gap:2.5mm;flex-wrap:wrap}
+.ph h2 .script{font-size:1.45em;color:var(--ac)}
+.ph .sub{font-size:8.6pt;color:var(--ink-mute);margin-top:1mm}
+.ph .rt{text-align:right;font-size:8.2pt;color:var(--ink-mute);white-space:nowrap}
 
 /* ── 카드 ── */
-.card{background:var(--surface);border-radius:var(--r-xl);padding:7mm;box-shadow:var(--shadow);break-inside:avoid}
-.card.tight{padding:5.5mm}
-.accent-top{position:relative;overflow:hidden;padding-top:8mm}
-.accent-top::before{content:"";position:absolute;inset:0 0 auto 0;height:2.4mm;background:var(--ac)}
+.card{background:var(--surface);border-radius:var(--r-xl);padding:6mm;box-shadow:var(--shadow)}
+.card.sm{padding:4.5mm 5mm}
+.card.soft{background:var(--ac-soft);box-shadow:none}
+.atop{position:relative;overflow:hidden;padding-top:7.5mm}
+.atop::before{content:"";position:absolute;inset:0 0 auto 0;height:2.2mm;background:var(--ac)}
 
-/* ── 알약 / 태그 ── */
-.pill{display:inline-flex;align-items:center;gap:1.2mm;border-radius:var(--r-pill);
-  padding:1.3mm 3.4mm;font-size:8.4pt;font-weight:700;line-height:1.2;white-space:nowrap}
-.pill-solid{background:var(--ac);color:#fff}
-.tag{display:inline-flex;align-items:center;border-radius:var(--r-pill);
-  padding:1mm 2.8mm;font-size:8pt;font-weight:700;background:var(--ac-soft);color:var(--ac);white-space:nowrap}
-.tag-line{background:var(--surface);border:.4mm solid var(--line);color:var(--ink-soft)}
-.tags{display:flex;flex-wrap:wrap;gap:1.3mm}
+/* ── 태그 ── */
+.tag{display:inline-flex;align-items:center;border-radius:var(--r-pill);padding:.9mm 2.6mm;
+  font-size:7.6pt;font-weight:700;background:var(--ac-soft);color:var(--ac);white-space:nowrap}
+.tag.line{background:var(--surface);border:.35mm solid var(--line);color:var(--ink-soft)}
+.tag.solid{background:var(--ac);color:#fff}
+.tags{display:flex;flex-wrap:wrap;gap:1.2mm}
 
-/* ── 섹션 머리 ── */
-.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;margin-bottom:5mm}
-.sec-head .rule{display:block;width:13mm;height:1.6mm;border-radius:999px;background:var(--ac);margin-bottom:2.5mm}
-.sec-head h2{font-size:19pt;display:flex;align-items:baseline;gap:2.5mm}
-.sec-head h2 .script{font-size:1.5em;color:var(--ac)}
-.sec-head .meta{font-size:8.6pt;color:var(--ink-mute);padding-bottom:1mm;white-space:nowrap}
+/* ── 레이아웃 ── */
+.row{display:grid;gap:4mm;flex:1;min-height:0}
+.r-2{grid-template-columns:1fr 1fr}
+.r-3{grid-template-columns:repeat(3,1fr)}
+.r-21{grid-template-columns:1.25fr 1fr}
+.r-12{grid-template-columns:1fr 1.4fr}
+.stack{display:flex;flex-direction:column;gap:3.5mm}
+.grow{flex:1;min-height:0}
 
 /* ── 라벨 ── */
-.card-label{display:inline-flex;align-items:center;gap:1.6mm;font-size:8.6pt;font-weight:700;color:var(--ink-soft)}
-.card-label::before{content:"";width:1.9mm;height:1.9mm;border-radius:999px;background:var(--ac)}
+.lab{display:inline-flex;align-items:center;gap:1.5mm;font-size:8.2pt;font-weight:700;color:var(--ink-soft)}
+.lab::before{content:"";width:1.8mm;height:1.8mm;border-radius:999px;background:var(--ac)}
 
-/* ── Focus 본문: 라벨 좌측 고정 ── */
-.fb{display:grid;grid-template-columns:20mm 1fr;gap:2mm 4mm;margin-top:3mm}
-.fb dt{padding-top:.3mm}
-.fb dd{margin:0;font-size:9.2pt;line-height:1.75;color:var(--ink-soft)}
+/* ── 항목 목록 ── */
+.items{display:flex;flex-direction:column;gap:2.8mm;margin-top:3mm}
+.item{display:grid;grid-template-columns:5.5mm 1fr;gap:2.2mm}
+.item .n{font-size:7.8pt;font-weight:800;color:var(--ac)}
+.item .t{font-size:9pt;font-weight:700;line-height:1.4;display:block}
+.item .d{font-size:8.3pt;color:var(--ink-soft);line-height:1.6;margin-top:.7mm;display:block}
+
+/* ── Focus 라벨 좌측 ── */
+.fb{display:grid;grid-template-columns:16mm 1fr;gap:2.2mm 3.5mm}
+.fb dd{margin:0;font-size:8.7pt;line-height:1.75;color:var(--ink-soft)}
 .fb dd.out{color:var(--ink);font-weight:500}
+.fb b{font-weight:700;color:var(--ink)}
 
 /* ── 지표 ── */
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5mm;margin-top:4mm}
-.metric{background:var(--ac-soft);border-radius:var(--r-lg);padding:3.5mm 4mm}
-.metric .v{display:block;font-size:17pt;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--ac)}
-.metric .l{display:block;margin-top:1.8mm;font-size:8.6pt;font-weight:700}
-.metric .c{display:block;font-size:7.8pt;line-height:1.4;color:var(--ink-soft)}
+.mets{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm}
+.met{background:var(--ac-soft);border-radius:var(--r-lg);padding:3.5mm 4mm}
+.met .v{display:block;font-size:16pt;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--ac)}
+.met .l{display:block;margin-top:1.5mm;font-size:8.2pt;font-weight:700}
+.met .c{display:block;font-size:7.4pt;line-height:1.4;color:var(--ink-soft)}
+
+/* ── 흐름도 ── */
+.flow{display:flex;flex-direction:column;align-items:center;gap:1.4mm;font-size:8pt}
+.flow .b{background:var(--surface);border-radius:var(--r-lg);padding:2.3mm 4mm;text-align:center;
+  width:100%;box-shadow:var(--shadow);font-weight:600}
+.flow .b.ac{background:var(--ac);color:#fff}
+.flow .b.ghost{background:transparent;box-shadow:none;border:.35mm dashed var(--line);color:var(--ink-mute);font-weight:500}
+.flow .a{color:var(--ink-faint);font-size:9pt;line-height:1}
+.flow .note{font-size:7.3pt;color:var(--ink-mute);text-align:center}
+
+/* ── BEFORE / AFTER ── */
+.ba{display:flex;flex-direction:column;gap:2.5mm}
+.ba .b{border-radius:var(--r-lg);padding:3mm 3.5mm}
+.ba .b.bf{background:#f2f2f0}
+.ba .b.af{background:var(--ac-soft)}
+.ba .k{font-size:7.3pt;font-weight:800;letter-spacing:.08em;color:var(--ink-mute)}
+.ba .b.af .k{color:var(--ac)}
+.ba .t{font-size:8.7pt;font-weight:700;margin-top:.6mm}
+.ba .d{font-size:8pt;color:var(--ink-soft);line-height:1.55;margin-top:.5mm}
 
 /* ── 표지 ── */
-.cover > :first-child{margin-top:auto}
-.cover .foot{margin-top:auto}
-.cover .hello{font-size:30pt;color:var(--c-lime)}
-.cover h1{font-size:34pt;letter-spacing:-.04em;margin-top:2mm;line-height:1.1}
-.cover .hl{background:var(--c-sky-soft);border-radius:4mm;padding:0 2.2mm}
-.cover .sub{margin-top:6mm;font-size:11pt;line-height:1.8;color:var(--ink-soft);max-width:150mm}
-.cover .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-top:10mm}
-.cover .contact{display:flex;flex-wrap:wrap;gap:2mm;margin-top:9mm}
+.cover{justify-content:center;background:var(--surface)}
+.cover .hello{font-size:28pt;color:var(--c-lime)}
+.cover h1{font-size:44pt;letter-spacing:-.045em;line-height:1.04;margin-top:2mm}
+.cover .hl{background:var(--c-sky-soft);border-radius:5mm;padding:0 3mm}
+.cover .sub{margin-top:6mm;font-size:11pt;line-height:1.75;color:var(--ink-soft);max-width:175mm}
+.cover .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:11mm;max-width:235mm}
+.cover .meta .k{font-size:7.4pt;font-weight:800;letter-spacing:.12em;color:var(--ac)}
+.cover .meta .v{font-size:8.8pt;margin-top:1.2mm;line-height:1.55;color:var(--ink-soft)}
 
-/* ── 경력 카드 ── */
-.job-head{display:flex;justify-content:space-between;align-items:flex-start;gap:6mm}
-.job-head h3{font-size:16pt;letter-spacing:-.035em}
-.job-head .role{margin-top:1mm;font-size:9.6pt;color:var(--ink-soft)}
-.job-head .term{font-size:8.6pt;color:var(--ink-mute);white-space:nowrap;text-align:right}
-.job-desc{margin-top:2.5mm;font-size:9.4pt;color:var(--ink-soft);line-height:1.75}
-.job-sum{margin-top:4mm;padding-top:4mm;border-top:.3mm solid var(--line);font-size:9.2pt;line-height:1.8;color:var(--ink-soft)}
+/* ── 섹션 구분 ── */
+.divider{justify-content:center;background:var(--ac)}
+.divider .no{font-size:70pt;font-weight:800;letter-spacing:-.05em;line-height:.9;color:rgba(255,255,255,.38)}
+.divider h2{font-size:33pt;color:#fff;margin-top:1mm;display:flex;align-items:baseline;gap:4mm}
+.divider h2 .script{font-size:.82em;color:rgba(255,255,255,.8)}
+.divider p{margin-top:4mm;font-size:11pt;color:rgba(255,255,255,.88);max-width:155mm}
+.divider .chips{display:flex;flex-wrap:wrap;gap:2mm;margin-top:8mm}
+.divider .chips span{background:rgba(255,255,255,.22);color:#fff;border-radius:var(--r-pill);
+  padding:1.4mm 3.6mm;font-size:8.6pt;font-weight:700}
 
-/* ── Focus 항목 ── */
-.focus{break-inside:avoid;padding:4.5mm 0;border-top:.3mm solid var(--line)}
-.focus:first-of-type{border-top:0}
-.focus-t{display:flex;align-items:center;gap:3mm}
-.focus-t .no{display:flex;align-items:center;justify-content:center;width:7mm;height:7mm;border-radius:999px;
-  background:var(--ac-soft);color:var(--ac);font-size:8.4pt;font-weight:800;flex-shrink:0}
-.focus-t h4{font-size:11pt;letter-spacing:-.025em}
+/* ── 기술 스택 ── */
+.sk{display:grid;grid-template-columns:repeat(3,1fr);gap:3.5mm;flex:1}
+.sk .g{background:var(--surface);border-radius:var(--r-xl);padding:5mm 5.5mm;box-shadow:var(--shadow)}
+.sk .k{font-size:7.6pt;font-weight:800;letter-spacing:.1em;color:var(--ac)}
+.sk .names{display:flex;flex-wrap:wrap;gap:1.4mm;margin-top:2.5mm}
+.sk .d{font-size:8.1pt;color:var(--ink-soft);line-height:1.6;margin-top:2.5mm}
 
-/* ── 프로젝트 ── */
-.proj{break-inside:avoid}
-.proj + .proj{margin-top:4mm}
-.proj-head{display:flex;justify-content:space-between;align-items:baseline;gap:5mm}
-.proj-head h3{font-size:12.5pt}
-.proj-head .term{font-size:8.4pt;color:var(--ink-mute);white-space:nowrap}
-.proj .desc{margin-top:2mm;font-size:9.2pt;line-height:1.75;color:var(--ink-soft)}
-.ach{margin-top:3mm;display:grid;gap:1.6mm}
-.ach li{display:grid;grid-template-columns:4mm 1fr;gap:1.5mm;font-size:9pt;line-height:1.65;color:var(--ink-soft)}
-.ach li i{width:1.7mm;height:1.7mm;border-radius:999px;background:var(--ac);margin-top:2.4mm}
-.ach li b{font-weight:700;color:var(--ink)}
+/* ── 목록 ── */
+.plist li{display:grid;grid-template-columns:34mm 1fr 26mm;gap:4mm;align-items:baseline;
+  padding:3mm 0;border-top:.3mm solid var(--line)}
+.plist li:first-child{border-top:0}
+.plist .dt{font-size:8pt;color:var(--ink-mute)}
+.plist .nm{font-size:9.6pt;font-weight:700;display:block}
+.plist .ds{font-size:8.2pt;color:var(--ink-soft);margin-top:.5mm;display:block}
+.plist .rt{font-size:7.8pt;color:var(--ink-mute);text-align:right}
 
-/* ── 기술 / 학력 ── */
-.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:2.5mm}
-.skill-g{background:var(--ac-soft);border-radius:var(--r-lg);padding:4mm 4.5mm;break-inside:avoid}
-.skill-g .k{font-size:8.6pt;font-weight:800;color:var(--ac)}
-.skill-g .v{margin-top:1.5mm;font-size:9pt;line-height:1.7;color:var(--ink-soft)}
-.edu li{display:flex;justify-content:space-between;gap:5mm;padding:3.2mm 0;border-top:.3mm solid var(--line)}
-.edu li:first-child{border-top:0}
-.edu .n{font-size:10pt;font-weight:700}
-.edu .f{font-size:8.8pt;color:var(--ink-soft);margin-top:.6mm}
-.edu .t{font-size:8.4pt;color:var(--ink-mute);white-space:nowrap;text-align:right}
-
-/* ── 푸터 ── */
-.foot{margin-top:auto;padding-top:6mm;display:flex;justify-content:space-between;
-  font-size:7.8pt;color:var(--ink-faint)}
-.stack-line{margin-top:3mm;font-size:8.6pt;color:var(--ink-mute)}
+/* ── 끝 ── */
+.end{justify-content:center;align-items:center;text-align:center;background:var(--surface)}
+.end .script{font-size:40pt;color:var(--c-lime)}
+.end h2{font-size:25pt;margin-top:2mm}
+.end p{margin-top:4mm;font-size:10.5pt;color:var(--ink-soft);line-height:1.8}
+.end .contact{display:flex;gap:2.5mm;margin-top:9mm;flex-wrap:wrap;justify-content:center}
+.end .contact span{border-radius:var(--r-pill);padding:1.8mm 4.5mm;font-size:9pt;font-weight:700;color:#fff}
 </style>
 </head>
 <body>
 
-<!-- ══════════ 1. 표지 ══════════ -->
-<section class="page cover">
+<!-- ═══ 1 표지 ═══ -->
+<section class="pg cover">
   <span class="script hello">Hello, I'm</span>
   <h1>김수진<br><span class="hl">풀사이클</span> 개발자</h1>
-
-  <p class="sub">
-    요구사항 분석부터 DB 프로시저까지 한 흐름으로 설계하고 운영합니다.
-    공공 SI/SM에서 시작해 사내 업무 시스템 재구축과 결제 연동을 거쳐,
-    지금은 자사 B2C 서비스와 고객사 플랫폼의 개발·운영·배포를 함께 맡고 있습니다.
-  </p>
-
-  <div class="stats">
-    <div class="card tight c-sky">
-      <span class="fig" style="font-size:20pt;color:var(--ac)">3년 8개월</span>
-      <p style="margin-top:2mm;font-weight:700;font-size:9pt">경력 · 회사 3곳</p>
-      <p style="font-size:8.2pt;color:var(--ink-mute)">2022.03부터</p>
-    </div>
-    <div class="card tight c-lime">
-      <span class="fig" style="font-size:20pt;color:var(--ac)">99→70%</span>
-      <p style="margin-top:2mm;font-weight:700;font-size:9pt">피크 DB CPU 사용률</p>
-      <p style="font-size:8.2pt;color:var(--ink-mute)">실행계획·인덱스 정비</p>
-    </div>
-    <div class="card tight c-pink">
-      <span class="fig" style="font-size:20pt;color:var(--ac)">15</span>
-      <p style="margin-top:2mm;font-weight:700;font-size:9pt">담당 업무 · 프로젝트</p>
-      <p style="font-size:8.2pt;color:var(--ink-mute)">회사 11 · 개인·팀 5</p>
-    </div>
+  <p class="sub">요구사항 분석부터 DB 프로시저까지 한 흐름으로 설계하고 운영합니다.<br>
+    공공 SI/SM에서 시작해 사내 업무 시스템 재구축과 결제 연동을 거쳐, 지금은 자사 B2C 서비스와 고객사 플랫폼의 개발·운영·배포를 함께 맡고 있습니다.</p>
+  <div class="meta">
+    <div class="c-sky"><p class="k">EXPERIENCE</p><p class="v">3년 8개월 · 회사 3곳<br>2022.03 — 현재</p></div>
+    <div class="c-lime"><p class="k">STACK</p><p class="v">React · TypeScript · Next.js<br>C#.NET · Java · MSSQL · AWS</p></div>
+    <div class="c-yellow"><p class="k">FOCUS</p><p class="v">운영 흐름 · 데이터 구조<br>결제 연동 · 배포 자동화</p></div>
+    <div class="c-pink"><p class="k">CONTACT</p><p class="v">su_042@daum.net<br>github.com/Nuuuing</p></div>
   </div>
-
-  <div class="contact">
-    <span class="pill pill-solid c-sky">su_042@daum.net</span>
-    <span class="pill pill-solid c-lime">github.com/Nuuuing</span>
-    <span class="pill pill-solid c-mint">nuu-stradamus.tistory.com</span>
-    <span class="pill pill-solid c-yellow">sujin-portfolio.web.app</span>
-  </div>
-
-  <div class="foot"><span>김수진 포트폴리오</span><span>2026.10</span></div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>2026.10</span></div>
 </section>
 
-<!-- ══════════ 2. 경력 — 이코드 ══════════ -->
-<section class="page break">
-  <div class="sec-head c-sky">
-    <div><span class="rule"></span><h2>경력 <span class="script">career</span></h2></div>
-    <span class="meta">3개 회사 · 3년 8개월</span>
+<!-- ═══ 2 ABOUT ═══ -->
+<section class="pg">
+  <div class="ph c-sky">
+    <div><p class="eyebrow">About</p><h2>소개 <span class="script">about me</span></h2>
+      <p class="sub">사용자 경험과 운영 효율을 함께 개선하는 개발자</p></div>
   </div>
-
-  <div class="card accent-top c-sky">
-    <div class="job-head">
-      <div>
-        <h3>(주)이코드</h3>
-        <p class="role">기술연구소 · 선임</p>
+  <div class="row r-21">
+    <div class="card atop c-sky">
+      <p class="lab">일하는 방식</p>
+      <p style="margin-top:3mm;font-size:9.3pt;line-height:1.85;color:var(--ink-soft)">
+        공공 SI/SM, 플랫폼 서비스, 사내 업무 시스템, 자사 B2C 서비스 등 서로 다른 환경과 도메인을 경험하며,
+        새로운 비즈니스를 마주해도 빠르게 구조를 분석하고 설계하는 적응력을 길러왔습니다.
+        프로젝트 환경에 맞춰 <b>Front · Back · DB · 인프라</b> 영역에 한계를 두지 않고 다루며,
+        단순 기능 개발을 넘어 아키텍처 설계와 인프라 구축, 배포 프로세스까지 필요에 따라 유연하게 챙겨왔습니다.
+        이러한 유연함과 치밀함을 바탕으로 비즈니스의 성장과 운영 효율을 함께 개선해 나가는 데 몰입합니다.
+      </p>
+      <div class="mets" style="margin-top:6mm">
+        <div class="met c-sky"><span class="v">3년 8개월</span><span class="l">경력 · 회사 3곳</span><span class="c">2022.03 — 현재</span></div>
+        <div class="met c-lime"><span class="v">99→70%</span><span class="l">피크 DB CPU</span><span class="c">실행계획 · 인덱스 정비</span></div>
+        <div class="met c-pink"><span class="v">15</span><span class="l">담당 업무 · 프로젝트</span><span class="c">회사 11 · 개인·팀 5</span></div>
       </div>
-      <div class="term"><span class="tag">재직 중</span><br>2026.08 — 현재 · 3개월</div>
     </div>
-    <p class="job-desc">자사 B2C 서비스 개발·운영, 고객사 플랫폼 운영, 스토어 배포</p>
-    <p class="job-sum">편지 우편 발송 플랫폼과 음성 AI 일기 앱 등 자사 B2C 서비스의 기능 개발·운영을 담당하고, 고객사 안전보건 플랫폼의 온보딩·검수·배포를 수행했습니다. 결제수단과 환불 정책을 PG 취소 기한에 맞춰 개선하고 우편 발송을 자동화했으며, 막혀 있던 자동 배포 파이프라인을 복구해 전구간 실배포로 검증하고 AWS 인벤토리·백업·배포 런북을 문서화했습니다.</p>
-    <div class="tags" style="margin-top:4mm">
-      <span class="tag tag-line">Next.js</span><span class="tag tag-line">NestJS</span>
-      <span class="tag tag-line">Flutter</span><span class="tag tag-line">PostgreSQL</span>
-      <span class="tag tag-line">AWS EC2</span><span class="tag tag-line">Gitea Actions</span>
-      <span class="tag tag-line">PG 결제</span><span class="tag tag-line">iOS / Android 배포</span>
+    <div class="card atop c-mint">
+      <p class="lab">학력 · 교육</p>
+      <ul class="plist" style="margin-top:3mm">
+        <li><span class="dt">2023.08 — 2027.02<br><span class="tag" style="margin-top:1.2mm">학사 · 졸업예정</span></span>
+          <span><span class="nm">한국방송통신대학교</span><span class="ds">컴퓨터과학 — 자료구조, 알고리즘, 운영체제, AI 등 CS</span></span><span class="rt"></span></li>
+        <li><span class="dt">2024.05 — 2025.01<br><span class="tag" style="margin-top:1.2mm">수료</span></span>
+          <span><span class="nm">디벨로켓</span><span class="ds">메타버스 플랫폼 게임 개발자과정 — C#, Unity, AR/XR</span></span><span class="rt"></span></li>
+        <li><span class="dt">2016.03 — 2018.02<br><span class="tag" style="margin-top:1.2mm">전문학사</span></span>
+          <span><span class="nm">수원여자대학교</span><span class="ds">모바일미디어(SW) — 웹 기초, DB, Java, Android, CS</span></span><span class="rt"></span></li>
+      </ul>
     </div>
   </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>2</span></div>
+</section>
 
-  <p class="card-label c-sky" style="margin:6mm 0 1mm">주요 업무 6건</p>
+<!-- ═══ 3 SKILLS ═══ -->
+<section class="pg">
+  <div class="ph c-lime">
+    <div><p class="eyebrow">Skills</p><h2>기술 스택 <span class="script">stack</span></h2>
+      <p class="sub">화면 구현부터 서버 · DB · 배포까지 실무와 사이드 프로젝트에서 직접 사용한 기술입니다</p></div>
+  </div>
+  <div class="sk">
+    <div class="g c-sky">
+      <p class="k">FRONTEND</p>
+      <div class="names"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Next.js</span>
+        <span class="tag">ReactQuery</span><span class="tag">Zustand</span><span class="tag">jQuery</span>
+        <span class="tag">Tailwind CSS</span><span class="tag">Motion</span></div>
+      <p class="d">상태 관리와 반응형 UI, SSG · 동적 라우팅 — 레거시 유지보수부터 모던 인터랙션까지</p>
+    </div>
+    <div class="g c-lime">
+      <p class="k">BACKEND</p>
+      <div class="names"><span class="tag">C#</span><span class="tag">ASP.NET MVC</span><span class="tag">Java</span>
+        <span class="tag">Spring Boot</span><span class="tag">NestJS</span><span class="tag">JSP</span>
+        <span class="tag">PHP</span><span class="tag">OpenAPI</span></div>
+      <p class="d">업무 시스템 서버 · 결제 PG API · ERP 연동, 공공 데이터 OpenAPI 설계 · 외부 API 연동</p>
+    </div>
+    <div class="g c-yellow">
+      <p class="k">DATABASE</p>
+      <div class="names"><span class="tag">MSSQL</span><span class="tag">MySQL</span><span class="tag">Oracle</span>
+        <span class="tag">MariaDB</span><span class="tag">PostgreSQL</span><span class="tag">Firestore</span></div>
+      <p class="d">프로시저 작성 · 개선, 실행 계획 분석, 대용량 거래 데이터 처리, 인덱스 정비</p>
+    </div>
+    <div class="g c-pink">
+      <p class="k">INFRA · DEVOPS</p>
+      <div class="names"><span class="tag">AWS EC2</span><span class="tag">Linux</span><span class="tag">Docker</span>
+        <span class="tag">NginX</span><span class="tag">Jenkins</span><span class="tag">Gitea Actions</span>
+        <span class="tag">GitHub Actions</span><span class="tag">Firebase</span><span class="tag">Git</span></div>
+      <p class="d">서버 운영 · SSL 적용 · DB 이관, CI/CD 구축 · 배포 자동화 · 런북 문서화</p>
+    </div>
+    <div class="g c-mint">
+      <p class="k">MOBILE · GAME</p>
+      <div class="names"><span class="tag">Flutter</span><span class="tag">Capacitor</span><span class="tag">Shorebird</span>
+        <span class="tag">Play Console</span><span class="tag">App Store Connect</span>
+        <span class="tag">Unity</span><span class="tag">Mirror</span></div>
+      <p class="d">Android · iOS 스토어 배포와 심사 대응, 코드푸시 운영, Unity 멀티플레이 · 네트워크</p>
+    </div>
+    <div class="g c-sky">
+      <p class="k">PAYMENT · ETC</p>
+      <div class="names"><span class="tag">토스페이먼츠</span><span class="tag">카카오페이</span><span class="tag">포트원</span>
+        <span class="tag">팜페이</span><span class="tag">WebRTC</span><span class="tag">공공 SI 산출물</span></div>
+      <p class="d">PG 결제 연동 4종 경험 — 결제 · 승인 · 취소 · 환불 정책과 사전 점검 대응</p>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>3</span></div>
+</section>
 
-  <div class="card" style="padding-top:2mm;padding-bottom:2mm">
-    <div class="focus c-sky">
-      <div class="focus-t"><span class="no">01</span><h4>결제·환불 정책 개선과 우편 발송 자동화</h4></div>
+<!-- ═══ 4 SECTION 01 ═══ -->
+<section class="pg divider c-sky">
+  <p class="no">01</p>
+  <h2>CAREER <span class="script">경력</span></h2>
+  <p>공공 SI/SM에서 시작해 사내 업무 시스템 재구축, 그리고 자사 B2C 서비스와 고객사 플랫폼 운영까지.</p>
+  <div class="chips">
+    <span>(주)이코드</span><span>(주)유팜몰</span><span>(주)TG</span>
+    <span>PG 결제 연동</span><span>데이터 처리 개선</span><span>배포 자동화</span><span>스토어 배포</span>
+  </div>
+  <div class="foot"><span style="color:rgba(255,255,255,.6)">Kim Sujin · Portfolio</span><span style="color:rgba(255,255,255,.6)">4</span></div>
+</section>
+
+<!-- ═══ 5 이코드 개요 ═══ -->
+<section class="pg">
+  <div class="ph c-sky">
+    <div><p class="eyebrow">Career · 01</p><h2>(주)이코드</h2>
+      <p class="sub">기술연구소 · 선임 &nbsp;|&nbsp; 2026.08 — 재직 중 · 3개월</p></div>
+    <div class="rt"><span class="tag solid">재직 중</span><br><span style="display:inline-block;margin-top:1.5mm">자사 B2C 서비스 · 고객사 플랫폼</span></div>
+  </div>
+  <div class="row r-21">
+    <div class="card atop c-sky">
+      <p class="lab">ROLE &amp; RESPONSIBILITY</p>
+      <p style="margin-top:3mm;font-size:9.2pt;line-height:1.85;color:var(--ink-soft)">
+        편지 우편 발송 플랫폼과 음성 AI 일기 앱 등 자사 B2C 서비스의 기능 개발 · 운영을 담당하고,
+        고객사 안전보건 플랫폼의 온보딩 · 검수 · 배포를 수행했습니다.
+        결제수단과 환불 정책을 PG 취소 기한에 맞춰 개선하고 우편 발송을 자동화했으며,
+        막혀 있던 자동 배포 파이프라인을 복구해 전구간 실배포로 검증하고
+        AWS 인벤토리 · 백업 · 배포 런북을 문서화했습니다.
+      </p>
+      <div class="tags" style="margin-top:5mm">
+        <span class="tag line">Next.js</span><span class="tag line">NestJS</span><span class="tag line">Flutter</span>
+        <span class="tag line">PostgreSQL</span><span class="tag line">Redis</span><span class="tag line">AWS EC2</span>
+        <span class="tag line">Gitea Actions</span><span class="tag line">PG 결제</span><span class="tag line">iOS / Android 배포</span>
+      </div>
+    </div>
+    <div class="card atop c-lime">
+      <p class="lab">KEY HIGHLIGHTS</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">PG 결제 · 환불 정책 개선</span><span class="d">0원 PG 결제 제거 · 취소 기한 기반 환불 선차단</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">우편 발송 자동화</span><span class="d">예약 해제분 인쇄 수거 · 우체국 추적 1일 2회</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">자동 배포 파이프라인 복구</span><span class="d">EC2 + SSM 전환 · 전구간 실배포 검증 · 런북 문서화</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">고객사 3곳 온보딩</span><span class="d">인증서 발급 · 계정 · 운영 점검 · 4환경 배포</span></span></li>
+        <li class="item"><span class="n">05</span><span><span class="t">Android · iOS 스토어 배포</span><span class="d">targetSdk 36 · App Privacy · Apple 심사 2.1 대응</span></span></li>
+        <li class="item"><span class="n">06</span><span><span class="t">사내 메일 고도화 · 연차 산정</span><span class="d">주소록 · 서명 · 발송 취소 · 근로기준법 60조 기준</span></span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>5</span></div>
+</section>
+
+<!-- ═══ 6 이코드 CASE 01 ═══ -->
+<section class="pg">
+  <div class="ph c-sky">
+    <div><p class="eyebrow">Career Case · 이코드</p><h2>결제 · 환불 정책 개선과 우편 발송 자동화</h2>
+      <p class="sub">편지 인쇄 · 우편 발송 플랫폼 — 결제수단 분리와 환불 정책 확장</p></div>
+    <div class="rt"><span class="tag">토스페이먼츠</span> <span class="tag">카카오페이</span> <span class="tag">NestJS</span></div>
+  </div>
+  <div class="row r-21">
+    <div class="card atop c-sky">
       <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>적립금을 100% 사용한 주문도 PG 결제창을 거쳐 0원 결제가 발생했고, 결제 후 오래된 주문은 PG 자동 취소 기한(카드 364일, 계좌이체·간편결제 179일)을 넘겨 환불이 실패할 수 있었습니다. 예약 발송 건의 인쇄 수거와 우체국 추적 조회도 수동 작업이었습니다.</dd>
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>적립금 전액 결제를 PG를 거치지 않는 자체 결제수단으로 분리하고 기존 주문을 마이그레이션으로 백필했습니다. 환불 정책 계산에 PG 취소 기한을 넣어 기한 경과 건은 DB 커밋 전 409로 선차단하고 계좌 환불 경로를 안내했으며, 약관·운영 문서를 갱신하고 테스트를 추가했습니다. 예약 해제분 자동 인쇄 수거와 우체국 XML 응답 파싱, 추적 조회 1일 2회 스케줄을 구현했습니다.</dd>
+        <dt><span class="tag line">문제</span></dt>
+        <dd>적립금을 100% 사용한 주문도 PG 결제창을 거쳐 <b>0원 결제</b>가 발생했고, 결제 후 오래된 주문은 PG 자동 취소 기한(카드 364일, 계좌이체 · 간편결제 179일)을 넘겨 환불이 실패할 수 있었습니다. 예약 발송 건의 인쇄 수거와 우체국 추적 조회도 수동 작업이었습니다.</dd>
+        <dt><span class="tag line">설계 · 구현</span></dt>
+        <dd>적립금 전액 결제를 PG를 거치지 않는 자체 결제수단으로 분리하고 기존 주문을 마이그레이션으로 백필했습니다. 환불 정책 계산에 PG 취소 기한을 넣어 기한 경과 건은 <b>DB 커밋 전 409로 선차단</b>하고 마이페이지에서 계좌 환불 경로를 안내했으며, 약관 제10조와 운영 문서를 갱신하고 테스트를 추가했습니다. 예약 해제분 자동 인쇄 수거와 우체국 XML 응답 파싱, 추적 조회 1일 2회 스케줄을 구현했습니다.</dd>
         <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">토스페이먼츠 결제위젯·카카오페이 결제 흐름 위에서 결제수단과 환불 정책을 확장해 <b>0원 PG 결제와 환불 실패 민원을 제거</b>했고, 우편 발송의 수동 작업을 없앴습니다.</dd>
+        <dd class="out">결제수단과 환불 정책을 안전하게 확장해 <b>0원 PG 결제와 환불 실패 민원을 제거</b>했고, 우편 발송의 수동 작업을 없앴습니다. 다른 서비스의 PG(포트원) 사전 점검 지적도 공개 사업자 정보 페이지 추가로 당일 해소했습니다.</dd>
       </dl>
     </div>
+    <div class="card atop c-lime">
+      <p class="lab">환불 요청 처리 흐름</p>
+      <div class="flow" style="margin-top:4mm">
+        <div class="b">환불 요청</div><div class="a">↓</div>
+        <div class="b">결제수단 · 승인일 조회</div><div class="a">↓</div>
+        <div class="b ghost">PG 취소 기한 계산<br>카드 364일 · 간편결제 179일</div><div class="a">↓</div>
+        <div class="b ac">기한 경과 → 409 선차단</div>
+        <p class="note">DB 커밋 전에 막아 실패 트랜잭션을 만들지 않는다</p>
+        <div class="a">↓</div>
+        <div class="b">마이페이지에서 계좌 환불 안내</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>6</span></div>
+</section>
 
-    <div class="focus c-lime">
-      <div class="focus-t"><span class="no">02</span><h4>자동 배포 파이프라인 복구와 인프라 문서화</h4></div>
+<!-- ═══ 7 이코드 CASE 02 ═══ -->
+<section class="pg">
+  <div class="ph c-lime">
+    <div><p class="eyebrow">Career Case · 이코드</p><h2>자동 배포 파이프라인 복구와 인프라 문서화</h2>
+      <p class="sub">막혀 있던 CI/CD를 되살리고 인수인계 가능한 상태로 정리</p></div>
+    <div class="rt"><span class="tag">Gitea Actions</span> <span class="tag">AWS EC2</span> <span class="tag">SSM</span></div>
+  </div>
+  <div class="row r-21">
+    <div class="card atop c-lime">
       <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>자동 배포 파이프라인이 막혀 수동 배포에 의존하고 있었고, 관리되지 않는 terraform과 미사용 AWS 리소스, 문서화되지 않은 백업·배포 키가 운영 리스크로 남아 있었습니다.</dd>
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>Gitea Actions 러너를 운영 EC2로 옮겨 액세스 키 방식으로 재구성하고, main 배포 워크플로를 EC2+SSM 방식으로 교체해 앱별 변경 감지로 선택 배포하도록 했습니다. 막혀 있던 원인 5가지를 수정한 뒤 terraform 폐기 절차와 AWS 인벤토리·배포 런북·DB 백업·ECR 수명주기·로그 회전 기준을 문서화했습니다.</dd>
+        <dt><span class="tag line">문제</span></dt>
+        <dd>자동 배포 파이프라인이 막혀 <b>수동 배포에 의존</b>하고 있었고, 관리되지 않는 terraform과 미사용 AWS 리소스, 문서화되지 않은 백업 · 배포 키가 운영 리스크로 남아 있었습니다.</dd>
+        <dt><span class="tag line">설계 · 구현</span></dt>
+        <dd>Gitea Actions 러너를 운영 EC2로 옮겨 액세스 키 방식으로 재구성하고, main 배포 워크플로를 <b>EC2 + SSM 방식</b>으로 교체해 앱별 변경 감지로 선택 배포하도록 했습니다. 막혀 있던 원인 5가지를 수정한 뒤 terraform 폐기 절차와 AWS 인벤토리 · 배포 런북 · DB 백업 · ECR 수명주기 · 로그 회전 기준을 문서화했습니다.</dd>
         <dt><span class="tag">결과 · 역량</span></dt>
         <dd class="out">CI 파이프라인 green과 api 실배포로 <b>전구간을 검증</b>했고, 다른 PC에서도 러너를 띄울 수 있도록 인수인계 문서를 남겼습니다.</dd>
       </dl>
     </div>
-
-    <div class="focus c-yellow">
-      <div class="focus-t"><span class="no">03</span><h4>고객사 안전보건 플랫폼 운영·온보딩</h4></div>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>고객사 안전보건 플랫폼을 여러 회사가 각각의 빌드 이미지로 사용하는 구조에서, 파일럿 온보딩과 운영 배포, 검수, 고객 회신이 동시에 진행되어야 했습니다.</dd>
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>회사별 빌드 브랜치 체계를 정리하고 main 변경을 각 브랜치에 반복 머지했으며, 데모·운영 이미지의 시드와 데이터 캡처 게이트를 빌드 인자로 분리했습니다. 파일럿 고객사 3곳의 개설(인증서 발급·부착·외부 검증, 계정 발급, 운영 점검)과 4개 환경 배포, 백업 후 파일럿 데이터 삭제·본계약 전환 검수, 회사별·일별 DB 사용량 추이 도구를 수행했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">약 2개월간 검수·배포·고객 회신 기록 <b>40건</b>을 남기며 회사별 운영 이미지가 끊기지 않도록 유지했습니다.</dd>
-      </dl>
-      <div class="metrics">
-        <div class="metric"><span class="v">3곳</span><span class="l">파일럿 고객사 온보딩</span><span class="c">인증서·계정 발급·운영 점검</span></div>
-        <div class="metric"><span class="v">4환경</span><span class="l">동시 운영 배포</span><span class="c">스테이징·운영</span></div>
-        <div class="metric"><span class="v">109회</span><span class="l">빌드 브랜치 동기화</span><span class="c">운영 3사 + 데모</span></div>
+    <div class="card atop c-sky">
+      <p class="lab">BEFORE → AFTER</p>
+      <div class="ba" style="margin-top:3.5mm">
+        <div class="b bf"><p class="k">BEFORE</p><p class="t">수동 배포 · 관리되지 않는 인프라</p>
+          <p class="d">파이프라인 중단, terraform 방치, 미사용 리소스, 백업 · 키 미문서화</p></div>
+        <div class="a" style="text-align:center;color:var(--ink-faint)">↓</div>
+        <div class="b af"><p class="k">AFTER</p><p class="t">EC2 + SSM 자동 배포 · 런북 정비</p>
+          <p class="d">앱별 변경 감지 선택 배포, terraform 폐기 기록, AWS 인벤토리 · DB 백업 · ECR 수명주기 · 로그 회전 기준 문서화</p></div>
+      </div>
+      <div class="mets" style="margin-top:5mm;grid-template-columns:1fr 1fr">
+        <div class="met c-lime"><span class="v">5가지</span><span class="l">막혀 있던 원인 수정</span><span class="c">전구간 실배포로 검증</span></div>
+        <div class="met c-sky"><span class="v">6회</span><span class="l">운영 배포 수행</span><span class="c">104 — 109회차</span></div>
       </div>
     </div>
   </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>7</span></div>
 </section>
 
-<!-- ══════════ 3. 경력 — 이코드 계속 ══════════ -->
-<section class="page break">
-  <div class="card" style="padding-top:2mm;padding-bottom:2mm">
-    <div class="focus c-pink">
-      <div class="focus-t"><span class="no">04</span><h4>Android·iOS 스토어 배포와 Apple 심사 대응</h4></div>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>고객사 안전보건 웹앱을 Capacitor WebView로 감싼 스토어 앱에 Android 릴리스 구성이 없었고, iOS는 App Store 제출 자료와 Apple 심사 정보 요청(계정 삭제, UGC 신고·차단, B2B 배포) 대응이 필요했습니다.</dd>
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>Android 릴리스 서명을 구성하고 targetSdk를 34에서 36으로 올리고 WebView 뒤로가기 처리와 Play 아이콘·스크린샷을 준비했습니다. iOS는 App Store Connect 메타데이터와 App Privacy 설문, 규격 스크린샷(iPhone 1284×2778 · iPad 2048×2732)을 작성하고, 심사 정보 요청에는 실기기 화면 녹화 시나리오와 영문 회신·Review Notes로 대응했습니다. 계정 삭제 요건에 맞춰 플랫폼에 회원 탈퇴 신청 기능과 마이그레이션을 추가했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">스토어 제출부터 심사 대응까지 한 사이클을 수행하고, Android·iOS 배포 절차와 재발 방지 기준을 문서로 남겼습니다.</dd>
-      </dl>
-    </div>
-
-    <div class="focus c-mint">
-      <div class="focus-t"><span class="no">05</span><h4>음성 AI 일기 앱 리뉴얼과 스토어 릴리스</h4></div>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>Flutter 기반 음성 AI 일기 앱에서 음성 인식 텍스트가 유실되고 세션 재시작이 폭주했으며, iOS 2분 녹음 제한 후 이어 녹음하면 앞 내용이 중복 저장되고 데일리 알림이 오지 않는 등 핵심 사용 경로에 결함이 있었습니다.</dd>
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>빈 부분결과가 본문을 지우던 원인을 제거하고 pauseFor를 120초에서 8초로 줄이고 error_busy 연쇄 재시작에 백오프를 넣었습니다. 하단바를 5탭으로 리뉴얼하고 작성 화면·공통 위젯·감정 아이콘을 전면 정리했으며, PDF 내보내기와 글자 크기·스타일 설정, 업데이트 안내 다이얼로그를 추가했습니다. Shorebird 코드푸시를 도입해 Android는 스토어 심사 없이 패치를 배포했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">빌드 5개를 Play Console·TestFlight로 릴리스하고 코드푸시 패치 <b>3회</b>를 배포했으며, 릴리스 이력과 재발 방지 절차를 문서로 관리했습니다.</dd>
-      </dl>
-    </div>
-
-    <div class="focus c-sky">
-      <div class="focus-t"><span class="no">06</span><h4>사내 메일 고도화와 연차 산정 개선</h4></div>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>사내 통합 업무 솔루션의 메일 기능이 기본 송수신 수준이라 주소록·서명·발송 취소 같은 업무 메일 기능이 없었고, 연차 산정이 법정 기준과 맞지 않았습니다.</dd>
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>개인·공통 주소록과 CSV 가져오기·내보내기, HTML 서명과 CID 인라인 로고 발송, 보내기 대기·발송 취소, 답장 인용 세로줄, 목록 접기·폭 조절, 목록 유지 새로고침·실행 취소를 구현하고 외부 HTML 메일의 스크립트 실행(XSS)을 차단했습니다. 연차 산정을 근로기준법 60조 기준 입사일 계산으로 교체하고 입사일 기본값을 가입일과 연동했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">웹·API·모바일 세 패키지를 오가며 기능을 끝까지 책임졌고, 다크모드와 알림 개인 설정을 웹·앱 양쪽에 도입해 Android 앱을 0.5.1에서 0.6.2까지 사내 배포했습니다.</dd>
-      </dl>
-    </div>
+<!-- ═══ 8 이코드 CASE 03 ═══ -->
+<section class="pg">
+  <div class="ph c-yellow">
+    <div><p class="eyebrow">Career Case · 이코드</p><h2>고객사 안전보건 플랫폼 운영 · 온보딩</h2>
+      <p class="sub">회사별 빌드 이미지 운영과 파일럿 고객사 온보딩</p></div>
+    <div class="rt"><span class="tag">Next.js</span> <span class="tag">RDS</span> <span class="tag">Docker · EC2</span></div>
   </div>
-</section>
-
-<!-- ══════════ 4. 경력 — 유팜몰 ══════════ -->
-<section class="page break">
-  <div class="card accent-top c-lime">
-    <div class="job-head">
-      <div>
-        <h3>(주)유팜몰</h3>
-        <p class="role">개발 · 주임</p>
+  <div class="row r-21">
+    <div class="card atop c-yellow">
+      <dl class="fb">
+        <dt><span class="tag line">문제</span></dt>
+        <dd>고객사 안전보건 플랫폼을 여러 회사가 <b>각각의 빌드 이미지</b>로 사용하는 구조에서, 파일럿 온보딩과 운영 배포, 검수, 고객 회신이 동시에 진행되어야 했습니다.</dd>
+        <dt><span class="tag line">설계 · 구현</span></dt>
+        <dd>회사별 빌드 브랜치 체계를 정리하고 main 변경을 각 브랜치에 반복 머지했으며, 데모 · 운영 이미지의 시드와 데이터 캡처 게이트를 빌드 인자로 분리했습니다. 파일럿 고객사 3곳의 개설(인증서 발급 · 부착 · 외부 검증, 계정 발급, 운영 점검 22/22)과 4개 환경 배포, 백업 후 파일럿 데이터 삭제 · 본계약 전환 검수, 회사별 · 일별 DB 사용량 추이 도구를 수행했습니다.</dd>
+        <dt><span class="tag">결과 · 역량</span></dt>
+        <dd class="out">약 2개월간 검수 · 배포 · 고객 회신 기록 <b>40건</b>을 남기며 회사별 운영 이미지가 끊기지 않도록 유지했습니다.</dd>
+      </dl>
+    </div>
+    <div class="stack">
+      <div class="card atop c-pink">
+        <p class="lab">운영 지표</p>
+        <div class="mets" style="margin-top:3.5mm">
+          <div class="met c-pink"><span class="v">3곳</span><span class="l">파일럿 온보딩</span><span class="c">인증서 · 계정 · 점검</span></div>
+          <div class="met c-sky"><span class="v">4환경</span><span class="l">동시 운영 배포</span><span class="c">스테이징 · 운영</span></div>
+          <div class="met c-yellow"><span class="v">109회</span><span class="l">브랜치 동기화</span><span class="c">운영 3사 + 데모</span></div>
+        </div>
       </div>
-      <div class="term">2025.03 — 2026.07<br>17개월</div>
-    </div>
-    <p class="job-desc">웹 기반 업무 시스템 개발 및 운영 고도화</p>
-    <p class="job-sum">웹 기반 업무 시스템의 기능 개선과 운영 고도화를 담당하며, 요구사항 분석부터 설계·개발·이슈 대응까지 수행했습니다. 팜페이 결제(PG) API를 시스템에 맞춰 신규 연동하고, WOS 업무 화면을 디자인·연동 기능까지 전면 재구축했으며, MSSQL 프로시저·대용량 거래 데이터 처리 개선과 ERP DB 연동 안정화·외부 데이터 수집으로 운영 데이터 활용 범위를 확장했습니다.</p>
-    <div class="tags" style="margin-top:4mm">
-      <span class="tag tag-line">ASP.NET MVC</span><span class="tag tag-line">jQuery</span>
-      <span class="tag tag-line">MSSQL</span><span class="tag tag-line">프로시저 튜닝</span>
-      <span class="tag tag-line">ERP 연동</span><span class="tag tag-line">PG 결제</span>
-    </div>
-  </div>
-
-  <p class="card-label c-lime" style="margin:6mm 0 1mm">주요 업무 4건</p>
-
-  <div class="card" style="padding-top:2mm;padding-bottom:2mm">
-    <div class="focus c-lime">
-      <div class="focus-t"><span class="no">01</span><h4>MSSQL 프로시저 · 대용량 거래 데이터 개선</h4></div>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>거래 데이터가 누적되며 주요 조회 화면의 응답이 느려지고, 피크 시 DB CPU가 99~100%까지 치솟아 응답 지연·장애 위험이 있었습니다.</dd>
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>실행 계획 분석으로 병목 구간을 식별하고, 조회 조건과 인덱스 정합을 점검해 불필요한 비용을 제거했으며, 프로시저를 단계적으로 개선·검증한 뒤 운영 영향 없이 반영했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">동시 접속 부하 기준 DB CPU 사용률을 <b>2,000명 70% · 1,200명 45%</b> 수준으로 안정화하여 피크 부하를 크게 완화했습니다.</dd>
-      </dl>
-      <div class="metrics">
-        <div class="metric"><span class="v">99→70%</span><span class="l">피크 CPU 사용률</span><span class="c">실행계획·인덱스 정비</span></div>
-        <div class="metric"><span class="v">70%</span><span class="l">2,000명 동시접속</span><span class="c">개선 후 안정 구간</span></div>
-        <div class="metric"><span class="v">45%</span><span class="l">1,200명 동시접속</span><span class="c">개선 후 여유 수준</span></div>
+      <div class="card atop c-mint grow">
+        <p class="lab">회사별 빌드 브랜치 운영</p>
+        <div class="flow" style="margin-top:3.5mm">
+          <div class="b ac">main — 공통 기능 개발</div>
+          <div class="a">↓ 반복 머지 109회</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.8mm;width:100%">
+            <div class="b" style="font-size:7.2pt;padding:2mm 1mm">build/A사</div>
+            <div class="b" style="font-size:7.2pt;padding:2mm 1mm">build/B사</div>
+            <div class="b" style="font-size:7.2pt;padding:2mm 1mm">build/C사</div>
+            <div class="b" style="font-size:7.2pt;padding:2mm 1mm">build/demo</div>
+          </div>
+          <p class="note">시드 · 데이터 캡처 게이트를 빌드 인자로 분리해 이미지별로 다르게 구성</p>
+        </div>
       </div>
     </div>
-
-    <div class="focus c-sky">
-      <div class="focus-t"><span class="no">02</span><h4>팜페이 결제 PG API 연동</h4></div>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>의약품 도·소매 거래 대금 결제를 위해 팜페이가 제공하는 결제(PG) API를 우리 업무 시스템에 신규로 연동해야 했습니다.</dd>
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>팜페이 PG API 문서(스펙)를 분석해 결제 요청·승인·취소 등 필요한 API를 우리 시스템 구조와 데이터 흐름에 맞게 연동·적용하고, 결제 결과를 주문·거래 데이터와 연결해 처리했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">외부 PG 결제 연동을 시스템에 적용해 거래 결제를 처리할 수 있게 했고, 외부 API 문서를 해석해 기존 시스템에 맞춰 연동하는 경험을 확보했습니다.</dd>
-      </dl>
-    </div>
-
-    <div class="focus c-pink">
-      <div class="focus-t"><span class="no">03</span><h4>WOS 화면 전면 재구축</h4></div>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>노후한 WOS 업무 화면은 페이지마다 디자인·정보 구조와 연동 방식이 제각각이라 일관성이 떨어지고 신규 화면 개발·유지보수 비용이 컸습니다.</dd>
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>요구사항을 기반으로 디자인·정보 구조부터 화면-서버 연동 기능까지 새 기준으로 전면 재설계하고, 재구축에 필요한 신규 API·서버 로직을 추가·확장했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">백엔드는 유지·확장하면서 프론트를 신규 구축 수준으로 교체해 화면 일관성을 확보했고, 공통 기준 위에서 신규 화면을 빠르게 확장할 수 있는 구조를 만들었습니다.</dd>
-      </dl>
-    </div>
-
-    <div class="focus c-mint">
-      <div class="focus-t"><span class="no">04</span><h4>ERP DB 연동 안정화 · 외부 데이터 수집</h4></div>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>도매 거래처 ERP DB 연동에서 장애 시 수동 점검·복구에 의존했고, 데이터 정합성 관리와 운영 데이터 활용 확장이 필요했습니다.</dd>
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>장애 유형별 점검·복구 절차를 표준화하고 정합성 점검 흐름을 정비했으며, 운영에 필요한 외부 데이터를 수집·분석하는 시스템을 신규 개발했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">ERP 연동 오류 대응과 데이터 관리 부담을 줄여 운영 안정성을 높이고, 외부 데이터 수집으로 운영 데이터 활용 범위를 확장했습니다.</dd>
-      </dl>
-    </div>
   </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>8</span></div>
 </section>
 
-<!-- ══════════ 5. 경력 — TG ══════════ -->
-<section class="page break">
-  <div class="card accent-top c-yellow">
-    <div class="job-head">
-      <div>
-        <h3>(주)TG</h3>
-        <p class="role">플랫폼 · 주임</p>
+<!-- ═══ 9 이코드 CASE 04 ═══ -->
+<section class="pg">
+  <div class="ph c-pink">
+    <div><p class="eyebrow">Career Case · 이코드</p><h2>Android · iOS 스토어 배포와 Apple 심사 대응</h2>
+      <p class="sub">제출 자료 작성부터 심사 정보 요청 대응까지 한 사이클</p></div>
+    <div class="rt"><span class="tag">Capacitor</span> <span class="tag">Play Console</span> <span class="tag">TestFlight</span></div>
+  </div>
+  <div class="row r-2">
+    <div class="card atop c-pink">
+      <dl class="fb">
+        <dt><span class="tag line">문제</span></dt>
+        <dd>고객사 안전보건 웹앱을 Capacitor WebView로 감싼 스토어 앱에 Android 릴리스 구성이 없었고, iOS는 App Store 제출 자료와 Apple 심사 정보 요청(계정 삭제 5.1.1, UGC 신고 · 차단 1.2, B2B 배포 3.2) 대응이 필요했습니다.</dd>
+        <dt><span class="tag line">설계 · 구현</span></dt>
+        <dd>Android 릴리스 서명을 구성하고 <b>targetSdk 34 → 36</b>으로 올리고 WebView 뒤로가기 처리와 Play 아이콘 · 스크린샷을 준비했습니다. iOS는 App Store Connect 메타데이터와 App Privacy 설문, 규격 스크린샷(iPhone 1284×2778 · iPad 2048×2732)을 작성하고, 심사 정보 요청에는 실기기 화면 녹화 18단계 시나리오와 영문 회신 · Review Notes로 대응했습니다.</dd>
+        <dt><span class="tag">결과 · 역량</span></dt>
+        <dd class="out">계정 삭제 요건에 맞춰 플랫폼에 <b>회원 탈퇴 신청 기능</b>과 마이그레이션을 추가해 심사 요건을 코드로 반영했고, Android · iOS 배포 절차와 재발 방지 기준을 문서로 남겼습니다.</dd>
+      </dl>
+    </div>
+    <div class="card atop c-mint">
+      <p class="lab">심사 대응 항목</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">계정 삭제 (5.1.1 v)</span><span class="d">더보기 &gt; 회원 탈퇴 신청 · 탈퇴 API · 마이그레이션 017 · 모바일 셸 UI</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">UGC 신고 · 차단 (1.2)</span><span class="d">메신저 차단 경로 점검 및 차단 해제 흐름 결함 확정 · E2E 검증</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">B2B 배포 (3.2)</span><span class="d">Unlisted 배포 대안 검토 및 회신</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">제출 자료</span><span class="d">앱 이름 · 부제 · 설명 · 키워드 · 지원/개인정보 URL · 심사 정보(데모 계정) · 수출 규정</span></span></li>
+        <li class="item"><span class="n">05</span><span><span class="t">App Privacy 설문</span><span class="d">수집 항목별 근거 정리 · 미수집 항목 코드 확인</span></span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>9</span></div>
+</section>
+
+<!-- ═══ 10 이코드 CASE 05 ═══ -->
+<section class="pg">
+  <div class="ph c-mint">
+    <div><p class="eyebrow">Career Case · 이코드</p><h2>음성 AI 일기 앱 리뉴얼과 스토어 릴리스</h2>
+      <p class="sub">Flutter 앱 — 음성 인식 안정화와 전면 UI 리뉴얼</p></div>
+    <div class="rt"><span class="tag">Flutter</span> <span class="tag">Riverpod</span> <span class="tag">Shorebird</span></div>
+  </div>
+  <div class="row r-21">
+    <div class="card atop c-mint">
+      <dl class="fb">
+        <dt><span class="tag line">문제</span></dt>
+        <dd>음성 인식 텍스트가 유실되고 <b>세션 재시작이 폭주</b>했으며, iOS 2분 녹음 제한 후 이어 녹음하면 앞 내용이 중복 저장되고 데일리 알림이 오지 않는 등 핵심 사용 경로에 결함이 있었습니다.</dd>
+        <dt><span class="tag line">설계 · 구현</span></dt>
+        <dd>빈 부분결과가 본문을 지우던 원인을 제거하고 <b>pauseFor를 120초 → 8초</b>로 줄이고 error_busy 연쇄 재시작에 백오프를 넣었습니다. 하단바를 5탭으로 리뉴얼하고 작성 화면 · 공통 위젯 · 감정 아이콘을 전면 정리했으며, PDF 내보내기와 글자 크기 · 스타일 설정, 업데이트 안내 다이얼로그를 추가했습니다. Shorebird 코드푸시를 도입해 Android는 스토어 심사 없이 패치를 배포했습니다.</dd>
+        <dt><span class="tag">결과 · 역량</span></dt>
+        <dd class="out">1.0.9+50 → 1.0.10+54 빌드 5개를 Play Console · TestFlight로 릴리스하고 코드푸시 패치 3회를 배포했으며, 릴리스 이력과 재발 방지 절차를 문서로 관리했습니다.</dd>
+      </dl>
+    </div>
+    <div class="card atop c-yellow">
+      <p class="lab">주요 개선</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">음성 인식 유실 · 재시작 폭주</span><span class="d">빈 부분결과 제거 · pauseFor 120→8초 · 백오프</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">iOS 2분 cap 중복 저장</span><span class="d">이어 녹음 시 앞 내용 중복 · 저장 오류 수정</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">데일리 알림 미수신</span><span class="d">예약 알림 리시버 추가</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">전면 UI 리뉴얼</span><span class="d">5탭 하단바 · 작성 화면 개편 · 공통 위젯 · 디자인 토큰 통합</span></span></li>
+        <li class="item"><span class="n">05</span><span><span class="t">기능 추가</span><span class="d">PDF 내보내기 · 글자 크기/스타일 · 업데이트 안내</span></span></li>
+      </ul>
+      <div class="mets" style="margin-top:4mm;grid-template-columns:1fr 1fr">
+        <div class="met c-mint"><span class="v">5빌드</span><span class="l">스토어 릴리스</span><span class="c">Play · TestFlight</span></div>
+        <div class="met c-pink"><span class="v">3회</span><span class="l">코드푸시 패치</span><span class="c">심사 없이 배포</span></div>
       </div>
-      <div class="term">2022.03 — 2024.02<br>24개월</div>
-    </div>
-    <p class="job-desc">공공기관 SI/SM 및 서비스형 플랫폼 개발</p>
-    <p class="job-sum">공공 SI/SM 프로젝트와 서비스형 플랫폼 개발에 참여하며 관리자 시스템 개발, OpenAPI 개발, 프론트엔드 구현, 운영 개선 업무를 수행했습니다. 공공기관 유지관리 프로젝트에서는 안정적인 운영과 보안 조치, 데이터 현행화를 담당했고, 플랫폼 개발 프로젝트에서는 React 기반 화면 구현과 사용자 피드백 반영, 매뉴얼 작성까지 수행하며 서비스 초기 구축과 고도화에 기여했습니다.</p>
-    <div class="tags" style="margin-top:4mm">
-      <span class="tag tag-line">React</span><span class="tag tag-line">ReactQuery</span>
-      <span class="tag tag-line">WebRTC</span><span class="tag tag-line">Java</span>
-      <span class="tag tag-line">Spring</span><span class="tag tag-line">Oracle</span>
-      <span class="tag tag-line">OpenAPI</span>
     </div>
   </div>
-
-  <p class="card-label c-yellow" style="margin:6mm 0 1mm">참여 프로젝트 5건</p>
-
-  <div class="card" style="padding-top:2mm;padding-bottom:2mm">
-    <div class="focus c-yellow">
-      <div class="focus-t"><span class="no">01</span><h4>인천스마트관광도시 앱 서버·관리자 고도화 및 OpenAPI 개발</h4></div>
-      <p style="font-size:8.4pt;color:var(--ink-mute);margin:1.5mm 0 0 10mm">2022.03 — 2022.12 · 9개월 · 서버·관리자 시스템 개발 및 OpenAPI 개발</p>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>인천e지 앱의 서버·관리자 기능 고도화와, 운영 데이터를 외부 서비스와 연계할 OpenAPI가 필요했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">관광 콘텐츠 관리 효율과 외부 서비스 연계 기반을 마련했고, 협력사와의 연동·이슈 대응 협업과 공공 SI 산출물 작성 경험을 쌓았습니다.</dd>
-      </dl>
-    </div>
-
-    <div class="focus c-sky">
-      <div class="focus-t"><span class="no">02</span><h4>정보화통합관리체계 운영개선 및 유지관리</h4></div>
-      <p style="font-size:8.4pt;color:var(--ink-mute);margin:1.5mm 0 0 10mm">2023.01 — 2024.02 · 14개월 · 유지관리 &amp; 운영지원 담당</p>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>다수 공공기관에 납품된 시스템을 안정적으로 운영하면서 고객 요구사항, 보안 취약점, 서버·DB 이관 등 운영 리스크에 대응해야 했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">공공 시스템의 서비스 지속성과 보안 안정성을 유지하고, 운영 데이터 정확성과 관리 체계를 개선했습니다.</dd>
-      </dl>
-    </div>
-
-    <div class="focus c-pink">
-      <div class="focus-t"><span class="no">03</span><h4>다지점 동물 임상시험 플랫폼 구축·개발</h4></div>
-      <p style="font-size:8.4pt;color:var(--ink-mute);margin:1.5mm 0 0 10mm">2022.12 — 2023.03 · 4개월 · 프론트엔드 개발 및 UI/UX 설계</p>
-      <dl class="fb">
-        <dt><span class="tag tag-line">문제</span></dt>
-        <dd>임상시험의 계획 의뢰, 진행 관리, 참가 개체 관리, 리워드 관리가 분산되어 있어 다지점 환경에서 통합 관리할 플랫폼이 필요했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">임상시험 운영 업무를 웹 기반으로 통합하고, PC·Mobile·Tablet 적응형 UI와 매뉴얼 작성까지 수행해 초기 서비스 운영 기반을 마련했습니다.</dd>
-      </dl>
-    </div>
-
-    <div class="focus c-mint">
-      <div class="focus-t"><span class="no">04</span><h4>동물 원격진료 플랫폼 MVP 개발</h4></div>
-      <p style="font-size:8.4pt;color:var(--ink-mute);margin:1.5mm 0 0 10mm">2023.06 — 2023.08 · 3개월 · 프론트엔드 개발 및 UI 퍼블리싱</p>
-      <dl class="fb">
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>React.js와 ReactQuery 기반 프론트엔드를 구현하고, 백엔드에서 구축된 WebRTC 영상통화 서버와 연동해 화상 상담 및 채팅 UI를 구성했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">원격 상담의 핵심 사용자 흐름을 프로토타입으로 완성해 신규 서비스 검증 기반을 마련했습니다.</dd>
-      </dl>
-    </div>
-
-    <div class="focus c-lime">
-      <div class="focus-t"><span class="no">05</span><h4>다지점 동물 임상시험 플랫폼 기능개선 및 고도화</h4></div>
-      <p style="font-size:8.4pt;color:var(--ink-mute);margin:1.5mm 0 0 10mm">2023.10 — 2024.02 · 5개월 · 프론트엔드 개발 및 UI 퍼블리싱</p>
-      <dl class="fb">
-        <dt><span class="tag tag-line">설계 · 구현</span></dt>
-        <dd>ReactQuery를 도입해 서버 상태 관리와 데이터 패칭 구조를 개선하고, 사용자 피드백을 바탕으로 화면 기능과 운영 흐름을 보완했습니다.</dd>
-        <dt><span class="tag">결과 · 역량</span></dt>
-        <dd class="out">중복 요청을 줄여 화면 응답성과 데이터 갱신 흐름을 개선하고, 관리자·사용자 매뉴얼로 온보딩과 문의 대응 효율을 높였습니다.</dd>
-      </dl>
-    </div>
-  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>10</span></div>
 </section>
 
-<!-- ══════════ 6. 개인·팀 프로젝트 ══════════ -->
-<section class="page break">
-  <div class="sec-head c-lime">
-    <div><span class="rule"></span><h2>프로젝트 <span class="script">works</span></h2></div>
-    <span class="meta">5건 · 개인 2 / 팀 3</span>
+<!-- ═══ 11 이코드 CASE 06 ═══ -->
+<section class="pg">
+  <div class="ph c-sky">
+    <div><p class="eyebrow">Career Case · 이코드</p><h2>사내 업무 솔루션 메일 고도화와 연차 산정 개선</h2>
+      <p class="sub">웹 · API · 모바일 세 패키지를 오가며 기능을 끝까지</p></div>
+    <div class="rt"><span class="tag">React</span> <span class="tag">Cloudflare Workers · D1</span> <span class="tag">Flutter</span></div>
   </div>
-
-  <div class="card accent-top c-lime proj">
-    <div class="proj-head">
-      <h3>포트폴리오 사이트 v2</h3>
-      <span class="term">2025.12 — 2026.03 · 개인</span>
+  <div class="row r-2">
+    <div class="card atop c-sky">
+      <dl class="fb">
+        <dt><span class="tag line">문제</span></dt>
+        <dd>사내 통합 업무 솔루션의 메일 기능이 <b>기본 송수신 수준</b>이라 주소록 · 서명 · 발송 취소 같은 업무 메일 기능이 없었고, 연차 산정이 법정 기준과 맞지 않았습니다.</dd>
+        <dt><span class="tag line">설계 · 구현</span></dt>
+        <dd>개인 · 공통 주소록과 CSV 가져오기 · 내보내기, HTML 서명과 CID 인라인 로고 발송, 보내기 대기 · 발송 취소, 답장 인용 세로줄, 목록 접기 · 폭 조절, 목록 유지 새로고침 · 실행 취소를 구현하고 외부 HTML 메일의 <b>스크립트 실행(XSS)을 차단</b>했습니다. 연차 산정을 근로기준법 60조 기준 입사일 계산으로 교체하고 입사일 기본값을 가입일과 연동했습니다.</dd>
+        <dt><span class="tag">결과 · 역량</span></dt>
+        <dd class="out">사내 메일을 업무용 클라이언트 수준으로 끌어올렸고, 다크모드와 알림 개인 설정을 웹 · 앱 양쪽에 도입해 Android 앱을 0.5.1 → 0.6.2까지 사내 배포했습니다.</dd>
+      </dl>
     </div>
-    <p class="desc">정적 포트폴리오의 콘텐츠 수정·재배포 부담을 해결하기 위해 Firebase Hosting·Firestore 기반 동적 포트폴리오와 관리자 페이지를 구축한 개선 프로젝트입니다.</p>
-    <ul class="ach">
-      <li><i></i><span>정적 배포 구조의 콘텐츠 수정 비용을 줄이기 위해 <b>Firebase Hosting + Firestore 기반 동적 콘텐츠 구조</b>로 전환</span></li>
-      <li><i></i><span>프로젝트·경력·기술스택 데이터를 Firestore에 분리하여 <b>코드 수정 및 재배포 없이 콘텐츠 운영</b> 가능</span></li>
-      <li><i></i><span>전용 관리자 페이지를 구축해 Firestore 콘솔 접근 없이 데이터 등록·수정·삭제가 가능한 운영 흐름 구현</span></li>
-    </ul>
-    <p class="stack-line">TypeScript · Next.js · Tailwind CSS · Firestore · Firebase Hosting · Zustand</p>
-  </div>
-
-  <div class="card accent-top c-sky proj" style="margin-top:4mm">
-    <div class="proj-head">
-      <h3>PDF Converter</h3>
-      <span class="term">2025.11.04 — 11.21 · 개인</span>
+    <div class="card atop c-lime">
+      <p class="lab">구현 항목</p>
+      <div class="row r-2" style="margin-top:3mm;gap:3mm;flex:0 0 auto">
+        <ul class="items" style="margin-top:0">
+          <li class="item"><span class="n">01</span><span><span class="t">주소록</span><span class="d">개인 · 공통 관리 + CSV 가져오기 / 내보내기</span></span></li>
+          <li class="item"><span class="n">02</span><span><span class="t">HTML 서명</span><span class="d">회사 추천 서명 · CID 인라인 로고 발송</span></span></li>
+          <li class="item"><span class="n">03</span><span><span class="t">발송 제어</span><span class="d">보내기 대기시간 설정 · 어디서든 발송 취소</span></span></li>
+        </ul>
+        <ul class="items" style="margin-top:0">
+          <li class="item"><span class="n">04</span><span><span class="t">읽기 경험</span><span class="d">답장 인용 세로줄 · 목록 접기 · 폭 끌기</span></span></li>
+          <li class="item"><span class="n">05</span><span><span class="t">보안</span><span class="d">외부 HTML 메일 스크립트 실행 차단</span></span></li>
+          <li class="item"><span class="n">06</span><span><span class="t">연차 산정</span><span class="d">근로기준법 60조 기준 · 입사일 기본값 = 가입일</span></span></li>
+        </ul>
+      </div>
     </div>
-    <p class="desc">서버 업로드 없이 브라우저 내부에서 이미지 정규화와 PDF 생성을 처리해 개인정보 보호와 사용 편의성을 높인 클라이언트 사이드 PDF 변환 서비스입니다.</p>
-    <ul class="ach">
-      <li><i></i><span>파일이 외부 서버로 전송되지 않는 <b>클라이언트 사이드 PDF 생성 파이프라인</b> 구축</span></li>
-      <li><i></i><span>createImageBitmap 및 Canvas transform 기반 이미지 정규화로 기기별 EXIF 방향 불일치 문제 해결</span></li>
-      <li><i></i><span>crypto.randomUUID() 기반 파일 식별 전략으로 Drag &amp; Drop 재정렬과 대량 이미지 추가 상황의 데이터 무결성 유지</span></li>
-    </ul>
-    <p class="stack-line">Next.js · Tailwind CSS · Zustand · pdf-lib · Firebase Hosting</p>
   </div>
-
-  <div class="card accent-top c-pink proj" style="margin-top:4mm">
-    <div class="proj-head">
-      <h3>NEKO PARK</h3>
-      <span class="term">2024.08.12 — 08.19 · 팀</span>
-    </div>
-    <p class="desc">Unity와 Mirror 기반 멀티플레이 세션에 TCP 방 목록 서버, 로그인, 로컬 세이브 시스템을 결합해 협력 퍼즐 게임의 네트워크 진입 흐름을 구현한 프로젝트입니다.</p>
-    <ul class="ach">
-      <li><i></i><span>Mirror 게임 세션과 분리된 <b>TCP 방 목록 서버</b>를 구현하여 방 생성·조회·입장 흐름 안정화</span></li>
-      <li><i></i><span>TCP 서버에서 승인된 호스트 정보를 Mirror RoomManager에 연결하는 2계층 네트워크 구조 설계</span></li>
-      <li><i></i><span>SHA-256 해시 기반 비밀번호 처리와 Singleton 캐싱으로 계정 보안 및 씬 전환 간 데이터 일관성 확보</span></li>
-    </ul>
-    <p class="stack-line">Unity · C# · Mirror · TCP Server · SHA-256</p>
-  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>11</span></div>
 </section>
 
-<!-- ══════════ 7. 프로젝트 계속 + 기술 + 학력 ══════════ -->
-<section class="page break">
-  <div class="card accent-top c-mint proj">
-    <div class="proj-head">
-      <h3>좀비, 펑펑! 화르륵</h3>
-      <span class="term">2024.11.01 — 12.27 · 팀</span>
+<!-- ═══ 12 유팜몰 개요 ═══ -->
+<section class="pg">
+  <div class="ph c-lime">
+    <div><p class="eyebrow">Career · 02</p><h2>(주)유팜몰</h2>
+      <p class="sub">의약품 도 · 소매 중계 &nbsp;|&nbsp; 개발팀 · 주임 &nbsp;|&nbsp; 2025.03 — 2026.07 · 17개월</p></div>
+    <div class="rt"><span class="tag">ASP.NET</span> <span class="tag">C#</span> <span class="tag">MSSQL</span> <span class="tag">ERP 연동</span> <span class="tag">PG 결제</span></div>
+  </div>
+  <div class="row r-21">
+    <div class="card atop c-lime">
+      <p class="lab">ROLE &amp; RESPONSIBILITY</p>
+      <p style="margin-top:3mm;font-size:9.2pt;line-height:1.85;color:var(--ink-soft)">
+        웹 기반 업무 시스템의 기능 개선과 운영 고도화를 담당하며, 요구사항 분석부터 설계 · 개발 · 이슈 대응까지 수행했습니다.
+        팜페이 결제 PG API를 시스템에 맞춰 신규 연동하고, WOS 업무 화면을 디자인 · 연동 기능까지 전면 재구축했으며,
+        MSSQL 프로시저 · 대용량 거래 데이터 처리 개선과 ERP DB 연동 안정화 · 외부 데이터 수집으로
+        운영 데이터 활용 범위를 확장했습니다.
+      </p>
+      <div class="mets" style="margin-top:6mm">
+        <div class="met c-lime"><span class="v">99→70%</span><span class="l">피크 CPU 사용률</span><span class="c">실행계획 · 인덱스 정비</span></div>
+        <div class="met c-sky"><span class="v">70%</span><span class="l">2,000명 동시접속</span><span class="c">개선 후 안정 구간</span></div>
+        <div class="met c-yellow"><span class="v">45%</span><span class="l">1,200명 동시접속</span><span class="c">개선 후 여유 수준</span></div>
+      </div>
     </div>
-    <p class="desc">수박게임 스타일의 병합 퍼즐에 원소 속성 상호작용을 결합하고, Unity 클라이언트·Addressable 리소스 운영·AWS 백엔드 인프라를 함께 설계한 팀 프로젝트입니다.</p>
-    <ul class="ach">
-      <li><i></i><span>Physics2D 충돌 처리와 속성 테이블을 결합하여 확장 가능한 원소 상호작용 시스템 설계</span></li>
-      <li><i></i><span>Addressable Assets와 외부 리소스 서버를 활용해 초기 빌드 크기와 런타임 메모리 사용량 최적화</span></li>
-      <li><i></i><span>AWS EC2, Docker Compose, Spring Boot, MariaDB 기반 RESTful API 백엔드 환경 구축</span></li>
-    </ul>
-    <p class="stack-line">Unity · C# · Spring Boot · MariaDB · Docker · NginX · Apache · AWS</p>
-  </div>
-
-  <div class="card accent-top c-yellow proj" style="margin-top:4mm">
-    <div class="proj-head">
-      <h3>TheWildFour</h3>
-      <span class="term">2024.07.08 — 07.31 · 팀</span>
+    <div class="card atop c-pink">
+      <p class="lab">KEY HIGHLIGHTS</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">팜페이 결제 PG 연동</span><span class="d">전 과정 구축 — 요청 · 승인 · 취소</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">MSSQL 프로시저 개선</span><span class="d">대용량 거래 조회 응답 개선 · 피크 CPU 완화</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">WOS 화면 전면 재구축</span><span class="d">프론트 신규 구축 + 백엔드 기능 확장</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">ERP DB 연동 안정화</span><span class="d">장애 대응 · 정합성 점검 체계 정비</span></span></li>
+        <li class="item"><span class="n">05</span><span><span class="t">외부 데이터 수집 · 분석</span><span class="d">시스템 신규 개발 · 운영 데이터 활용 확장</span></span></li>
+      </ul>
     </div>
-    <p class="desc">4인 협동 3D 생존 게임에서 아이템 데이터 구조, 범용 인벤토리, 맵 오브젝트 저장·복원, 실시간 상호작용 시스템을 설계·구현한 팀 프로젝트입니다.</p>
-    <ul class="ach">
-      <li><i></i><span>ScriptableObject 기반 정적 데이터 분리로 아이템 인스턴스의 중복 데이터를 줄이고 메모리 사용 효율 개선</span></li>
-      <li><i></i><span>Observer Pattern 기반 범용 인벤토리 구조를 설계하여 플레이어, 보관함, 작업장 등 다양한 저장소에 재사용</span></li>
-      <li><i></i><span>JSON 스키마 기반 맵 오브젝트 저장·복원 구조를 구현하여 런타임 상태 관리와 데이터 유지보수성 향상</span></li>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>12</span></div>
+</section>
+
+<!-- ═══ 13 유팜몰 BEFORE → AFTER ═══ -->
+<section class="pg">
+  <div class="ph c-lime">
+    <div><p class="eyebrow">Career · 유팜몰</p><h2>운영 시스템 개선 사례 <span class="script">before → after</span></h2>
+      <p class="sub">화면 구조 · 조회 응답성 · 운영 안정성</p></div>
+  </div>
+  <div class="row r-3">
+    <div class="card atop c-sky">
+      <p class="lab">01 · 디자인 · 연동 전면 재구축</p>
+      <h3 style="margin-top:2.5mm;font-size:11pt">WOS 화면 전면 재구축</h3>
+      <div class="ba" style="margin-top:4mm">
+        <div class="b bf"><p class="k">BEFORE</p><p class="t">한 화면 구조 · 일관성 부족</p>
+          <p class="d">디자인 · 정보 구조가 화면마다 제각각이고 연동 기능도 분산</p></div>
+        <div class="b af"><p class="k">AFTER</p><p class="t">프론트 전면 재구축 + 백엔드 확장</p>
+          <p class="d">요구사항 기반으로 디자인 · 연동을 새로 설계하고 필요한 백엔드 기능 추가 · 확장</p></div>
+      </div>
+    </div>
+    <div class="card atop c-lime">
+      <p class="lab">02 · 조회 응답성 개선</p>
+      <h3 style="margin-top:2.5mm;font-size:11pt">프로시저 · 대용량 거래 데이터</h3>
+      <div class="ba" style="margin-top:4mm">
+        <div class="b bf"><p class="k">BEFORE</p><p class="t">느린 조회 · 서버 응답 지연</p>
+          <p class="d">복잡한 프로시저로 대용량 처리 시 지연 발생, 피크 CPU 99~100%</p></div>
+        <div class="b af"><p class="k">AFTER</p><p class="t">실행 계획 기반 쿼리 · 인덱스 개선</p>
+          <p class="d">병목 구간을 찾아 조회 응답 지연 완화, CPU 70% 수준 안정화</p></div>
+      </div>
+    </div>
+    <div class="card atop c-yellow">
+      <p class="lab">03 · 운영 안정성 확보</p>
+      <h3 style="margin-top:2.5mm;font-size:11pt">ERP DB 연동 안정화</h3>
+      <div class="ba" style="margin-top:4mm">
+        <div class="b bf"><p class="k">BEFORE</p><p class="t">장애 시 수동 점검 · 복구</p>
+          <p class="d">ERP DB 장애 발생 시 즉시 대응 어려움</p></div>
+        <div class="b af"><p class="k">AFTER</p><p class="t">연동 점검 + 대응 체계 정비</p>
+          <p class="d">점검 · 복구 절차 표준화로 장애 대응 시간 단축</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>13</span></div>
+</section>
+
+<!-- ═══ 14 유팜몰 MSSQL ═══ -->
+<section class="pg">
+  <div class="ph c-lime">
+    <div><p class="eyebrow">Career Case · 유팜몰</p><h2>MSSQL 프로시저 · 대용량 거래 데이터 개선</h2>
+      <p class="sub">실행 계획 분석으로 병목을 찾아 프로시저 · 인덱스를 정비</p></div>
+    <div class="rt"><span class="tag">MSSQL</span> <span class="tag">실행 계획</span> <span class="tag">인덱스</span> <span class="tag">프로시저</span></div>
+  </div>
+  <div class="row r-2">
+    <div class="card atop c-lime">
+      <p class="lab">개선 접근</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">실행 계획 분석으로 병목 구간 식별</span><span class="d">비용이 큰 조회 구간을 우선순위로 정리</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">쿼리 구조 · 인덱스 정비</span><span class="d">조회 조건과 인덱스 정합을 점검해 불필요한 비용 제거</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">프로시저 단계적 개선 · 검증 후 반영</span><span class="d">기존 조회 결과와 비교 검증하며 운영 영향 없이 적용</span></span></li>
+      </ul>
+      <p style="margin-top:5mm;padding-top:4mm;border-top:.3mm solid var(--line);font-size:8.7pt;line-height:1.75;color:var(--ink-soft)">
+        거래 데이터가 누적되며 주요 조회 화면의 응답이 느려지고, 피크 시 DB CPU가 99~100%까지 치솟아
+        <b>응답 지연 · 장애 위험</b>이 있었습니다.
+      </p>
+    </div>
+    <div class="card atop c-sky">
+      <p class="lab">성능 통계 · DB CPU 사용률</p>
+      <p style="font-size:8pt;color:var(--ink-mute);margin-top:1mm">동시 접속 부하 테스트 기준</p>
+      <div class="stack" style="margin-top:4mm">
+        <div class="card sm soft c-pink" style="display:flex;align-items:center;justify-content:space-between;gap:4mm">
+          <div><p style="font-size:8.6pt;font-weight:700">개선 전 · 피크 부하</p>
+            <p style="font-size:7.8pt;color:var(--ink-soft)">조회 폭주 시 CPU 한계 도달 → 응답 지연 · 장애 위험</p></div>
+          <span class="fig" style="font-size:18pt;color:var(--c-pink)">99–100%</span>
+        </div>
+        <div class="card sm soft c-sky" style="display:flex;align-items:center;justify-content:space-between;gap:4mm">
+          <div><p style="font-size:8.6pt;font-weight:700">개선 후 · 2,000명 동시 접속</p>
+            <p style="font-size:7.8pt;color:var(--ink-soft)">안정 구간 유지</p></div>
+          <span class="fig" style="font-size:18pt;color:var(--c-sky)">70%</span>
+        </div>
+        <div class="card sm soft c-lime" style="display:flex;align-items:center;justify-content:space-between;gap:4mm">
+          <div><p style="font-size:8.6pt;font-weight:700">개선 후 · 1,200명 동시 접속</p>
+            <p style="font-size:7.8pt;color:var(--ink-soft)">여유 있는 부하 수준 유지</p></div>
+          <span class="fig" style="font-size:18pt;color:var(--c-lime)">45%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>14</span></div>
+</section>
+
+<!-- ═══ 15 유팜몰 WOS + PG ═══ -->
+<section class="pg">
+  <div class="ph c-pink">
+    <div><p class="eyebrow">Career Case · 유팜몰</p><h2>WOS 화면 전면 재구축 · 팜페이 결제 PG 연동</h2>
+      <p class="sub">디자인 · 연동 기능 재설계 + 백엔드 기능 확장</p></div>
+    <div class="rt"><span class="tag">ASP.NET MVC</span> <span class="tag">UI/UX</span> <span class="tag">PG API</span></div>
+  </div>
+  <div class="row r-2">
+    <div class="card atop c-pink">
+      <p class="lab">WOS 화면 전면 재구축</p>
+      <p style="margin-top:2.5mm;font-size:8.7pt;line-height:1.7;color:var(--ink-soft)">
+        노후한 WOS 화면을 요구사항 기반으로 디자인 · 정보 구조부터 연동 기능까지 새로 설계하고,
+        필요한 백엔드 기능도 추가 · 확장하며 신규 구축 수준으로 재구축했습니다.</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">화면마다 제각각인 디자인 · 정보 구조</span><span class="d">→ 공통 컴포넌트 · 레이아웃 기준 정의로 화면 일관성 확보</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">분산된 연동 기능과 노후 구조</span><span class="d">→ 연동 흐름을 정리하고 화면–서버 연동을 새로 구현</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">운영 중 시스템 — 점진적 전환 필요</span><span class="d">→ 백엔드는 유지 · 확장하면서 프론트를 안전하게 교체</span></span></li>
+      </ul>
+    </div>
+    <div class="card atop c-sky">
+      <p class="lab">팜페이 결제 PG API 연동</p>
+      <dl class="fb" style="margin-top:3mm">
+        <dt><span class="tag line">문제</span></dt>
+        <dd>의약품 도 · 소매 거래 대금 결제를 위해 팜페이가 제공하는 결제(PG) API를 업무 시스템에 신규로 연동해야 했습니다.</dd>
+        <dt><span class="tag line">설계 · 구현</span></dt>
+        <dd>팜페이 PG API 문서(스펙)를 분석해 결제 요청 · 승인 · 취소 등 필요한 API를 시스템 구조와 데이터 흐름에 맞게 연동 · 적용하고, 결제 결과를 주문 · 거래 데이터와 연결해 처리했습니다.</dd>
+        <dt><span class="tag">결과 · 역량</span></dt>
+        <dd class="out">외부 PG 결제 연동을 시스템에 적용해 거래 결제를 처리할 수 있게 했고, <b>외부 API 문서를 해석해 기존 시스템에 맞춰 연동</b>하는 경험을 확보했습니다.</dd>
+      </dl>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>15</span></div>
+</section>
+
+<!-- ═══ 16 유팜몰 ERP ═══ -->
+<section class="pg">
+  <div class="ph c-yellow">
+    <div><p class="eyebrow">Career Case · 유팜몰</p><h2>ERP DB 연동 안정화 · 외부 데이터 수집</h2>
+      <p class="sub">장애 대응 체계 정비와 운영 데이터 활용 확장</p></div>
+    <div class="rt"><span class="tag">ERP 연동</span> <span class="tag">정합성 점검</span> <span class="tag">데이터 수집</span></div>
+  </div>
+  <div class="row r-2">
+    <div class="card atop c-yellow">
+      <p class="lab">과제</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">ERP DB 장애 시 수동 점검 · 복구</span><span class="d">장애 발생 시 원인 파악과 복구에 즉시 대응이 어려움</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">연동 데이터 정합성 관리 필요</span><span class="d">업무 시스템과 ERP 간 데이터 불일치 시 업무에 직접 영향</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">운영 데이터 활용 범위 확장 필요</span><span class="d">운영 판단에 필요한 외부 데이터의 수집 · 분석 요구</span></span></li>
+      </ul>
+    </div>
+    <div class="card atop c-lime">
+      <p class="lab">구현 · 성과</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">연동 점검 · 복구 절차 표준화</span><span class="d">장애 유형별 대응 절차를 정리해 대응 속도 개선</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">정합성 점검 체계 정비</span><span class="d">불일치를 조기에 발견하는 점검 흐름 구성</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">외부 데이터 수집 · 분석 시스템 신규 개발</span><span class="d">운영 데이터 활용 범위 확장</span></span></li>
+      </ul>
+      <div class="card sm soft c-lime" style="margin-top:4mm">
+        <p style="font-size:8.8pt;font-weight:700;color:var(--c-lime)">운영 안정성 향상</p>
+        <p style="font-size:8.2pt;color:var(--ink-soft);margin-top:.8mm">ERP 연동 오류 대응과 데이터 관리 부담 완화</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>16</span></div>
+</section>
+
+<!-- ═══ 17 TG 개요 ═══ -->
+<section class="pg">
+  <div class="ph c-yellow">
+    <div><p class="eyebrow">Career · 03</p><h2>(주)TG</h2>
+      <p class="sub">플랫폼팀 · 주임 &nbsp;|&nbsp; 2022.03 — 2024.02 · 약 2년</p></div>
+    <div class="rt"><span class="tag">React.js</span> <span class="tag">ReactQuery</span> <span class="tag">OpenAPI</span> <span class="tag">공공 SI</span></div>
+  </div>
+  <div class="card atop c-yellow" style="margin-bottom:4mm">
+    <p style="font-size:9.2pt;line-height:1.8;color:var(--ink-soft)">
+      공공 SI/SM과 서비스형 플랫폼 개발에 참여하며 관리자 시스템, OpenAPI, 공공기관 유지관리,
+      React 기반 화면 구현과 운영 개선을 수행했습니다.</p>
+  </div>
+  <div class="card grow">
+    <p class="lab c-yellow">PROJECTS · 회사에서 참여한 프로젝트</p>
+    <ul class="plist" style="margin-top:2mm">
+      <li><span class="dt">2022.03 — 2022.12</span>
+        <span><span class="nm">인천스마트관광도시 앱 서버 · 관리자 고도화</span>
+          <span class="ds">서버 · 관리자 · API 개발 · 고도화 + 관광지 · 주차장 OpenAPI (앱은 협력사 협업)</span></span>
+        <span class="rt">Backend · API<br>9개월</span></li>
+      <li><span class="dt">2023.01 — 2024.02</span>
+        <span><span class="nm">정보화통합관리체계 운영개선 및 유지관리</span>
+          <span class="ds">공공기관 SI/SM · 유지보수 · 보안 조치 · 서버/DB 이관 · 데이터 현행화</span></span>
+        <span class="rt">JSP<br>14개월</span></li>
+      <li><span class="dt">2022.12 — 2023.03<br>2023.10 — 2024.02</span>
+        <span><span class="nm">다지점 동물 임상시험 플랫폼 구축 · 고도화</span>
+          <span class="ds">React 기반 신규 구축 · 적응형 UI · ReactQuery 기반 운영 고도화 · 매뉴얼 작성</span></span>
+        <span class="rt">Frontend · UI/UX<br>총 9개월</span></li>
+      <li><span class="dt">2023.06 — 2023.08</span>
+        <span><span class="nm">동물 원격진료 플랫폼 MVP 개발</span>
+          <span class="ds">React.js · ReactQuery 프론트엔드 + WebRTC 영상통화 서버 연동 · 실시간 채팅 UI</span></span>
+        <span class="rt">Frontend<br>3개월</span></li>
     </ul>
-    <p class="stack-line">Unity · C#</p>
   </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>17</span></div>
+</section>
 
-  <div class="sec-head c-pink" style="margin-top:9mm">
-    <div><span class="rule"></span><h2>기술 <span class="script">stack</span></h2></div>
+<!-- ═══ 18 TG 인천 ═══ -->
+<section class="pg">
+  <div class="ph c-sky">
+    <div><p class="eyebrow">Career Case · TG</p><h2>인천스마트관광도시 앱 서버 · 관리자 고도화</h2>
+      <p class="sub">2022.03 — 2022.12 · 9개월 &nbsp;|&nbsp; 서버 · 관리자 · API 담당 (앱은 협력사와 협업)</p></div>
+    <div class="rt"><span class="tag">서버 · API</span> <span class="tag">관리자 시스템</span> <span class="tag">OpenAPI</span></div>
   </div>
-
-  <div class="skills">
-    <div class="skill-g c-sky"><span class="k">프론트엔드</span><p class="v">TypeScript · React · Next.js · ReactQuery · Zustand · jQuery · Tailwind CSS · Motion</p></div>
-    <div class="skill-g c-lime"><span class="k">백엔드</span><p class="v">ASP.NET MVC · C# · Java · Spring Boot · NestJS · JSP · OpenAPI 설계</p></div>
-    <div class="skill-g c-yellow"><span class="k">데이터베이스</span><p class="v">MSSQL · 프로시저 튜닝 · Oracle · MySQL · MariaDB · PostgreSQL · Firestore</p></div>
-    <div class="skill-g c-pink"><span class="k">인프라 · 운영</span><p class="v">AWS EC2 · Linux · Docker · NginX · Jenkins · Gitea Actions · GitHub Actions · Firebase Hosting · Git</p></div>
-    <div class="skill-g c-mint"><span class="k">모바일 · 게임</span><p class="v">Flutter · Capacitor · Shorebird · Play Console · App Store Connect · Unity · Mirror</p></div>
-    <div class="skill-g c-sky"><span class="k">그 외</span><p class="v">PG 결제 연동(토스페이먼츠 · 카카오페이 · 포트원) · WebRTC · 공공 SI 산출물</p></div>
+  <div class="row r-2">
+    <div class="card atop c-sky">
+      <p class="lab">과제</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">앱 서버 · 관리자 기능 고도화 필요</span><span class="d">서버 · 관리자 · API를 당사가 개선 · 확장 (앱 클라이언트는 협력사)</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">콘텐츠 운영 흐름 개선 필요</span><span class="d">관리자에서 관광 콘텐츠를 더 효율적으로 관리할 수 있어야 함</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">운영 데이터를 외부와 연계할 OpenAPI 필요</span><span class="d">관광 데이터를 외부 서비스에서 활용할 수 있도록 제공</span></span></li>
+      </ul>
+    </div>
+    <div class="card atop c-lime">
+      <p class="lab">구현 · 성과</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">서버 · 관리자 신규 기능 개발 · 고도화</span><span class="d">앱 서버 로직과 관리자 페이지 기능 개선 및 신규 기능 추가</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">운영 이슈 디버깅 · 협력사 대응</span><span class="d">백오피스 운영 효율 개선, 연동 이슈 협업</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">관광지 · 주차장 OpenAPI 설계 · 개발</span><span class="d">관광 데이터를 외부 서비스에 제공하는 OpenAPI 구축 (후속)</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">공공 SI 산출물 작성</span><span class="d">기능 명세서 · 테이블 정의서 · 프로그램 명세서</span></span></li>
+      </ul>
+    </div>
   </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>18</span></div>
+</section>
 
-  <div class="sec-head c-mint" style="margin-top:9mm">
-    <div><span class="rule"></span><h2>학력 <span class="script">study</span></h2></div>
+<!-- ═══ 19 TG 임상시험 + 원격진료 ═══ -->
+<section class="pg">
+  <div class="ph c-pink">
+    <div><p class="eyebrow">Career Case · TG</p><h2>동물 임상시험 플랫폼 · 원격진료 MVP</h2>
+      <p class="sub">신규 구축 이후 사용자 피드백과 운영 흐름을 반영해 고도화</p></div>
+    <div class="rt"><span class="tag">React.js</span> <span class="tag">ReactQuery</span> <span class="tag">WebRTC</span></div>
   </div>
+  <div class="row r-2">
+    <div class="card atop c-pink">
+      <p class="lab">다지점 동물 임상시험 플랫폼 · 총 9개월</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">분산된 임상시험 운영 업무 통합</span><span class="d">계획 의뢰 · 진행 관리 · 참가 개체 · 서류 · 리워드를 웹 기반으로 통합</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">PC / Mobile / Tablet 적응형 UI</span><span class="d">환경에 관계없이 일관된 사용 흐름 확보</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">ReactQuery 도입 · 고도화</span><span class="d">서버 상태 관리와 데이터 갱신 흐름 개선, 중복 요청 감소</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">관리자 / 사용자 매뉴얼 작성</span><span class="d">온보딩과 문의 대응 효율 개선</span></span></li>
+      </ul>
+    </div>
+    <div class="card atop c-mint">
+      <p class="lab">동물 원격진료 플랫폼 MVP · 3개월</p>
+      <dl class="fb" style="margin-top:3mm">
+        <dt><span class="tag line">문제</span></dt>
+        <dd>동물병원과 보호자 간 비대면 상담 흐름을 검증하기 위한 서비스형 MVP가 필요했습니다.</dd>
+        <dt><span class="tag line">설계 · 구현</span></dt>
+        <dd>React.js와 ReactQuery 기반 프론트엔드를 구현하고, 백엔드에서 구축된 <b>WebRTC 영상통화 서버</b>와 연동해 화상 상담 및 실시간 채팅 UI를 구성했습니다. 기획 · 디자인 시안을 화면으로 퍼블리싱했습니다.</dd>
+        <dt><span class="tag">결과 · 역량</span></dt>
+        <dd class="out">원격 상담의 핵심 사용자 흐름을 프로토타입으로 완성해 <b>신규 서비스 검증 기반</b>을 마련했습니다.</dd>
+      </dl>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>19</span></div>
+</section>
 
-  <ul class="edu card">
-    <li>
-      <div><p class="n">한국방송통신대학</p><p class="f">컴퓨터과학 — 자료구조, 알고리즘, 운영체제, AI 등 CS</p></div>
-      <div class="t">2023.08 — 2027.02<br>학사 · 졸업예정</div>
-    </li>
-    <li>
-      <div><p class="n">디벨로켓</p><p class="f">메타버스 플랫폼 게임 개발자과정 — C#, Unity 프로젝트, AR/XR</p></div>
-      <div class="t">2024.05 — 2025.01<br>수료</div>
-    </li>
-    <li>
-      <div><p class="n">수원여자대학</p><p class="f">모바일미디어(SW) — 웹 기초, DB, Java, Android, CS</p></div>
-      <div class="t">2016.03 — 2018.02<br>전문학사</div>
-    </li>
-  </ul>
+<!-- ═══ 20 TG 정보화통합관리체계 ═══ -->
+<section class="pg">
+  <div class="ph c-lime">
+    <div><p class="eyebrow">Career Case · TG</p><h2>정보화통합관리체계 운영개선 및 유지관리</h2>
+      <p class="sub">2023.01 — 2024.02 · 14개월 &nbsp;|&nbsp; 공공 SI/SM · 유지관리 / 운영지원</p></div>
+    <div class="rt"><span class="tag">공공 SI/SM</span> <span class="tag">유지보수</span> <span class="tag">보안 조치</span></div>
+  </div>
+  <div class="row r-2">
+    <div class="card atop c-lime">
+      <p class="lab">과제</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">다수 공공기관 납품 시스템의 안정적 운영</span><span class="d">고객 요구사항 · 장애 · 오류에 대한 지속 대응 필요</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">보안 취약점 조치와 정기 점검</span><span class="d">서버 · DB 이관 및 운영 데이터 현행화 필요</span></span></li>
+      </ul>
+      <p style="margin-top:5mm;padding-top:4mm;border-top:.3mm solid var(--line);font-size:8.7pt;line-height:1.75;color:var(--ink-soft)">
+        다수 공공기관에 납품된 시스템을 안정적으로 운영하면서 고객 요구사항, 보안 취약점,
+        서버 · DB 이관 등 운영 리스크에 대응해야 했습니다.</p>
+    </div>
+    <div class="card atop c-sky">
+      <p class="lab">구현 · 성과</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">요구사항 분석 · 기능 개선 · 오류 수정</span><span class="d">유지관리 작업 수행</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">보안 패치 및 취약점 조치</span><span class="d">점검 결과 기반 보안 패치</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">정기 점검 · 서버 · DB 이관 운영 지원</span><span class="d">운영 환경 전환 과정의 리스크 완화</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">운영 데이터 현행화 · 시스템 데이터 관리</span><span class="d">데이터 정확성과 관리 체계 개선</span></span></li>
+      </ul>
+      <div class="card sm soft c-sky" style="margin-top:4mm">
+        <p style="font-size:8.8pt;font-weight:700;color:var(--c-sky)">공공 시스템 서비스 지속성과 보안 안정성 유지</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>20</span></div>
+</section>
+
+<!-- ═══ 21 SECTION 02 ═══ -->
+<section class="pg divider c-lime">
+  <p class="no">02</p>
+  <h2>WORKS <span class="script">사이드 프로젝트</span></h2>
+  <p>기획부터 배포까지 직접. 필요해서 만들고, 만들면서 구조를 다시 생각한 결과물입니다.</p>
+  <div class="chips">
+    <span>PDF Converter</span><span>Portfolio Site v2</span><span>NEKO PARK</span>
+    <span>좀비, 펑펑! 화르륵</span><span>TheWildFour</span>
+  </div>
+  <div class="foot"><span style="color:rgba(255,255,255,.6)">Kim Sujin · Portfolio</span><span style="color:rgba(255,255,255,.6)">21</span></div>
+</section>
+
+<!-- ═══ 22 SELECTED PROJECTS ═══ -->
+<section class="pg">
+  <div class="ph c-lime">
+    <div><p class="eyebrow">Works</p><h2>프로젝트 요약 <span class="script">selected</span></h2>
+      <p class="sub">개인 2건 · 팀 3건</p></div>
+  </div>
+  <div class="row r-2" style="align-content:start">
+    <div class="card atop c-sky">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <p class="lab">PROJECT · 01</p><span style="font-size:8pt;color:var(--ink-mute)">2주 · 2025.11</span></div>
+      <h3 style="margin-top:2.5mm;font-size:13pt">PDF Converter</h3>
+      <p style="margin-top:1.5mm;font-size:8.8pt;color:var(--ink-soft);line-height:1.7">서버 전송 없이 클라이언트 사이드에서 다양한 이미지를 PDF로 변환</p>
+      <div class="tags" style="margin-top:3mm"><span class="tag line">Next.js</span><span class="tag line">Tailwind CSS</span>
+        <span class="tag line">Zustand</span><span class="tag line">pdf-lib</span><span class="tag line">Firebase Hosting</span></div>
+      <p style="margin-top:3mm;font-size:7.8pt;color:var(--ink-mute)">WEB · SOLO &nbsp;·&nbsp; pdf-converter-18eb5.web.app</p>
+    </div>
+    <div class="card atop c-lime">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <p class="lab">PROJECT · 02</p><span style="font-size:8pt;color:var(--ink-mute)">4개월 · 2025.12 — 2026.03</span></div>
+      <h3 style="margin-top:2.5mm;font-size:13pt">Portfolio Site v2</h3>
+      <p style="margin-top:1.5mm;font-size:8.8pt;color:var(--ink-soft);line-height:1.7">Firestore 기반 동적 포트폴리오 운영 구조</p>
+      <div class="tags" style="margin-top:3mm"><span class="tag line">Next.js</span><span class="tag line">TypeScript</span>
+        <span class="tag line">Tailwind CSS</span><span class="tag line">Firebase</span><span class="tag line">Motion</span></div>
+      <p style="margin-top:3mm;font-size:7.8pt;color:var(--ink-mute)">WEB · SOLO &nbsp;·&nbsp; sujin-portfolio.web.app</p>
+    </div>
+    <div class="card atop c-pink">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <p class="lab">PROJECT · 03</p><span style="font-size:8pt;color:var(--ink-mute)">8일 · 2024.08</span></div>
+      <h3 style="margin-top:2.5mm;font-size:13pt">NEKO PARK</h3>
+      <p style="margin-top:1.5mm;font-size:8.8pt;color:var(--ink-soft);line-height:1.7">Mirror 세션과 분리된 TCP 방 목록 서버로 협력 퍼즐 게임의 네트워크 진입 흐름 구현</p>
+      <div class="tags" style="margin-top:3mm"><span class="tag line">Unity</span><span class="tag line">C#</span>
+        <span class="tag line">Mirror</span><span class="tag line">TCP</span><span class="tag line">SHA-256</span></div>
+      <p style="margin-top:3mm;font-size:7.8pt;color:var(--ink-mute)">GAME · TEAM</p>
+    </div>
+    <div class="card atop c-yellow">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <p class="lab">PROJECT · 04 · 05</p><span style="font-size:8pt;color:var(--ink-mute)">2024.07 — 12</span></div>
+      <h3 style="margin-top:2.5mm;font-size:13pt">좀비, 펑펑! 화르륵 &nbsp;·&nbsp; TheWildFour</h3>
+      <p style="margin-top:1.5mm;font-size:8.8pt;color:var(--ink-soft);line-height:1.7">원소 상호작용 퍼즐 + AWS 백엔드 인프라 / 4인 협동 생존 게임의 아이템 · 인벤토리 구조</p>
+      <div class="tags" style="margin-top:3mm"><span class="tag line">Unity</span><span class="tag line">C#</span>
+        <span class="tag line">Spring Boot</span><span class="tag line">MariaDB</span><span class="tag line">Docker</span><span class="tag line">AWS</span></div>
+      <p style="margin-top:3mm;font-size:7.8pt;color:var(--ink-mute)">GAME · TEAM</p>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>22</span></div>
+</section>
+
+<!-- ═══ 23 PDF Converter 개요 ═══ -->
+<section class="pg">
+  <div class="ph c-sky">
+    <div><p class="eyebrow">Project · 01</p><h2>PDF Converter</h2>
+      <p class="sub">2025.11.04 — 2025.11.21 (2주) &nbsp;|&nbsp; 서버 업로드 없이 브라우저 내부에서 이미지 정규화와 PDF 생성</p></div>
+    <div class="rt"><span class="tag">Next.js</span> <span class="tag">Zustand</span> <span class="tag">pdf-lib</span><br>
+      <span style="display:inline-block;margin-top:1.5mm;font-size:7.8pt">pdf-converter-18eb5.web.app</span></div>
+  </div>
+  <div class="row r-2">
+    <div class="card atop c-sky">
+      <p class="lab">과제</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">개인정보 보호</span><span class="d">서버 업로드 방식 변환기는 민감한 문서나 개인 사진 유출 우려가 있음</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">사용 흐름 단순화</span><span class="d">광고 배너, 오클릭 유도 UI, 불필요한 로그인 절차가 변환 흐름을 방해</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">설치 없는 접근성</span><span class="d">별도 앱 설치 없이 브라우저에서 바로 사용할 수 있는 변환 도구 필요</span></span></li>
+      </ul>
+    </div>
+    <div class="card atop c-lime">
+      <p class="lab">구현 · KEY FEATURES</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">클라이언트 사이드 파이프라인</span><span class="d">이미지 로드부터 PDF 생성까지 브라우저에서 처리 — 파일이 외부 서버로 전송되지 않음</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">Drag &amp; Drop · Folder Upload</span><span class="d">리스트 내 재정렬 · webkitRelativePath 기준 자동 정렬</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">PDF Output Customization</span><span class="d">A4 / A3 / A5 / Letter / Legal · 세로·가로 전환 · 화질 4단계 압축</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">단순한 UI</span><span class="d">로그인 절차와 광고 요소 제거, 핵심 변환 흐름에 집중</span></span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>23</span></div>
+</section>
+
+<!-- ═══ 24 PDF Converter TECH — UUID ═══ -->
+<section class="pg">
+  <div class="ph c-sky">
+    <div><p class="eyebrow">Tech Decision · PDF Converter</p><h2>UUID 기반 파일 식별</h2>
+      <p class="sub">업로드와 Drag &amp; Drop 재정렬에서 순서가 바뀌어도 같은 파일을 안정적으로 추적</p></div>
+  </div>
+  <div class="row r-12">
+    <div class="stack">
+      <div class="card atop c-pink">
+        <p class="lab">초기 접근 — useRef 카운터</p>
+        <ul class="items">
+          <li class="item"><span class="n">!</span><span><span class="t">ID 충돌 가능성</span><span class="d">파일 / 폴더 업로드 탭이 독립적으로 ID를 생성하면 상위 병합 시 key 충돌</span></span></li>
+          <li class="item"><span class="n">!</span><span><span class="t">컴포넌트 결합도 증가</span><span class="d">부모에서 ID를 생성하도록 강제하면 하위가 부모 로직에 의존</span></span></li>
+        </ul>
+      </div>
+      <div class="card atop c-lime grow">
+        <p class="lab">최종 선택 — crypto.randomUUID()</p>
+        <ul class="items">
+          <li class="item"><span class="n">01</span><span><span class="t">전역 고유 ID 보장</span><span class="d">파일이 어느 컴포넌트에서 생성되든 충돌 없음</span></span></li>
+          <li class="item"><span class="n">02</span><span><span class="t">index 무관 추적</span><span class="d">D&amp;D 시 렌더링 index 변화와 무관하게 동일 파일 추적</span></span></li>
+          <li class="item"><span class="n">03</span><span><span class="t">컴포넌트 독립성 유지</span><span class="d">별도 충돌 방지 로직 불필요, 이후 기능 확장에도 유리</span></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card atop c-sky">
+      <p class="lab">데이터 흐름</p>
+      <div class="flow" style="margin-top:4mm">
+        <div class="b ghost">File / Folder Selector</div><div class="a">↓</div>
+        <div class="b">Raw File Object</div><div class="a">↓</div>
+        <div class="b ac">crypto.randomUUID()</div><div class="a">↓</div>
+        <div class="b">FileItem &#123; id: UUID, file: File &#125;</div>
+        <div class="a" style="margin-top:2mm">↓ &nbsp; Drag &amp; Drop</div>
+        <div class="b ghost">UI index 변경 · React 리렌더링</div><div class="a">↓</div>
+        <div class="b" style="background:var(--c-lime-soft);color:var(--c-lime)">데이터는 UUID 기준으로 유지</div>
+        <p class="note">index가 바뀌어도 데이터 참조는 유지 — key 충돌 · index mismatch 제거</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>24</span></div>
+</section>
+
+<!-- ═══ 25 PDF Converter TECH — 상태 / 폴더 ═══ -->
+<section class="pg">
+  <div class="ph c-pink">
+    <div><p class="eyebrow">Tech Decision · PDF Converter</p><h2>탭 전환 시 상태 유지 · 폴더 업로드 정렬</h2>
+      <p class="sub">상위 상태 관리 + Zustand 전역 상태 / 브라우저 보안 제약 대응</p></div>
+  </div>
+  <div class="row r-2">
+    <div class="card atop c-pink">
+      <p class="lab">탭 전환 시 파일 상태 유지</p>
+      <ul class="items">
+        <li class="item"><span class="n">!</span><span><span class="t">문제 — 탭 내부 상태 관리</span><span class="d">탭 이동 시 컴포넌트가 Unmount → Mount 반복되며 선택한 파일 목록과 정렬 상태가 초기화</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="t">해결 — 상위 상태 관리</span><span class="d">파일 관련 상태를 상위 영역과 Zustand store에서 일관 관리, 개별 탭은 UI 역할에 집중</span></span></li>
+      </ul>
+      <div class="flow" style="margin-top:4mm">
+        <div class="b ghost">BEFORE — Tab A [state] &nbsp;/&nbsp; Tab B [state]</div>
+        <p class="note">↻ 탭 전환 시 데이터 소실</p>
+        <div class="a">↓</div>
+        <div class="b ac">AFTER — Home / Store [file state]</div>
+        <div class="b ghost">Tab A (UI only) &nbsp;/&nbsp; Tab B (UI only)</div>
+        <p class="note">✓ 탭 전환에도 파일 목록 유지</p>
+      </div>
+    </div>
+    <div class="card atop c-yellow">
+      <p class="lab">폴더 업로드 — 경로 기반 정렬</p>
+      <ul class="items">
+        <li class="item"><span class="n">!</span><span><span class="t">브라우저 보안 정책</span><span class="d">절대 경로와 실제 파일 시스템 정보 저장 불가. 순서가 무너지면 PDF 페이지 흐름도 달라짐</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="t">파일 목록 정규화</span><span class="d">선택 시점에 공통 데이터 모델로 정규화하고, webkitRelativePath 기반 경로 정렬로 폴더 구조와 같은 순서 유지</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="t">폴더 단위 요약 렌더링</span><span class="d">화면 부담 축소</span></span></li>
+      </ul>
+      <div class="flow" style="margin-top:4mm">
+        <div class="b ghost">폴더 업로드</div><div class="a">↓</div>
+        <div class="b ghost">브라우저 보안 정책 — 절대 경로 저장 불가</div><div class="a">↓</div>
+        <div class="b">파일 목록 정규화</div><div class="a">↓</div>
+        <div class="b ac">webkitRelativePath 기반 정렬</div>
+        <p class="note">✓ 폴더 구조 · 순서 유지</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>25</span></div>
+</section>
+
+<!-- ═══ 26 PDF Converter TECH — EXIF ═══ -->
+<section class="pg">
+  <div class="ph c-mint">
+    <div><p class="eyebrow">Tech Decision · PDF Converter</p><h2>EXIF 방향 문제와 Canvas 정규화 파이프라인</h2>
+      <p class="sub">화면 표시가 아니라 픽셀 데이터 자체를 정상 방향으로 재생성</p></div>
+  </div>
+  <div class="row r-3">
+    <div class="card atop c-pink">
+      <p class="lab">초기 접근 — ArrayBuffer 직접 삽입</p>
+      <ul class="items">
+        <li class="item"><span class="n">!</span><span><span class="t">현상</span><span class="d">ArrayBuffer를 그대로 PDF에 삽입하면 EXIF 방향 보정이 반영되지 않음</span></span></li>
+        <li class="item"><span class="n">!</span><span><span class="t">구조적 원인</span><span class="d">pdf-lib 변환 과정에서 EXIF 메타데이터 기반 방향 정보가 유지되지 않음</span></span></li>
+        <li class="item"><span class="n">!</span><span><span class="t">리스크</span><span class="d">동일 파일도 기기 · 브라우저에 따라 다른 방향으로 출력</span></span></li>
+      </ul>
+      <div class="flow" style="margin-top:4mm">
+        <div class="b ghost">Raw 원본 이미지</div><div class="a">↓</div>
+        <div class="b ghost">File.arrayBuffer()</div>
+        <p class="note">픽셀 데이터만 존재</p>
+        <div class="a">↓</div>
+        <div class="b ghost">pdfDoc.embedJpg()</div>
+        <p class="note" style="color:var(--c-pink)">EXIF 미반영 → 출력 방향 오류</p>
+      </div>
+    </div>
+    <div class="card atop c-mint">
+      <p class="lab">해결 — createImageBitmap + Canvas</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">createImageBitmap(file)</span><span class="d">EXIF가 반영된 비트맵을 생성해 방향 차이 흡수</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">Canvas 재드로우</span><span class="d">재렌더링으로 픽셀 방향 고정</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">JPEG 재인코딩</span><span class="d">정규화 이미지로 재인코딩 후 PDF 삽입</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">ArrayBuffer Fallback</span><span class="d">정규화 실패 환경에서도 변환이 중단되지 않도록 대비</span></span></li>
+      </ul>
+      <p style="margin-top:4mm;padding-top:3.5mm;border-top:.3mm solid var(--line);font-size:8.3pt;line-height:1.7;color:var(--ink-soft)">
+        다운스케일링과 Canvas 재사용으로 처리 비용도 완화했습니다.</p>
+    </div>
+    <div class="card atop c-sky">
+      <p class="lab">정규화 파이프라인</p>
+      <div class="flow" style="margin-top:4mm">
+        <div class="b ghost">Raw 원본 이미지</div><div class="a">↓</div>
+        <div class="b">createImageBitmap()</div><div class="a">↓</div>
+        <div class="b">정상 방향 Bitmap</div><div class="a">↓</div>
+        <div class="b">Canvas Re-rendering</div><div class="a">↓</div>
+        <div class="b">JPEG Re-encoding</div><div class="a">↓</div>
+        <div class="b ac">pdfDoc.embedJpg()</div>
+        <p class="note" style="color:var(--c-sky)">✓ 기기 · 브라우저 차이 없이 동일 방향 출력</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>26</span></div>
+</section>
+
+<!-- ═══ 27 PDF Converter 결과 ═══ -->
+<section class="pg">
+  <div class="ph c-lime">
+    <div><p class="eyebrow">Retrospective · PDF Converter</p><h2>결과 및 배운 점 <span class="script">takeaway</span></h2></div>
+  </div>
+  <div class="row r-3" style="align-content:center">
+    <div class="card atop c-sky" style="align-self:center">
+      <span class="fig" style="font-size:26pt;color:var(--c-sky)">01</span>
+      <h3 style="margin-top:3mm;font-size:12pt">클라이언트 파일 처리 흐름 설계</h3>
+      <p style="margin-top:2.5mm;font-size:8.8pt;line-height:1.75;color:var(--ink-soft)">
+        이미지 업로드 → 정규화 → PDF 출력까지 서버 전송 없는 처리 파이프라인을 직접 설계했습니다.</p>
+    </div>
+    <div class="card atop c-mint" style="align-self:center">
+      <span class="fig" style="font-size:26pt;color:var(--c-mint)">02</span>
+      <h3 style="margin-top:3mm;font-size:12pt">EXIF 방향 이슈 해결</h3>
+      <p style="margin-top:2.5mm;font-size:8.8pt;line-height:1.75;color:var(--ink-soft)">
+        기기별로 달라지는 Orientation 문제를 Canvas 기반 정규화로 처리했습니다.</p>
+    </div>
+    <div class="card atop c-yellow" style="align-self:center">
+      <span class="fig" style="font-size:26pt;color:var(--c-yellow)">03</span>
+      <h3 style="margin-top:3mm;font-size:12pt">UUID 기반 데이터 무결성</h3>
+      <p style="margin-top:2.5mm;font-size:8.8pt;line-height:1.75;color:var(--ink-soft)">
+        Drag &amp; Drop 재정렬 시 index가 아닌 파일 고유 ID로 안정적인 렌더링 구조를 구성했습니다.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>27</span></div>
+</section>
+
+<!-- ═══ 28 Portfolio v2 개요 ═══ -->
+<section class="pg">
+  <div class="ph c-lime">
+    <div><p class="eyebrow">Project · 02</p><h2>Portfolio Site v2</h2>
+      <p class="sub">2025.12 — 2026.03 (4개월) &nbsp;|&nbsp; 기획 / 디자인 / 개발 · Firestore 기반 동적 포트폴리오 운영 구조</p></div>
+    <div class="rt"><span class="tag">Next.js</span> <span class="tag">TypeScript</span> <span class="tag">Firebase</span><br>
+      <span style="display:inline-block;margin-top:1.5mm;font-size:7.8pt">sujin-portfolio.web.app</span></div>
+  </div>
+  <div class="row r-2">
+    <div class="card atop c-pink">
+      <p class="lab">과제</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">기존 GitHub Pages 기반 정적 포트폴리오 운영</span><span class="d">서버 기능을 활용하기 어려워 동적 콘텐츠 확장에 제약</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">콘텐츠 갱신마다 코드 수정 · 재배포 필요</span><span class="d">프로젝트 · 경력 · 기술스택 정보가 늘어날수록 운영 부담 누적</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">데이터 기반 화면 확장 구조 필요</span><span class="d">정적 호스팅 제약으로 콘텐츠 관리와 화면 로직이 강하게 결합</span></span></li>
+      </ul>
+    </div>
+    <div class="card atop c-lime">
+      <p class="lab">구현</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">Firebase Hosting + Firestore 동적 콘텐츠 구조</span><span class="d">프로젝트 · 경력 · 기술스택 데이터를 Firestore 컬렉션으로 분리</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">전용 관리자 페이지 구축</span><span class="d">코드 수정 및 재배포 없이 콘텐츠 등록 · 수정 · 삭제 가능</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">화면 · API 레이어 · 데이터 변환 로직 분리</span><span class="d">유지보수성과 확장성을 고려한 운영 구조 구현</span></span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>28</span></div>
+</section>
+
+<!-- ═══ 29 Portfolio v2 — Firebase 전환 ═══ -->
+<section class="pg">
+  <div class="ph c-sky">
+    <div><p class="eyebrow">Tech Decision · Portfolio v2</p><h2>정적 배포 → 데이터 운영</h2>
+      <p class="sub">Firebase Hosting + Firestore 전환과 데이터 기반 콘텐츠 관리</p></div>
+  </div>
+  <div class="row r-12">
+    <div class="stack">
+      <div class="card atop c-pink">
+        <p class="lab">Before · GitHub Pages 정적 호스팅</p>
+        <ul class="items">
+          <li class="item"><span class="n">!</span><span><span class="d" style="margin-top:0">정적 빌드 결과물 배포 — 콘텐츠와 화면 코드가 결합되어 수정 비용 증가</span></span></li>
+          <li class="item"><span class="n">!</span><span><span class="d" style="margin-top:0">동적 데이터 조회와 관리자 입력 흐름 확장 제약</span></span></li>
+          <li class="item"><span class="n">!</span><span><span class="d" style="margin-top:0">콘텐츠 갱신마다 코드 수정 · 재배포 필요</span></span></li>
+        </ul>
+      </div>
+      <div class="card atop c-lime grow">
+        <p class="lab">After · Firebase Hosting + Firestore</p>
+        <ul class="items">
+          <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">Firestore 조회 구조 활성화 — career · project · skill · docs 컬렉션 단위 관리</span></span></li>
+          <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">프로젝트 상세는 역할 · 트러블슈팅 · 성과 블록을 재사용 가능한 스키마로 구성</span></span></li>
+          <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">전용 관리자 페이지 — Firestore 콘솔 접근 없이 콘텐츠 관리, 입력 즉시 반영</span></span></li>
+          <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">운영 부담을 코드 배포에서 데이터 관리로 전환</span></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card atop c-sky">
+      <p class="lab">구조</p>
+      <div class="flow" style="margin-top:4mm">
+        <div class="b ghost">Admin Form — 전용 관리자 페이지 + 인증</div><div class="a">↓</div>
+        <div class="b ac">Firebase Firestore</div><div class="a">↓</div>
+        <div class="b ghost">src/features/* (도메인 모듈)</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5mm;width:100%;margin-top:1.5mm">
+          <div class="b" style="font-size:7.2pt;padding:2mm 1mm">career</div><div class="b" style="font-size:7.2pt;padding:2mm 1mm">project</div>
+          <div class="b" style="font-size:7.2pt;padding:2mm 1mm">skill</div><div class="b" style="font-size:7.2pt;padding:2mm 1mm">docs</div>
+        </div>
+        <div class="a">↓</div>
+        <div class="b" style="background:var(--c-lime-soft);color:var(--c-lime)">사이트 즉시 반영</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>29</span></div>
+</section>
+
+<!-- ═══ 30 Portfolio v2 — RSS ═══ -->
+<section class="pg">
+  <div class="ph c-mint">
+    <div><p class="eyebrow">Tech Decision · Portfolio v2</p><h2>티스토리 RSS 연동</h2>
+      <p class="sub">CORS · 정적 빌드 · 외부 프록시 문제를 거쳐 빌드 시점 서버 fetch로 정리</p></div>
+  </div>
+  <div class="row r-12">
+    <div class="card atop c-mint">
+      <p class="lab">시도와 선택</p>
+      <ul class="items">
+        <li class="item"><span class="n">1</span><span><span class="t">클라이언트 직접 fetch</span><span class="d">브라우저 보안 정책(CORS)으로 Tistory RSS 직접 요청 차단</span></span></li>
+        <li class="item"><span class="n">2</span><span><span class="t">API Route 사용</span><span class="d">정적 export(output: 'export') 구조와 API Route 사용이 충돌</span></span></li>
+        <li class="item"><span class="n">3</span><span><span class="t">무료 CORS 프록시</span><span class="d">응답 불안정 — 실제로 프록시 4곳이 모두 중단되어(403 · 522 · 연결 실패) 글이 하나도 노출되지 않는 장애 발생</span></span></li>
+        <li class="item"><span class="n">4</span><span><span class="t">최종 — 빌드 시점 서버 fetch</span><span class="d">페이지를 서버 컴포넌트로 분리해 빌드 때 RSS를 직접 가져와 HTML에 포함. 정적 export를 유지하면서 CORS · 프록시 · 로딩 상태를 모두 제거</span></span></li>
+      </ul>
+    </div>
+    <div class="card atop c-sky">
+      <p class="lab">최종 구조</p>
+      <div class="flow" style="margin-top:4mm">
+        <div class="b ghost" style="color:var(--c-pink)">✕ Client → Tistory RSS &nbsp;(CORS)</div>
+        <div class="b ghost" style="color:var(--c-pink)">✕ Client → API Route &nbsp;(export 충돌)</div>
+        <div class="b ghost" style="color:var(--c-pink)">✕ Client → CORS Proxy &nbsp;(불안정)</div>
+        <div class="a" style="margin-top:2mm">↓</div>
+        <div class="b ac">Build &nbsp;→&nbsp; Server fetch &nbsp;→&nbsp; RSS</div>
+        <div class="a">↓</div>
+        <div class="b">정적 HTML에 글 목록 포함</div>
+        <p class="note" style="color:var(--c-sky)">✓ 프록시 · 로딩 상태 불필요 · 배포마다 갱신</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>30</span></div>
+</section>
+
+<!-- ═══ 31 Portfolio v2 — 구현 디테일 ═══ -->
+<section class="pg">
+  <div class="ph c-yellow">
+    <div><p class="eyebrow">Implementation · Portfolio v2</p><h2>구현 디테일 <span class="script">details</span></h2></div>
+  </div>
+  <div class="row r-2" style="align-content:start">
+    <div class="card atop c-sky">
+      <p class="lab">데이터 · 렌더링</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">Dynamic Route + SSG</span><span class="d">경력 · 프로젝트 상세 경로를 사전 생성</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">Markdown-like 텍스트 강조</span><span class="d">Firestore 텍스트의 **강조** 패턴으로 핵심 키워드 강조</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">라벨 파싱</span><span class="d">문제 / 설계 · 구현 / 결과 · 역량 접두어를 구조화된 블록으로 변환</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">Firebase 중복 초기화 방지</span><span class="d">getApps 체크로 빌드 · HMR 환경에서 인스턴스 중복 생성 방지</span></span></li>
+        <li class="item"><span class="n">05</span><span><span class="t">Image Visibility Guard</span><span class="d">이미지 URL이 없거나 오류면 placeholder 없이 실제 이미지만 표시</span></span></li>
+      </ul>
+    </div>
+    <div class="card atop c-pink">
+      <p class="lab">디자인 시스템 · 인터랙션</p>
+      <ul class="items">
+        <li class="item"><span class="n">01</span><span><span class="t">다색 로테이션 토큰</span><span class="d">부모에 색 클래스를 붙이면 CSS 변수가 바뀌어 점 · 알약 · 숫자 · 링크가 함께 따라옴</span></span></li>
+        <li class="item"><span class="n">02</span><span><span class="t">지표 자동 계산</span><span class="d">경력 개월 수 · 회사 수 · 업무 건수를 데이터에서 계산. 기간이 겹쳐도 구간을 병합해 부풀지 않음</span></span></li>
+        <li class="item"><span class="n">03</span><span><span class="t">스크롤 섹션 감지</span><span class="d">현재 섹션을 감지해 메뉴 활성 상태와 연결</span></span></li>
+        <li class="item"><span class="n">04</span><span><span class="t">모바일 레코드 전환</span><span class="d">표를 라벨 + 값 카드로 접어 가로 스크롤 제거</span></span></li>
+        <li class="item"><span class="n">05</span><span><span class="t">Scroll to Top</span><span class="d">조건부 버튼 노출 + 부드러운 상단 이동</span></span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>31</span></div>
+</section>
+
+<!-- ═══ 32 팀 프로젝트 ═══ -->
+<section class="pg">
+  <div class="ph c-pink">
+    <div><p class="eyebrow">Works · Team</p><h2>팀 프로젝트 <span class="script">unity</span></h2>
+      <p class="sub">네트워크 · 데이터 구조 · 인프라를 직접 설계한 게임 프로젝트</p></div>
+  </div>
+  <div class="row r-3">
+    <div class="card atop c-pink">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:3mm">
+        <h3 style="font-size:12pt">NEKO PARK</h3><span style="font-size:7.8pt;color:var(--ink-mute);white-space:nowrap">2024.08 · 8일</span></div>
+      <p style="margin-top:2mm;font-size:8.6pt;line-height:1.7;color:var(--ink-soft)">
+        Mirror 기반 멀티플레이 세션에 TCP 방 목록 서버, 로그인, 로컬 세이브를 결합해 협력 퍼즐 게임의 네트워크 진입 흐름 구현</p>
+      <ul class="items">
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">Mirror 세션과 분리된 <b>TCP 방 목록 서버</b>로 방 생성 · 조회 · 입장 안정화</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">TCP 승인 호스트를 Mirror RoomManager에 연결하는 2계층 구조</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">SHA-256 해시 + Singleton 캐싱으로 계정 보안과 씬 전환 간 일관성</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">JsonUtility 로컬 세이브로 오프라인 진행도 유지</span></span></li>
+      </ul>
+    </div>
+    <div class="card atop c-yellow">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:3mm">
+        <h3 style="font-size:12pt">좀비, 펑펑! 화르륵</h3><span style="font-size:7.8pt;color:var(--ink-mute);white-space:nowrap">2024.11 — 12</span></div>
+      <p style="margin-top:2mm;font-size:8.6pt;line-height:1.7;color:var(--ink-soft)">
+        병합 퍼즐에 원소 속성 상호작용을 결합하고 Unity 클라이언트 · 리소스 운영 · AWS 백엔드를 함께 설계</p>
+      <ul class="items">
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">Physics2D 충돌 + 속성 테이블로 확장 가능한 원소 상호작용 설계</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">Addressable + 외부 리소스 서버로 빌드 크기 · 런타임 메모리 최적화</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">AWS EC2 · Docker Compose · Spring Boot · MariaDB REST API 구축</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">카탈로그 분리로 앱 재배포 없는 에셋 단위 업데이트</span></span></li>
+      </ul>
+    </div>
+    <div class="card atop c-mint">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:3mm">
+        <h3 style="font-size:12pt">TheWildFour</h3><span style="font-size:7.8pt;color:var(--ink-mute);white-space:nowrap">2024.07 · 3주</span></div>
+      <p style="margin-top:2mm;font-size:8.6pt;line-height:1.7;color:var(--ink-soft)">
+        4인 협동 3D 생존 게임의 아이템 데이터 구조, 범용 인벤토리, 맵 오브젝트 저장 · 복원 설계</p>
+      <ul class="items">
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">ScriptableObject 정적 데이터 분리로 인스턴스 중복 제거 · 메모리 효율 개선</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">Observer Pattern 범용 인벤토리 — 플레이어 · 보관함 · 작업장에 재사용</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">JSON 스키마 기반 맵 오브젝트 저장 · 복원</span></span></li>
+        <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">Coroutine 비동기 처리로 시간 의존 로직을 프레임 저하 없이</span></span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>32</span></div>
+</section>
+
+<!-- ═══ 33 END ═══ -->
+<section class="pg end">
+  <span class="script">Thank you</span>
+  <h2>긴 시간 읽어주셔서 감사합니다</h2>
+  <p>사용자 경험을 꼼꼼히 살피며<br>꾸준히 성장하는 개발자가 되겠습니다.</p>
+  <div class="contact">
+    <span style="background:var(--c-sky)">su_042@daum.net</span>
+    <span style="background:var(--c-lime)">github.com/Nuuuing</span>
+    <span style="background:var(--c-mint)">nuu-stradamus.tistory.com</span>
+    <span style="background:var(--c-yellow)">sujin-portfolio.web.app</span>
+  </div>
+  <div class="foot"><span>Kim Sujin · Portfolio</span><span>33</span></div>
 </section>
 
 </body>

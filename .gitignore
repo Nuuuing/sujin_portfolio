@@ -42,5 +42,5 @@ pptx_build/
 
 *.pdf
 !public/portfolio.pdf
-!docs/portfolio/*.pdf
+!docs/portfolio/김수진_포트폴리오.pdf
 .superpowers/
