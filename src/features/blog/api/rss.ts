@@ -50,12 +50,31 @@ const extractThumbnail = (content: string | null): string | undefined => {
     return img ? img[1] : undefined;
 };
 
-/** HTML 태그와 엔티티를 걷어내고 요약문을 만든다 */
+/**
+ * HTML 태그와 엔티티를 걷어내고 요약문을 만든다.
+ *
+ * 순서가 중요하다. 태그를 먼저 지우고 엔티티를 나중에 풀면
+ * &lt;p&gt; 같은 인코딩된 태그가 그때서야 <p> 로 바뀌어 본문에 글자로 남는다.
+ * 그래서 디코딩 → 태그 제거를 두 번 돌려 두 경우를 모두 흡수한다.
+ */
 const toSummary = (html: string | null, max = 110): string | undefined => {
     if (!html) return undefined;
-    const text = decodeEntities(html.replace(/<[^>]+>/g, ' '))
-        .replace(/\s+/g, ' ')
-        .trim();
+
+    const strip = (s: string, dropCode: boolean) =>
+        decodeEntities(s)
+            // 스크립트·스타일·코드 블록은 안쪽 내용까지 통째로 버린다.
+            // 글이 코드로 시작하면 요약이 SQL·소스 덩어리가 되어 읽히지 않는다.
+            .replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ')
+            .replace(dropCode ? /<(pre|code)[\s\S]*?<\/\1>/gi : /(?!)/g, ' ')
+            .replace(/<[^>]*>/g, ' ');
+
+    const clean = (s: string, dropCode: boolean) =>
+        strip(strip(s, dropCode), dropCode).replace(/\s+/g, ' ').trim();
+
+    // 코드를 뺀 산문이 너무 짧으면(코드만 있는 글) 코드라도 보여 준다
+    const prose = clean(html, true);
+    const text = prose.length >= 30 ? prose : clean(html, false);
+
     if (!text) return undefined;
     return text.length > max ? `${text.slice(0, max).trimEnd()}…` : text;
 };

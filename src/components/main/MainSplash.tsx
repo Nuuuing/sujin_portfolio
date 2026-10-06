@@ -107,7 +107,7 @@ export const MainSplash = () => {
                 >
                     {docUrl && (
                         <a href={docUrl} target="_blank" rel="noopener noreferrer" className="pill pill-solid c-sky">
-                            이력서 보기 <span aria-hidden>↗</span>
+                            포트폴리오 보기 <span aria-hidden>↗</span>
                         </a>
                     )}
                     <a href="mailto:su_042@daum.net" className="pill pill-solid c-lime">
