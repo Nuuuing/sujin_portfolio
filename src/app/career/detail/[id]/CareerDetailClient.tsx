@@ -47,10 +47,7 @@ export function CareerDetailClient({ id, initialData }: CareerDetailClientProps)
     if (isLoading) {
         return (
             <DetailLayout title="CAREER">
-                <div className="flex flex-col items-center justify-center py-20">
-                    <div className="w-12 h-12 border-4 border-[var(--taupe)]/30 border-t-[var(--taupe)] rounded-full animate-spin mb-4"></div>
-                    <p className="text-ink-soft/60">경력 정보를 불러오는 중...</p>
-                </div>
+                <p className="rule py-10 text-center text-xs text-ink-mute">경력 정보를 불러오는 중...</p>
             </DetailLayout>
         );
     }
@@ -59,16 +56,13 @@ export function CareerDetailClient({ id, initialData }: CareerDetailClientProps)
     if (error || !career) {
         return (
             <DetailLayout title="CAREER">
-                <div className="flex flex-col items-center justify-center py-20 text-ink-soft">
-                    <svg className="w-16 h-16 mb-4 text-ink-soft" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <p className="text-lg mb-4">해당 경력 정보를 찾을 수 없습니다.</p>
+                <div className="rule py-10 text-center">
+                    <p className="text-xs text-ink-mute">해당 경력 정보를 찾을 수 없습니다.</p>
                     <button
                         onClick={() => router.push('/')}
-                        className="px-4 py-2 bg-[var(--taupe)] text-[var(--bg-card)] rounded-lg hover:bg-[var(--ink)] transition-colors"
+                        className="link mt-3 cursor-pointer text-[0.86rem] font-semibold"
                     >
-                        홈으로
+                        홈으로 →
                     </button>
                 </div>
             </DetailLayout>

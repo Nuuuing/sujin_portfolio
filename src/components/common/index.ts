@@ -10,3 +10,5 @@ export * from './tooltip'
 
 //Icons
 export * from './icons'
+export * from './SectionHead'
+export * from './FocusBody'

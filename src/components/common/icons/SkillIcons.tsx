@@ -95,7 +95,7 @@ export const SkillIcon = ({ skillName, className, size = 20 }: SkillIconProps) =
     if (!imagePath) {
         return (
             <div
-                className={`inline-flex items-center justify-center rounded-md bg-cream overflow-hidden ${className || ''}`}
+                className={`inline-flex items-center justify-center overflow-hidden border border-line bg-card-soft ${className || ''}`}
                 style={{ width: size, height: size }}
             >
                 <span className="text-xs font-medium text-ink-soft">

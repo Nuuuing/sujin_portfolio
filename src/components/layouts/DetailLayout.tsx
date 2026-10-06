@@ -19,7 +19,7 @@ export const DetailLayout = ({ children, title }: DetailLayoutProps) => {
 
     return (
         <div className="w-full min-h-screen relative">
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="shell relative z-10 pt-16 sm:pt-20">
                 {/* 돌아가기 버튼 */}
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
@@ -29,12 +29,12 @@ export const DetailLayout = ({ children, title }: DetailLayoutProps) => {
                 >
                     <button
                         onClick={() => router.back()}
-                        className="inline-flex items-center gap-2 text-ink-soft/60 hover:text-[var(--taupe)] transition-colors cursor-pointer group"
+                        className="pill pill-line cursor-pointer"
                     >
-                        <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="h-4 w-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                         </svg>
-                        <span className="text-sm sm:text-base font-medium">돌아가기</span>
+                        <span>돌아가기</span>
                     </button>
                 </motion.div>
 
@@ -43,11 +43,10 @@ export const DetailLayout = ({ children, title }: DetailLayoutProps) => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="mb-8 sm:mb-12"
+                        className="mb-6 sm:mb-8"
                     >
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
-                            <span className="text-ink">{title.slice(0, Math.ceil(title.length / 2))}</span>
-                            <span className="text-[var(--taupe)]">{title.slice(Math.ceil(title.length / 2))}</span>
+                        <h1 className="text-[1.9rem] font-bold tracking-[-0.03em] text-ink sm:text-[2.4rem]">
+                            {title}
                         </h1>
                     </motion.div>
                 )}
@@ -56,14 +55,14 @@ export const DetailLayout = ({ children, title }: DetailLayoutProps) => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="pb-12"
+                    className="pb-10"
                 >
                     {children}
                 </motion.div>
 
-                <footer className="py-8 sm:py-12 border-t border-line text-center text-ink-soft">
-                    <p className="text-xs sm:text-sm mb-2">본 페이지는 상업적 목적이 아닌 개인 포트폴리오용으로 제작되었습니다.</p>
-                    <p className="text-xs sm:text-sm text-ink-soft">© 2026 Kim Sujin. All Rights Reserved.</p>
+                <footer className="flex flex-wrap items-center justify-between gap-2 px-1 pb-10 pt-6 text-center sm:text-left">
+                    <p className="text-[0.85rem] text-ink-mute">본 페이지는 상업적 목적이 아닌 개인 포트폴리오용으로 제작되었습니다.</p>
+                    <p className="tnum text-[0.85rem] text-ink-faint">© 2026 Kim Sujin</p>
                 </footer>
             </div>
         </div>

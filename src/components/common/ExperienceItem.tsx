@@ -16,18 +16,16 @@ export const ExperienceItem = ({
     isActive = false,
 }: ExperienceItemProps) => {
     return (
-        <div className={`border-l-2 pl-3 ${isActive ? 'border-[var(--taupe)]' : 'border-line-strong'}`}>
+        <div className={`border-l-2 pl-3 ${isActive ? 'border-ac' : 'border-line-strong'}`}>
             <div className="flex items-center gap-2 mb-1">
-                <span className={`text-sm font-semibold ${isActive ? 'text-taupe' : 'text-ink-soft'}`}>
+                <span className={`tnum text-[0.82rem] font-semibold ${isActive ? 'text-ac' : 'text-ink-soft'}`}>
                     {period}
                 </span>
-                <span className={`text-xs px-1.5 py-0.5 rounded ${isActive ? 'bg-[var(--taupe)]/12 text-taupe' : 'bg-cream text-ink-soft'}`}>
-                    {badge}
-                </span>
+                <span className="eyebrow">{badge}</span>
             </div>
-            <p className="text-sm sm:text-base font-medium text-ink">{institution}</p>
-            <p className="text-xs sm:text-sm text-ink-soft mt-0.5">{field}</p>
-            <p className="text-xs text-ink-soft/70 mt-1">{description}</p>
+            <p className="text-[1.02rem] font-semibold text-ink">{institution}</p>
+            <p className="mt-0.5 text-[0.88rem] text-ink-soft">{field}</p>
+            <p className="mt-1 text-[0.82rem] text-ink-mute">{description}</p>
         </div>
     );
 };

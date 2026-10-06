@@ -7,67 +7,26 @@ import { ImageWithFallback } from "@/components";
 import { prepImg } from "@/data";
 import { useState } from "react";
 
+const CARD_COLORS = ['c-sky', 'c-lime', 'c-yellow', 'c-pink', 'c-mint'];
+
 interface ContentsContainerProps {
     data: contentsT;
+    index?: number;
 }
 
-const contentTypeStyles: Record<string, {
-    tagLabel: string;
-    accent: string;
-}> = {
-    [ContentType.TROUBLESHOOT]: {
-        tagLabel: '문제 해결',
-        accent: 'bg-[var(--taupe)]'
-    },
-    [ContentType.IMPROVEMENT]: {
-        tagLabel: '향후 개선',
-        accent: 'bg-[var(--taupe)]'
-    },
-    [ContentType.GENERAL]: {
-        tagLabel: '',
-        accent: 'bg-[var(--taupe)]/40'
-    }
+const typeLabel: Record<string, string> = {
+    [ContentType.TROUBLESHOOT]: '문제 해결',
+    [ContentType.IMPROVEMENT]: '향후 개선',
+    [ContentType.GENERAL]: '',
 };
 
-// 기본 스타일 (GENERAL)
-const defaultStyles = contentTypeStyles[ContentType.GENERAL];
-
-const sectionMeta: Record<string, {
-    title: string;
-    headingClass: string;
-    borderClass: string;
-    dotClass: string;
-}> = {
-    '문제': {
-        title: '과제',
-        headingClass: 'text-ink',
-        borderClass: 'border-line-strong',
-        dotClass: 'bg-line-strong',
-    },
-    '해결': {
-        title: '구현',
-        headingClass: 'text-[var(--taupe)]',
-        borderClass: 'border-[var(--taupe)]/40',
-        dotClass: 'bg-[var(--taupe)]',
-    },
-    '설계/구현': {
-        title: '구현',
-        headingClass: 'text-[var(--taupe)]',
-        borderClass: 'border-[var(--taupe)]/40',
-        dotClass: 'bg-[var(--taupe)]',
-    },
-    '결과': {
-        title: '성과',
-        headingClass: 'text-[var(--taupe)]',
-        borderClass: 'border-[var(--sage)]/45',
-        dotClass: 'bg-[var(--sage)]',
-    },
-    '결과/역량': {
-        title: '성과',
-        headingClass: 'text-[var(--taupe)]',
-        borderClass: 'border-[var(--sage)]/45',
-        dotClass: 'bg-[var(--sage)]',
-    },
+/** 라벨 → 표시 제목 */
+const sectionTitle: Record<string, string> = {
+    '문제': '문제',
+    '해결': '설계 · 구현',
+    '설계/구현': '설계 · 구현',
+    '결과': '결과 · 역량',
+    '결과/역량': '결과 · 역량',
 };
 
 const normalizeContent = (text: string) => text
@@ -84,100 +43,75 @@ const getStructuredSections = (text?: string) => {
         .map(line => {
             const match = line.match(/^(문제|해결|설계\/구현|결과|결과\/역량):\s*(.*)$/);
             if (!match) return null;
-            return {
-                label: match[1],
-                content: match[2],
-            };
+            return { label: match[1], content: match[2] };
         })
         .filter((section): section is { label: string; content: string } => Boolean(section));
 };
 
-export const ContentsContainer = ({ data }: ContentsContainerProps) => {
+export const ContentsContainer = ({ data, index = 0 }: ContentsContainerProps) => {
     const contentType = data.contentType || ContentType.GENERAL;
-    const styles = contentTypeStyles[contentType] || defaultStyles;
+    const label = typeLabel[contentType] ?? '';
     const [imageVisible, setImageVisible] = useState(Boolean(data.imgUrl && data.imgUrl !== '-'));
     const structuredSections = getStructuredSections(data.contents);
     const hasStructuredFlow = structuredSections.length >= 2;
-
-    const renderContents = () => {
-        if (!data?.contents) return null;
-
-        return data.contents.split('\n').map((paragraph: string, idx: number) => (
-            <p key={idx} className="leading-relaxed">
-                {parseContent(paragraph)}
-            </p>
-        ));
-    };
+    const color = CARD_COLORS[index % CARD_COLORS.length];
 
     return (
         <motion.div
-            className="overflow-hidden rounded-2xl border border-line bg-[var(--bg-card)] shadow-sm transition-colors hover:border-[var(--taupe)]/30"
-            initial={{ opacity: 0, y: 20 }}
+            className={`${color} card accent-top pt-7 sm:pt-8`}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.1 }}
         >
-            <div>
-                <div className="border-b border-line p-5 sm:p-6">
-                    <div className="flex flex-wrap items-center gap-3">
-                        {styles.tagLabel && (
-                            <span className="inline-flex items-center rounded-md border border-[var(--taupe)]/20 bg-[var(--taupe)]/10 px-2.5 py-1 text-[11px] font-semibold text-[var(--taupe)]">
-                                {styles.tagLabel}
-                            </span>
-                        )}
-                        <h3 className="text-xl font-semibold leading-tight text-ink sm:text-2xl">
-                            {data.midTitle}
-                        </h3>
-                    </div>
-                </div>
-
-                <div className="min-w-0 p-5 sm:p-6">
-
-                    {imageVisible && (
-                        <div className="mb-5 overflow-hidden rounded-lg border border-line">
-                            <ImageWithFallback
-                                className="h-auto w-full"
-                                src={data.imgUrl || ''}
-                                fallbackSrc={prepImg}
-                                alt={data.midTitle + ' Img'}
-                                width={600}
-                                height={400}
-                                hideOnError
-                                onHidden={() => setImageVisible(false)}
-                            />
-                        </div>
-                    )}
-
-                    {hasStructuredFlow ? (
-                        <div className="grid gap-3 lg:grid-cols-3">
-                            {structuredSections.map((section, index) => {
-                                const meta = sectionMeta[section.label] || sectionMeta['문제'];
-
-                                return (
-                                    <section
-                                        key={`${section.label}-${index}`}
-                                        className={`min-w-0 rounded-xl border-l-2 bg-cream/80 p-4 sm:p-5 ${meta.borderClass}`}
-                                    >
-                                        <div className="mb-3 flex items-center gap-2">
-                                            <span className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />
-                                            <h4 className={`text-xs font-bold uppercase tracking-wide ${meta.headingClass}`}>
-                                                {meta.title}
-                                            </h4>
-                                        </div>
-                                        <div className="text-[15px] leading-7 text-ink-soft">
-                                            {parseContent(section.content)}
-                                        </div>
-                                    </section>
-                                );
-                            })}
-                        </div>
-                    ) : (
-                        <div className="space-y-3 text-[15px] leading-7 text-ink-soft sm:text-base">
-                            {renderContents()}
-                        </div>
-                    )}
-                </div>
+            <div className="mb-5">
+                {label && <span className="tag mb-2.5 inline-flex">{label}</span>}
+                <h3 className="text-[1.15rem] font-bold leading-snug tracking-[-0.025em] text-ink sm:text-[1.3rem]">
+                    {data.midTitle}
+                </h3>
             </div>
+
+            {imageVisible && (
+                <div className="img-round mb-4 border border-line">
+                    <ImageWithFallback
+                        className="h-auto w-full"
+                        src={data.imgUrl || ''}
+                        fallbackSrc={prepImg}
+                        alt={data.midTitle + ' Img'}
+                        width={600}
+                        height={400}
+                        hideOnError
+                        onHidden={() => setImageVisible(false)}
+                    />
+                </div>
+            )}
+
+            {hasStructuredFlow ? (
+                <div className="grid gap-3 lg:grid-cols-3">
+                    {structuredSections.map((section, i) => {
+                        const title = sectionTitle[section.label] ?? section.label;
+                        const isOutcome = title === '결과 · 역량';
+
+                        return (
+                            <section
+                                key={`${section.label}-${i}`}
+                                className={`min-w-0 rounded-[var(--r-lg)] p-5 ${isOutcome ? 'bg-ac-soft' : 'bg-page'}`}
+                            >
+                                <span className={`card-label mb-2 ${isOutcome ? 'text-ac' : ''}`}>{title}</span>
+                                <div className={`text-[0.95rem] leading-[1.85] ${isOutcome ? 'text-ink' : 'text-ink-soft'}`}>
+                                    {parseContent(section.content)}
+                                </div>
+                            </section>
+                        );
+                    })}
+                </div>
+            ) : (
+                <div className="space-y-3 rounded-[var(--r-lg)] bg-page p-5 text-[0.96rem] leading-[1.85] text-ink-soft sm:p-6">
+                    {data.contents?.split('\n').filter(Boolean).map((paragraph: string, idx: number) => (
+                        <div key={idx}>{parseContent(paragraph)}</div>
+                    ))}
+                </div>
+            )}
         </motion.div>
     );
 }

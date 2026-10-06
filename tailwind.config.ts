@@ -11,22 +11,28 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: {
-          light: '#ffffff',
-          dark: '#141414',
-        },
-        text: {
-          light: '#151515',
-          dark: '#f3f3f3',
-        },
-        primary: {
-          light: '#151515',
-          dark: '#f3f3f3',
+        page: '#f5f5f5',
+        surface: '#ffffff',
+        sky: { DEFAULT: '#3fa9dc', soft: '#e2f2fa' },
+        lime: { DEFAULT: '#9bcd3e', soft: '#eef7dd' },
+        sun: { DEFAULT: '#f6c743', soft: '#fdf3d8' },
+        rose: { DEFAULT: '#f58fae', soft: '#fdeaf0' },
+        mint: { DEFAULT: '#62ccbd', soft: '#e0f6f3' },
+        ink: {
+          DEFAULT: '#3a3a3a',
+          soft: '#7b7b7b',
+          mute: '#a5a5a5',
+          faint: '#c8c8c8',
         },
       },
       fontFamily: {
-        sans: ['Paperlogy', 'sans-serif'],
-        serif: ['var(--font-garamond)', 'Garamond', 'Georgia', 'serif'],
+        sans: ['var(--font-figtree)', 'var(--font-noto-kr)', 'system-ui', 'sans-serif'],
+        script: ['var(--font-script)', 'cursive'],
+      },
+      borderRadius: {
+        xl: '1.5rem',
+        '2xl': '2rem',
+        '3xl': '2.5rem',
       },
     },
   },

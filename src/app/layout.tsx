@@ -1,26 +1,28 @@
 import type { Metadata } from "next";
-import { Noto_Sans, Noto_Sans_KR, EB_Garamond } from "next/font/google";
+import { Figtree, Noto_Sans_KR, Sacramento } from "next/font/google";
 import "./globals.css";
 
-const notoSans = Noto_Sans({
-  variable: "--font-noto-sans",
+/* 본문·제목: 둥글고 개방적인 그로테스크 */
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-const ebGaramond = EB_Garamond({
-  variable: "--font-garamond",
+/* 영문 악센트 단어 전용 스크립트 */
+const sacramento = Sacramento({
+  variable: "--font-script",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["400"],
   display: "swap",
 });
 
-const notoSansKr = Noto_Sans_KR({
-  variable: "--font-noto-sans-kr",
+/* 한국어 본문 */
+const notoKr = Noto_Sans_KR({
+  variable: "--font-noto-kr",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -51,7 +53,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body
-        className={`${notoSans.variable} ${notoSansKr.variable} ${ebGaramond.variable} antialiased`}
+        className={`${figtree.variable} ${sacramento.variable} ${notoKr.variable} antialiased`}
       >
         {children}
       </body>

@@ -9,9 +9,9 @@ interface SearchProps {
 
 export const Search = ({ title, children }: SearchProps) => {
     return (
-        <div className="flex flex-col md:flex-row items-center justify-center mb-3 md:mb-4 w-full">
-            <p className="font-medium text-xs md:text-sm w-auto md:w-20 p-1 md:p-2 whitespace-nowrap text-ink-soft text-center md:text-right">{title}</p>
-            <div className="relative flex bg-cream rounded-full p-1 gap-1 w-fit max-w-full border border-line">
+        <div className="mb-3 flex w-full flex-col items-center justify-center md:flex-row">
+            <p className="eyebrow w-auto whitespace-nowrap p-1 text-center md:w-20 md:p-2 md:text-right">{title}</p>
+            <div className="relative flex w-fit max-w-full gap-1 border border-line bg-card-soft p-1">
                 {children}
             </div>
         </div>

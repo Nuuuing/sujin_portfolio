@@ -28,11 +28,12 @@ export const ScrollToTopButton = ({ className }: ScrollToTopButtonProps) => {
     return (
         <button
             onClick={scrollToTop}
-            className={`fixed bottom-6 right-6 p-3 rounded-full bg-[var(--taupe)] text-[var(--bg-card)] shadow-lg hover:bg-[var(--ink)] transition cursor-pointer ${className ?? 'z-50'}`}
+            aria-label="맨 위로"
+            className={`fixed bottom-5 right-5 cursor-pointer border border-[var(--line-strong)] bg-[var(--ink)] p-2.5 text-[var(--bg)] transition-colors hover:bg-[var(--ac)] hover:border-[var(--ac)] ${className ?? 'z-50'}`}
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
+                className="h-4 w-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

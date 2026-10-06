@@ -23,10 +23,7 @@ const FilterButton = ({
 }) => (
   <button
     onClick={onClick}
-    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer
-      ${isSelected
-        ? 'bg-[var(--taupe)] text-[var(--bg-card)]'
-        : 'border border-line bg-card-soft text-ink-soft hover:border-line-strong hover:text-ink'}`}
+    className={`pill cursor-pointer ${isSelected ? 'pill-dark' : 'pill-line'}`}
   >
     {option.label}
   </button>
@@ -85,11 +82,11 @@ export default function ProjectPage() {
   return (
     <DetailLayout title="PROJECT">
       {/* 필터 영역 */}
-      <div className="space-y-6 mb-10">
+      <div className="card mb-5 grid gap-5 sm:grid-cols-2">
         {/* 참여 형태 필터 */}
-        <div className="space-y-3">
-          <h3 className="text-sm font-medium text-ink-soft">참여 형태</h3>
-          <div className="flex flex-wrap gap-2">
+        <div>
+          <h3 className="card-label mb-2.5">참여 형태</h3>
+          <div className="flex flex-wrap gap-1.5">
             {ptcOptions.map((opt) => (
               <FilterButton
                 key={opt.value}
@@ -102,9 +99,9 @@ export default function ProjectPage() {
         </div>
 
         {/* 기술 분야 필터 */}
-        <div className="space-y-3">
-          <h3 className="text-sm font-medium text-ink-soft">기술 분야</h3>
-          <div className="flex flex-wrap gap-2">
+        <div>
+          <h3 className="card-label mb-2.5">기술 분야</h3>
+          <div className="flex flex-wrap gap-1.5">
             {techOptions.map((opt) => (
               <FilterButton
                 key={opt.value}
@@ -118,37 +115,28 @@ export default function ProjectPage() {
       </div>
 
       {/* 결과 카운트 */}
-      <div className="mb-6">
-        <p className="text-sm text-ink-soft">
-          총 <span className="text-[var(--taupe)] font-semibold">{filteredData.length}</span>개의 프로젝트
-        </p>
-      </div>
+      <p className="tnum mb-1 text-[0.80rem] text-ink-mute">
+        총 <span className="font-semibold text-ac">{filteredData.length}</span>건
+      </p>
 
       {/* 프로젝트 그리드 */}
       {isLoading ? (
-        <div className="flex items-center justify-center py-20">
-          <div className="w-8 h-8 border-2 border-[var(--taupe)] border-t-transparent rounded-full animate-spin" />
-        </div>
+        <div className="card py-12 text-center text-[0.95rem] text-ink-mute">불러오는 중...</div>
       ) : filteredData.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredData.map((data, index) => (
             <motion.div
               key={data.key || index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05, duration: 0.4 }}
+              transition={{ delay: index * 0.04, duration: 0.35 }}
             >
               <ProjDetailCard data={data} index={index} />
             </motion.div>
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-20 text-ink-soft">
-          <svg className="w-16 h-16 mb-4 text-ink-soft" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <p className="text-lg">조건에 맞는 프로젝트가 없습니다.</p>
-        </div>
+        <div className="card py-12 text-center text-[0.95rem] text-ink-mute">조건에 맞는 프로젝트가 없습니다.</div>
       )}
     </DetailLayout>
   );

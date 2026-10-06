@@ -1,22 +1,58 @@
 @import "tailwindcss";
 
-/* dark: 유틸리티는 .dark 클래스가 있을 때만 동작하도록 제한 (따뜻한 단일 테마 유지) */
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* 표지 톤: 크림 / 세이지 그린 / 슬레이트 블루 / 토프 */
-  --bg: #ece7db;          /* 메인 배경 (warm cream) */
-  --bg-soft: #e4ddcc;     /* 카드 / 서피스 */
-  --bg-card: #f1ece1;     /* 밝은 카드 */
-  --ink: #3f3b30;         /* 본문 진한 글자 */
-  --ink-soft: #6b6657;    /* 보조 글자 */
-  --taupe: #8a8266;       /* 디스플레이 헤딩 (KIM SUJIN 톤) */
-  --sage: #c7cba6;        /* 세이지 그린 도형 */
-  --sage-soft: #d7dabd;
-  --slate: #7c8696;       /* 슬레이트 블루 액센트 */
-  --slate-soft: #9aa3ae;  /* 라벨용 옅은 슬레이트 */
-  --line: rgba(63, 59, 48, 0.16);
-  --line-strong: rgba(63, 59, 48, 0.3);
+  /* ── 면 ──────────────────────────────────── */
+  --bg: #eeeeec;
+  --bg-alt: #ffffff;
+  --surface: #ffffff;
+
+  /* ── 다색 팔레트: 하나의 포인트가 아니라 로테이션 ── */
+  --c-sky: #1689cc;
+  --c-lime: #74ac12;
+  --c-yellow: #d99400;
+  --c-pink: #e85383;
+  --c-mint: #16a897;
+
+  /* 면으로 깔 때 쓰는 연한 톤 — 파스텔보다 한 단계 진하게 */
+  --c-sky-soft: #d4ecf9;
+  --c-lime-soft: #e6f3cc;
+  --c-yellow-soft: #fbeec4;
+  --c-pink-soft: #fcdde7;
+  --c-mint-soft: #ccf0eb;
+
+  /* ── 글자 ────────────────────────────────── */
+  --ink: #1b1f22;
+  --ink-soft: #51585d;
+  --ink-mute: #7d858a;
+  --ink-faint: #aeb4b8;
+
+  /* ── 선 ──────────────────────────────────── */
+  --line: rgba(0, 0, 0, 0.1);
+  --line-strong: rgba(0, 0, 0, 0.2);
+
+  /* ── 라운드 · 그림자 ─────────────────────── */
+  --r-xl: 2rem;
+  --r-lg: 1.5rem;
+  --r-md: 1.1rem;
+  --r-sm: 0.8rem;
+  --r-pill: 999px;
+
+  --shadow: 0 3px 16px rgba(20, 24, 28, 0.09);
+  --shadow-lift: 0 14px 32px rgba(20, 24, 28, 0.16);
+
+  /* 기본 포인트 (로테이션의 첫 색) */
+  --ac: var(--c-sky);
+  --ac-soft: var(--c-sky-soft);
+
+  /* 구 토큰 별칭 */
+  --bg-soft: var(--bg);
+  --bg-card: var(--surface);
+  --taupe: var(--c-sky);
+  --sage: var(--c-lime-soft);
+  --slate: var(--ink-mute);
+  --slate-soft: var(--ink-faint);
 
   --background: var(--bg);
   --foreground: var(--ink);
@@ -24,100 +60,371 @@
 
 html {
   color-scheme: light;
-  font-size: 15px;            /* 전체 폰트·여백을 약 6% 축소 (rem 기반 일괄, 비례 유지) */
+  font-size: 16px;
 }
 
 @layer base {
   body {
     background: var(--background);
     color: var(--foreground);
-    font-family: var(--font-noto-sans-kr), var(--font-noto-sans), system-ui, sans-serif;
-    /* 고급스러운 렌더링: 안티앨리어싱 + 가독성 우선 + 부드러운 자간/행간 */
+    font-family: var(--font-figtree), var(--font-noto-kr), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    letter-spacing: -0.011em;             /* 한글·라틴 본문 밀도를 살짝 조여 정돈된 인상 */
     font-feature-settings: "kern", "liga", "calt", "tnum";
-    word-break: keep-all;                 /* 한글 어절 단위 줄바꿈으로 가독성 향상 */
-    line-height: 1.7;                     /* 본문 기본 행간을 넉넉하게 */
+    word-break: keep-all;
+    line-height: 1.75;
   }
 
-  /* 디스플레이/헤딩: 큰 글자는 자간을 더 조이고 행간을 좁혀 우아하게 */
-  h1, h2, h3 {
-    letter-spacing: -0.022em;
+  h1, h2, h3, h4, h5 {
+    letter-spacing: -0.025em;
     line-height: 1.18;
+    font-weight: 700;
   }
 }
 
-/* ── 디자인 토큰 유틸리티 ───────────────────────── */
-.bg-cream { background-color: var(--bg); }
-.bg-surface { background-color: var(--bg-soft); }
-.bg-card-soft { background-color: var(--bg-card); }
-.bg-sage { background-color: var(--sage); }
-.bg-sage-soft { background-color: var(--sage-soft); }
+/* ── 레이아웃 셸 ──────────────────────────── */
+.shell {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 640px) { .shell { padding-inline: 2rem; } }
+@media (min-width: 1024px) { .shell { padding-inline: 2.5rem; } }
+
+.measure { max-width: 16em; margin-inline: auto; }
+.measure-wide { max-width: 30em; margin-inline: auto; }
+
+/* ── 스크립트 악센트 (영문 전용) ──────────── */
+.script {
+  font-family: var(--font-script), cursive;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+/* ── 서체 유틸 ────────────────────────────── */
+.tnum { font-variant-numeric: tabular-nums; }
+.fig {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* ── 색 유틸 ──────────────────────────────── */
+.bg-page { background-color: var(--bg); }
+.bg-surface { background-color: var(--surface); }
+.bg-card-soft { background-color: var(--surface); }
 
 .text-ink { color: var(--ink); }
 .text-ink-soft { color: var(--ink-soft); }
-.text-taupe { color: var(--taupe); }
-.text-slate-accent { color: var(--slate); }
-.text-slate-label { color: var(--slate-soft); }
+.text-ink-mute { color: var(--ink-mute); }
+.text-ink-faint { color: var(--ink-faint); }
+.text-ac { color: var(--ac); }
 
 .border-line { border-color: var(--line); }
 .border-line-strong { border-color: var(--line-strong); }
+.border-ac { border-color: var(--ac); }
+.bg-ac { background-color: var(--ac); }
+.bg-ac-soft { background-color: var(--ac-soft); }
 
-/* 작은 대문자 라벨 (PORTFOLIO / SERVICE FLOW 느낌) */
+/* 색 로테이션: 부모에 .c-sky / .c-lime … 을 붙이면
+   그 안의 --ac 가 바뀌어 점·알약·숫자가 한꺼번에 따라온다 */
+.c-sky    { --ac: var(--c-sky);    --ac-soft: var(--c-sky-soft); }
+.c-lime   { --ac: var(--c-lime);   --ac-soft: var(--c-lime-soft); }
+.c-yellow { --ac: var(--c-yellow); --ac-soft: var(--c-yellow-soft); }
+.c-pink   { --ac: var(--c-pink);   --ac-soft: var(--c-pink-soft); }
+.c-mint   { --ac: var(--c-mint);   --ac-soft: var(--c-mint-soft); }
+
+/* ── 카드 ─────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.card-sage { background: var(--ac-soft); border-radius: var(--r-xl); padding: 1.5rem; }
+.card-forest { background: var(--ac); color: #fff; border-radius: var(--r-xl); padding: 1.5rem; }
+.card-sm { border-radius: var(--r-lg); padding: 1.1rem 1.3rem; }
+.card-flat { box-shadow: none; }
+
+@media (min-width: 640px) {
+  .card, .card-sage, .card-forest { padding: 1.9rem; }
+}
+@media (hover: hover) {
+  .card-hover { transition: transform 0.22s, box-shadow 0.22s; }
+  .card-hover:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+}
+
+/* ── 알약 ─────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: var(--r-pill);
+  padding: 0.5rem 1.15rem;
+  font-size: 0.93rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+}
+@media (hover: hover) { .pill:hover { transform: translateY(-1px); } }
+
+.pill-solid { background: var(--ac); color: #fff; box-shadow: 0 3px 10px color-mix(in srgb, var(--ac) 38%, transparent); }
+.pill-soft { background: var(--ac-soft); color: var(--ac); }
+.pill-line { border: 1.5px solid var(--line-strong); color: var(--ink-soft); background: var(--surface); }
+.pill-line:hover { border-color: var(--ac); color: var(--ac); }
+.pill-dark { background: var(--ink); color: #fff; }
+
+/* 해시태그 */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--r-pill);
+  padding: 0.32rem 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: var(--ac-soft);
+  color: var(--ac);
+  white-space: nowrap;
+}
+.tag-line {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  color: var(--ink-soft);
+}
+
+/* ── 컬러 도트 (레퍼런스의 2색 점) ────────── */
+.dots {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+.dots i {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  display: block;
+}
+.dots-row { flex-direction: row; align-items: center; }
+
+/* ── 큰 따옴표 장식 ───────────────────────── */
+.quote-mark {
+  font-family: Georgia, serif;
+  font-size: 3.5rem;
+  line-height: 0.8;
+  color: var(--ac);
+  display: block;
+}
+
+/* ── 제목 강조 ────────────────────────────── */
+.highlight {
+  background: var(--ac-soft);
+  border-radius: var(--r-md);
+  padding: 0 0.4em 0.05em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.underline-wavy {
+  background-image: linear-gradient(transparent 58%, color-mix(in srgb, var(--ac) 32%, transparent) 58%);
+}
+
+/* ── 소형 라벨 ────────────────────────────── */
 .eyebrow {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--slate-soft);
+  color: var(--ink-mute);
 }
 
-/* ── 브라우저 전체 스크롤바 ───────────────────── */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(138, 130, 102, 0.4) rgba(236, 231, 219, 0.6);
+/* ── 괘선 ─────────────────────────────────── */
+.rule { border-top: 1px solid var(--line); }
+.rule-k { border-top: 1.5px solid var(--line-strong); }
+
+/* ── 데이터 표: 행이 곧 흰 카드 ───────────── */
+.dtable { width: 100%; border-collapse: separate; border-spacing: 0 0.6rem; }
+
+.dtable thead th {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-mute);
+  text-align: left;
+  padding: 0 1.3rem 0.1rem;
+  white-space: nowrap;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
+.dtable tbody tr {
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.dtable tbody td {
+  padding: 1.35rem 1.45rem;
+  vertical-align: top;
+  font-size: 0.95rem;
+}
+.dtable tbody tr td:first-child { border-radius: var(--r-lg) 0 0 var(--r-lg); }
+.dtable tbody tr td:last-child { border-radius: 0 var(--r-lg) var(--r-lg) 0; }
+
+@media (hover: hover) {
+  .dtable tbody tr.is-interactive:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+}
+.dtable tbody tr.is-open { background: var(--ac-soft); box-shadow: none; }
+
+@media (max-width: 680px) {
+  .dtable { border-spacing: 0; }
+  .dtable thead { display: none; }
+  .dtable, .dtable tbody, .dtable tr, .dtable td { display: block; width: 100%; }
+  .dtable tbody tr {
+    border-radius: var(--r-lg);
+    padding: 1.2rem 1.3rem;
+    margin-bottom: 0.6rem;
+  }
+  .dtable tbody td { padding: 0 !important; border-radius: 0 !important; }
+  .dtable tbody td + td { margin-top: 0.75rem; }
+  .dtable tbody td[data-l]::before {
+    content: attr(data-l);
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--ink-mute);
+    margin-bottom: 0.15rem;
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: rgba(236, 231, 219, 0.6);
+/* ── 열 그리드 (Focus 3단) ────────────────── */
+.colgrid { display: grid; gap: 0.6rem; }
+.colgrid > * {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: 1.3rem 1.45rem;
+  box-shadow: var(--shadow);
+}
+@media (max-width: 768px) {
+  .colgrid { grid-template-columns: 1fr !important; }
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(138, 130, 102, 0.4);
+/* ── 링크 ─────────────────────────────────── */
+.link {
+  color: var(--ac);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.link:hover { opacity: 0.7; }
+
+.link-mute {
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.link-mute:hover { color: var(--ac); }
+
+.row-invert { transition: background-color 0.18s; }
+
+/* ── 이미지 ───────────────────────────────── */
+.img-round { border-radius: var(--r-lg); overflow: hidden; }
+
+/* ── 마키 띠 ──────────────────────────────── */
+.marquee { overflow: hidden; background: var(--surface); padding-block: 0.85rem; box-shadow: var(--shadow); }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 2.25rem;
+  white-space: nowrap;
+  animation: marquee 40s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ── 스크롤바 ─────────────────────────────── */
+html { scrollbar-width: thin; scrollbar-color: var(--ink-faint) transparent; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--ink-faint); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-mute); }
+
+.scrollbar-thin { scrollbar-width: thin; scrollbar-color: var(--ink-faint) transparent; }
+.scrollbar-thin::-webkit-scrollbar { height: 6px; width: 6px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: var(--ink-faint); border-radius: 999px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-track { animation: none; }
+}
+
+/* ── 아기자기 디테일 ──────────────────────── */
+/* 섹션 사이 구분용 점 세 개 */
+.dot-divider {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  padding-block: 0.5rem;
+}
+.dot-divider i {
+  width: 0.4rem;
+  height: 0.4rem;
   border-radius: 999px;
+  display: block;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(138, 130, 102, 0.7);
+/* 카드 안 작은 제목 */
+.card-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink-soft);
 }
-
-/* ── 커스텀 스크롤바 (내부 요소용) ──────────────── */
-.scrollbar-thin {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(138, 130, 102, 0.35) transparent;
-}
-
-.scrollbar-thin::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
+.card-label::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
   border-radius: 999px;
+  background: var(--ac);
 }
 
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(138, 130, 102, 0.35);
+/* ── 강조 장치 ────────────────────────────────
+   색을 작은 점에만 쓰면 화면이 흐려 보인다.
+   카드 위쪽에 색 띠를 깔아 각 블록의 소속을 분명하게 만든다. */
+.accent-top {
+  position: relative;
+  overflow: hidden;
+}
+.accent-top::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 0.4rem;
+  background: var(--ac);
+}
+
+/* 섹션 제목 아래 색 띠 */
+.accent-rule {
+  display: block;
+  width: 3.2rem;
+  height: 0.3rem;
   border-radius: 999px;
+  background: var(--ac);
 }
 
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(138, 130, 102, 0.6);
+/* 색 면으로 채운 카드 — 지표처럼 한 번에 읽혀야 하는 곳에 */
+.card-solid {
+  background: var(--ac);
+  color: #fff;
+  border-radius: var(--r-xl);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--ac) 34%, transparent);
 }
+.card-solid .text-ink,
+.card-solid .text-ink-soft { color: #fff; }
+.card-solid .text-ink-mute { color: rgba(255, 255, 255, 0.78); }
+.card-solid .tag { background: rgba(255, 255, 255, 0.22); color: #fff; }

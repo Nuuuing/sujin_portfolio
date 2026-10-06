@@ -1,43 +1,34 @@
-
 import { CareerT } from "@/features";
+import { formatTerm } from "@/utils/career";
 import Link from "next/link";
-
-// YYYYMM 형식을 YYYY.MM으로 변환
-const formatTerm = (term: string | undefined): string => {
-    if (!term) return '';
-    if (term.length === 6) {
-        return `${term.slice(0, 4)}.${term.slice(4, 6)}`;
-    }
-    return term;
-};
 
 interface CareerItemProps {
     data: CareerT;
 }
+
 export const CareerItem = (props: CareerItemProps) => {
     const { data } = props;
     return (
         <Link
             href={{ pathname: `/career/detail/${data.key}` }}
-            className="w-[20rem] text-ink px-4 py-2 text-center block space-y-2 my-4 cursor-pointer">
-            <div className="bg-cream text-base px-3 py-1 rounded-full inline-block border border-line">
-                {formatTerm(data.startTerm)}
-                &nbsp;-&nbsp;
-                {data.endTerm ? formatTerm(data.endTerm) : '현재'}
-            </div>
-
-            <div className="text-2xl font-semibold">
-                {data.company}
-            </div>
-
-            <div className="text-base text-ink-soft">
-                {data.team && `${data.team}팀`} &nbsp; • &nbsp;{data.position}
-            </div>
-
-            {data.projects && data.projects.length > 0 && (
-                <div className="bg-cream border border-line text-sm px-2 py-1 rounded-full inline-block">
-                    프로젝트 {data.projects.length}개
+            className="rule row-invert block cursor-pointer py-3.5 text-ink"
+        >
+            <div className="flex items-baseline justify-between gap-4">
+                <div>
+                    <p className="text-[1.10rem] font-bold tracking-[-0.018em]">{data.company}</p>
+                    <p className="mt-0.5 text-[0.80rem] text-ink-mute">
+                        {data.team && `${data.team} · `}{data.position}
+                    </p>
                 </div>
-            )}
-        </Link>)
+                <div className="tnum shrink-0 text-right">
+                    <p className="text-[0.82rem] font-semibold">
+                        {formatTerm(data.startTerm)} — {data.endTerm ? formatTerm(data.endTerm) : <em className="not-italic font-bold text-ac">현재</em>}
+                    </p>
+                    {data.projects && data.projects.length > 0 && (
+                        <p className="text-[0.72rem] text-ink-mute">프로젝트 {data.projects.length}건</p>
+                    )}
+                </div>
+            </div>
+        </Link>
+    )
 }
