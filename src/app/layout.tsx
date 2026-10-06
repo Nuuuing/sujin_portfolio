@@ -28,12 +28,12 @@ const notoKr = Noto_Sans_KR({
 
 export const metadata: Metadata = {
   title: "SUJIN's PORTFOLIO",
-  description: "Sujin's portfolio website showcasing full-cycle service development projects and experience.",
+  description: "Sujin's portfolio website showcasing full-stack service development projects and experience.",
   keywords: ["portfolio", "full-stack", "service development", "React", "Next.js", "TypeScript", "ASP.NET", "MSSQL"],
   authors: [{ name: "Sujin Kim" }],
   openGraph: {
     title: "SUJIN's PORTFOLIO",
-    description: "Sujin's portfolio website showcasing full-cycle service development projects and experience.",
+    description: "Sujin's portfolio website showcasing full-stack service development projects and experience.",
     type: "website",
     locale: "ko_KR",
   },
