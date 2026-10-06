@@ -86,17 +86,25 @@ export const MainSplash = () => {
                     <span className="tag c-pink">#운영까지</span>
                 </motion.div>
 
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.08 }}
+                    className="script mt-5 text-[2rem] text-[var(--c-lime)] sm:text-[2.4rem]"
+                >
+                    end to end
+                </motion.p>
+
                 <motion.h1
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    className="c-sky mx-auto mt-5 max-w-[15em] text-[2.2rem] font-semibold leading-[1.22] tracking-[-0.025em] text-ink sm:text-[3rem] lg:text-[3.6rem]"
+                    className="c-sky mx-auto mt-2 max-w-[15em] text-[2.2rem] font-semibold leading-[1.22] tracking-[-0.025em] text-ink sm:text-[3rem] lg:text-[3.6rem]"
                 >
                     요구사항 분석부터{' '}
-                    <span className="underline-wavy">DB 프로시저</span>까지
+                    <span className="underline-wavy">배포 · 운영</span>까지
                     <br className="hidden sm:block" />{' '}
-                    <span className="script text-[1.35em] text-[var(--c-lime)]">one flow</span>
-                    로 만듭니다
+                    프로덕트 전체를 만듭니다
                 </motion.h1>
 
                 <motion.div

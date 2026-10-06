@@ -28,32 +28,32 @@ html,body{margin:0;padding:0}
 body{
   width:297mm;background:var(--bg);color:var(--ink);
   font-family:'Figtree','Noto Sans KR',system-ui,sans-serif;
-  font-size:10.5pt;line-height:1.7;word-break:keep-all;font-variant-numeric:tabular-nums;
+  font-size:11.4pt;line-height:1.7;word-break:keep-all;font-variant-numeric:tabular-nums;
 }
 h1,h2,h3,h4,h5{margin:0;font-weight:700;letter-spacing:-.025em;line-height:1.18}
 p{margin:0} ul{margin:0;padding:0;list-style:none}
 dl{margin:0}
 
 /* ── 페이지 ── */
-.pg{width:297mm;height:210mm;padding:9mm 11mm 8mm;position:relative;
+.pg{width:297mm;height:210mm;padding:10mm 12mm 9mm;position:relative;
   display:flex;flex-direction:column;overflow:hidden;break-after:page;page-break-after:always}
 .pg:last-child{break-after:auto;page-break-after:auto}
-.foot{position:absolute;left:11mm;right:11mm;bottom:4mm;display:flex;justify-content:space-between;
-  font-size:8.7pt;color:var(--ink-faint)}
+.foot{position:absolute;left:12mm;right:12mm;bottom:5mm;display:flex;justify-content:space-between;
+  font-size:9.5pt;color:var(--ink-faint)}
 
 .script{font-family:'Sacramento',cursive;font-weight:400;line-height:1}
 .fig{font-weight:800;letter-spacing:-.035em;line-height:1}
 
 /* ── 페이지 머리 ── */
-.ph{display:flex;align-items:flex-end;justify-content:space-between;gap:7mm;margin-bottom:4mm}
-.ph .eyebrow{font-size:8.9pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
-.ph h2{font-size:19.9pt;margin-top:1.5mm;display:flex;align-items:baseline;gap:2.5mm;flex-wrap:wrap}
+.ph{display:flex;align-items:flex-end;justify-content:space-between;gap:7mm;margin-bottom:5mm}
+.ph .eyebrow{font-size:9.7pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+.ph h2{font-size:21.7pt;margin-top:1.5mm;display:flex;align-items:baseline;gap:2.5mm;flex-wrap:wrap}
 .ph h2 .script{font-size:1.45em;color:var(--ac)}
-.ph .sub{font-size:10.1pt;color:var(--ink-mute);margin-top:1mm}
-.ph .rt{text-align:right;font-size:9.6pt;color:var(--ink-mute);white-space:nowrap}
+.ph .sub{font-size:11pt;color:var(--ink-mute);margin-top:1mm}
+.ph .rt{text-align:right;font-size:10.5pt;color:var(--ink-mute);white-space:nowrap}
 
 /* ── 카드 ── */
-.card{background:var(--surface);border-radius:var(--r-xl);padding:5.2mm;box-shadow:var(--shadow)}
+.card{background:var(--surface);border-radius:var(--r-xl);padding:6.5mm;box-shadow:var(--shadow)}
 .card.sm{padding:4.5mm 5mm}
 .card.soft{background:var(--ac-soft);box-shadow:none}
 .atop{position:relative;overflow:hidden;padding-top:7.5mm}
@@ -61,106 +61,106 @@ dl{margin:0}
 
 /* ── 태그 ── */
 .tag{display:inline-flex;align-items:center;border-radius:var(--r-pill);padding:.9mm 2.6mm;
-  font-size:8.9pt;font-weight:700;background:var(--ac-soft);color:var(--ac);white-space:nowrap}
+  font-size:9.7pt;font-weight:700;background:var(--ac-soft);color:var(--ac);white-space:nowrap}
 .tag.line{background:var(--surface);border:.35mm solid var(--line);color:var(--ink-soft)}
 .tag.solid{background:var(--ac);color:#fff}
 .tags{display:flex;flex-wrap:wrap;gap:1.2mm}
 
 /* ── 레이아웃 ── */
-.row{display:grid;gap:3.4mm;align-content:start}
+.row{display:grid;gap:4mm;flex:1;min-height:0;align-content:center}
 .r-2{grid-template-columns:1fr 1fr}
 .r-3{grid-template-columns:repeat(3,1fr)}
 .r-21{grid-template-columns:1.25fr 1fr}
 .r-12{grid-template-columns:1fr 1.4fr}
-.stack{display:flex;flex-direction:column;gap:3.5mm}
+.stack{display:flex;flex-direction:column;gap:4mm}
 .grow{flex:1;min-height:0}
 
 /* ── 라벨 ── */
-.lab{display:inline-flex;align-items:center;gap:1.5mm;font-size:9.6pt;font-weight:700;color:var(--ink-soft)}
+.lab{display:inline-flex;align-items:center;gap:1.5mm;font-size:10.5pt;font-weight:700;color:var(--ink-soft)}
 .lab::before{content:"";width:1.8mm;height:1.8mm;border-radius:999px;background:var(--ac)}
 
 /* ── 항목 목록 ── */
-.items{display:flex;flex-direction:column;gap:2.4mm;margin-top:2.5mm}
+.items{display:flex;flex-direction:column;gap:3.2mm;margin-top:3mm}
 .item{display:grid;grid-template-columns:5.5mm 1fr;gap:2.2mm}
-.item .n{font-size:9.1pt;font-weight:800;color:var(--ac)}
-.item .t{font-size:10.5pt;font-weight:700;line-height:1.4;display:block}
-.item .d{font-size:9.7pt;color:var(--ink-soft);line-height:1.6;margin-top:.7mm;display:block}
+.item .n{font-size:9.9pt;font-weight:800;color:var(--ac)}
+.item .t{font-size:11.4pt;font-weight:700;line-height:1.4;display:block}
+.item .d{font-size:10.6pt;color:var(--ink-soft);line-height:1.6;margin-top:.7mm;display:block}
 
 /* ── Focus 라벨 좌측 ── */
-.fb{display:grid;grid-template-columns:18mm 1fr;gap:2mm 3.2mm}
-.fb dd{margin:0;font-size:10.2pt;line-height:1.75;color:var(--ink-soft)}
+.fb{display:grid;grid-template-columns:20mm 1fr;gap:2.8mm 4mm}
+.fb dd{margin:0;font-size:11.1pt;line-height:1.75;color:var(--ink-soft)}
 .fb dd.out{color:var(--ink);font-weight:500}
 .fb b{font-weight:700;color:var(--ink)}
 
 /* ── 지표 ── */
 .mets{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm}
-.met{background:var(--ac-soft);border-radius:var(--r-lg);padding:3.5mm 4mm}
-.met .v{display:block;font-size:18.7pt;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--ac)}
-.met .l{display:block;margin-top:1.5mm;font-size:9.6pt;font-weight:700}
-.met .c{display:block;font-size:8.7pt;line-height:1.4;color:var(--ink-soft)}
+.met{background:var(--ac-soft);border-radius:var(--r-lg);padding:4.2mm 4.5mm}
+.met .v{display:block;font-size:20.4pt;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--ac)}
+.met .l{display:block;margin-top:1.5mm;font-size:10.5pt;font-weight:700}
+.met .c{display:block;font-size:9.5pt;line-height:1.4;color:var(--ink-soft)}
 
 /* ── 흐름도 ── */
-.flow{display:flex;flex-direction:column;align-items:center;gap:1.2mm;font-size:9.4pt}
-.flow .b{background:var(--surface);border-radius:var(--r-lg);padding:2mm 3.5mm;text-align:center;
+.flow{display:flex;flex-direction:column;align-items:center;gap:1.6mm;font-size:10.2pt}
+.flow .b{background:var(--surface);border-radius:var(--r-lg);padding:2.6mm 4mm;text-align:center;
   width:100%;box-shadow:var(--shadow);font-weight:600}
 .flow .b.ac{background:var(--ac);color:#fff}
 .flow .b.ghost{background:transparent;box-shadow:none;border:.35mm dashed var(--line);color:var(--ink-mute);font-weight:500}
-.flow .a{color:var(--ink-faint);font-size:10.5pt;line-height:1}
-.flow .note{font-size:8.5pt;color:var(--ink-mute);text-align:center}
+.flow .a{color:var(--ink-faint);font-size:11.4pt;line-height:1}
+.flow .note{font-size:9.3pt;color:var(--ink-mute);text-align:center}
 
 /* ── BEFORE / AFTER ── */
 .ba{display:flex;flex-direction:column;gap:2.5mm}
 .ba .b{border-radius:var(--r-lg);padding:3mm 3.5mm}
 .ba .b.bf{background:#f2f2f0}
 .ba .b.af{background:var(--ac-soft)}
-.ba .k{font-size:8.5pt;font-weight:800;letter-spacing:.08em;color:var(--ink-mute)}
+.ba .k{font-size:9.3pt;font-weight:800;letter-spacing:.08em;color:var(--ink-mute)}
 .ba .b.af .k{color:var(--ac)}
-.ba .t{font-size:10.2pt;font-weight:700;margin-top:.6mm}
-.ba .d{font-size:9.4pt;color:var(--ink-soft);line-height:1.55;margin-top:.5mm}
+.ba .t{font-size:11.1pt;font-weight:700;margin-top:.6mm}
+.ba .d{font-size:10.2pt;color:var(--ink-soft);line-height:1.55;margin-top:.5mm}
 
 /* ── 표지 ── */
 .cover{justify-content:center;background:var(--surface)}
-.cover .hello{font-size:32.8pt;color:var(--c-lime)}
-.cover h1{font-size:46.2pt;letter-spacing:-.045em;line-height:1.04;margin-top:2mm}
+.cover .hello{font-size:33.8pt;color:var(--c-lime)}
+.cover h1{font-size:47.6pt;letter-spacing:-.045em;line-height:1.04;margin-top:2mm}
 .cover .hl{background:var(--c-sky-soft);border-radius:5mm;padding:0 3mm}
-.cover .sub{margin-top:6mm;font-size:12.9pt;line-height:1.75;color:var(--ink-soft);max-width:175mm}
+.cover .sub{margin-top:6mm;font-size:14.1pt;line-height:1.75;color:var(--ink-soft);max-width:175mm}
 .cover .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:11mm;max-width:235mm}
-.cover .meta .k{font-size:8.7pt;font-weight:800;letter-spacing:.12em;color:var(--ac)}
-.cover .meta .v{font-size:10.3pt;margin-top:1.2mm;line-height:1.55;color:var(--ink-soft)}
+.cover .meta .k{font-size:9.5pt;font-weight:800;letter-spacing:.12em;color:var(--ac)}
+.cover .meta .v{font-size:11.2pt;margin-top:1.2mm;line-height:1.55;color:var(--ink-soft)}
 
 /* ── 섹션 구분 ── */
 .divider{justify-content:center;background:var(--ac)}
-.divider .no{font-size:73.5pt;font-weight:800;letter-spacing:-.05em;line-height:.9;color:rgba(255,255,255,.38)}
-.divider h2{font-size:34.6pt;color:#fff;margin-top:1mm;display:flex;align-items:baseline;gap:4mm}
+.divider .no{font-size:75.7pt;font-weight:800;letter-spacing:-.05em;line-height:.9;color:rgba(255,255,255,.38)}
+.divider h2{font-size:35.6pt;color:#fff;margin-top:1mm;display:flex;align-items:baseline;gap:4mm}
 .divider h2 .script{font-size:.82em;color:rgba(255,255,255,.8)}
-.divider p{margin-top:4mm;font-size:12.9pt;color:rgba(255,255,255,.88);max-width:155mm}
+.divider p{margin-top:4mm;font-size:14.1pt;color:rgba(255,255,255,.88);max-width:155mm}
 .divider .chips{display:flex;flex-wrap:wrap;gap:2mm;margin-top:8mm}
 .divider .chips span{background:rgba(255,255,255,.22);color:#fff;border-radius:var(--r-pill);
-  padding:1.4mm 3.6mm;font-size:10.1pt;font-weight:700}
+  padding:1.4mm 3.6mm;font-size:11pt;font-weight:700}
 
 /* ── 기술 스택 ── */
-.sk{display:grid;grid-template-columns:repeat(3,1fr);gap:3.5mm;align-content:start}
+.sk{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;flex:1;min-height:0;align-content:center}
 .sk .g{background:var(--surface);border-radius:var(--r-xl);padding:5mm 5.5mm;box-shadow:var(--shadow)}
-.sk .k{font-size:8.9pt;font-weight:800;letter-spacing:.1em;color:var(--ac)}
+.sk .k{font-size:9.7pt;font-weight:800;letter-spacing:.1em;color:var(--ac)}
 .sk .names{display:flex;flex-wrap:wrap;gap:1.4mm;margin-top:2.5mm}
-.sk .d{font-size:9.5pt;color:var(--ink-soft);line-height:1.6;margin-top:2.5mm}
+.sk .d{font-size:10.4pt;color:var(--ink-soft);line-height:1.6;margin-top:2.5mm}
 
 /* ── 목록 ── */
 .plist li{display:grid;grid-template-columns:34mm 1fr 26mm;gap:4mm;align-items:baseline;
   padding:3mm 0;border-top:.3mm solid var(--line)}
 .plist li:first-child{border-top:0}
-.plist .dt{font-size:9.4pt;color:var(--ink-mute)}
-.plist .nm{font-size:11.2pt;font-weight:700;display:block}
-.plist .ds{font-size:9.6pt;color:var(--ink-soft);margin-top:.5mm;display:block}
-.plist .rt{font-size:9.1pt;color:var(--ink-mute);text-align:right}
+.plist .dt{font-size:10.2pt;color:var(--ink-mute)}
+.plist .nm{font-size:12.2pt;font-weight:700;display:block}
+.plist .ds{font-size:10.5pt;color:var(--ink-soft);margin-top:.5mm;display:block}
+.plist .rt{font-size:9.9pt;color:var(--ink-mute);text-align:right}
 
 /* ── 끝 ── */
 .end{justify-content:center;align-items:center;text-align:center;background:var(--surface)}
-.end .script{font-size:42pt;color:var(--c-lime)}
-.end h2{font-size:29.2pt;margin-top:2mm}
-.end p{margin-top:4mm;font-size:12.3pt;color:var(--ink-soft);line-height:1.8}
+.end .script{font-size:43.3pt;color:var(--c-lime)}
+.end h2{font-size:31.8pt;margin-top:2mm}
+.end p{margin-top:4mm;font-size:13.4pt;color:var(--ink-soft);line-height:1.8}
 .end .contact{display:flex;gap:2.5mm;margin-top:9mm;flex-wrap:wrap;justify-content:center}
-.end .contact span{border-radius:var(--r-pill);padding:1.8mm 4.5mm;font-size:10.5pt;font-weight:700;color:#fff}
+.end .contact span{border-radius:var(--r-pill);padding:1.8mm 4.5mm;font-size:11.4pt;font-weight:700;color:#fff}
 </style>
 </head>
 <body>
@@ -169,7 +169,7 @@ dl{margin:0}
 <section class="pg cover">
   <span class="script hello">Hello, I'm</span>
   <h1>김수진<br><span class="hl">풀스택</span> 개발자</h1>
-  <p class="sub">요구사항 분석부터 DB 프로시저까지 한 흐름으로 설계하고 운영합니다.<br>
+  <p class="sub">요구사항 분석부터 배포 · 운영까지, 프로덕트 전체를 만듭니다.<br>
     공공 SI/SM에서 시작해 사내 업무 시스템 재구축과 결제 연동을 거쳐, 지금은 자사 B2C 서비스와 고객사 플랫폼의 개발·운영·배포를 함께 맡고 있습니다.</p>
   <div class="meta">
     <div class="c-sky"><p class="k">EXPERIENCE</p><p class="v">3년 8개월 · 회사 3곳<br>2022.03 — 현재</p></div>
@@ -189,7 +189,7 @@ dl{margin:0}
   <div class="row r-21">
     <div class="card atop c-sky">
       <p class="lab">일하는 방식</p>
-      <p style="margin-top:3mm;font-size:10.9pt;line-height:1.85;color:var(--ink-soft)">
+      <p style="margin-top:3mm;font-size:11.9pt;line-height:1.85;color:var(--ink-soft)">
         공공 SI/SM, 플랫폼 서비스, 사내 업무 시스템, 자사 B2C 서비스 등 서로 다른 환경과 도메인을 경험하며,
         새로운 비즈니스를 마주해도 빠르게 구조를 분석하고 설계하는 적응력을 길러왔습니다.
         프로젝트 환경에 맞춰 <b>Front · Back · DB · 인프라</b> 영역에 한계를 두지 않고 다루며,
@@ -290,7 +290,7 @@ dl{margin:0}
   <div class="row r-21">
     <div class="card atop c-sky">
       <p class="lab">ROLE &amp; RESPONSIBILITY</p>
-      <p style="margin-top:3mm;font-size:10.8pt;line-height:1.85;color:var(--ink-soft)">
+      <p style="margin-top:3mm;font-size:11.8pt;line-height:1.85;color:var(--ink-soft)">
         편지 우편 발송 플랫폼과 음성 AI 일기 앱 등 자사 B2C 서비스의 기능 개발 · 운영을 담당하고,
         고객사 안전보건 플랫폼의 온보딩 · 검수 · 배포를 수행했습니다.
         결제수단과 환불 정책을 PG 취소 기한에 맞춰 개선하고 우편 발송을 자동화했으며,
@@ -421,10 +421,10 @@ dl{margin:0}
           <div class="b ac">main — 공통 기능 개발</div>
           <div class="a">↓ 반복 머지 109회</div>
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.8mm;width:100%">
-            <div class="b" style="font-size:8.4pt;padding:2mm 1mm">build/A사</div>
-            <div class="b" style="font-size:8.4pt;padding:2mm 1mm">build/B사</div>
-            <div class="b" style="font-size:8.4pt;padding:2mm 1mm">build/C사</div>
-            <div class="b" style="font-size:8.4pt;padding:2mm 1mm">build/demo</div>
+            <div class="b" style="font-size:9.2pt;padding:2mm 1mm">build/A사</div>
+            <div class="b" style="font-size:9.2pt;padding:2mm 1mm">build/B사</div>
+            <div class="b" style="font-size:9.2pt;padding:2mm 1mm">build/C사</div>
+            <div class="b" style="font-size:9.2pt;padding:2mm 1mm">build/demo</div>
           </div>
           <p class="note">시드 · 데이터 캡처 게이트를 빌드 인자로 분리해 이미지별로 다르게 구성</p>
         </div>
@@ -549,7 +549,7 @@ dl{margin:0}
   <div class="row r-21">
     <div class="card atop c-lime">
       <p class="lab">ROLE &amp; RESPONSIBILITY</p>
-      <p style="margin-top:3mm;font-size:10.8pt;line-height:1.85;color:var(--ink-soft)">
+      <p style="margin-top:3mm;font-size:11.8pt;line-height:1.85;color:var(--ink-soft)">
         웹 기반 업무 시스템의 기능 개선과 운영 고도화를 담당하며, 요구사항 분석부터 설계 · 개발 · 이슈 대응까지 수행했습니다.
         팜페이 결제 PG API를 시스템에 맞춰 신규 연동하고, WOS 업무 화면을 디자인 · 연동 기능까지 전면 재구축했으며,
         MSSQL 프로시저 · 대용량 거래 데이터 처리 개선과 ERP DB 연동 안정화 · 외부 데이터 수집으로
@@ -584,7 +584,7 @@ dl{margin:0}
   <div class="row r-3">
     <div class="card atop c-sky">
       <p class="lab">01 · 디자인 · 연동 전면 재구축</p>
-      <h3 style="margin-top:2.5mm;font-size:12.9pt">WOS 화면 전면 재구축</h3>
+      <h3 style="margin-top:2.5mm;font-size:14.1pt">WOS 화면 전면 재구축</h3>
       <div class="ba" style="margin-top:4mm">
         <div class="b bf"><p class="k">BEFORE</p><p class="t">한 화면 구조 · 일관성 부족</p>
           <p class="d">디자인 · 정보 구조가 화면마다 제각각이고 연동 기능도 분산</p></div>
@@ -594,7 +594,7 @@ dl{margin:0}
     </div>
     <div class="card atop c-lime">
       <p class="lab">02 · 조회 응답성 개선</p>
-      <h3 style="margin-top:2.5mm;font-size:12.9pt">프로시저 · 대용량 거래 데이터</h3>
+      <h3 style="margin-top:2.5mm;font-size:14.1pt">프로시저 · 대용량 거래 데이터</h3>
       <div class="ba" style="margin-top:4mm">
         <div class="b bf"><p class="k">BEFORE</p><p class="t">느린 조회 · 서버 응답 지연</p>
           <p class="d">복잡한 프로시저로 대용량 처리 시 지연 발생, 피크 CPU 99~100%</p></div>
@@ -604,7 +604,7 @@ dl{margin:0}
     </div>
     <div class="card atop c-yellow">
       <p class="lab">03 · 운영 안정성 확보</p>
-      <h3 style="margin-top:2.5mm;font-size:12.9pt">ERP DB 연동 안정화</h3>
+      <h3 style="margin-top:2.5mm;font-size:14.1pt">ERP DB 연동 안정화</h3>
       <div class="ba" style="margin-top:4mm">
         <div class="b bf"><p class="k">BEFORE</p><p class="t">장애 시 수동 점검 · 복구</p>
           <p class="d">ERP DB 장애 발생 시 즉시 대응 어려움</p></div>
@@ -631,29 +631,29 @@ dl{margin:0}
         <li class="item"><span class="n">02</span><span><span class="t">쿼리 구조 · 인덱스 정비</span><span class="d">조회 조건과 인덱스 정합을 점검해 불필요한 비용 제거</span></span></li>
         <li class="item"><span class="n">03</span><span><span class="t">프로시저 단계적 개선 · 검증 후 반영</span><span class="d">기존 조회 결과와 비교 검증하며 운영 영향 없이 적용</span></span></li>
       </ul>
-      <p style="margin-top:5mm;padding-top:4mm;border-top:.3mm solid var(--line);font-size:10.2pt;line-height:1.75;color:var(--ink-soft)">
+      <p style="margin-top:5mm;padding-top:4mm;border-top:.3mm solid var(--line);font-size:11.1pt;line-height:1.75;color:var(--ink-soft)">
         거래 데이터가 누적되며 주요 조회 화면의 응답이 느려지고, 피크 시 DB CPU가 99~100%까지 치솟아
         <b>응답 지연 · 장애 위험</b>이 있었습니다.
       </p>
     </div>
     <div class="card atop c-sky">
       <p class="lab">성능 통계 · DB CPU 사용률</p>
-      <p style="font-size:9.4pt;color:var(--ink-mute);margin-top:1mm">동시 접속 부하 테스트 기준</p>
+      <p style="font-size:10.2pt;color:var(--ink-mute);margin-top:1mm">동시 접속 부하 테스트 기준</p>
       <div class="stack" style="margin-top:4mm">
         <div class="card sm soft c-pink" style="display:flex;align-items:center;justify-content:space-between;gap:4mm">
-          <div><p style="font-size:10.1pt;font-weight:700">개선 전 · 피크 부하</p>
-            <p style="font-size:9.1pt;color:var(--ink-soft)">조회 폭주 시 CPU 한계 도달 → 응답 지연 · 장애 위험</p></div>
-          <span class="fig" style="font-size:21.1pt;color:var(--c-pink)">99–100%</span>
+          <div><p style="font-size:11pt;font-weight:700">개선 전 · 피크 부하</p>
+            <p style="font-size:9.9pt;color:var(--ink-soft)">조회 폭주 시 CPU 한계 도달 → 응답 지연 · 장애 위험</p></div>
+          <span class="fig" style="font-size:23pt;color:var(--c-pink)">99–100%</span>
         </div>
         <div class="card sm soft c-sky" style="display:flex;align-items:center;justify-content:space-between;gap:4mm">
-          <div><p style="font-size:10.1pt;font-weight:700">개선 후 · 2,000명 동시 접속</p>
-            <p style="font-size:9.1pt;color:var(--ink-soft)">안정 구간 유지</p></div>
-          <span class="fig" style="font-size:21.1pt;color:var(--c-sky)">70%</span>
+          <div><p style="font-size:11pt;font-weight:700">개선 후 · 2,000명 동시 접속</p>
+            <p style="font-size:9.9pt;color:var(--ink-soft)">안정 구간 유지</p></div>
+          <span class="fig" style="font-size:23pt;color:var(--c-sky)">70%</span>
         </div>
         <div class="card sm soft c-lime" style="display:flex;align-items:center;justify-content:space-between;gap:4mm">
-          <div><p style="font-size:10.1pt;font-weight:700">개선 후 · 1,200명 동시 접속</p>
-            <p style="font-size:9.1pt;color:var(--ink-soft)">여유 있는 부하 수준 유지</p></div>
-          <span class="fig" style="font-size:21.1pt;color:var(--c-lime)">45%</span>
+          <div><p style="font-size:11pt;font-weight:700">개선 후 · 1,200명 동시 접속</p>
+            <p style="font-size:9.9pt;color:var(--ink-soft)">여유 있는 부하 수준 유지</p></div>
+          <span class="fig" style="font-size:23pt;color:var(--c-lime)">45%</span>
         </div>
       </div>
     </div>
@@ -671,7 +671,7 @@ dl{margin:0}
   <div class="row r-2">
     <div class="card atop c-pink">
       <p class="lab">WOS 화면 전면 재구축</p>
-      <p style="margin-top:2.5mm;font-size:10.2pt;line-height:1.7;color:var(--ink-soft)">
+      <p style="margin-top:2.5mm;font-size:11.1pt;line-height:1.7;color:var(--ink-soft)">
         노후한 WOS 화면을 요구사항 기반으로 디자인 · 정보 구조부터 연동 기능까지 새로 설계하고,
         필요한 백엔드 기능도 추가 · 확장하며 신규 구축 수준으로 재구축했습니다.</p>
       <ul class="items">
@@ -719,8 +719,8 @@ dl{margin:0}
         <li class="item"><span class="n">03</span><span><span class="t">외부 데이터 수집 · 분석 시스템 신규 개발</span><span class="d">운영 데이터 활용 범위 확장</span></span></li>
       </ul>
       <div class="card sm soft c-lime" style="margin-top:4mm">
-        <p style="font-size:10.3pt;font-weight:700;color:var(--c-lime)">운영 안정성 향상</p>
-        <p style="font-size:9.6pt;color:var(--ink-soft);margin-top:.8mm">ERP 연동 오류 대응과 데이터 관리 부담 완화</p>
+        <p style="font-size:11.2pt;font-weight:700;color:var(--c-lime)">운영 안정성 향상</p>
+        <p style="font-size:10.5pt;color:var(--ink-soft);margin-top:.8mm">ERP 연동 오류 대응과 데이터 관리 부담 완화</p>
       </div>
     </div>
   </div>
@@ -735,7 +735,7 @@ dl{margin:0}
     <div class="rt"><span class="tag">React.js</span> <span class="tag">ReactQuery</span> <span class="tag">OpenAPI</span> <span class="tag">공공 SI</span></div>
   </div>
   <div class="card atop c-yellow" style="margin-bottom:4mm">
-    <p style="font-size:10.8pt;line-height:1.8;color:var(--ink-soft)">
+    <p style="font-size:11.8pt;line-height:1.8;color:var(--ink-soft)">
       공공 SI/SM과 서비스형 플랫폼 개발에 참여하며 관리자 시스템, OpenAPI, 공공기관 유지관리,
       React 기반 화면 구현과 운영 개선을 수행했습니다.</p>
   </div>
@@ -838,7 +838,7 @@ dl{margin:0}
         <li class="item"><span class="n">01</span><span><span class="t">다수 공공기관 납품 시스템의 안정적 운영</span><span class="d">고객 요구사항 · 장애 · 오류에 대한 지속 대응 필요</span></span></li>
         <li class="item"><span class="n">02</span><span><span class="t">보안 취약점 조치와 정기 점검</span><span class="d">서버 · DB 이관 및 운영 데이터 현행화 필요</span></span></li>
       </ul>
-      <p style="margin-top:5mm;padding-top:4mm;border-top:.3mm solid var(--line);font-size:10.2pt;line-height:1.75;color:var(--ink-soft)">
+      <p style="margin-top:5mm;padding-top:4mm;border-top:.3mm solid var(--line);font-size:11.1pt;line-height:1.75;color:var(--ink-soft)">
         다수 공공기관에 납품된 시스템을 안정적으로 운영하면서 고객 요구사항, 보안 취약점,
         서버 · DB 이관 등 운영 리스크에 대응해야 했습니다.</p>
     </div>
@@ -851,7 +851,7 @@ dl{margin:0}
         <li class="item"><span class="n">04</span><span><span class="t">운영 데이터 현행화 · 시스템 데이터 관리</span><span class="d">데이터 정확성과 관리 체계 개선</span></span></li>
       </ul>
       <div class="card sm soft c-sky" style="margin-top:4mm">
-        <p style="font-size:10.3pt;font-weight:700;color:var(--c-sky)">공공 시스템 서비스 지속성과 보안 안정성 유지</p>
+        <p style="font-size:11.2pt;font-weight:700;color:var(--c-sky)">공공 시스템 서비스 지속성과 보안 안정성 유지</p>
       </div>
     </div>
   </div>
@@ -876,42 +876,42 @@ dl{margin:0}
     <div><p class="eyebrow">Works</p><h2>프로젝트 요약 <span class="script">selected</span></h2>
       <p class="sub">개인 2건 · 팀 3건</p></div>
   </div>
-  <div class="row r-2" style="align-content:start">
+  <div class="row r-2">
     <div class="card atop c-sky">
       <div style="display:flex;justify-content:space-between;align-items:baseline">
-        <p class="lab">PROJECT · 01</p><span style="font-size:9.4pt;color:var(--ink-mute)">2주 · 2025.11</span></div>
-      <h3 style="margin-top:2.5mm;font-size:15.2pt">PDF Converter</h3>
-      <p style="margin-top:1.5mm;font-size:10.3pt;color:var(--ink-soft);line-height:1.7">서버 전송 없이 클라이언트 사이드에서 다양한 이미지를 PDF로 변환</p>
+        <p class="lab">PROJECT · 01</p><span style="font-size:10.2pt;color:var(--ink-mute)">2주 · 2025.11</span></div>
+      <h3 style="margin-top:2.5mm;font-size:16.6pt">PDF Converter</h3>
+      <p style="margin-top:1.5mm;font-size:11.2pt;color:var(--ink-soft);line-height:1.7">서버 전송 없이 클라이언트 사이드에서 다양한 이미지를 PDF로 변환</p>
       <div class="tags" style="margin-top:3mm"><span class="tag line">Next.js</span><span class="tag line">Tailwind CSS</span>
         <span class="tag line">Zustand</span><span class="tag line">pdf-lib</span><span class="tag line">Firebase Hosting</span></div>
-      <p style="margin-top:3mm;font-size:9.1pt;color:var(--ink-mute)">WEB · SOLO &nbsp;·&nbsp; pdf-converter-18eb5.web.app</p>
+      <p style="margin-top:3mm;font-size:9.9pt;color:var(--ink-mute)">WEB · SOLO &nbsp;·&nbsp; pdf-converter-18eb5.web.app</p>
     </div>
     <div class="card atop c-lime">
       <div style="display:flex;justify-content:space-between;align-items:baseline">
-        <p class="lab">PROJECT · 02</p><span style="font-size:9.4pt;color:var(--ink-mute)">4개월 · 2025.12 — 2026.03</span></div>
-      <h3 style="margin-top:2.5mm;font-size:15.2pt">Portfolio Site v2</h3>
-      <p style="margin-top:1.5mm;font-size:10.3pt;color:var(--ink-soft);line-height:1.7">Firestore 기반 동적 포트폴리오 운영 구조</p>
+        <p class="lab">PROJECT · 02</p><span style="font-size:10.2pt;color:var(--ink-mute)">4개월 · 2025.12 — 2026.03</span></div>
+      <h3 style="margin-top:2.5mm;font-size:16.6pt">Portfolio Site v2</h3>
+      <p style="margin-top:1.5mm;font-size:11.2pt;color:var(--ink-soft);line-height:1.7">Firestore 기반 동적 포트폴리오 운영 구조</p>
       <div class="tags" style="margin-top:3mm"><span class="tag line">Next.js</span><span class="tag line">TypeScript</span>
         <span class="tag line">Tailwind CSS</span><span class="tag line">Firebase</span><span class="tag line">Motion</span></div>
-      <p style="margin-top:3mm;font-size:9.1pt;color:var(--ink-mute)">WEB · SOLO &nbsp;·&nbsp; sujin-portfolio.web.app</p>
+      <p style="margin-top:3mm;font-size:9.9pt;color:var(--ink-mute)">WEB · SOLO &nbsp;·&nbsp; sujin-portfolio.web.app</p>
     </div>
     <div class="card atop c-pink">
       <div style="display:flex;justify-content:space-between;align-items:baseline">
-        <p class="lab">PROJECT · 03</p><span style="font-size:9.4pt;color:var(--ink-mute)">8일 · 2024.08</span></div>
-      <h3 style="margin-top:2.5mm;font-size:15.2pt">NEKO PARK</h3>
-      <p style="margin-top:1.5mm;font-size:10.3pt;color:var(--ink-soft);line-height:1.7">Mirror 세션과 분리된 TCP 방 목록 서버로 협력 퍼즐 게임의 네트워크 진입 흐름 구현</p>
+        <p class="lab">PROJECT · 03</p><span style="font-size:10.2pt;color:var(--ink-mute)">8일 · 2024.08</span></div>
+      <h3 style="margin-top:2.5mm;font-size:16.6pt">NEKO PARK</h3>
+      <p style="margin-top:1.5mm;font-size:11.2pt;color:var(--ink-soft);line-height:1.7">Mirror 세션과 분리된 TCP 방 목록 서버로 협력 퍼즐 게임의 네트워크 진입 흐름 구현</p>
       <div class="tags" style="margin-top:3mm"><span class="tag line">Unity</span><span class="tag line">C#</span>
         <span class="tag line">Mirror</span><span class="tag line">TCP</span><span class="tag line">SHA-256</span></div>
-      <p style="margin-top:3mm;font-size:9.1pt;color:var(--ink-mute)">GAME · TEAM</p>
+      <p style="margin-top:3mm;font-size:9.9pt;color:var(--ink-mute)">GAME · TEAM</p>
     </div>
     <div class="card atop c-yellow">
       <div style="display:flex;justify-content:space-between;align-items:baseline">
-        <p class="lab">PROJECT · 04 · 05</p><span style="font-size:9.4pt;color:var(--ink-mute)">2024.07 — 12</span></div>
-      <h3 style="margin-top:2.5mm;font-size:15.2pt">좀비, 펑펑! 화르륵 &nbsp;·&nbsp; TheWildFour</h3>
-      <p style="margin-top:1.5mm;font-size:10.3pt;color:var(--ink-soft);line-height:1.7">원소 상호작용 퍼즐 + AWS 백엔드 인프라 / 4인 협동 생존 게임의 아이템 · 인벤토리 구조</p>
+        <p class="lab">PROJECT · 04 · 05</p><span style="font-size:10.2pt;color:var(--ink-mute)">2024.07 — 12</span></div>
+      <h3 style="margin-top:2.5mm;font-size:16.6pt">좀비, 펑펑! 화르륵 &nbsp;·&nbsp; TheWildFour</h3>
+      <p style="margin-top:1.5mm;font-size:11.2pt;color:var(--ink-soft);line-height:1.7">원소 상호작용 퍼즐 + AWS 백엔드 인프라 / 4인 협동 생존 게임의 아이템 · 인벤토리 구조</p>
       <div class="tags" style="margin-top:3mm"><span class="tag line">Unity</span><span class="tag line">C#</span>
         <span class="tag line">Spring Boot</span><span class="tag line">MariaDB</span><span class="tag line">Docker</span><span class="tag line">AWS</span></div>
-      <p style="margin-top:3mm;font-size:9.1pt;color:var(--ink-mute)">GAME · TEAM</p>
+      <p style="margin-top:3mm;font-size:9.9pt;color:var(--ink-mute)">GAME · TEAM</p>
     </div>
   </div>
   <div class="foot"><span>Kim Sujin · Portfolio</span><span>22</span></div>
@@ -923,7 +923,7 @@ dl{margin:0}
     <div><p class="eyebrow">Project · 01</p><h2>PDF Converter</h2>
       <p class="sub">2025.11.04 — 2025.11.21 (2주) &nbsp;|&nbsp; 서버 업로드 없이 브라우저 내부에서 이미지 정규화와 PDF 생성</p></div>
     <div class="rt"><span class="tag">Next.js</span> <span class="tag">Zustand</span> <span class="tag">pdf-lib</span><br>
-      <span style="display:inline-block;margin-top:1.5mm;font-size:9.1pt">pdf-converter-18eb5.web.app</span></div>
+      <span style="display:inline-block;margin-top:1.5mm;font-size:9.9pt">pdf-converter-18eb5.web.app</span></div>
   </div>
   <div class="row r-2">
     <div class="card atop c-sky">
@@ -1060,7 +1060,7 @@ dl{margin:0}
         <li class="item"><span class="n">03</span><span><span class="t">JPEG 재인코딩</span><span class="d">정규화 이미지로 재인코딩 후 PDF 삽입</span></span></li>
         <li class="item"><span class="n">04</span><span><span class="t">ArrayBuffer Fallback</span><span class="d">정규화 실패 환경에서도 변환이 중단되지 않도록 대비</span></span></li>
       </ul>
-      <p style="margin-top:4mm;padding-top:3.5mm;border-top:.3mm solid var(--line);font-size:9.7pt;line-height:1.7;color:var(--ink-soft)">
+      <p style="margin-top:4mm;padding-top:3.5mm;border-top:.3mm solid var(--line);font-size:10.6pt;line-height:1.7;color:var(--ink-soft)">
         다운스케일링과 Canvas 재사용으로 처리 비용도 완화했습니다.</p>
     </div>
     <div class="card atop c-sky">
@@ -1084,23 +1084,23 @@ dl{margin:0}
   <div class="ph c-lime">
     <div><p class="eyebrow">Retrospective · PDF Converter</p><h2>결과 및 배운 점 <span class="script">takeaway</span></h2></div>
   </div>
-  <div class="row r-3" style="align-content:center">
+  <div class="row r-3">
     <div class="card atop c-sky" style="align-self:center">
-      <span class="fig" style="font-size:30.4pt;color:var(--c-sky)">01</span>
-      <h3 style="margin-top:3mm;font-size:14pt">클라이언트 파일 처리 흐름 설계</h3>
-      <p style="margin-top:2.5mm;font-size:10.3pt;line-height:1.75;color:var(--ink-soft)">
+      <span class="fig" style="font-size:31.3pt;color:var(--c-sky)">01</span>
+      <h3 style="margin-top:3mm;font-size:15.3pt">클라이언트 파일 처리 흐름 설계</h3>
+      <p style="margin-top:2.5mm;font-size:11.2pt;line-height:1.75;color:var(--ink-soft)">
         이미지 업로드 → 정규화 → PDF 출력까지 서버 전송 없는 처리 파이프라인을 직접 설계했습니다.</p>
     </div>
     <div class="card atop c-mint" style="align-self:center">
-      <span class="fig" style="font-size:30.4pt;color:var(--c-mint)">02</span>
-      <h3 style="margin-top:3mm;font-size:14pt">EXIF 방향 이슈 해결</h3>
-      <p style="margin-top:2.5mm;font-size:10.3pt;line-height:1.75;color:var(--ink-soft)">
+      <span class="fig" style="font-size:31.3pt;color:var(--c-mint)">02</span>
+      <h3 style="margin-top:3mm;font-size:15.3pt">EXIF 방향 이슈 해결</h3>
+      <p style="margin-top:2.5mm;font-size:11.2pt;line-height:1.75;color:var(--ink-soft)">
         기기별로 달라지는 Orientation 문제를 Canvas 기반 정규화로 처리했습니다.</p>
     </div>
     <div class="card atop c-yellow" style="align-self:center">
-      <span class="fig" style="font-size:30.4pt;color:var(--c-yellow)">03</span>
-      <h3 style="margin-top:3mm;font-size:14pt">UUID 기반 데이터 무결성</h3>
-      <p style="margin-top:2.5mm;font-size:10.3pt;line-height:1.75;color:var(--ink-soft)">
+      <span class="fig" style="font-size:31.3pt;color:var(--c-yellow)">03</span>
+      <h3 style="margin-top:3mm;font-size:15.3pt">UUID 기반 데이터 무결성</h3>
+      <p style="margin-top:2.5mm;font-size:11.2pt;line-height:1.75;color:var(--ink-soft)">
         Drag &amp; Drop 재정렬 시 index가 아닌 파일 고유 ID로 안정적인 렌더링 구조를 구성했습니다.</p>
     </div>
   </div>
@@ -1113,7 +1113,7 @@ dl{margin:0}
     <div><p class="eyebrow">Project · 02</p><h2>Portfolio Site v2</h2>
       <p class="sub">2025.12 — 2026.03 (4개월) &nbsp;|&nbsp; 기획 / 디자인 / 개발 · Firestore 기반 동적 포트폴리오 운영 구조</p></div>
     <div class="rt"><span class="tag">Next.js</span> <span class="tag">TypeScript</span> <span class="tag">Firebase</span><br>
-      <span style="display:inline-block;margin-top:1.5mm;font-size:9.1pt">sujin-portfolio.web.app</span></div>
+      <span style="display:inline-block;margin-top:1.5mm;font-size:9.9pt">sujin-portfolio.web.app</span></div>
   </div>
   <div class="row r-2">
     <div class="card atop c-pink">
@@ -1169,8 +1169,8 @@ dl{margin:0}
         <div class="b ac">Firebase Firestore</div><div class="a">↓</div>
         <div class="b ghost">src/features/* (도메인 모듈)</div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5mm;width:100%;margin-top:1.5mm">
-          <div class="b" style="font-size:8.4pt;padding:2mm 1mm">career</div><div class="b" style="font-size:8.4pt;padding:2mm 1mm">project</div>
-          <div class="b" style="font-size:8.4pt;padding:2mm 1mm">skill</div><div class="b" style="font-size:8.4pt;padding:2mm 1mm">docs</div>
+          <div class="b" style="font-size:9.2pt;padding:2mm 1mm">career</div><div class="b" style="font-size:9.2pt;padding:2mm 1mm">project</div>
+          <div class="b" style="font-size:9.2pt;padding:2mm 1mm">skill</div><div class="b" style="font-size:9.2pt;padding:2mm 1mm">docs</div>
         </div>
         <div class="a">↓</div>
         <div class="b" style="background:var(--c-lime-soft);color:var(--c-lime)">사이트 즉시 반영</div>
@@ -1218,7 +1218,7 @@ dl{margin:0}
   <div class="ph c-yellow">
     <div><p class="eyebrow">Implementation · Portfolio v2</p><h2>구현 디테일 <span class="script">details</span></h2></div>
   </div>
-  <div class="row r-2" style="align-content:start">
+  <div class="row r-2">
     <div class="card atop c-sky">
       <p class="lab">데이터 · 렌더링</p>
       <ul class="items">
@@ -1252,8 +1252,8 @@ dl{margin:0}
   <div class="row r-3">
     <div class="card atop c-pink">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:3mm">
-        <h3 style="font-size:14pt">NEKO PARK</h3><span style="font-size:9.1pt;color:var(--ink-mute);white-space:nowrap">2024.08 · 8일</span></div>
-      <p style="margin-top:2mm;font-size:10.1pt;line-height:1.7;color:var(--ink-soft)">
+        <h3 style="font-size:15.3pt">NEKO PARK</h3><span style="font-size:9.9pt;color:var(--ink-mute);white-space:nowrap">2024.08 · 8일</span></div>
+      <p style="margin-top:2mm;font-size:11pt;line-height:1.7;color:var(--ink-soft)">
         Mirror 기반 멀티플레이 세션에 TCP 방 목록 서버, 로그인, 로컬 세이브를 결합해 협력 퍼즐 게임의 네트워크 진입 흐름 구현</p>
       <ul class="items">
         <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">Mirror 세션과 분리된 <b>TCP 방 목록 서버</b>로 방 생성 · 조회 · 입장 안정화</span></span></li>
@@ -1264,8 +1264,8 @@ dl{margin:0}
     </div>
     <div class="card atop c-yellow">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:3mm">
-        <h3 style="font-size:14pt">좀비, 펑펑! 화르륵</h3><span style="font-size:9.1pt;color:var(--ink-mute);white-space:nowrap">2024.11 — 12</span></div>
-      <p style="margin-top:2mm;font-size:10.1pt;line-height:1.7;color:var(--ink-soft)">
+        <h3 style="font-size:15.3pt">좀비, 펑펑! 화르륵</h3><span style="font-size:9.9pt;color:var(--ink-mute);white-space:nowrap">2024.11 — 12</span></div>
+      <p style="margin-top:2mm;font-size:11pt;line-height:1.7;color:var(--ink-soft)">
         병합 퍼즐에 원소 속성 상호작용을 결합하고 Unity 클라이언트 · 리소스 운영 · AWS 백엔드를 함께 설계</p>
       <ul class="items">
         <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">Physics2D 충돌 + 속성 테이블로 확장 가능한 원소 상호작용 설계</span></span></li>
@@ -1276,8 +1276,8 @@ dl{margin:0}
     </div>
     <div class="card atop c-mint">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:3mm">
-        <h3 style="font-size:14pt">TheWildFour</h3><span style="font-size:9.1pt;color:var(--ink-mute);white-space:nowrap">2024.07 · 3주</span></div>
-      <p style="margin-top:2mm;font-size:10.1pt;line-height:1.7;color:var(--ink-soft)">
+        <h3 style="font-size:15.3pt">TheWildFour</h3><span style="font-size:9.9pt;color:var(--ink-mute);white-space:nowrap">2024.07 · 3주</span></div>
+      <p style="margin-top:2mm;font-size:11pt;line-height:1.7;color:var(--ink-soft)">
         4인 협동 3D 생존 게임의 아이템 데이터 구조, 범용 인벤토리, 맵 오브젝트 저장 · 복원 설계</p>
       <ul class="items">
         <li class="item"><span class="n">✓</span><span><span class="d" style="margin-top:0">ScriptableObject 정적 데이터 분리로 인스턴스 중복 제거 · 메모리 효율 개선</span></span></li>
