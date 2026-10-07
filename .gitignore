@@ -42,5 +42,12 @@ pptx_build/
 
 *.pdf
 !public/portfolio.pdf
+!public/resume.pdf
+!docs/portfolio/김수진_이력서_2026.pdf
 !docs/portfolio/김수진_포트폴리오.pdf
 .superpowers/
+
+# 증명사진 등 개인 이미지 (공개 저장소에 올리지 않는다)
+docs/portfolio/*.jpg
+docs/portfolio/*.jpeg
+docs/portfolio/*.png
